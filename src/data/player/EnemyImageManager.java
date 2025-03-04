@@ -23,6 +23,7 @@ public class EnemyImageManager {
             // Exemple pour charger les sprites de squelettes et autres ennemis
             enemyImages.put("skeleton", loadSpriteSheet("src/images/enemies/skeleton.png", 32, 32, 4));  // 4 frames par ligne
             enemyImages.put("slime", loadSpriteSheet("src/images/enemies/slime.png", 32, 32, 4));  // 4 frames par ligne
+            enemyImages.put("slime_green", loadSpriteSheet("src/images/enemies/slime_green2.png", 32, 32, 2));	// 2 frames par ligne
             System.out.println("✅ Images ennemies chargées !");
         } catch (Exception e) {
             System.out.println("❌ ERREUR lors du chargement des images ennemies !");

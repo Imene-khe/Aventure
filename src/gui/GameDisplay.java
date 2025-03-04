@@ -11,6 +11,8 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import data.item.ChestManager;
 import data.map.Block;
 import data.map.Map;
 import data.player.Antagonist;
@@ -31,6 +33,7 @@ public class GameDisplay extends JPanel {
     private ArrayList<Antagonist> enemies;		    // Liste des ennemis présents sur la carte
     private EnemyImageManager enemyImageManager;		    // Gestionnaire des images des ennemis
     private HashMap<String, Image> tileset;		    // Dictionnaire des images de terrain et objets
+    private ChestManager chestManager;
 
     /**
      * Constructeur de la classe. Initialise la carte, le héros, les ennemis et les images.
@@ -43,12 +46,19 @@ public class GameDisplay extends JPanel {
             this.enemies = new ArrayList<>();
             this.enemyImageManager = new EnemyImageManager();
             this.tileset = new HashMap<>();
+            this.chestManager = new ChestManager(); 
 
             // Chargement des images
             loadImages();
 
             // Génération des ennemis
             spawnEnemies(30);  // Génère 30 ennemis en évitant les obstacles
+            
+            //Génération des coffres
+            spawnChests(5);  // Génère 5 coffres
+         // Exemple d'ajout d'un coffre à un bloc spécifique (bloc à la position (5, 5))
+            //Block someBlock = map.getBlock(5, 5);  // Par exemple, à la position (5, 5)
+            //chestManager.addChest(someBlock, "chest");
             System.out.println("✅ GameDisplay créé avec succès avec des ennemis aléatoires !");
         } catch (Exception e) {
             System.out.println("❌ ERREUR : Impossible d'initialiser GameDisplay !");
@@ -71,12 +81,14 @@ public class GameDisplay extends JPanel {
             // Chargement des obstacles
             tileset.put("house", loadImage("src/images/outdoors/House.png"));
             tileset.put("tree", loadImage("src/images/outdoors/Oak_Tree.png"));
-            tileset.put("chest", loadImage("src/images/outdoors/Chest.png"));
             
             // Chargement des ennemis
             tileset.put("skeleton", loadImage("src/images/Enemies/Skeleton.png"));
             tileset.put("slime", loadImage("src/images/Enemies/Slime.png"));
             tileset.put("slime_green", loadImage("src/images/Enemies/Slime_Green.png"));
+            
+         // Chargement des objets (coffre, etc.)
+            tileset.put("chest", loadImage("src/images/outdoors/Chest.png"));
             
             //Chargement des ressources
             tileset.put("coin", loadImage("src/images/items/coin.png"));
@@ -125,6 +137,19 @@ public class GameDisplay extends JPanel {
             Antagonist enemy = new Antagonist(spawnBlock, enemyType, enemyImageManager);
             enemies.add(enemy);
             map.getEnemies().put(spawnBlock, enemyType);  // Ajoute l'ennemi dans la carte
+        }
+    }
+    
+    public void spawnChests(int numberOfChests) {
+        ArrayList<Block> freeBlocks = map.getFreeBlocks();  // Récupère les blocs libres de la carte
+        Random random = new Random();
+
+        for (int i = 0; i < numberOfChests && !freeBlocks.isEmpty(); i++) {
+            int index = random.nextInt(freeBlocks.size());  // Choisir un bloc libre au hasard
+            Block spawnBlock = freeBlocks.remove(index);  // Retirer le bloc pour ne pas le réutiliser
+
+            // Ajouter un coffre à ce bloc
+            chestManager.addChest(spawnBlock, "chest");
         }
     }
 
@@ -181,6 +206,7 @@ public class GameDisplay extends JPanel {
         }
 
         Block[][] blocks = map.getBlocks();
+        
         // Dessiner la carte
         for (int lineIndex = 0; lineIndex < map.getLineCount(); lineIndex++) {
             for (int columnIndex = 0; columnIndex < map.getColumnCount(); columnIndex++) {
@@ -196,6 +222,20 @@ public class GameDisplay extends JPanel {
                 String objectType = map.getStaticObjects().get(block);
                 if (objectType != null && tileset.containsKey(objectType)) {
                     g.drawImage(tileset.get(objectType), block.getColumn() * BLOCK_SIZE, block.getLine() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
+                }
+
+                // Vérifier et afficher les coffres uniquement si ils sont dans chestManager
+                if (chestManager.getChests().containsKey(block)) {  // Vérification de la présence du coffre
+                    String chestType = chestManager.getChests().get(block);  // Obtient le type de coffre
+                    Image chestImage = tileset.get("chest"); // Assure-toi que l'image est bien associée à "chest"
+                    if (chestImage != null) {
+                        g.drawImage(chestImage, block.getColumn() * BLOCK_SIZE, block.getLine() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
+                        g.setColor(java.awt.Color.RED);
+                        g.drawString("Coffre: " + chestType, block.getColumn() * BLOCK_SIZE, block.getLine() * BLOCK_SIZE + BLOCK_SIZE / 2);
+                    } else {
+                        g.setColor(java.awt.Color.RED);
+                        g.drawString("Image de coffre manquante", block.getColumn() * BLOCK_SIZE, block.getLine() * BLOCK_SIZE + BLOCK_SIZE / 2);
+                    }
                 }
             }
         }
@@ -213,6 +253,7 @@ public class GameDisplay extends JPanel {
         // Dessiner la barre de vie
         drawHealthBar(g);
     }
+
 
     /**
      * Dessine la barre de vie du héros.

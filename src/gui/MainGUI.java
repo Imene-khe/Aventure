@@ -38,7 +38,7 @@ public class MainGUI extends JFrame {
      * Constructeur de la classe. Il initialise la fenêtre, les composants graphiques
      * et les actions du clavier.
      */
-    public MainGUI() {
+    public MainGUI() { 
         super("Aventure - Déplacement du Héros");
 
         // Configuration de la fenêtre principale

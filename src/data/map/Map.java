@@ -84,22 +84,28 @@ public class Map {
                     } else if (rand < 0.08) {
                         staticObjects.put(block, "house");  // Maison
                         setTerrainBlocked(block, true);
-                    } else if (rand < 0.10) {
-                        staticObjects.put(block, "chest");  // Coffre
-                        chestManager.addChest(block, "chest");  // Ajoute le coffre
+                    } 
+                }
+
+                // Ici on ajoute les coffres uniquement sur "path" et "grass"
+                // On peut aussi ajouter un facteur de probabilité pour éviter que les coffres apparaissent trop souvent
+                if (terrainType.equals("path") || terrainType.equals("grass")) {
+                    double rand = Math.random();
+                    if (rand < 0.1) { // 10% de chance d'ajouter un coffre sur un bloc "path" ou "grass"
+                        chestManager.addChest(block, "chest");   // Ajout d'un coffre
                         setTerrainBlocked(block, true);  // Bloque le terrain pour ce bloc
                     }
                 }
 
-                // Générer des ennemis sur les blocs de terrain comme "path" et "grass"
-                if (terrainType.equals("path") || terrainType.equals("grass")) {
+             // Générer des ennemis uniquement sur les blocs "path" et "grass" et exclure l'eau
+                if ((terrainType.equals("path") || terrainType.equals("grass")) && !terrainType.equals("water")) {
                     double rand = Math.random();
                     if (rand < 0.05) {
                         enemies.put(block, "skeleton");   // Squelette
                     } else if (rand < 0.10) {
                         enemies.put(block, "slime");      // Slime
                     } else if (rand < 0.15) {
-                        enemies.put(block, "slime_green"); // Slime vert
+                        enemies.put(block, "slime_green2"); // Slime vert
                     }
                 }
 
@@ -110,6 +116,7 @@ public class Map {
             }
         }
     }
+
 
     public ArrayList<Block> getFreeBlocks() {
         ArrayList<Block> freeBlocks = new ArrayList<>();
