@@ -12,7 +12,6 @@ import javax.swing.SwingUtilities;
 
 import data.item.InventoryManager;
 import data.map.Block;
-import data.map.Map;
 
 /**
  * Classe représentant l'interface graphique principale du jeu. 

@@ -22,7 +22,7 @@ public class Map {
         this.columnCount = columnCount;
         this.blocks = new Block[lineCount][columnCount];
         this.chestManager = new ChestManager(); // Initialisation du ChestManager
-        this.maxChests=maxChest;
+        this.maxChests = maxChest;
 
         // Création des blocs
         for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
@@ -60,8 +60,6 @@ public class Map {
                 }
             }
         }
-
-       
     }
 
     public HashMap<Block, String> getStaticTerrain() {
@@ -69,15 +67,12 @@ public class Map {
     }
 
     private void generateObjects() {
-        int generatedChests = 0; // Compteur de coffres générés
+        int generatedChests = 0;
+
+        // Générez les arbres et les maisons
         for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
             for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
                 Block block = blocks[lineIndex][columnIndex];
-
-                // Vérifie si la case a un terrain défini, sinon on lui met "grass" par défaut
-                if (!staticTerrain.containsKey(block)) {
-                    staticTerrain.put(block, "grass");
-                }
 
                 String terrainType = staticTerrain.get(block);
 
@@ -89,41 +84,31 @@ public class Map {
                     } else if (rand < 0.08) {
                         staticObjects.put(block, "house");  // Maison
                         setTerrainBlocked(block, true);
-                    } 
-                }
-
-                // Ici on ajoute les coffres uniquement sur "path" et "grass"
-                // On peut aussi ajouter un facteur de probabilité pour éviter que les coffres apparaissent trop souvent
-                if ((terrainType.equals("path") || terrainType.equals("grass")) && generatedChests < maxChests) {
-                    double rand = Math.random();
-                    if (rand < 0.1) { // 10% de chance d'ajouter un coffre sur un bloc "path" ou "grass"
-                        chestManager.addChest(block, "chest");  // Ajout d'un coffre
-                        setTerrainBlocked(block, true);  // Bloque le terrain pour ce bloc
-                        generatedChests++;  // Incrémenter le compteur de coffres générés
                     }
                 }
+            }
+        }
 
-                // Générer des ennemis uniquement sur les blocs "path" et "grass" et exclure l'eau
-                if ((terrainType.equals("path") || terrainType.equals("grass")) && !terrainType.equals("water")) {
-                    double rand = Math.random();
-                    if (rand < 0.05) {
-                        enemies.put(block, "skeleton");   // Squelette
-                    } else if (rand < 0.10) {
-                        enemies.put(block, "slime");      // Slime
-                    } else if (rand < 0.15) {
-                        enemies.put(block, "slime_green2"); // Slime vert
-                    }
-                }
+        // Générez les coffres de manière aléatoire tout en respectant le nombre maximal
+        while (generatedChests < maxChests) {
+            // Sélectionner un bloc aléatoire de la carte
+            int randomLine = (int) (Math.random() * lineCount);   // Ligne aléatoire
+            int randomColumn = (int) (Math.random() * columnCount); // Colonne aléatoire
+            Block block = blocks[randomLine][randomColumn];
 
-                // Vérifie que le terrain est bien reconnu
-                if (!terrainType.equals("grass") && !terrainType.equals("path") && !terrainType.equals("water")) {
-                    System.out.println("Terrain inconnu corrigé : " + terrainType);
+            // Vérifier que le bloc est soit "path" ou "grass" et qu'il n'a pas déjà un objet statique
+            String terrainType = staticTerrain.getOrDefault(block, "grass"); // Terrain par défaut "grass"
+            if ((terrainType.equals("path") || terrainType.equals("grass")) && !staticObjects.containsKey(block)) {
+                double rand = Math.random();
+                if (rand < 0.1) { // 10% de chance d'ajouter un coffre sur ce bloc
+                    chestManager.addChest(block, "chest");  // Ajout du coffre
+                    setTerrainBlocked(block, true);  // Bloque le terrain pour ce bloc
+
+                    generatedChests++;  // Incrémenter le compteur de coffres générés
                 }
             }
         }
     }
-
-
 
     public ArrayList<Block> getFreeBlocks() {
         ArrayList<Block> freeBlocks = new ArrayList<>();
@@ -180,35 +165,25 @@ public class Map {
     }
     
     public ChestManager getChestManager() {
-		// TODO Auto-generated method stub
-		return chestManager;
-	} 
+        return chestManager;
+    } 
     
     public static void main(String[] args) {
-        // Création d'une carte de taille 10x10
-        Map map = new Map(10, 10,5);
-        
-        // Affichage du nombre de coffres ajoutés sur la carte
-        System.out.println("Nombre de coffres : " + map.getChestManager().getChests().size());
+        // Création d'une carte de taille 10x10 avec un max de 5 coffres
+        Map map = new Map(10, 10, 5);
 
-        // Affichage de quelques informations de terrain sur la carte pour vérifier la génération
-        System.out.println("Terrain sur la case (0,0): " + map.getStaticTerrain().get(map.getBlock(0, 0)));
-        System.out.println("Terrain sur la case (5,5): " + map.getStaticTerrain().get(map.getBlock(5, 5)));
+        // Affichage du nombre total de coffres générés
+        System.out.println("Nombre de coffres générés : " + map.getChestManager().getChests().size());
 
-        // Affichage de quelques ennemis ajoutés
-        System.out.println("Ennemi sur la case (1, 1): " + map.getEnemies().get(map.getBlock(1, 1)));
-        System.out.println("Ennemi sur la case (3, 3): " + map.getEnemies().get(map.getBlock(3, 3)));
+        // Vérification des ennemis ajoutés (si applicable)
+        if (map.getEnemies() != null) {
+            System.out.println("Nombre total d'ennemis : " + map.getEnemies().size());
+        } else {
+            System.out.println("Aucun ennemi généré.");
+        }
 
-        // Affichage des blocs libres (qui ne contiennent ni objets statiques ni ennemis)
+        // Vérification du nombre de blocs libres
         ArrayList<Block> freeBlocks = map.getFreeBlocks();
         System.out.println("Nombre de blocs libres : " + freeBlocks.size());
-
-        // Affichage des informations de terrain pour vérifier les blocages
-        System.out.println("Le bloc (2, 2) est-il bloqué ? " + map.isBlocked(map.getBlock(2, 2)));
-        System.out.println("Le bloc (5, 5) est-il bloqué ? " + map.isBlocked(map.getBlock(5, 5)));
     }
-
-
-
-	
 }

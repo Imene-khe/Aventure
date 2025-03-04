@@ -12,7 +12,6 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import data.item.ChestManager;
 import data.map.Block;
 import data.map.Map;
 import data.player.Antagonist;
