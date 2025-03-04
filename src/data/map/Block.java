@@ -1,5 +1,7 @@
 package data.map;
 
+import java.util.Objects;
+
 public class Block {
     private int line;
     private int column;
@@ -37,5 +39,9 @@ public class Block {
         if (obj == null || getClass() != obj.getClass()) return false;
         Block block = (Block) obj;
         return line == block.line && column == block.column;
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(line, column);
     }
 }

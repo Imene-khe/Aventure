@@ -33,7 +33,6 @@ public class GameDisplay extends JPanel {
     private ArrayList<Antagonist> enemies;		    // Liste des ennemis présents sur la carte
     private EnemyImageManager enemyImageManager;		    // Gestionnaire des images des ennemis
     private HashMap<String, Image> tileset;		    // Dictionnaire des images de terrain et objets
-    private ChestManager chestManager;
 
     /**
      * Constructeur de la classe. Initialise la carte, le héros, les ennemis et les images.
@@ -46,7 +45,6 @@ public class GameDisplay extends JPanel {
             this.enemies = new ArrayList<>();
             this.enemyImageManager = new EnemyImageManager();
             this.tileset = new HashMap<>();
-            this.chestManager = new ChestManager(); 
 
             // Chargement des images
             loadImages();
@@ -55,7 +53,7 @@ public class GameDisplay extends JPanel {
             spawnEnemies(30);  // Génère 30 ennemis en évitant les obstacles
             
             //Génération des coffres
-            spawnChests(5);  // Génère 5 coffres
+            //spawnChests(5);  // Génère 5 coffres
          // Exemple d'ajout d'un coffre à un bloc spécifique (bloc à la position (5, 5))
             //Block someBlock = map.getBlock(5, 5);  // Par exemple, à la position (5, 5)
             //chestManager.addChest(someBlock, "chest");
@@ -82,10 +80,10 @@ public class GameDisplay extends JPanel {
             tileset.put("house", loadImage("src/images/outdoors/House.png"));
             tileset.put("tree", loadImage("src/images/outdoors/Oak_Tree.png"));
             
-            // Chargement des ennemis
-            tileset.put("skeleton", loadImage("src/images/Enemies/Skeleton.png"));
-            tileset.put("slime", loadImage("src/images/Enemies/Slime.png"));
-            tileset.put("slime_green", loadImage("src/images/Enemies/Slime_Green.png"));
+            // Chargement des ennemis (erreur a traiter car les images des heros sont charger indépendament du tileset dans EnemyImageManager)
+            //tileset.put("skeleton", loadImage("src/images/Enemies/Skeleton.png"));
+            //tileset.put("slime", loadImage("src/images/Enemies/Slime.png"));
+            //tileset.put("slime_green", loadImage("src/images/Enemies/slime_green2.png"));
             
          // Chargement des objets (coffre, etc.)
             tileset.put("chest", loadImage("src/images/outdoors/Chest.png"));
@@ -140,18 +138,16 @@ public class GameDisplay extends JPanel {
         }
     }
     
-    public void spawnChests(int numberOfChests) {
-        ArrayList<Block> freeBlocks = map.getFreeBlocks();  // Récupère les blocs libres de la carte
-        Random random = new Random();
-
-        for (int i = 0; i < numberOfChests && !freeBlocks.isEmpty(); i++) {
-            int index = random.nextInt(freeBlocks.size());  // Choisir un bloc libre au hasard
-            Block spawnBlock = freeBlocks.remove(index);  // Retirer le bloc pour ne pas le réutiliser
-
-            // Ajouter un coffre à ce bloc
-            chestManager.addChest(spawnBlock, "chest");
+    /*public void spawnChests() {
+        // Affichage des coffres déjà générés dans la carte
+        for (Map.Entry<String, Chest> entry : map.getChestManager().getChests().entrySet()) {
+            Chest chest = entry.getValue();
+            Block chestBlock = chest.getBlock();  // Récupère la position du coffre
+            chestImageManager.addChestImage(chestBlock.getX(), chestBlock.getY());  // Ajoute l'image du coffre à la position du bloc
         }
-    }
+    }*/
+
+
 
     /**
      * Définit une nouvelle carte et redessine l'affichage.
@@ -224,17 +220,13 @@ public class GameDisplay extends JPanel {
                     g.drawImage(tileset.get(objectType), block.getColumn() * BLOCK_SIZE, block.getLine() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
                 }
 
-                // Vérifier et afficher les coffres uniquement si ils sont dans chestManager
-                if (chestManager.getChests().containsKey(block)) {  // Vérification de la présence du coffre
-                    String chestType = chestManager.getChests().get(block);  // Obtient le type de coffre
-                    Image chestImage = tileset.get("chest"); // Assure-toi que l'image est bien associée à "chest"
+                if (map.getChestManager() != null && map.getChestManager().getChests().containsKey(block)) {
+                    String chestType = map.getChestManager().getChests().get(block);  // Obtient le type de coffre
+                    Image chestImage = tileset.get("chest"); // Assurez-vous que l'image du coffre est dans le tileset
                     if (chestImage != null) {
                         g.drawImage(chestImage, block.getColumn() * BLOCK_SIZE, block.getLine() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
                         g.setColor(java.awt.Color.RED);
                         g.drawString("Coffre: " + chestType, block.getColumn() * BLOCK_SIZE, block.getLine() * BLOCK_SIZE + BLOCK_SIZE / 2);
-                    } else {
-                        g.setColor(java.awt.Color.RED);
-                        g.drawString("Image de coffre manquante", block.getColumn() * BLOCK_SIZE, block.getLine() * BLOCK_SIZE + BLOCK_SIZE / 2);
                     }
                 }
             }
@@ -271,6 +263,52 @@ public class GameDisplay extends JPanel {
         g.drawRect(10, 10, 200, 20); // Contour
         g.drawString("Vie : " + currentHealth + "%", 90, 25);
     }
+    
+    public Block getNearbyChestPosition() {
+        Block heroPos = hero.getPosition();  // Récupère la position actuelle du héros
+        int heroLine = heroPos.getLine();
+        int heroColumn = heroPos.getColumn();
+        
+        // Vérifier les cases adjacentes autour du héros
+        for (int deltaLine = -1; deltaLine <= 1; deltaLine++) {
+            for (int deltaColumn = -1; deltaColumn <= 1; deltaColumn++) {
+                if (deltaLine == 0 && deltaColumn == 0) continue;  // Ignorer la case du héros lui-même
+                
+                int newLine = heroLine + deltaLine;
+                int newColumn = heroColumn + deltaColumn;
+
+                // Vérifier que les coordonnées sont valides
+                if (newLine >= 0 && newLine < map.getLineCount() && newColumn >= 0 && newColumn < map.getColumnCount()) {
+                    Block adjacentBlock = map.getBlock(newLine, newColumn);
+                    
+                    // Accéder à staticObjects via la classe Map
+                    if (map.getStaticObjects().containsKey(adjacentBlock) && map.getStaticObjects().get(adjacentBlock).equals("chest")) {
+                        return adjacentBlock;
+                    }
+                }
+            }
+        }
+
+        // Aucun coffre à proximité
+        return null;
+    }
+    
+ // Méthode pour ouvrir un coffre à proximité
+    public void openNearbyChest() {
+        Block nearbyChestPosition = getNearbyChestPosition(); // Utilise la méthode fournie pour trouver le coffre
+
+        if (nearbyChestPosition != null) {
+            // Coffre trouvé à proximité, on peut ouvrir le coffre
+            System.out.println("Coffre ouvert à : " + nearbyChestPosition.getLine() + ", " + nearbyChestPosition.getColumn());
+            // Vous pouvez ici appeler une méthode pour ouvrir le coffre (par exemple une méthode open() sur un objet coffre)
+            // Par exemple: map.openChest(nearbyChestPosition);
+        } else {
+            System.out.println("Aucun coffre à proximité.");
+        }
+    }
+
+
+
 
     /**
      * Méthode main pour tester l'affichage du jeu.

@@ -60,7 +60,18 @@ public class MainGUI extends JFrame {
 
         // === Ajout du bouton d'interaction ===
         interactionButton = new JButton("Interagir");
-        //interactionButton.addActionListener(e -> dashboard.openNearbyChest());
+     // Ajout d'un ActionListener pour le bouton d'interaction
+        interactionButton.addActionListener(e -> {
+            // Appel de la méthode dans GameDisplay pour obtenir la position du coffre à proximité
+            Block chestPos = dashboard.getNearbyChestPosition();
+
+            if (chestPos != null) {
+                // Le coffre est trouvé à proximité, on peut l'ouvrir
+                dashboard.openNearbyChest();  // Ouvre le coffre (la méthode déjà définie)
+            } else {
+                System.out.println("Aucun coffre à proximité pour interagir !");
+            }
+        });
 
         // Panel pour aligner le bouton à droite
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));

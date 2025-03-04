@@ -15,6 +15,7 @@ public class Map {
     private ChestManager chestManager;   
     private int lineCount;
     private int columnCount;
+    private int maxChests;
 
     public Map(int lineCount, int columnCount) {
         this.lineCount = lineCount;
@@ -43,6 +44,8 @@ public class Map {
                 }
             }
         }
+        
+        generateObjects(); // Générez les objets (arbres, maisons, coffres)
 
         // Ajout des ennemis
         for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
@@ -57,7 +60,7 @@ public class Map {
             }
         }
 
-        generateObjects(); // Générez les objets (arbres, maisons, coffres)
+       
     }
 
     public HashMap<Block, String> getStaticTerrain() {
@@ -171,4 +174,37 @@ public class Map {
         // TODO Auto-generated method stub
         return null;
     }
+    
+    public ChestManager getChestManager() {
+		// TODO Auto-generated method stub
+		return chestManager;
+	} 
+    
+    public static void main(String[] args) {
+        // Création d'une carte de taille 10x10
+        Map map = new Map(10, 10);
+        
+        // Affichage du nombre de coffres ajoutés sur la carte
+        System.out.println("Nombre de coffres : " + map.getChestManager().getChests().size());
+
+        // Affichage de quelques informations de terrain sur la carte pour vérifier la génération
+        System.out.println("Terrain sur la case (0,0): " + map.getStaticTerrain().get(map.getBlock(0, 0)));
+        System.out.println("Terrain sur la case (5,5): " + map.getStaticTerrain().get(map.getBlock(5, 5)));
+
+        // Affichage de quelques ennemis ajoutés
+        System.out.println("Ennemi sur la case (1, 1): " + map.getEnemies().get(map.getBlock(1, 1)));
+        System.out.println("Ennemi sur la case (3, 3): " + map.getEnemies().get(map.getBlock(3, 3)));
+
+        // Affichage des blocs libres (qui ne contiennent ni objets statiques ni ennemis)
+        ArrayList<Block> freeBlocks = map.getFreeBlocks();
+        System.out.println("Nombre de blocs libres : " + freeBlocks.size());
+
+        // Affichage des informations de terrain pour vérifier les blocages
+        System.out.println("Le bloc (2, 2) est-il bloqué ? " + map.isBlocked(map.getBlock(2, 2)));
+        System.out.println("Le bloc (5, 5) est-il bloqué ? " + map.isBlocked(map.getBlock(5, 5)));
+    }
+
+
+
+	
 }

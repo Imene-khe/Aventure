@@ -4,6 +4,7 @@ import data.map.Block;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Random;
 
 public class ChestManager {
@@ -30,4 +31,26 @@ public class ChestManager {
         // Implémentation pour ouvrir le coffre et retourner son contenu
         return new ArrayList<>(); // Placeholder, à implémenter selon la logique du jeu
     }
+    
+    public static void main(String[] args) {
+        ChestManager chestManager = new ChestManager();
+
+        // Création de blocs fictifs pour le test
+        Block block1 = new Block(2, 3);
+        Block block2 = new Block(5, 7);
+        Block block3 = new Block(1, 1);
+
+        // Ajout de coffres à ces blocs
+        chestManager.addChest(block1, "golden_chest");
+        chestManager.addChest(block2, "wooden_chest");
+        chestManager.addChest(block3, "mystic_chest");
+
+        // Affichage des coffres stockés
+        System.out.println("Coffres stockés : " + chestManager.getChests());
+
+        // Vérification de l'accès aux coffres
+        System.out.println("Nombre de coffres : " + chestManager.getChests().size());
+    }
+
+
 }
