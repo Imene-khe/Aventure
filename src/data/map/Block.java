@@ -31,7 +31,7 @@ public class Block {
     public String toString() {
         return "Block [line=" + line + ", column=" + column + "]";
     }
-    
+
     public boolean equals(Block obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
@@ -39,4 +39,3 @@ public class Block {
         return line == block.line && column == block.column;
     }
 }
-

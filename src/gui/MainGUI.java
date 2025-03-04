@@ -2,8 +2,6 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -33,8 +31,8 @@ public class MainGUI extends JFrame {
     // Carte du jeu
     private Map map;
     
-    // Ajout du bouton d'interraction (dialogue, ouverture...)
-    private JButton interraction;
+    // Ajout du bouton d'interaction (dialogue, ouverture...)
+    private JButton interactionButton;
 
     /**
      * Constructeur de la classe. Il initialise la fenêtre, les composants graphiques
@@ -47,7 +45,7 @@ public class MainGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 800);
         
-        // Initialisation des composants
+        // Initialisation de la carte, du tableau et de l'inventaire
         this.setMap(new Map(30, 30));
         this.dashboard = new GameDisplay();
         this.inventory = new InventoryManager();
@@ -61,8 +59,8 @@ public class MainGUI extends JFrame {
         bottomPanel.add(inventory, BorderLayout.CENTER); // L'inventaire reste centré
 
         // === Ajout du bouton d'interaction ===
-        JButton interactionButton = new JButton("Interagir");
-        interactionButton.addActionListener(e -> dashboard.openNearbyChest());
+        interactionButton = new JButton("Interagir");
+        //interactionButton.addActionListener(e -> dashboard.openNearbyChest());
 
         // Panel pour aligner le bouton à droite
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -89,26 +87,13 @@ public class MainGUI extends JFrame {
         setVisible(true);
     }
 
-    /*// Création du bouton et placement dans le layout
-    interraction = new JButton("Interragir");
-    interraction.setEnabled(false); // Désactivé par défaut
-    interraction.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            dashboard.openNearbyChest();
-            updateChestButtonState(); // Vérifie si un autre coffre est proche
-        }
-    });
-    JPanel controlPanel = new JPanel();
-    controlPanel.add(interraction);
-    add(controlPanel, BorderLayout.SOUTH);*/
- // Met à jour l'état du bouton selon la position du héros
-    public void updateChestButtonState() {
+    /**
+     * Met à jour l'état du bouton d'interaction selon la position du héros.
+     */
+    /*public void updateChestButtonState() {
         boolean isNearChest = dashboard.isHeroNearChest();
-        interraction.setEnabled(isNearChest);
-    }
-    
-    
+        interactionButton.setEnabled(isNearChest);
+    }*/
 
     /**
      * Déplace le héros en fonction de la touche pressée.
@@ -138,16 +123,14 @@ public class MainGUI extends JFrame {
             // Effacer l'ancienne position du héros avant de le déplacer
             dashboard.repaint(currentPos.getColumn() * 32, currentPos.getLine() * 32, 32, 32); 
             dashboard.getHero().setPosition(newPos);
-            System.out.println(" Héros déplacé à : " + newPos.getLine() + ", " + newPos.getColumn());
+            System.out.println("Héros déplacé à : " + newPos.getLine() + ", " + newPos.getColumn());
             // Redessiner la nouvelle position du héros
             dashboard.repaint(newPos.getColumn() * 32, newPos.getLine() * 32, 32, 32); 
         } else {
-            System.out.println(" Déplacement bloqué !");  // Si la position est bloquée, afficher un message
+            System.out.println("Déplacement bloqué !");  // Si la position est bloquée, afficher un message
         }
     }
-    
-    
-    
+
     /**
      * Retourne la carte actuelle du jeu.
      * @return La carte actuelle
@@ -169,8 +152,6 @@ public class MainGUI extends JFrame {
      * @param args Arguments de ligne de commande (non utilisés)
      */
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(StartScreen::new);
+        SwingUtilities.invokeLater(MainGUI::new);
     }
-
-    
 }

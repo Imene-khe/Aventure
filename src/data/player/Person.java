@@ -17,44 +17,39 @@ public class Person {
     private Block position;
     private ImageIcon image;
 
-    
-
-	// Constructeur pour les personnages mobiles
+    // Constructeur pour les personnages mobiles
     public Person(String name, int id, int health, String imagePath, Block position) {
         this.name = name;
         this.id = id;
         this.health = health;
         // Utiliser un chemin relatif pour l'image
         this.image = new ImageIcon(getClass().getResource(imagePath)); // imagePath doit être relatif
-        this.position=position;
+        this.position = position;
     }
 
     public Person(String name, int id, int health) {
-		// TODO Auto-generated constructor stub
-    	 this.name = name;
-         this.id = id;
-         this.health = health;
-	}
+        this.name = name;
+        this.id = id;
+        this.health = health;
+    }
 
-	public Person(String string, int i, int j, String imagePath) {
-		// TODO Auto-generated constructor stub
-		this.name = name;
-        this.id = i;
-        this.health = j;
+    public Person(String name, int id, int health, String imagePath) {
+        this.name = name;
+        this.id = id;
+        this.health = health;
         this.image = new ImageIcon(getClass().getResource(imagePath)); // imagePath doit être relatif
-	}
-	
-	public Person(Block position, int health) {
-		this.position=position;
-		this.health=health;
-	}
-	
-	public Person(Block position) {
-		this.position=position;
-	}
-	
+    }
+    
+    public Person(Block position, int health) {
+        this.position = position;
+        this.health = health;
+    }
+    
+    public Person(Block position) {
+        this.position = position;
+    }
 
-	// Méthode pour afficher l'info et l'image
+    // Méthode pour afficher l'info et l'image
     public void showPersonInfo() {
         // Créer une fenêtre JFrame pour afficher le personnage
         JFrame frame = new JFrame(name + " (" + id + ")");
@@ -77,45 +72,44 @@ public class Person {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
-    
+
     public String getName() {
-		return name;
-	}
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public int getHealth() {
-		return health;
-	}
+    public int getHealth() {
+        return health;
+    }
 
-	public void setHealth(int health) {
-		this.health = health;
-	}
+    public void setHealth(int health) {
+        this.health = health;
+    }
 
-	public Block getPosition() {
-		return position;
-	}
+    public Block getPosition() {
+        return position;
+    }
 
-	public void setPosition(Block position) {
-		this.position = position;
-	}
+    public void setPosition(Block position) {
+        this.position = position;
+    }
 
-	public ImageIcon getImage() {
-		return image;
-	}
+    public ImageIcon getImage() {
+        return image;
+    }
 
-	public void setImage(ImageIcon image) {
-		this.image = image;
-	}
-
+    public void setImage(ImageIcon image) {
+        this.image = image;
+    }
 }

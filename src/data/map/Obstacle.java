@@ -2,8 +2,7 @@ package data.map;
 
 public class Obstacle {
     private String type;
-    private boolean isDestructible; /*est ce qu'il peut casser l'objet ou pas */
-
+    private boolean isDestructible; /* est-ce qu'il peut casser l'objet ou pas */
 
     public Obstacle(String type, boolean isDestructible) {
         this.type = type;

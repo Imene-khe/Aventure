@@ -11,8 +11,6 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-import data.item.ChestManager;
 import data.map.Block;
 import data.map.Map;
 import data.player.Antagonist;
@@ -33,7 +31,6 @@ public class GameDisplay extends JPanel {
     private ArrayList<Antagonist> enemies;		    // Liste des ennemis présents sur la carte
     private EnemyImageManager enemyImageManager;		    // Gestionnaire des images des ennemis
     private HashMap<String, Image> tileset;		    // Dictionnaire des images de terrain et objets
-    private ChestManager chestManager;		//Gestionnaire de contenu des coffres
 
     /**
      * Constructeur de la classe. Initialise la carte, le héros, les ennemis et les images.
@@ -46,7 +43,6 @@ public class GameDisplay extends JPanel {
             this.enemies = new ArrayList<>();
             this.enemyImageManager = new EnemyImageManager();
             this.tileset = new HashMap<>();
-            this.chestManager = new ChestManager();
 
             // Chargement des images
             loadImages();
@@ -59,7 +55,6 @@ public class GameDisplay extends JPanel {
             e.printStackTrace();
         }
     }
-    
 
     /**
      * Charge toutes les images nécessaires pour le rendu du jeu (terrains, objets, ennemis).
@@ -132,53 +127,6 @@ public class GameDisplay extends JPanel {
             map.getEnemies().put(spawnBlock, enemyType);  // Ajoute l'ennemi dans la carte
         }
     }
-    
-    
-    public ArrayList<String> openChest(String chestKey) {
-        return chestManager.openChest(chestKey);  // Appelle la méthode dans ChestManager pour ouvrir un coffre
-    }
-
-    /**
-     * Affiche le contenu du coffre dans la console (exemple d'affichage).
-     * Vous pouvez l'adapter pour afficher dans l'interface graphique.
-     */
-    public void displayChestContent(String chestKey) {
-        ArrayList<String> items = openChest(chestKey);
-        if (!items.isEmpty()) {
-            System.out.println("Contenu du coffre (" + chestKey + "):");
-            for (String item : items) {
-                System.out.println("- " + item);
-            }
-        } else {
-            System.out.println("Ce coffre est vide ou introuvable.");
-        }
-    }
- 
-    
-    /**
-     * Fait apparaître un certain nombre de pièces (de type "coin") sur la carte, dans des blocs libres.
-     * 
-     * Cette méthode sélectionne aléatoirement des blocs libres sur la carte pour y faire apparaître les pièces. 
-     * Les pièces sont placées dans les blocs libres disponibles.
-     * Une fois une pièce générée, elle est ajoutée à la liste des pièces du jeu et la carte enregistre la pièce 
-     * dans un mappage entre chaque bloc et son type de pièce.
-     * 
-     * @param numberOfCoins Le nombre de pièces à générer sur la carte.
-     *                      La méthode s'arrêtera une fois ce nombre atteint ou si les blocs libres sont épuisés.
-     */
-    /*private void spawnCoins(int numberOfCoins) {
-    	ArrayList<Block> freeBlocks = map.getFreeBlocks();  // Récupère la liste des blocs disponibles
-        Random random = new Random();
-
-        for (int i = 0; i < numberOfCoins && !freeBlocks.isEmpty(); i++) {
-            int index = random.nextInt(freeBlocks.size());  // Choisit un bloc libre aléatoire
-            Block spawnBlock = freeBlocks.remove(index);  // Retire ce bloc pour éviter un double spawn
-
-            // Ajoute la pièce à la carte en utilisant un objet générique (par exemple, String ou Integer)
-            map.getCoins().put(spawnBlock, "coin");  // "coin" représente ici une pièce
-        }
-    }*/
-
 
     /**
      * Définit une nouvelle carte et redessine l'affichage.
@@ -252,23 +200,6 @@ public class GameDisplay extends JPanel {
             }
         }
 
-     // Dessiner les coffres
-        HashMap<Block, String> chests = chestManager.getChests();
-        for (Block chestBlock : chests.keySet()) {
-            // Vérifiez que le bloc contient un coffre
-            if (tileset.containsKey("chest")) {
-                // Dessinez l'image du coffre à la position du bloc
-                Image chestImage = tileset.get("chest");
-                if (chestImage != null) {
-                    g.drawImage(chestImage, chestBlock.getColumn() * BLOCK_SIZE, chestBlock.getLine() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
-                } else {
-                    System.out.println("❌ L'image du coffre n'est pas chargée correctement.");
-                }
-            }
-        }
-
-
-
         // Dessiner les ennemis
         for (Antagonist enemy : enemies) {
             enemy.draw(g, BLOCK_SIZE);  // Utilise la méthode draw de chaque ennemi pour afficher leur animation
@@ -282,8 +213,6 @@ public class GameDisplay extends JPanel {
         // Dessiner la barre de vie
         drawHealthBar(g);
     }
-
-
 
     /**
      * Dessine la barre de vie du héros.
@@ -301,86 +230,26 @@ public class GameDisplay extends JPanel {
         g.drawRect(10, 10, 200, 20); // Contour
         g.drawString("Vie : " + currentHealth + "%", 90, 25);
     }
-    
-    public boolean isHeroNearChest() {
-        if (hero == null || map == null || chestManager == null) {
-            System.out.println("Erreur : hero, map ou chestManager est null !");
-            return false;
-        }
-
-        Block heroBlock = hero.getPosition(); 
-        if (heroBlock == null) {
-            System.out.println("Erreur : heroBlock est null !");
-            return false;
-        }
-
-        HashMap<Block, String> chests = chestManager.getChests();
-        if (chests == null) {
-            System.out.println("Erreur : chests est null !");
-            return false;
-        }
-
-        // Vérifie si un coffre est dans les 4 directions autour du héros
-        return chests.containsKey(map.getBlock(heroBlock.getLine() - 1, heroBlock.getColumn())) ||
-               chests.containsKey(map.getBlock(heroBlock.getLine() + 1, heroBlock.getColumn())) ||
-               chests.containsKey(map.getBlock(heroBlock.getLine(), heroBlock.getColumn() - 1)) ||
-               chests.containsKey(map.getBlock(heroBlock.getLine(), heroBlock.getColumn() + 1));
-    }
-
-
-
-    public void openNearbyChest() {
-        Block heroPosition = hero.getPosition(); // Position actuelle du héros
-        int heroLine = heroPosition.getLine();
-        int heroColumn = heroPosition.getColumn();
-
-        // Vérification des blocs voisins
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                Block neighborBlock = map.getBlock(heroLine + i, heroColumn + j);
-                System.out.println("Vérification du bloc voisin : " + neighborBlock); // Affiche chaque voisin
-
-                // Vérifier si un coffre se trouve à la position voisine
-                if (chestManager.getChests().containsKey(neighborBlock)) {
-                    String chestKey = chestManager.getChests().get(neighborBlock);
-                    System.out.println("Coffre détecté à : " + neighborBlock); // Affiche la détection d'un coffre
-                    chestManager.openChest(chestKey); // Ouvrir le coffre avec la clé correspondante
-                    return; // Sortir une fois qu'on a ouvert un coffre
-                }
-            }
-        }
-
-        System.out.println("❌ Aucun coffre à proximité !");
-    }
 
     /**
      * Méthode main pour tester l'affichage du jeu.
      * @param args Arguments de ligne de commande (non utilisés)
      */
     public static void main(String[] args) {
-        // Crée une instance de GameDisplay
         GameDisplay gameDisplay = new GameDisplay();
 
-        // Crée une fenêtre pour afficher le jeu
-        JFrame frame = new JFrame("Jeu");
+        // Créer et configurer le JFrame
+        JFrame frame = new JFrame("Test Game Display");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(GRID_SIZE * BLOCK_SIZE, GRID_SIZE * BLOCK_SIZE); // Taille de la fenêtre selon la carte
-        frame.add(gameDisplay);  // Ajoute le GameDisplay à la fenêtre
-        frame.setVisible(true);  // Affiche la fenêtre
+        frame.add(gameDisplay);
+        frame.setSize(800, 800);
+        frame.setVisible(true);
 
-        // Test : Déplace le héros de manière aléatoire
-        Random random = new Random();
-        Block currentBlock = gameDisplay.getHero().getPosition();
-        int newX = (currentBlock.getColumn() + random.nextInt(3) - 1 + GRID_SIZE) % GRID_SIZE;
-        int newY = (currentBlock.getLine() + random.nextInt(3) - 1 + GRID_SIZE) % GRID_SIZE;
-        Block newBlock = gameDisplay.getMap().getBlock(newX, newY);
-        gameDisplay.moveHero(newBlock);
+        // Appeler repaint pour assurer l'affichage
+        gameDisplay.repaint();
 
-        // Affiche le contenu d'un coffre (exemple)
-        gameDisplay.displayChestContent("chest1");
-
-        // Test : Affiche un message pour vérifier que tout est bien initialisé
-        System.out.println("✅ Le jeu est prêt !");
+        // Déplacer le héros et tester l'affichage
+        Block newPosition = gameDisplay.getMap().getBlock(5, 5);
+        gameDisplay.moveHero(newPosition);
     }
-
 }

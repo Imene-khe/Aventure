@@ -23,12 +23,11 @@ public class Hero extends Person {
     	super(position);
     	loadHeroSprite();
     }
+
     public void takeDamage(int amount) {
         setHealth(Math.max(0, getHealth() - amount));
         System.out.println("💥 Héros touché ! Vie restante : " + getHealth() + "%");
     }
-
-
 
     // Charger l’image du hero
     private void loadHeroSprite() {
@@ -40,11 +39,11 @@ public class Hero extends Person {
         }
     }
 
-    //  Déplacement à gauche (on inverse l’image)
+    // Déplacement à gauche (on inverse l’image)
     public void moveLeft() {
         spriteY = 32;  
         spriteX = (spriteX + 32) % (32 * 3);
-        isFlipped = true;  //  Active l'effet miroir pcq j'ai pas d'image pour la gauche
+        isFlipped = true;  // Active l'effet miroir car il n'y a pas d'image pour la gauche
     }
 
     // ✅ Déplacement à droite 
@@ -66,34 +65,18 @@ public class Hero extends Person {
         spriteX = (spriteX + 32) % (32 * 3);
     }
 
-    // 
     public void draw(Graphics g, int blockSize) {
         int drawX = super.getPosition().getColumn() * blockSize;
         int drawY = super.getPosition().getLine() * blockSize;
 
         if (isFlipped) {
-            //  Dessine l’image inversée pour la gauche
+            // Dessine l’image inversée pour la gauche
             g.drawImage(heroSprite, drawX + blockSize, drawY, drawX, drawY + blockSize,
                     spriteX, spriteY, spriteX + 32, spriteY + 32, null);
         } else {
-            //  Dessine l’image normalement
+            // Dessine l’image normalement
             g.drawImage(heroSprite, drawX, drawY, drawX + blockSize, drawY + blockSize,
                     spriteX, spriteY, spriteX + 32, spriteY + 32, null);
         }
     }
-
-    // Récupérer la position actuelle du héros
-    /*public Block getPosition() {
-        return position;
-    }
-
-    // Modifier la position du héros
-    public void setPosition(Block newPosition) {
-        this.position = newPosition;
-    }
-    
-    public int getHealth() {
-        return health;
-    }*/
-    
 }
