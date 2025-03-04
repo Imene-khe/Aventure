@@ -40,7 +40,8 @@ public class GameDisplay extends JPanel {
     public GameDisplay() {
         try {
             // Initialisation de la carte et du héros
-            this.map = new Map(GRID_SIZE, GRID_SIZE);
+            int numberOfChests = 5; //A ajuster selon besoins
+            this.map = new Map(GRID_SIZE, GRID_SIZE, numberOfChests);
             this.hero = new Hero(map.getBlock(GRID_SIZE / 2, GRID_SIZE / 2), 100);
             this.enemies = new ArrayList<>();
             this.enemyImageManager = new EnemyImageManager();

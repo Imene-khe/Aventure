@@ -17,11 +17,12 @@ public class Map {
     private int columnCount;
     private int maxChests;
 
-    public Map(int lineCount, int columnCount) {
+    public Map(int lineCount, int columnCount, int maxChest) {
         this.lineCount = lineCount;
         this.columnCount = columnCount;
-        blocks = new Block[lineCount][columnCount];
-        chestManager = new ChestManager(); // Initialisation du ChestManager
+        this.blocks = new Block[lineCount][columnCount];
+        this.chestManager = new ChestManager(); // Initialisation du ChestManager
+        this.maxChests=maxChest;
 
         // Création des blocs
         for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
@@ -68,6 +69,7 @@ public class Map {
     }
 
     private void generateObjects() {
+        int generatedChests = 0; // Compteur de coffres générés
         for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
             for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
                 Block block = blocks[lineIndex][columnIndex];
@@ -92,15 +94,16 @@ public class Map {
 
                 // Ici on ajoute les coffres uniquement sur "path" et "grass"
                 // On peut aussi ajouter un facteur de probabilité pour éviter que les coffres apparaissent trop souvent
-                if (terrainType.equals("path") || terrainType.equals("grass")) {
+                if ((terrainType.equals("path") || terrainType.equals("grass")) && generatedChests < maxChests) {
                     double rand = Math.random();
                     if (rand < 0.1) { // 10% de chance d'ajouter un coffre sur un bloc "path" ou "grass"
-                        chestManager.addChest(block, "chest");   // Ajout d'un coffre
+                        chestManager.addChest(block, "chest");  // Ajout d'un coffre
                         setTerrainBlocked(block, true);  // Bloque le terrain pour ce bloc
+                        generatedChests++;  // Incrémenter le compteur de coffres générés
                     }
                 }
 
-             // Générer des ennemis uniquement sur les blocs "path" et "grass" et exclure l'eau
+                // Générer des ennemis uniquement sur les blocs "path" et "grass" et exclure l'eau
                 if ((terrainType.equals("path") || terrainType.equals("grass")) && !terrainType.equals("water")) {
                     double rand = Math.random();
                     if (rand < 0.05) {
@@ -119,6 +122,7 @@ public class Map {
             }
         }
     }
+
 
 
     public ArrayList<Block> getFreeBlocks() {
@@ -182,7 +186,7 @@ public class Map {
     
     public static void main(String[] args) {
         // Création d'une carte de taille 10x10
-        Map map = new Map(10, 10);
+        Map map = new Map(10, 10,5);
         
         // Affichage du nombre de coffres ajoutés sur la carte
         System.out.println("Nombre de coffres : " + map.getChestManager().getChests().size());

@@ -22,15 +22,12 @@ public class MainGUI extends JFrame {
 
     private static final long serialVersionUID = 1L;
     
-    // Affichage de la carte du jeu
+    // Affichage et gestion de la carte du jeu
     private GameDisplay dashboard;
     
     // Gestionnaire de l'inventaire
     private InventoryManager inventory;
-    
-    // Carte du jeu
-    private Map map;
-    
+  
     // Ajout du bouton d'interaction (dialogue, ouverture...)
     private JButton interactionButton;
 
@@ -46,7 +43,7 @@ public class MainGUI extends JFrame {
         setSize(800, 800);
         
         // Initialisation de la carte, du tableau et de l'inventaire
-        this.setMap(new Map(30, 30));
+        //this.setMap(new Map(30, 30));
         this.dashboard = new GameDisplay();
         this.inventory = new InventoryManager();
 
@@ -142,21 +139,6 @@ public class MainGUI extends JFrame {
         }
     }
 
-    /**
-     * Retourne la carte actuelle du jeu.
-     * @return La carte actuelle
-     */
-    public Map getMap() {
-        return map;
-    }
-
-    /**
-     * Définit une nouvelle carte pour le jeu.
-     * @param map La nouvelle carte à utiliser
-     */
-    public void setMap(Map map) {
-        this.map = map;
-    }
 
     /**
      * Méthode principale pour démarrer l'application et afficher l'interface graphique.
