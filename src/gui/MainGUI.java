@@ -108,7 +108,7 @@ public class MainGUI extends JFrame {
      */
     private void moveHero(int keyCode) {
         Block currentPos = dashboard.getHero().getPosition();  // Récupère la position actuelle du héros
-        Block newPos = currentPos;  // Par défaut, la nouvelle position est l'ancienne
+        Block newPos = currentPos;  // Par défaut, la git uvelle position est l'ancienne
 
         // Déterminer la nouvelle position en fonction de la touche pressée
         if (keyCode == KeyEvent.VK_LEFT && currentPos.getColumn() > 0) {

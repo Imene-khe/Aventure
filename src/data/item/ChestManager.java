@@ -24,10 +24,10 @@ public class ChestManager {
 
     // Récupère les coffres (les blocs où il y a des coffres)
     public HashMap<Block, String> getChests() {
-        System.out.println("🔍 Nombre total de coffres stockés : " + chests.size());
+        /*System.out.println("🔍 Nombre total de coffres stockés : " + chests.size());
         for (Block block : chests.keySet()) {
             System.out.println("   - Coffre en : " + block + " | Type : " + chests.get(block));
-        }
+        }*/
         return chests;
     }
 
