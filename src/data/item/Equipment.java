@@ -4,14 +4,10 @@ public class Equipment {
     private String name;
     private int price;
     
-    public Equipment(String name, int price) {
+    public Equipment(String name) {
         this.name = name;
-        this.price = price;
     }
     
-    public Equipment(String string) {
-        // TODO Auto-generated constructor stub
-    }
 
     public String getName() {
         return name;
@@ -28,4 +24,12 @@ public class Equipment {
     public void setPrice(int price) {
         this.price = price;
     }
+    
+    @Override
+    public String toString() {
+        return "Equipment{" +
+                "name='" + name + '\'' +
+                '}';
+    }
+    
 }

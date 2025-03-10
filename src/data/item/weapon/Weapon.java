@@ -9,7 +9,7 @@ public abstract class Weapon extends Equipment {
     private int attackPower;
 
     public Weapon(String name, int durability, int attackPower) {
-        super(name, durability);
+        super(name);
         this.attackPower = attackPower;
     }
 

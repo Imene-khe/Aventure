@@ -101,14 +101,21 @@ public class Map {
             if ((terrainType.equals("path") || terrainType.equals("grass")) && !staticObjects.containsKey(block)) {
                 double rand = Math.random();
                 if (rand < 0.1) { // 10% de chance d'ajouter un coffre sur ce bloc
-                    chestManager.addChest(block, "chest");  // Ajout du coffre
-                    setTerrainBlocked(block, true);  // Bloque le terrain pour ce bloc
+                    // Ajouter le coffre dans chestManager
+                    chestManager.addChest(block, "chest");
+                    
+                    // Ajouter également le coffre à staticObjects pour que getNearbyChestPosition() le trouve
+                    staticObjects.put(block, "chest");
+                    
+                    // Bloque le terrain pour ce bloc
+                    setTerrainBlocked(block, true);
 
                     generatedChests++;  // Incrémenter le compteur de coffres générés
                 }
             }
         }
     }
+
 
     public ArrayList<Block> getFreeBlocks() {
         ArrayList<Block> freeBlocks = new ArrayList<>();

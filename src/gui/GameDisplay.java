@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
@@ -12,6 +13,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import data.item.Chest;
 import data.map.Block;
 import data.map.Map;
 import data.player.Antagonist;
@@ -221,7 +223,7 @@ public class GameDisplay extends JPanel {
                 }
 
                 if (map.getChestManager() != null && map.getChestManager().getChests().containsKey(block)) {
-                    String chestType = map.getChestManager().getChests().get(block);  // Obtient le type de coffre
+                    Chest chestType = map.getChestManager().getChests().get(block);  // Obtient le type de coffre
                     Image chestImage = tileset.get("chest"); // Assurez-vous que l'image du coffre est dans le tileset
                     if (chestImage != null) {
                         g.drawImage(chestImage, block.getColumn() * BLOCK_SIZE, block.getLine() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
@@ -306,6 +308,9 @@ public class GameDisplay extends JPanel {
             System.out.println("Aucun coffre à proximité.");
         }
     }
+
+    
+    
 
 
 

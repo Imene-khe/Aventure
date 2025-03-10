@@ -23,7 +23,7 @@ public class Inventory {
         return null; // Retourne null si l'indice est invalide
     }
 
-    // Vérifier si l'inventaire est plein (optionnel, dépend de vos besoins)
+    // Vérifier si l'inventaire est plein (optionnel, dépend de tes besoins)
     public boolean isFull() {
         return equipment.size() >= 4; // Par exemple, considérer l'inventaire comme "plein" lorsqu'il contient 4 objets
     }
@@ -31,5 +31,39 @@ public class Inventory {
     // Retourner la taille actuelle de l'inventaire
     public int size() {
         return equipment.size();
+    }
+
+    // Méthode pour récupérer la liste d'équipements
+    public ArrayList<Equipment> getEquipments() {
+        return equipment; // Retourne la liste complète des équipements
+    }
+
+    // Méthode pour afficher le contenu de l'inventaire
+    @Override
+    public String toString() {
+        if (equipment.isEmpty()) {
+            return "Inventaire vide.";
+        }
+        StringBuilder sb = new StringBuilder("Contenu de l'inventaire :\n");
+        for (int i = 0; i < equipment.size(); i++) {
+            sb.append("- ").append(equipment.get(i).toString()).append("\n");
+        }
+        return sb.toString();
+    }
+
+    // === Main interne pour tester l'affichage ===
+    public static void main(String[] args) {
+        Inventory inventory = new Inventory();
+
+        System.out.println("=== Test de l'affichage de l'inventaire ===");
+        System.out.println(inventory); // Devrait afficher "Inventaire vide."
+
+        // Ajout d'objets
+        inventory.addEquipment(new Equipment("Épée"));
+        inventory.addEquipment(new Equipment("Bouclier"));
+        inventory.addEquipment(new Equipment("Potion"));
+
+        // Affichage après ajout
+        System.out.println(inventory);
     }
 }
