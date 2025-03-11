@@ -11,105 +11,84 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class ChestUIManager {
-
-    private JFrame chestWindow; // Fenêtre pour afficher le contenu du coffre
-    private EquipmentImageManager imageManager; // Gestionnaire d'images des équipements
+    private JFrame chestWindow;
+    private EquipmentImageManager imageManager;
 
     public ChestUIManager() {
-        // Initialiser le gestionnaire d'images des équipements
+        System.out.println("[LOG] Initialisation de ChestUIManager...");
         imageManager = new EquipmentImageManager();
     }
 
-    /**
-     * Méthode pour afficher le contenu du coffre dans une fenêtre dédiée.
-     * @param inventory L'inventaire du coffre.
-     */
     public void displayChestContents(Inventory inventory) {
-        // Crée une nouvelle fenêtre pour afficher le contenu du coffre
+        System.out.println("[LOG] Affichage du contenu du coffre...");
+        
         chestWindow = new JFrame("Contenu du coffre");
-        chestWindow.setSize(400, 300); // Taille de la fenêtre
+        chestWindow.setSize(400, 300);
         chestWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        // Crée une ArrayList pour stocker les icônes des équipements
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(0, 3, 10, 10));
+
         ArrayList<ImageIcon> itemIcons = new ArrayList<>();
 
-        // Parcours des équipements dans l'inventaire du coffre
+        System.out.println("[LOG] Nombre d'éléments dans le coffre : " + inventory.size());
+
         for (int i = 0; i < inventory.size(); i++) {
             Equipment equipment = inventory.getEquipmentAt(i);
+            System.out.println("[LOG] Récupération de l'équipement : " + equipment.getName());
 
-            // Obtenir l'image de l'équipement via le gestionnaire d'images
-            String equipmentType = equipment.getName().toLowerCase(); // Récupérer le type (par exemple "sword", "shield", etc.)
-            Image equipmentImage = imageManager.getEquipmentImage(equipmentType); // Charger l'image de l'équipement
+            String equipmentType = equipment.getName().toLowerCase();
+            Image equipmentImage = imageManager.getEquipmentImage(equipmentType);
 
             if (equipmentImage != null) {
-                // Redimensionner l'image pour l'adapter à l'interface
-                Image resizedImg = equipmentImage.getScaledInstance(80, 80, Image.SCALE_SMOOTH); // Redimensionner l'image
-                ImageIcon icon = new ImageIcon(resizedImg); // Créer une nouvelle ImageIcon avec l'image redimensionnée
-
-                // Ajouter l'icône à la liste
+                System.out.println("[LOG] Image trouvée pour " + equipmentType);
+                Image resizedImg = equipmentImage.getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+                ImageIcon icon = new ImageIcon(resizedImg);
                 itemIcons.add(icon);
+            } else {
+                System.out.println("[LOG] Aucune image trouvée pour " + equipmentType);
             }
         }
 
-        // Crée un tableau de données avec une seule colonne pour afficher les icônes
-        Object[][] data = new Object[itemIcons.size()][1];
-
-        // Remplir les données avec les icônes
-        for (int i = 0; i < itemIcons.size(); i++) {
-            data[i][0] = itemIcons.get(i);
+        if (itemIcons.isEmpty()) {
+            System.out.println("[LOG] Le coffre est vide !");
+            JOptionPane.showMessageDialog(chestWindow, "Le coffre est vide !");
+            return;
         }
 
-        // Crée un tableau pour afficher les équipements
-        JTable table = new JTable(data, new String[]{});  // Pas d'en-têtes de colonnes
-        table.setRowHeight(100);  // Hauteur de chaque ligne
-        table.setCellSelectionEnabled(true); // Permet la sélection des cellules
-
-        // Ajoute le tableau dans un panneau avec un défilement
-        JScrollPane scrollPane = new JScrollPane(table);
-        chestWindow.add(scrollPane);  // Ajoute le panneau avec le tableau à la fenêtre
-
-        // Affiche la fenêtre
-        chestWindow.setVisible(true); // Affiche la fenêtre
-    }
-
-    /**
-     * Ferme la fenêtre du contenu du coffre si elle est ouverte.
-     */
-    public void closeChestContents() {
-        if (chestWindow != null) {
-            chestWindow.dispose(); // Ferme la fenêtre
+        for (ImageIcon icon : itemIcons) {
+            JLabel label = new JLabel(icon);
+            label.setHorizontalAlignment(JLabel.CENTER);
+            panel.add(label);
         }
+
+        JScrollPane scrollPane = new JScrollPane(panel);
+        chestWindow.add(scrollPane);
+        chestWindow.setVisible(true);
+        System.out.println("[LOG] Fenêtre du coffre affichée avec succès !");
     }
 
-    // Méthode pour afficher le contenu du coffre dans une fenêtre graphique
-    public void showChestContents(Inventory inventory) {
-        displayChestContents(inventory);
-    }
-
-    // === Main interne pour tester la classe ===
     public static void main(String[] args) {
-        // Création du coffre et de l'inventaire
+        System.out.println("[LOG] Début du test du ChestUIManager...");
+
         Chest chest = new Chest();
-        System.out.println("=== Test du coffre ===");
-        System.out.println("Contenu initial du coffre (avant ouverture) : " + chest.getInventory());
+        System.out.println("[LOG] Création d'un coffre...");
 
-        // Ajout d'un nouvel objet au coffre
         chest.addItem(new Equipment("axe"));
-        chest.addItem(new Equipment("woodSword"));
+        System.out.println("[LOG] Ajout de 'axe' au coffre.");
+
+        chest.addItem(new Equipment("woodsword"));
+        System.out.println("[LOG] Ajout de 'woodSword' au coffre.");
+        
         chest.addItem(new Equipment("woodstick"));
-        System.out.println("Ajout des objets 'axe', 'woodSword' et 'woodstick'.");
+        System.out.println("[LOG] Ajout de 'woodSword' au coffre.");
 
-        // Ouverture du coffre
         Inventory loot = chest.open();
-        System.out.println("Coffre ouvert. Contenu du coffre : " + loot);
+        System.out.println("[LOG] Coffre ouvert. Contenu récupéré.");
 
-        // Test de ChestUIManager : afficher les objets du coffre
         ChestUIManager uiManager = new ChestUIManager();
-        System.out.println("=== Affichage du contenu du coffre ===");
-        uiManager.showChestContents(loot); // Affiche les objets dans la fenêtre
+        uiManager.displayChestContents(loot);
 
-        // Tentative de réouverture du coffre (doit retourner un inventaire vide)
-        Inventory emptyLoot = chest.open();
-        System.out.println("Tentative de réouverture du coffre. Contenu après réouverture : " + emptyLoot);
+        System.out.println("[LOG] Fin du test.");
     }
 }

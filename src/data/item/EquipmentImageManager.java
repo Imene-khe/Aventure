@@ -21,7 +21,7 @@ public class EquipmentImageManager {
             
             // Chargement des images d'équipement
             equipmentImages.put("axe", loadImage("src/images/items/axe.png"));
-            equipmentImages.put("woodSword", loadImage("src/images/items/woodSword.png"));
+            equipmentImages.put("woodsword", loadImage("src/images/items/woodsword.png"));
             equipmentImages.put("woodstick", loadImage("src/images/items/woodstick.png"));
             
             System.out.println("✅ Images des équipements chargées !");
@@ -52,7 +52,7 @@ public class EquipmentImageManager {
 
         // Test de récupération d'images
         System.out.println("✅ Image trouvée pour : axe -> " + (manager.getEquipmentImage("axe") != null));
-        System.out.println("✅ Image trouvée pour : woodSword -> " + (manager.getEquipmentImage("woodSword") != null));
+        System.out.println("✅ Image trouvée pour : woodsword -> " + (manager.getEquipmentImage("woodsword") != null));
         System.out.println("✅ Image trouvée pour : woodstick -> " + (manager.getEquipmentImage("woodstick") != null));
     }
 }
