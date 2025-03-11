@@ -139,15 +139,6 @@ public class GameDisplay extends JPanel {
             map.getEnemies().put(spawnBlock, enemyType);  // Ajoute l'ennemi dans la carte
         }
     }
-    
-    /*public void spawnChests() {
-        // Affichage des coffres déjà générés dans la carte
-        for (Map.Entry<String, Chest> entry : map.getChestManager().getChests().entrySet()) {
-            Chest chest = entry.getValue();
-            Block chestBlock = chest.getBlock();  // Récupère la position du coffre
-            chestImageManager.addChestImage(chestBlock.getX(), chestBlock.getY());  // Ajoute l'image du coffre à la position du bloc
-        }
-    }*/
 
 
 

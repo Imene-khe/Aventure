@@ -43,12 +43,19 @@ public class InventoryManager extends JPanel {
                 }
             }
             
+            // Ajoute un ActionListener pour redonner le focus après un clic
+            button.addActionListener(e -> {
+                System.out.println("Bouton de l'inventaire cliqué : " + button.getText());
+                SwingUtilities.getWindowAncestor(this).requestFocusInWindow();
+            });
+
             add(button); // Ajoute le bouton au panneau
         }
 
         revalidate(); // Met à jour la disposition des composants
         repaint(); // Redessine l'interface
     }
+
 
     /**
      * Charge une image d'équipement à partir du répertoire des ressources.

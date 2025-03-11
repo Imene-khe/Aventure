@@ -6,7 +6,7 @@ public abstract class Armor extends Equipment {
     private int defensePower;
 
     public Armor(String name, int durability, int defensePower) {
-        super(name, durability);
+        super(name);
         this.defensePower = defensePower;
     }
 
