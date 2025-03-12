@@ -11,9 +11,10 @@ public class Inventory {
     }
 
     // Ajouter un équipement dans l'inventaire
-    public void addEquipment(Equipment item) {
+    /*public void addEquipment(Equipment item) {
         equipment.add(item); // Ajoute l'équipement à la fin de la liste
-    }
+        
+    }*/
 
     // Récupérer un équipement à un indice donné
     public Equipment getEquipmentAt(int index) {
@@ -59,9 +60,9 @@ public class Inventory {
         System.out.println(inventory); // Devrait afficher "Inventaire vide."
 
         // Ajout d'objets
-        inventory.addEquipment(new Equipment("Épée"));
-        inventory.addEquipment(new Equipment("Bouclier"));
-        inventory.addEquipment(new Equipment("Potion"));
+        inventory.getEquipments().add(new Equipment("Épée"));
+        inventory.getEquipments().add(new Equipment("Bouclier"));
+        inventory.getEquipments().add(new Equipment("Potion"));
 
         // Affichage après ajout
         System.out.println(inventory);

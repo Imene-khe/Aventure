@@ -24,7 +24,7 @@ public class ChestManager {
             Chest newChest = new Chest();
             
             // Ajout d'armes aléatoires au coffre
-            addRandomWeapons(newChest);
+            //addRandomWeapons(newChest);
             
             // Stockage du coffre et de son type
             chests.put(block, newChest);
@@ -32,10 +32,9 @@ public class ChestManager {
         }
     }
 
-
     // Ajoute des armes aléatoires au coffre
-    private void addRandomWeapons(Chest chest) {
-        Weapon[] availableWeapons = {new Sword(),new Axe()};
+    public void addRandomWeapons(Chest chest) {
+        Weapon[] availableWeapons = {new Sword(), new Axe()};
 
         Random rand = new Random();
         int numWeapons = rand.nextInt(2) + 1; // 1 ou 2 armes par coffre
@@ -58,6 +57,11 @@ public class ChestManager {
     public HashMap<Block, Chest> getChests() {
         return chests;
     }
+
+    public Chest getChestAt(Block block) {
+        return chests.get(block); // Retourne le coffre s'il existe, sinon null
+    }
+
     
     public static void main(String[] args) {
         // Création d'une instance de ChestManager
@@ -75,6 +79,8 @@ public class ChestManager {
         chestManager.addChest(block3, "mystic_chest");
         chestManager.addChest(block4, "duplicate_chest"); // Devrait afficher un message d'avertissement
 
+      
+        
         // Affichage des coffres ajoutés
         System.out.println("📦 Liste des coffres ajoutés :");
         for (Block block : chestManager.getChests().keySet()) {
@@ -83,14 +89,18 @@ public class ChestManager {
 
         // Ouverture de coffres et affichage de leur contenu
         System.out.println("\n🔑 Ouverture des coffres :");
+        
         Inventory loot1 = chestManager.openChest(block1);
-        System.out.println("Contenu du coffre à " + block1 + ": " + loot1.size() + " objet(s)");
+        System.out.println("Contenu du coffre à " + block1 + ": ");
+        loot1.getEquipments().forEach(item -> System.out.println("   - " + item.getName()));
 
         Inventory loot2 = chestManager.openChest(block2);
-        System.out.println("Contenu du coffre à " + block2 + ": " + loot2.size() + " objet(s)");
+        System.out.println("Contenu du coffre à " + block2 + ": ");
+        loot2.getEquipments().forEach(item -> System.out.println("   - " + item.getName()));
 
         Inventory loot3 = chestManager.openChest(block3);
-        System.out.println("Contenu du coffre à " + block3 + ": " + loot3.size() + " objet(s)");
+        System.out.println("Contenu du coffre à " + block3 + ": ");
+        loot3.getEquipments().forEach(item -> System.out.println("   - " + item.getName()));
 
         // Tentative d'ouverture d'un coffre déjà ouvert
         Inventory loot4 = chestManager.openChest(block1); // Coffre déjà ouvert
@@ -103,5 +113,7 @@ public class ChestManager {
             System.out.println("   - Coffre à " + block + " | Ouvert : " + chest.isOpened());
         }
     }
+
+
 
 }

@@ -1,9 +1,18 @@
 package data.item;
 
+import java.util.Random;
+
 public class Chest {
 
     private Inventory inventory; // Inventaire du coffre
     private boolean opened; // Indique si le coffre a été ouvert
+
+    // Tableau d'objets Equipment
+    private static final Equipment[] possibleItems = {
+        new Equipment("axe"),
+        new Equipment("woodsword"),
+        new Equipment("woodstick"),
+    };
 
     /**
      * Constructeur du coffre initialisé avec quelques objets aléatoires.
@@ -11,10 +20,26 @@ public class Chest {
     public Chest() {
         this.inventory = new Inventory(); // Création d'un inventaire pour stocker les objets
         this.opened = false;
-        // Exemple : Ajout d'objets par défaut
-        inventory.addEquipment(new Equipment("Potion"));
-        inventory.addEquipment(new Equipment("Épée"));
+        fillChestWithRandomItems(); // Remplir le coffre avec des objets aléatoires
     }
+
+    /**
+     * Remplir le coffre avec des objets aléatoires.
+     */
+    private void fillChestWithRandomItems() {
+        Random random = new Random();
+        
+        // Nombre d'objets à ajouter (entre 1 et 3)
+        int numberOfItems = random.nextInt(3) + 1;
+        
+        for (int i = 0; i < numberOfItems; i++) {
+            // Choisir un objet aléatoire parmi possibleItems
+            Equipment item = possibleItems[random.nextInt(possibleItems.length)];
+            addItem(item); // Ajouter l'équipement à l'inventaire du coffre
+            System.out.println("Ajout de l'objet au coffre: " + item.getName()); // Debugging
+        }
+    }
+
 
     /**
      * Ouvre le coffre et retourne son contenu sous forme d'inventaire.
@@ -23,12 +48,11 @@ public class Chest {
     public Inventory open() {
         if (!opened) {
             opened = true;
-            Inventory loot = inventory; // Récupération du contenu du coffre
-            inventory = new Inventory(); // Vider le coffre en recréant un inventaire vide
-            return loot;
+            return inventory; // Retourne le contenu sans vider le coffre
         }
-        return new Inventory(); // Retourne un inventaire vide si le coffre a déjà été ouvert
+        return inventory; // Retourne le même inventaire à chaque ouverture
     }
+
 
     /**
      * Vérifie si le coffre a été ouvert.
@@ -43,7 +67,13 @@ public class Chest {
      * @param item L'équipement à ajouter au coffre.
      */
     public void addItem(Equipment item) {
-        inventory.addEquipment(item);
+    	
+    	if (item != null) {
+            inventory.getEquipments().add(item);
+            System.out.println("[LOG] Ajouté au coffre : " + item.getName());
+        } else {
+            System.out.println("[LOG] Tentative d'ajout d'équipement nul.");
+        }
     }
 
     /**
@@ -61,36 +91,71 @@ public class Chest {
         inventory = new Inventory(); // Réinitialise l'inventaire du coffre
     }
 
-    // === Main interne pour tester la classe ===
+ // === Main interne pour tester la classe ===
     public static void main(String[] args) {
         System.out.println("=== Test de la classe Chest ===");
 
         // Création d'un coffre
         Chest chest = new Chest();
-        System.out.println("Coffre créé avec les objets : " + chest.getInventory().size());
+        System.out.println("Coffre créé avec les objets :");
+        if (chest.getInventory().size() > 0) {
+            for (Equipment item : chest.getInventory().getEquipments()) {
+                System.out.println("  - " + item.getName());
+            }
+        } else {
+            System.out.println("  Le coffre est vide.");
+        }
 
-        // Ajout d'objets au coffre
-        chest.addItem(new Equipment("Bouclier"));
-        chest.addItem(new Equipment("Arc"));
-        System.out.println("Objets après ajout : " + chest.getInventory().size());
+       
 
         // Vérification de l'état du coffre
-        System.out.println("Le coffre est-il ouvert ? " + chest.isOpened());
+        System.out.println("\nLe coffre est-il ouvert ? " + chest.isOpened());
 
         // Ouverture du coffre
         Inventory loot = chest.open();
-        System.out.println("Contenu du coffre lors de l'ouverture : " + loot.size());
+        System.out.println("\nContenu du coffre lors de l'ouverture :");
+        if (loot.size() > 0) {
+            for (Equipment item : loot.getEquipments()) {
+                System.out.println("  - " + item.getName());
+            }
+        } else {
+            System.out.println("  L'inventaire est vide.");
+        }
 
         // Vérification après ouverture
-        System.out.println("Le coffre est-il ouvert ? " + chest.isOpened());
-        System.out.println("Contenu du coffre après ouverture : " + chest.getInventory().size());
+        System.out.println("\nLe coffre est-il ouvert ? " + chest.isOpened());
+        System.out.println("Contenu du coffre après ouverture :");
+        if (chest.getInventory().size() > 0) {
+            for (Equipment item : chest.getInventory().getEquipments()) {
+                System.out.println("  - " + item.getName());
+            }
+        } else {
+            System.out.println("  Le coffre est vide.");
+        }
 
-        // Tentative d'ouverture d'un coffre déjà ouvert
+        // Tentative de réouverture d'un coffre déjà ouvert
         Inventory emptyLoot = chest.open();
-        System.out.println("Tentative de réouverture : " + emptyLoot.size());
+        System.out.println("\nTentative de réouverture :");
+        if (emptyLoot.size() > 0) {
+            for (Equipment item : emptyLoot.getEquipments()) {
+                System.out.println("  - " + item.getName());
+            }
+        } else {
+            System.out.println("  L'inventaire est vide.");
+        }
 
         // Nettoyage du coffre
         chest.clearItems();
-        System.out.println("Contenu du coffre après nettoyage : " + chest.getInventory().size());
+        System.out.println("\nContenu du coffre après nettoyage :");
+        if (chest.getInventory().size() > 0) {
+            for (Equipment item : chest.getInventory().getEquipments()) {
+                System.out.println("  - " + item.getName());
+            }
+        } else {
+            System.out.println("  Le coffre est vide.");
+        }
     }
+
+
+
 }

@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import data.item.Chest;
+import data.item.Inventory;
 import data.map.Block;
 import data.map.Map;
 import data.player.Antagonist;
@@ -287,18 +288,23 @@ public class GameDisplay extends JPanel {
     }
     
  // Méthode pour ouvrir un coffre à proximité
-    public void openNearbyChest() {
-        Block nearbyChestPosition = getNearbyChestPosition(); // Utilise la méthode fournie pour trouver le coffre
+    public Chest openNearbyChest() {
+        Block chestPos = getNearbyChestPosition(); // Vérifie s'il y a un coffre proche
+        if (chestPos != null) {
+            Chest chest = map.getChestManager().getChests().get(chestPos); // Récupère le coffre
+            map.getChestManager().openChest(chestPos);
+            Inventory inventory = chest.getInventory();
+            System.out.println("[LOG] Inventaire du coffre après ajout : " + inventory.size() + " éléments.");
 
-        if (nearbyChestPosition != null) {
-            // Coffre trouvé à proximité, on peut ouvrir le coffre
-            System.out.println("Coffre ouvert à : " + nearbyChestPosition.getLine() + ", " + nearbyChestPosition.getColumn());
-            // Vous pouvez ici appeler une méthode pour ouvrir le coffre (par exemple une méthode open() sur un objet coffre)
-            // Par exemple: map.openChest(nearbyChestPosition);
-        } else {
-            System.out.println("Aucun coffre à proximité.");
-        }
+                return chest; // Retourne le coffre pour affichage
+            }
+        return null; // Aucun coffre à proximité
     }
+
+
+
+    
+
 
     
     
@@ -323,8 +329,20 @@ public class GameDisplay extends JPanel {
         // Appeler repaint pour assurer l'affichage
         gameDisplay.repaint();
 
+        // Tester les coffres et vérifier leur contenu
+        System.out.println("Vérification du contenu des coffres :");
+        for (Block chestBlock : gameDisplay.getMap().getChestManager().getChests().keySet()) {
+            Chest chest = gameDisplay.getMap().getChestManager().getChests().get(chestBlock);
+            if (chest != null && !chest.getInventory().isFull()) {
+                System.out.println("Coffre à " + chestBlock + " contient : " + chest.getInventory());
+            } else {
+                System.out.println("Coffre à " + chestBlock + " est vide.");
+            }
+        }
+
         // Déplacer le héros et tester l'affichage
         Block newPosition = gameDisplay.getMap().getBlock(5, 5);
         gameDisplay.moveHero(newPosition);
     }
+
 }

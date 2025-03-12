@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import data.item.Chest;
 import data.item.InventoryManager;
 import data.map.Block;
 
@@ -54,14 +55,20 @@ public class MainGUI extends JFrame {
 
             isInteracting = true;  // Début d'une interaction
 
-            // Appel de la méthode pour ouvrir le coffre si à proximité
-            Block chestPos = dashboard.getNearbyChestPosition();
-            if (chestPos != null) {
-                dashboard.openNearbyChest();  // Ouvre le coffre
-                System.out.println("Coffre ouvert à : " + chestPos.getLine() + ", " + chestPos.getColumn());
+         // Appel de la méthode pour ouvrir le coffre si à proximité
+            Chest chest = dashboard.openNearbyChest(); // Récupère le coffre ouvert
+            
+
+            if (chest != null) {
+                System.out.println("Coffre ouvert à cette position !");
+
+                ChestUIManager chestUIManager = new ChestUIManager();
+                chestUIManager.displayChestContents(chest); // Passe le coffre en paramètre
+
             } else {
                 System.out.println("Aucun coffre à proximité pour interagir !");
             }
+
 
             // Réinitialiser isInteracting à false après l'interaction
             isInteracting = false;
