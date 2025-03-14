@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import data.item.Chest;
 import data.item.Coin;
+import data.item.Equipment;
 import data.item.Inventory;
 import data.map.Block;
 import data.map.Map;
@@ -319,13 +320,13 @@ public class GameDisplay extends JPanel {
         if (chestPos != null) {
             Chest chest = map.getChestManager().getChests().get(chestPos); // Récupère le coffre
             map.getChestManager().openChest(chestPos);
-            Inventory inventory = chest.getInventory();
-            System.out.println("[LOG] Inventaire du coffre après ajout : " + inventory.size() + " éléments.");
-
-                return chest; // Retourne le coffre pour affichage
-            }
-        return null; // Aucun coffre à proximité
+            return chest; // ✅ Retourne juste le coffre, SANS ajouter les objets à l'inventaire
+        }
+        return null;
     }
+
+
+
 
 
 

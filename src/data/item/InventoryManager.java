@@ -29,32 +29,27 @@ public class InventoryManager extends JPanel {
     public void updateInventoryDisplay() {
         removeAll(); // Supprime les éléments existants pour rafraîchir l'affichage
 
-        for (int i = 0; i < 5; i++) { // Affiche toujours au moins 5 emplacements
+        for (int i = 0; i < 5; i++) { // Toujours 5 emplacements visibles
             JButton button = new JButton("Vide"); // Bouton par défaut
-            
-            if (i < inventory.size()) { // Si un objet est présent à cet emplacement
+
+            if (i < inventory.size()) { // Si un objet est présent
                 Equipment item = inventory.getEquipmentAt(i);
-                button.setToolTipText(item.getName()); // Affiche le nom au survol
-                button.setText(item.getName()); // Affiche le nom sur le bouton
-                
-                ImageIcon itemImage = loadImage(item.getName()); // Charge l'image associée
+                button.setToolTipText(item.getName());
+                button.setText(item.getName());
+
+                ImageIcon itemImage = loadImage(item.getName());
                 if (itemImage != null) {
-                    button.setIcon(itemImage); // Ajoute l'icône de l'objet
+                    button.setIcon(itemImage);
                 }
             }
-            
-            // Ajoute un ActionListener pour redonner le focus après un clic
-            button.addActionListener(e -> {
-                System.out.println("Bouton de l'inventaire cliqué : " + button.getText());
-                SwingUtilities.getWindowAncestor(this).requestFocusInWindow();
-            });
 
-            add(button); // Ajoute le bouton au panneau
+            add(button); // Ajoute le bouton mis à jour
         }
 
-        revalidate(); // Met à jour la disposition des composants
-        repaint(); // Redessine l'interface
+        revalidate();
+        repaint();
     }
+
 
 
     /**
@@ -67,4 +62,9 @@ public class InventoryManager extends JPanel {
         ImageIcon icon = new ImageIcon(path);
         return icon.getIconWidth() > 0 ? icon : null; // Vérifie si l'image est valide
     }
+
+	public Inventory getInventory() {
+		// TODO Auto-generated method stub
+		return inventory;
+	}
 }

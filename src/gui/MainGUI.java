@@ -6,10 +6,12 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import data.item.Chest;
+import data.item.Inventory;
 import data.item.InventoryManager;
 import data.map.Block;
 
@@ -49,33 +51,24 @@ public class MainGUI extends JFrame {
 
         interactionButton = new JButton("Interagir");
         interactionButton.addActionListener(e -> {
-            if (isInteracting) {
-                return;  // Empêche de débuter une nouvelle interaction si déjà en cours
-            }
+            if (isInteracting) return;
 
-            isInteracting = true;  // Début d'une interaction
-
-         // Appel de la méthode pour ouvrir le coffre si à proximité
-            Chest chest = dashboard.openNearbyChest(); // Récupère le coffre ouvert
-            
+            isInteracting = true;
+            Chest chest = dashboard.openNearbyChest(); // ✅ Appel sans `this`
 
             if (chest != null) {
-                System.out.println("Coffre ouvert à cette position !");
-
-                ChestUIManager chestUIManager = new ChestUIManager();
-                chestUIManager.displayChestContents(chest); // Passe le coffre en paramètre
-
+                ChestUIManager chestUIManager = new ChestUIManager(this);
+                chestUIManager.displayChestContents(chest);
             } else {
-                System.out.println("Aucun coffre à proximité pour interagir !");
+                JOptionPane.showMessageDialog(this, "Aucun coffre à proximité !");
             }
 
-
-            // Réinitialiser isInteracting à false après l'interaction
             isInteracting = false;
-            
-            // Redonne le focus à la fenêtre pour permettre les déplacements après l'interaction
             requestFocusInWindow();
         });
+
+
+
 
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -135,6 +128,14 @@ public class MainGUI extends JFrame {
         } else {
             System.out.println("Déplacement bloqué !");
         }
+    }
+    
+    public Inventory getInventory() {
+        return inventory.getInventory();
+    }
+
+    public InventoryManager getInventoryManager() {
+        return inventory;
     }
 
     /**
