@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 
 public class EnemyImageManager {
 
-    private HashMap<String, ArrayList<Image>> enemyImages; // Maintenant, on stocke une liste de frames par ennemi.
+    private HashMap<String, ArrayList<Image>> enemyImages; // Stocke une liste de frames pour chaque ennemi.
 
     public EnemyImageManager() {
         enemyImages = new HashMap<>();
@@ -19,44 +19,50 @@ public class EnemyImageManager {
 
     private void loadImages() {
         try {
-            System.out.println("Chargement des images ennemies...");
-            // Chargement les sprites de squelettes et autres ennemis
-            enemyImages.put("skeleton", loadSpriteSheet("src/images/enemies/skeleton.png", 32, 32, 4));  // 4 frames par ligne
-            enemyImages.put("slime", loadSpriteSheet("src/images/enemies/slime.png", 32, 32, 4));  // 4 frames par ligne
-            enemyImages.put("slime_green2", loadSpriteSheet("src/images/enemies/slime_green2.png", 32, 32, 2));	// 2 frames par ligne
-            System.out.println("✅ Images ennemies chargées !");
+            System.out.println("🔄 Chargement des images des ennemis...");
+
+            // Chargement des ennemis normaux
+            enemyImages.put("skeleton", loadSpriteSheet("src/images/enemies/skeleton.png", 32, 32, 0, 3));
+            enemyImages.put("slime_green", loadSpriteSheet("src/images/enemies/slime_green2.png", 32, 32, 0, 1));
+
+            // 🔥 Charger uniquement les frames de saut pour le slime violet (exclut l'explosion)
+            enemyImages.put("slime", loadSpriteSheet("src/images/enemies/slime.png", 32, 32, 0, 3));
+
+            System.out.println("✅ Toutes les images des ennemis ont été chargées !");
         } catch (Exception e) {
-            System.out.println("❌ ERREUR lors du chargement des images ennemies !");
+            System.out.println("❌ ERREUR lors du chargement des images des ennemis !");
             e.printStackTrace();
         }
     }
 
-    private ArrayList<Image> loadSpriteSheet(String path, int frameWidth, int frameHeight, int framesPerRow) throws IOException {
+
+    private ArrayList<Image> loadSpriteSheet(String path, int frameWidth, int frameHeight, int startFrame, int endFrame) throws IOException {
         ArrayList<Image> frames = new ArrayList<>();
         File spriteSheetFile = new File(path);
-        Image spriteSheet = ImageIO.read(spriteSheetFile);
 
-        if (spriteSheet == null) {
-            System.out.println("❌ ERREUR : Impossible de charger la spritesheet depuis : " + path);
+        if (!spriteSheetFile.exists()) {
+            System.out.println("❌ ERREUR : Le fichier de spritesheet n'existe pas : " + path);
             return frames;
         }
 
-        int spriteSheetWidth = spriteSheet.getWidth(null);
-        int spriteSheetHeight = spriteSheet.getHeight(null);
+        BufferedImage spriteSheet = ImageIO.read(spriteSheetFile);
+        int spriteSheetWidth = spriteSheet.getWidth();
+        int framesPerRow = spriteSheetWidth / frameWidth;
 
-        // Découpe de la spritesheet en fonction des dimensions des frames
-        for (int row = 0; row < spriteSheetHeight / frameHeight; row++) {
-            for (int col = 0; col < framesPerRow; col++) {
-                int x = col * frameWidth;
-                int y = row * frameHeight;
-                frames.add(((BufferedImage) spriteSheet).getSubimage(x, y, frameWidth, frameHeight));
-            }
+        System.out.println("📌 Découpe de " + path + " en frames de " + startFrame + " à " + endFrame);
+
+        // Charger uniquement les frames spécifiées
+        for (int i = startFrame; i <= endFrame; i++) {
+            int x = (i % framesPerRow) * frameWidth;
+            int y = (i / framesPerRow) * frameHeight;
+            frames.add(spriteSheet.getSubimage(x, y, frameWidth, frameHeight));
         }
 
         return frames;
     }
 
+
     public ArrayList<Image> getEnemyImages(String enemyType) {
-        return enemyImages.get(enemyType);
+        return enemyImages.getOrDefault(enemyType, new ArrayList<>());
     }
 }

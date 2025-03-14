@@ -3,7 +3,10 @@ package data.map;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
+
 import data.item.ChestManager;
+import data.item.Coin;
 
 public class Map {
     private Block[][] blocks;
@@ -16,6 +19,8 @@ public class Map {
     private int lineCount;
     private int columnCount;
     private int maxChests;
+    private ArrayList<Coin> coins;
+
 
     public Map(int lineCount, int columnCount, int maxChest) {
         this.lineCount = lineCount;
@@ -60,9 +65,38 @@ public class Map {
                 }
             }
         }
+        
+        this.coins = new ArrayList<>();
+        generateCoins(10); // Génère 10 pièces sur des blocs libres
     }
 
-    public HashMap<Block, String> getStaticTerrain() {
+    private void generateCoins(int coinCount) {
+        ArrayList<Block> freeBlocks = getFreeBlocks(); // Récupère les blocs libres
+        Random random = new Random();
+
+        int generatedCoins = 0;
+        while (generatedCoins < coinCount && !freeBlocks.isEmpty()) {
+            int index = random.nextInt(freeBlocks.size());
+            Block block = freeBlocks.get(index);
+
+            // Vérifier que le bloc ne contient PAS d'ennemi et que ce n'est PAS de l'eau
+            if (!enemies.containsKey(block) && !staticTerrain.getOrDefault(block, "").equals("water")) {
+                coins.add(new Coin(block)); // Ajouter une pièce sur ce bloc
+                freeBlocks.remove(index); // Retirer pour éviter un double spawn
+                generatedCoins++;
+            }
+        }
+    }
+
+
+
+    
+    public ArrayList<Coin> getCoins(){
+    	return coins;
+    }
+    
+    
+	public HashMap<Block, String> getStaticTerrain() {
         return staticTerrain;
     }
 
@@ -114,6 +148,8 @@ public class Map {
                 }
             }
         }
+        
+  
     }
 
 
@@ -131,6 +167,8 @@ public class Map {
         }
         return freeBlocks;
     }
+    
+    
 
     public boolean isBlocked(Block block) {
         return obstacles.containsKey(block) || terrainBlocked.getOrDefault(block, false) ||
@@ -166,10 +204,6 @@ public class Map {
         return enemies;
     }
 
-    public HashMap<String, Image> getCoins() {
-        // TODO Auto-generated method stub
-        return null;
-    }
     
     public ChestManager getChestManager() {
         return chestManager;
