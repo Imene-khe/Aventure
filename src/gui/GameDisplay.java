@@ -189,31 +189,37 @@ public class GameDisplay extends JPanel {
      * Si la position contient un ennemi, le héros perd de la vie.
      * @param newPosition La nouvelle position du héros
      */
-    public void moveHero(Block newPosition) {
+    public void moveHero(Block newPosition, MainGUI mainGUI) {
         if (map.getEnemies().containsKey(newPosition)) {
-            hero.takeDamage(10);  // Le héros perd 10% de vie s'il touche un ennemi
+            hero.takeDamage(10);  // Le héros perd de la vie en touchant un ennemi
         }
 
         hero.setPosition(newPosition);
-        checkHeroCoinCollision(); // Vérifie si une pièce est ramassée en passant dessus
+        checkHeroCoinCollision(mainGUI); // ✅ Vérifier si une pièce est ramassée
         repaint();
     }
 
 
-    public void checkHeroCoinCollision() {
+
+    public void checkHeroCoinCollision(MainGUI mainGUI) {
         ArrayList<Coin> collectedCoins = new ArrayList<>();
 
         for (Coin coin : map.getCoins()) {
             if (!coin.isCollected() && coin.getBlock().equals(hero.getPosition())) {
                 coin.collect();
                 collectedCoins.add(coin);
-                System.out.println("💰 Pièce ramassée !");
+
+                // ✅ Augmenter le compteur de pièces dans MainGUI
+                mainGUI.incrementCoinCount();
+                
+                System.out.println("💰 Pièce ramassée ! Total : " + mainGUI.getCoinCount());
             }
         }
 
         // Supprimer les pièces collectées de la carte
         map.getCoins().removeAll(collectedCoins);
     }
+
 
 
 	/**
@@ -369,7 +375,7 @@ public class GameDisplay extends JPanel {
 
         // Déplacer le héros et tester l'affichage
         Block newPosition = gameDisplay.getMap().getBlock(5, 5);
-        gameDisplay.moveHero(newPosition);
+        //gameDisplay.moveHero(newPosition);
     }
 
 }

@@ -6,6 +6,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -29,6 +30,9 @@ public class MainGUI extends JFrame {
     // Ajout du bouton d'interaction (dialogue, ouverture...)
     private JButton interactionButton;
     private boolean isInteracting;
+    private int coinCount = 0; // Nombre de pièces ramassées
+    private JLabel coinLabel;  // Label pour afficher le compteur
+
 
     /**
      * Constructeur de la classe. Il initialise la fenêtre, les composants graphiques
@@ -83,9 +87,30 @@ public class MainGUI extends JFrame {
                 moveHero(e.getKeyCode());
             }
         });
+        
+        coinLabel = new JLabel("💰 Pièces : " + coinCount);
+        JPanel coinPanel = new JPanel();
+        coinPanel.add(coinLabel);
+
+        // Placer le compteur en haut à gauche
+        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        topPanel.add(coinPanel);
+
+        // Ajouter le compteur à la fenêtre principale
+        mainPanel.add(topPanel, BorderLayout.NORTH);
+
 
         setFocusable(true);
         setVisible(true);
+    }
+
+    public void incrementCoinCount() {
+        coinCount++;
+        coinLabel.setText("💰 Pièces : " + coinCount);
+    }
+
+    public int getCoinCount() {
+        return coinCount;
     }
 
     /**
@@ -93,16 +118,11 @@ public class MainGUI extends JFrame {
      * @param keyCode Le code de la touche pressée
      */
     public void moveHero(int keyCode) {
-        // Si le héros est en interaction, on ne bloque pas son mouvement
-        if (isInteracting) {
-            System.out.println("Interagir en cours, mais mouvement possible...");
-            return;  // Le mouvement est possible, mais l'interaction doit être gérée avant
-        }
+        if (isInteracting) return; // Empêche le déplacement si une interaction est en cours
 
-        Block currentPos = dashboard.getHero().getPosition();  // Récupère la position actuelle du héros
-        Block newPos = currentPos;  // Par défaut, la nouvelle position est l'ancienne
+        Block currentPos = dashboard.getHero().getPosition();
+        Block newPos = currentPos;
 
-        // Déterminer la nouvelle position en fonction de la touche pressée
         if (keyCode == KeyEvent.VK_LEFT && currentPos.getColumn() > 0) {
             newPos = dashboard.getMap().getBlock(currentPos.getLine(), currentPos.getColumn() - 1);
             dashboard.getHero().moveLeft();
@@ -117,18 +137,11 @@ public class MainGUI extends JFrame {
             dashboard.getHero().moveDown();
         }
 
-        // Vérifier si la nouvelle position est valide (non bloquée)
         if (!dashboard.getMap().isBlocked(newPos)) {
-            // Effacer l'ancienne position du héros avant de le déplacer
-            dashboard.repaint(currentPos.getColumn() * 32, currentPos.getLine() * 32, 32, 32);
-            dashboard.getHero().setPosition(newPos);
-            System.out.println("Héros déplacé à : " + newPos.getLine() + ", " + newPos.getColumn());
-            // Redessiner la nouvelle position du héros
-            dashboard.repaint(newPos.getColumn() * 32, newPos.getLine() * 32, 32, 32);
-        } else {
-            System.out.println("Déplacement bloqué !");
+            dashboard.moveHero(newPos, this); // ✅ On passe `this` pour mettre à jour les pièces ramassées
         }
     }
+
     
     public Inventory getInventory() {
         return inventory.getInventory();
