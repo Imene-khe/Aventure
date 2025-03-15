@@ -26,8 +26,10 @@ public class Map {
         this.lineCount = lineCount;
         this.columnCount = columnCount;
         this.blocks = new Block[lineCount][columnCount];
-        this.chestManager = new ChestManager(); // Initialisation du ChestManager
+        this.chestManager = new ChestManager();
         this.maxChests = maxChest;
+        this.enemies = new HashMap<>();
+        this.coins = new ArrayList<>(); // ✅ Initialisation de coins avant utilisation
 
         // Création des blocs
         for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
@@ -50,24 +52,30 @@ public class Map {
                 }
             }
         }
-        
-        generateObjects(); // Générez les objets (arbres, maisons, coffres)
 
-        // Ajout des ennemis
-        for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
-            for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
-                Block block = blocks[lineIndex][columnIndex];
-                double random = Math.random();
-                if (random < 0.12) {
-                    enemies.put(block, "skeleton");
-                } else if (random < 0.15) {
-                    enemies.put(block, "slime");
-                }
-            }
+        generateObjects(); // Générer les objets (arbres, maisons, coffres)
+        generateEnemies(); // Générer les ennemis (sans images)
+        generateCoins(10); // ✅ Plus d'erreur car coins est initialisé
+    }
+
+    
+    private void generateEnemies() {
+        ArrayList<Block> freeBlocks = getFreeBlocks();
+        Random random = new Random();
+        int maxEnemies = 10; // Nombre max d'ennemis sur la carte
+        int generatedEnemies = 0;
+
+        while (generatedEnemies < maxEnemies && !freeBlocks.isEmpty()) {
+            int index = random.nextInt(freeBlocks.size());
+            Block block = freeBlocks.remove(index); // Sélectionner un bloc libre
+
+            double rand = Math.random();
+            String enemyType = (rand < 0.5) ? "skeleton" : "slime";
+
+            // Stocker uniquement la position et le type de l'ennemi
+            enemies.put(block, enemyType);
+            generatedEnemies++;
         }
-        
-        this.coins = new ArrayList<>();
-        generateCoins(10); // Génère 10 pièces sur des blocs libres
     }
 
     private void generateCoins(int coinCount) {
@@ -210,21 +218,62 @@ public class Map {
     } 
     
     public static void main(String[] args) {
-        // Création d'une carte de taille 10x10 avec un max de 5 coffres
+        // ✅ Création d'une carte de test (10x10 avec 5 coffres)
+        System.out.println("🔄 Initialisation de la carte...");
         Map map = new Map(10, 10, 5);
 
-        // Affichage du nombre total de coffres générés
-        System.out.println("Nombre de coffres générés : " + map.getChestManager().getChests().size());
-
-        // Vérification des ennemis ajoutés (si applicable)
-        if (map.getEnemies() != null) {
-            System.out.println("Nombre total d'ennemis : " + map.getEnemies().size());
-        } else {
-            System.out.println("Aucun ennemi généré.");
+        // ✅ Vérification des terrains générés
+        System.out.println("\n📌 Vérification des terrains générés :");
+        for (int i = 0; i < map.getLineCount(); i++) {
+            for (int j = 0; j < map.getColumnCount(); j++) {
+                Block block = map.getBlock(i, j);
+                String terrain = map.getStaticTerrain().getOrDefault(block, "grass");
+                System.out.print(terrain.substring(0, 1).toUpperCase() + " "); // Affichage simplifié (G = grass, W = water, P = path)
+            }
+            System.out.println();
         }
 
-        // Vérification du nombre de blocs libres
+        // ✅ Vérification des objets statiques
+        System.out.println("\n🏠 Objets statiques générés (maisons, arbres, coffres) :");
+        for (Block block : map.getStaticObjects().keySet()) {
+            System.out.println("📍 " + block + " → " + map.getStaticObjects().get(block));
+        }
+
+        // ✅ Vérification du nombre total de coffres générés
+        int nbCoffres = map.getChestManager().getChests().size();
+        System.out.println("\n🗃 Nombre de coffres générés : " + nbCoffres);
+
+        // ✅ Vérification des ennemis générés
+        System.out.println("\n👿 Liste des ennemis générés :");
+        if (!map.getEnemies().isEmpty()) {
+            for (Block block : map.getEnemies().keySet()) {
+                System.out.println("⚔ Ennemi " + map.getEnemies().get(block) + " positionné à " + block);
+            }
+        } else {
+            System.out.println("❌ Aucun ennemi généré !");
+        }
+
+        // ✅ Vérification des pièces générées
+        System.out.println("\n💰 Liste des pièces générées :");
+        if (!map.getCoins().isEmpty()) {
+            for (Coin coin : map.getCoins()) {
+                System.out.println("🟡 Pièce placée à " + coin.getBlock());
+            }
+        } else {
+            System.out.println("❌ Aucune pièce générée !");
+        }
+
+        // ✅ Vérification du nombre de blocs libres
         ArrayList<Block> freeBlocks = map.getFreeBlocks();
-        System.out.println("Nombre de blocs libres : " + freeBlocks.size());
+        System.out.println("\n🟢 Nombre de blocs libres (sans objets ni ennemis) : " + freeBlocks.size());
+
+        // ✅ Vérification de l'affichage d'un bloc spécifique
+        int testLine = 2, testColumn = 2;
+        Block testBlock = map.getBlock(testLine, testColumn);
+        System.out.println("\n📍 Vérification du bloc (" + testLine + "," + testColumn + ") :");
+        System.out.println("🗺 Terrain : " + map.getStaticTerrain().getOrDefault(testBlock, "grass"));
+        System.out.println("🏠 Objet : " + map.getStaticObjects().getOrDefault(testBlock, "Aucun"));
+        System.out.println("👿 Ennemi : " + map.getEnemies().getOrDefault(testBlock, "Aucun"));
     }
+
 }

@@ -118,29 +118,29 @@ public class MainGUI extends JFrame {
      * @param keyCode Le code de la touche pressée
      */
     public void moveHero(int keyCode) {
-        if (isInteracting) return; // Empêche le déplacement si une interaction est en cours
-
         Block currentPos = dashboard.getHero().getPosition();
         Block newPos = currentPos;
 
         if (keyCode == KeyEvent.VK_LEFT && currentPos.getColumn() > 0) {
             newPos = dashboard.getMap().getBlock(currentPos.getLine(), currentPos.getColumn() - 1);
-            dashboard.getHero().moveLeft();
         } else if (keyCode == KeyEvent.VK_RIGHT && currentPos.getColumn() < dashboard.getMap().getColumnCount() - 1) {
             newPos = dashboard.getMap().getBlock(currentPos.getLine(), currentPos.getColumn() + 1);
-            dashboard.getHero().moveRight();
         } else if (keyCode == KeyEvent.VK_UP && currentPos.getLine() > 0) {
             newPos = dashboard.getMap().getBlock(currentPos.getLine() - 1, currentPos.getColumn());
-            dashboard.getHero().moveUp();
         } else if (keyCode == KeyEvent.VK_DOWN && currentPos.getLine() < dashboard.getMap().getLineCount() - 1) {
             newPos = dashboard.getMap().getBlock(currentPos.getLine() + 1, currentPos.getColumn());
-            dashboard.getHero().moveDown();
         }
 
         if (!dashboard.getMap().isBlocked(newPos)) {
-            dashboard.moveHero(newPos, this); // ✅ On passe `this` pour mettre à jour les pièces ramassées
+            dashboard.moveHero(newPos, this); // ✅ Passe `this` pour mettre à jour les pièces collectées
+            System.out.println("🚶 Héros déplacé à : " + newPos.getLine() + ", " + newPos.getColumn());
+        } else {
+            System.out.println("❌ Déplacement bloqué !");
         }
     }
+
+
+
 
     
     public Inventory getInventory() {

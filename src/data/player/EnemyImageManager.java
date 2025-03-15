@@ -65,4 +65,17 @@ public class EnemyImageManager {
     public ArrayList<Image> getEnemyImages(String enemyType) {
         return enemyImages.getOrDefault(enemyType, new ArrayList<>());
     }
+    
+    public Image getEnemyImage(String enemyType, int frameIndex) {
+        ArrayList<Image> frames = enemyImages.get(enemyType);
+
+        if (frames == null || frames.isEmpty()) {
+            System.out.println("⚠ Avertissement : Aucune image trouvée pour l'ennemi '" + enemyType + "'");
+            return null; // Retourne `null` si l'ennemi n'a pas d'image chargée
+        }
+
+        // Assurer que l'index demandé est valide
+        return frames.get(frameIndex % frames.size()); // Utilisation de `%` pour boucler en cas de dépassement
+    }
+
 }
