@@ -64,6 +64,8 @@ public class Hero extends Person {
         spriteY = 0;  // 🔄 Ligne 1 -> Héros regarde en bas
         spriteX = (spriteX + 32) % (32 * 3);
     }
+    
+    // la normalement les modifications et les ajouts font que on voit les changement 
 
     // 
     public void draw(Graphics g, int blockSize) {

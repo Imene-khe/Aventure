@@ -2,17 +2,24 @@ package data.player;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import data.map.Block;
+import gui.GameDisplay; // Assurez-vous d'avoir accès au GameDisplay
+import gui.MainGUI;
 
 public class Hero extends Person {
-    private int spriteX = 0;  // Animation frame (horizontale)
-    private int spriteY = 0;  // Direction (verticale)
-    private boolean isFlipped = false;  //  Permet d'inverser l'image pour la gauche
-    private Image heroSprite;  //  Stocke l'image du héros
+    private int spriteX = 0;  // Frame d'animation
+    private int spriteY = 0;  // Ligne du sprite pour la direction
+    private boolean isFlipped = false;  // Gère l'inversion pour la gauche
+    private Image heroSprite;  // Image du sprite sheet
+
+    private static final int SPRITE_WIDTH = 32;  // Largeur d'un sprite
+    private static final int SPRITE_HEIGHT = 32; // Hauteur d'un sprite
+    private static final int SPRITE_FRAMES = 3;  // Nombre de frames pour l'animation
 
     public Hero(Block startPosition, int health) {
         super(startPosition, health);
@@ -20,8 +27,8 @@ public class Hero extends Person {
     }
     
     public Hero(Block position) {
-    	super(position);
-    	loadHeroSprite();
+        super(position);
+        loadHeroSprite();
     }
 
     public void takeDamage(int amount) {
@@ -29,54 +36,92 @@ public class Hero extends Person {
         System.out.println("💥 Héros touché ! Vie restante : " + getHealth() + "%");
     }
 
-    // Charger l’image du hero
+    // Charger l’image du héros
     private void loadHeroSprite() {
         try {
             heroSprite = ImageIO.read(new File("src/images/player/Player.png"));
+            System.out.println("✅ Image du héros chargée !");
         } catch (IOException e) {
             System.out.println("❌ ERREUR : Impossible de charger l’image du héros !");
             e.printStackTrace();
         }
     }
 
-    // Déplacement à gauche (on inverse l’image)
+    // Mise à jour de l'animation (fait avancer le sprite)
+    private void updateAnimationFrame() {
+        spriteX = (spriteX + SPRITE_WIDTH) % (SPRITE_WIDTH * SPRITE_FRAMES);
+        System.out.println("🔄 Animation mise à jour : spriteX = " + spriteX);
+    }
+
     public void moveLeft() {
-        spriteY = 32;  
-        spriteX = (spriteX + 32) % (32 * 3);
-        isFlipped = true;  // Active l'effet miroir car il n'y a pas d'image pour la gauche
-    }
+        System.out.println("➡️ Déplacement à gauche !");
+        spriteY = SPRITE_HEIGHT;
+        isFlipped = true;
+        updateAnimationFrame();
 
-    // ✅ Déplacement à droite 
-    public void moveRight() {
-        spriteY = 32;  
-        spriteX = (spriteX + 32) % (32 * 3);
-        isFlipped = false;  
-    }
-
-    // ✅ Déplacement en haut
-    public void moveUp() {
-        spriteY = 64;  // 🔄 Ligne 3 -> Héros regarde en haut
-        spriteX = (spriteX + 32) % (32 * 3);
-    }
-
-    // Déplacement en bas
-    public void moveDown() {
-        spriteY = 0;  // 🔄 Ligne 1 -> Héros regarde en bas
-        spriteX = (spriteX + 32) % (32 * 3);
-    }
-
-    public void draw(Graphics g, int blockSize) {
-        int drawX = super.getPosition().getColumn() * blockSize;
-        int drawY = super.getPosition().getLine() * blockSize;
-
-        if (isFlipped) {
-            // Dessine l’image inversée pour la gauche
-            g.drawImage(heroSprite, drawX + blockSize, drawY, drawX, drawY + blockSize,
-                    spriteX, spriteY, spriteX + 32, spriteY + 32, null);
-        } else {
-            // Dessine l’image normalement
-            g.drawImage(heroSprite, drawX, drawY, drawX + blockSize, drawY + blockSize,
-                    spriteX, spriteY, spriteX + 32, spriteY + 32, null);
+        // Vérification que la case devant est libre
+        Block newPosition = new Block(getPosition().getLine(), getPosition().getColumn() - 1);
+        if (!MainGUI.getGameDisplay().getMap().isBlocked(newPosition)) {
+            setPosition(newPosition);
         }
     }
+
+    public void moveRight() {
+        System.out.println("➡️ Déplacement à droite !");
+        spriteY = SPRITE_HEIGHT;
+        isFlipped = false;
+        updateAnimationFrame();
+
+        Block newPosition = new Block(getPosition().getLine(), getPosition().getColumn() + 1);
+        if (!MainGUI.getGameDisplay().getMap().isBlocked(newPosition)) {
+            setPosition(newPosition);
+        }
+    }
+
+    public void moveUp() {
+        System.out.println("⬆️ Déplacement en haut !");
+        spriteY = SPRITE_HEIGHT * 2;
+        isFlipped = false;
+        updateAnimationFrame();
+
+        Block newPosition = new Block(getPosition().getLine() - 1, getPosition().getColumn());
+        if (!MainGUI.getGameDisplay().getMap().isBlocked(newPosition)) {
+            setPosition(newPosition);
+        }
+    }
+
+    public void moveDown() {
+        System.out.println("⬇️ Déplacement en bas !");
+        spriteY = 0;
+        isFlipped = false;
+        updateAnimationFrame();
+
+        Block newPosition = new Block(getPosition().getLine() + 1, getPosition().getColumn());
+        if (!MainGUI.getGameDisplay().getMap().isBlocked(newPosition)) {
+            setPosition(newPosition);
+        }
+    }
+
+
+    // Dessin du héros avec effet miroir pour la gauche
+    public void draw(Graphics g, int blockSize) {
+        int drawX = getPosition().getColumn() * blockSize;
+        int drawY = getPosition().getLine() * blockSize;
+
+        if (heroSprite != null) {
+            if (isFlipped) {
+                // 🔄 Effet miroir : Inverse l'image pour afficher le héros vers la gauche
+                g.drawImage(heroSprite, drawX + blockSize, drawY, drawX, drawY + blockSize,
+                        spriteX, spriteY, spriteX + SPRITE_WIDTH, spriteY + SPRITE_HEIGHT, null);
+            } else {
+                // 🎯 Affichage normal (vers la droite, le bas, ou le haut)
+                g.drawImage(heroSprite, drawX, drawY, drawX + blockSize, drawY + blockSize,
+                        spriteX, spriteY, spriteX + SPRITE_WIDTH, spriteY + SPRITE_HEIGHT, null);
+            }
+        } else {
+            System.out.println("⚠ BUG : Sprite du héros non chargé !");
+        }
+    }
+
 }
+

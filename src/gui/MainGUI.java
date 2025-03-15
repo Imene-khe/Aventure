@@ -15,11 +15,13 @@ import data.item.Chest;
 import data.item.Inventory;
 import data.item.InventoryManager;
 import data.map.Block;
-
+import data.player.Hero;
 
 public class MainGUI extends JFrame {
 
     private static final long serialVersionUID = 1L;
+
+    private static MainGUI instance; // Stocke l'instance pour accéder à getGameDisplay()
 
     // Affichage et gestion de la carte du jeu
     private GameDisplay dashboard;
@@ -33,13 +35,14 @@ public class MainGUI extends JFrame {
     private int coinCount = 0; // Nombre de pièces ramassées
     private JLabel coinLabel;  // Label pour afficher le compteur
 
-
     /**
      * Constructeur de la classe. Il initialise la fenêtre, les composants graphiques
      * et les actions du clavier.
      */
     public MainGUI() {
         super("Aventure - Déplacement du Héros");
+
+        instance = this; // Stocker l'instance actuelle pour l'accès statique
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 800);
@@ -58,7 +61,7 @@ public class MainGUI extends JFrame {
             if (isInteracting) return;
 
             isInteracting = true;
-            Chest chest = dashboard.openNearbyChest(); // ✅ Appel sans `this`
+            Chest chest = dashboard.openNearbyChest();
 
             if (chest != null) {
                 ChestUIManager chestUIManager = new ChestUIManager(this);
@@ -70,10 +73,6 @@ public class MainGUI extends JFrame {
             isInteracting = false;
             requestFocusInWindow();
         });
-
-
-
-
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         buttonPanel.add(interactionButton);
@@ -87,7 +86,7 @@ public class MainGUI extends JFrame {
                 moveHero(e.getKeyCode());
             }
         });
-        
+
         coinLabel = new JLabel("💰 Pièces : " + coinCount);
         JPanel coinPanel = new JPanel();
         coinPanel.add(coinLabel);
@@ -95,13 +94,15 @@ public class MainGUI extends JFrame {
         // Placer le compteur en haut à gauche
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         topPanel.add(coinPanel);
-
-        // Ajouter le compteur à la fenêtre principale
         mainPanel.add(topPanel, BorderLayout.NORTH);
-
 
         setFocusable(true);
         setVisible(true);
+        requestFocusInWindow(); // ✅ S'assure que le KeyListener reste actif
+    }
+
+    public static GameDisplay getGameDisplay() {
+        return instance != null ? instance.dashboard : null;
     }
 
     public void incrementCoinCount() {
@@ -118,31 +119,44 @@ public class MainGUI extends JFrame {
      * @param keyCode Le code de la touche pressée
      */
     public void moveHero(int keyCode) {
-        Block currentPos = dashboard.getHero().getPosition();
+        Hero hero = dashboard.getHero();
+        Block currentPos = hero.getPosition();
         Block newPos = currentPos;
 
-        if (keyCode == KeyEvent.VK_LEFT && currentPos.getColumn() > 0) {
+        if (keyCode == KeyEvent.VK_LEFT) {
             newPos = dashboard.getMap().getBlock(currentPos.getLine(), currentPos.getColumn() - 1);
-        } else if (keyCode == KeyEvent.VK_RIGHT && currentPos.getColumn() < dashboard.getMap().getColumnCount() - 1) {
+            if (!dashboard.getMap().isBlocked(newPos)) {
+                hero.moveLeft();
+                hero.setPosition(newPos);
+            }
+        } else if (keyCode == KeyEvent.VK_RIGHT) {
             newPos = dashboard.getMap().getBlock(currentPos.getLine(), currentPos.getColumn() + 1);
-        } else if (keyCode == KeyEvent.VK_UP && currentPos.getLine() > 0) {
+            if (!dashboard.getMap().isBlocked(newPos)) {
+                hero.moveRight();
+                hero.setPosition(newPos);
+            }
+        } else if (keyCode == KeyEvent.VK_UP) {
             newPos = dashboard.getMap().getBlock(currentPos.getLine() - 1, currentPos.getColumn());
-        } else if (keyCode == KeyEvent.VK_DOWN && currentPos.getLine() < dashboard.getMap().getLineCount() - 1) {
+            if (!dashboard.getMap().isBlocked(newPos)) {
+                hero.moveUp();
+                hero.setPosition(newPos);
+            }
+        } else if (keyCode == KeyEvent.VK_DOWN) {
             newPos = dashboard.getMap().getBlock(currentPos.getLine() + 1, currentPos.getColumn());
+            if (!dashboard.getMap().isBlocked(newPos)) {
+                hero.moveDown();
+                hero.setPosition(newPos);
+            }
         }
 
-        if (!dashboard.getMap().isBlocked(newPos)) {
-            dashboard.moveHero(newPos, this); // ✅ Passe `this` pour mettre à jour les pièces collectées
-            System.out.println("🚶 Héros déplacé à : " + newPos.getLine() + ", " + newPos.getColumn());
-        } else {
-            System.out.println("❌ Déplacement bloqué !");
-        }
+        // ✅ Vérifier si le héros marche sur une pièce
+        dashboard.checkHeroCoinCollision(this);
+
+        // 🔄 Rafraîchir l'affichage après le mouvement
+        dashboard.repaint();
     }
 
 
-
-
-    
     public Inventory getInventory() {
         return inventory.getInventory();
     }
@@ -159,3 +173,4 @@ public class MainGUI extends JFrame {
         SwingUtilities.invokeLater(MainGUI::new);
     }
 }
+
