@@ -17,6 +17,8 @@ import data.map.Block;
 import data.map.Map;
 import data.player.EnemyImageManager;
 import data.player.Hero;
+import data.quest.Quest;
+import data.quest.QuestManager;
 
 /**
  * Classe représentant l'affichage du jeu. Elle gère le rendu graphique de la CARTE, des ennemis, du héros
@@ -31,6 +33,8 @@ public class GameDisplay extends JPanel {
     private Hero hero; // Instance du héros
     private EnemyImageManager enemyImageManager; // Gestionnaire des images des ennemis
     private HashMap<String, Image> tileset; // Dictionnaire des images de terrain et objets
+    private QuestManager questManager; // Gestionnaire des quêtes
+
 
     /**
      * Constructeur de la classe. Initialise la carte, le héros et les images.
@@ -42,6 +46,8 @@ public class GameDisplay extends JPanel {
             this.map = new Map(GRID_SIZE, GRID_SIZE, numberOfChests);
             this.hero = new Hero(map.getBlock(GRID_SIZE / 2, GRID_SIZE / 2), 100);
             this.tileset = new HashMap<>();
+            this.questManager = new QuestManager(); // ✅ Gestionnaire de quêtes
+            questManager.addQuest(new Quest("Collecteur de pièces", "Ramasse 10 pièces", Quest.TYPE_COLLECT, 10));
 
             // Thread pour rafraîchir l'affichage des animations (ex: pièces en rotation)
             new Thread(() -> {
@@ -111,22 +117,32 @@ public class GameDisplay extends JPanel {
 
         for (Coin coin : map.getCoins()) {
             if (!coin.isCollected() && coin.getBlock().equals(hero.getPosition())) {
-                coin.collect(); // Marquer la pièce comme collectée
+                coin.collect(); // ✅ Marquer la pièce comme collectée
                 collectedCoins.add(coin);
 
-                // ✅ Augmenter le compteur de pièces dans MainGUI
-                mainGUI.incrementCoinCount();
+                // ✅ Mise à jour de la quête de collecte
+                questManager.updateQuest("Collecteur de pièces", 1);
+
+                mainGUI.incrementCoinCount(); // ✅ Met à jour l'affichage du compteur de pièces
                 System.out.println("💰 Pièce ramassée ! Total : " + mainGUI.getCoinCount());
             }
         }
 
-        // ✅ Supprimer les pièces collectées de la carte
-        map.getCoins().removeAll(collectedCoins);
+        map.getCoins().removeAll(collectedCoins); // ✅ Supprimer les pièces collectées
     }
 
 
 
-    public Map getMap() {
+
+    public QuestManager getQuestManager() {
+		return questManager;
+	}
+
+	public void setQuestManager(QuestManager questManager) {
+		this.questManager = questManager;
+	}
+
+	public Map getMap() {
 		return map;
 	}
 
@@ -205,14 +221,22 @@ public class GameDisplay extends JPanel {
      */
     public void moveHero(Block newPosition, MainGUI mainGUI) {
         if (map.getEnemies().containsKey(newPosition)) {
-            System.out.println("💀 Le héros a rencontré un ennemi !");
-            hero.takeDamage(10); // Le héros perd de la vie en touchant un ennemi
+            String enemyType = map.getEnemies().get(newPosition);
+            System.out.println("💀 Le héros a rencontré un " + enemyType + " !");
+            hero.takeDamage(10); // ✅ Le héros perd de la vie, mais l'ennemi reste présent
+
+            // ✅ Mise à jour des quêtes (si tu veux la garder active)
+            questManager.updateQuest("Chasseur de " + enemyType, 1);
+
+            // ❌ On NE supprime PAS l'ennemi immédiatement
+            // map.getEnemies().remove(newPosition); 
         }
 
         hero.setPosition(newPosition);
-        checkHeroCoinCollision(mainGUI); // ✅ Vérifier si une pièce est ramassée
+        checkHeroCoinCollision(mainGUI);
         repaint();
     }
+
 
     /**
      * Méthode de rendu graphique. Elle dessine la carte, les ennemis, le héros et la barre de vie.

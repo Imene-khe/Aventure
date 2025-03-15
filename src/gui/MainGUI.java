@@ -15,7 +15,7 @@ import data.item.Chest;
 import data.item.Inventory;
 import data.item.InventoryManager;
 import data.map.Block;
-
+import data.quest.QuestManager;
 
 public class MainGUI extends JFrame {
 
@@ -27,12 +27,17 @@ public class MainGUI extends JFrame {
     // Gestionnaire de l'inventaire
     private InventoryManager inventory;
 
+    // Gestionnaire des quêtes
+    private QuestManager questManager;
+
     // Ajout du bouton d'interaction (dialogue, ouverture...)
     private JButton interactionButton;
+    private JButton questButton;
+    
     private boolean isInteracting;
     private int coinCount = 0; // Nombre de pièces ramassées
     private JLabel coinLabel;  // Label pour afficher le compteur
-
+    private JLabel questLabel; // Label pour afficher le nombre de quêtes actives
 
     /**
      * Constructeur de la classe. Il initialise la fenêtre, les composants graphiques
@@ -45,6 +50,7 @@ public class MainGUI extends JFrame {
         setSize(800, 800);
         this.dashboard = new GameDisplay();
         this.inventory = new InventoryManager();
+        this.questManager = dashboard.getQuestManager(); // Récupérer le QuestManager de GameDisplay
         isInteracting = false;
 
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -53,12 +59,13 @@ public class MainGUI extends JFrame {
         JPanel bottomPanel = new JPanel(new BorderLayout());
         bottomPanel.add(inventory, BorderLayout.CENTER);
 
+        // ✅ Bouton d'interaction avec les coffres
         interactionButton = new JButton("Interagir");
         interactionButton.addActionListener(e -> {
             if (isInteracting) return;
 
             isInteracting = true;
-            Chest chest = dashboard.openNearbyChest(); // ✅ Appel sans `this`
+            Chest chest = dashboard.openNearbyChest();
 
             if (chest != null) {
                 ChestUIManager chestUIManager = new ChestUIManager(this);
@@ -71,12 +78,13 @@ public class MainGUI extends JFrame {
             requestFocusInWindow();
         });
 
-
-
-
+        // ✅ Bouton pour afficher les quêtes en cours
+        questButton = new JButton("📜 Voir les quêtes");
+        questButton.addActionListener(e -> questManager.displayQuests());
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         buttonPanel.add(interactionButton);
+        buttonPanel.add(questButton);
         bottomPanel.add(buttonPanel, BorderLayout.EAST);
         mainPanel.add(bottomPanel, BorderLayout.SOUTH);
         add(mainPanel);
@@ -87,26 +95,42 @@ public class MainGUI extends JFrame {
                 moveHero(e.getKeyCode());
             }
         });
-        
+
+        // ✅ Ajout du compteur de pièces
         coinLabel = new JLabel("💰 Pièces : " + coinCount);
         JPanel coinPanel = new JPanel();
         coinPanel.add(coinLabel);
 
-        // Placer le compteur en haut à gauche
+        // ✅ Ajout du compteur de quêtes
+        questLabel = new JLabel("📜 Quêtes : " + questManager.getActiveQuests().size());
+        JPanel questPanel = new JPanel();
+        questPanel.add(questLabel);
+
+        // ✅ Placement des compteurs en haut de l'interface
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         topPanel.add(coinPanel);
+        topPanel.add(questPanel);
 
-        // Ajouter le compteur à la fenêtre principale
+        // Ajouter les compteurs à l'interface
         mainPanel.add(topPanel, BorderLayout.NORTH);
-
 
         setFocusable(true);
         setVisible(true);
     }
 
+    /**
+     * Incrémente le compteur de pièces et met à jour l'affichage.
+     */
     public void incrementCoinCount() {
         coinCount++;
         coinLabel.setText("💰 Pièces : " + coinCount);
+    }
+
+    /**
+     * Met à jour l'affichage du nombre de quêtes en cours.
+     */
+    public void updateQuestDisplay() {
+        questLabel.setText("📜 Quêtes : " + questManager.getActiveQuests().size());
     }
 
     public int getCoinCount() {
@@ -132,17 +156,14 @@ public class MainGUI extends JFrame {
         }
 
         if (!dashboard.getMap().isBlocked(newPos)) {
-            dashboard.moveHero(newPos, this); // ✅ Passe `this` pour mettre à jour les pièces collectées
+            dashboard.moveHero(newPos, this);
+            updateQuestDisplay(); // ✅ Met à jour l'affichage des quêtes après un déplacement
             System.out.println("🚶 Héros déplacé à : " + newPos.getLine() + ", " + newPos.getColumn());
         } else {
             System.out.println("❌ Déplacement bloqué !");
         }
     }
 
-
-
-
-    
     public Inventory getInventory() {
         return inventory.getInventory();
     }
