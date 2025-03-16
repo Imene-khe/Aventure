@@ -1,7 +1,7 @@
 package data;
 
 import javax.swing.*;
-import aventure.engine.object.Equipment;
+import data.*;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

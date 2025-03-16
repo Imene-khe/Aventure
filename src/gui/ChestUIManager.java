@@ -52,7 +52,7 @@ public class ChestUIManager {
                 JButton addButton = new JButton("Ajouter");
                 addButton.addActionListener(e -> {
                     // ✅ Ajouter l’objet sélectionné à l’inventaire du joueur
-                    mainGUI.getInventory().getEquipments().add(equipment);
+                	mainGUI.getInventoryManager().getInventory().addEquipment(equipment);
                     mainGUI.getInventoryManager().updateInventoryDisplay();
 
                     // ✅ Supprimer l’objet du coffre après l’ajout

@@ -1,6 +1,6 @@
 package data;
 
-import aventure.engine.map.Block;
+import data.*;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
