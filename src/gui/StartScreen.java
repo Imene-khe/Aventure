@@ -27,7 +27,7 @@ public class StartScreen extends JFrame {
         titleLabel.setBorder(BorderFactory.createEmptyBorder(50, 0, 20, 0));
 
         // ✅ Bouton stylisé
-        JButton startButton = new JButton("▶ COMMENCER L'AVENTURE");
+        JButton startButton = new JButton("APPUYEZ POUR COMMENCER L'AVENTURE");
         startButton.setFont(new Font("Arial", Font.BOLD, 20));
         startButton.setBackground(new Color(50, 150, 250));
         startButton.setForeground(Color.WHITE);
