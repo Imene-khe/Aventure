@@ -33,6 +33,10 @@ public class GameDisplay extends JPanel {
     private HashMap<String, Image> tileset; // Dictionnaire des images de terrain et objets
     private boolean canTakeDamage = true; // ✅ Contrôle si le héros peut prendre des dégâts
     private boolean isGameOver = false; // ✅ Empêche l'affichage multiple du message de Game Over
+    private Image merchantSprite; // Image du marchand
+    private Block merchantPosition; // Position actuelle du marchand
+    private boolean showMerchant = true; // Permet de faire un effet de disparition
+
 
 
     /**
@@ -72,6 +76,19 @@ public class GameDisplay extends JPanel {
 
             // Chargement des images
             loadImages();
+            merchantPosition = map.getBlock(10, 10); // Ajuste la position selon ta map
+            new Thread(() -> {
+                while (true) {
+                    try {
+                        Thread.sleep(1000);
+                        showMerchant = !showMerchant;
+                        repaint();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
 
             System.out.println("✅ GameDisplay créé avec succès !");
         } catch (Exception e) {
@@ -188,9 +205,12 @@ public class GameDisplay extends JPanel {
             // Chargement des obstacles
             tileset.put("house", loadImage("src/images/outdoors/House.png"));
             tileset.put("tree", loadImage("src/images/outdoors/Oak_Tree.png"));
+            
 
             // Chargement des objets
             tileset.put("chest", loadImage("src/images/outdoors/Chest.png"));
+            merchantSprite = loadImage("src/images/player/merchant_sprite.jpg");
+
 
             System.out.println("✅ Toutes les images sont chargées !");
         } catch (Exception e) {
@@ -252,6 +272,10 @@ public class GameDisplay extends JPanel {
             ChestUIManager chestUI = new ChestUIManager(mainGUI);
             chestUI.displayChestContents(chest);
         }
+        if (hero.getPosition().equals(merchantPosition)) {
+            interactWithMerchant();
+        }
+
 
         repaint(); // ✅ Mise à jour de l'affichage
     }
@@ -320,6 +344,13 @@ public class GameDisplay extends JPanel {
 
         // 🔹 Dessiner la barre de vie
         drawHealthBar(g);
+     // ✅ Afficher le marchand s’il est visible
+        if (showMerchant && merchantSprite != null) {
+            int x = merchantPosition.getColumn() * BLOCK_SIZE;
+            int y = merchantPosition.getLine() * BLOCK_SIZE;
+            g.drawImage(merchantSprite, x, y, BLOCK_SIZE, BLOCK_SIZE, this);
+        }
+
     }
     
     

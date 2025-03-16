@@ -156,6 +156,12 @@ public class Map {
                 }
             }
         }
+     // ✅ Placer le marchand sur le bord gauche de la carte
+        Block merchantBlock = getBlock(getLineCount() - 2, 1); // Bord bas gauche
+        staticObjects.put(merchantBlock, "merchant");
+        System.out.println("✅ Marchand ajouté à la position : " + merchantBlock);
+
+
         
   
     }

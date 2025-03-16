@@ -135,6 +135,30 @@ public class MainGUI extends JFrame {
             updateDialoguePanel();
         }
     }
+    
+    private void enterShop() {
+        JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
+        parent.setContentPane(new ShopMap(dashboard.getHero()));
+        parent.revalidate();
+        parent.repaint();
+    }
+
+    
+    private void interactWithMerchant() {
+        if (coinCount < 10) {
+            JOptionPane.showMessageDialog(this, "💬 Il te faut 10 pièces pour entrer dans la boutique !");
+            return;
+        }
+
+        int choix = JOptionPane.showConfirmDialog(this, 
+            "💬 Le vieux marchand t’attend dans sa boutique...\nVeux-tu entrer ?", 
+            "Marchand", JOptionPane.YES_NO_OPTION);
+
+        if (choix == JOptionPane.YES_OPTION) {
+            enterShop();
+        }
+    }
+
 
     private void updateDialoguePanel() {
         JTextArea newDialogue = new JTextArea(dialogues[dialogueIndex]);
@@ -178,6 +202,17 @@ public class MainGUI extends JFrame {
 
         dashboard.checkHeroCoinCollision(this);
         dashboard.repaint();
+        
+        Block heroPos = dashboard.getHero().getPosition();
+        if (dashboard.getMap().getStaticObjects().containsKey(heroPos)) {
+            String object = dashboard.getMap().getStaticObjects().get(heroPos);
+            System.out.println("🧐 Le héros a touché : " + object);
+            if (object.equals("merchant")) {
+                interactWithMerchant();
+            }
+        }
+
+
     }
 
     private void interactWithNPC() {
@@ -194,6 +229,10 @@ public class MainGUI extends JFrame {
     public void incrementCoinCount() {
         coinCount++;
         coinLabel.setText("💰 Pièces : " + coinCount);
+        
+        if (coinCount == 10) {
+            JOptionPane.showMessageDialog(this, "💬 Bravo ! Tu as 10 pièces, va voir le marchand !");
+        }
     }
 
     public int getCoinCount() {
