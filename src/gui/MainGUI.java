@@ -87,11 +87,17 @@ public class MainGUI extends JFrame {
         bottomPanel.add(coinLabel);
         bottomPanel.add(interactButton);
 
-        // ✅ Ajouter 5 boutons vides pour l'inventaire rapide
+        // ✅ Ajouter 5 boutons d'inventaire rapide et restaurer le focus après un clic
         for (int i = 0; i < 5; i++) {
             JButton itemSlot = new JButton("Vide");
             itemSlot.setFont(new Font("Arial", Font.BOLD, 14));
             itemSlot.setPreferredSize(new Dimension(80, 40));
+
+            itemSlot.addActionListener(e -> {
+                System.out.println("🎒 Bouton d'inventaire cliqué : " + itemSlot.getText());
+                requestFocusInWindow(); // ✅ Redonne le focus après un clic
+            });
+
             bottomPanel.add(itemSlot);
         }
 
@@ -174,11 +180,8 @@ public class MainGUI extends JFrame {
         dashboard.repaint();
     }
 
-    /**
-     * ✅ Interaction avec un coffre
-     */
     private void interactWithNPC() {
-        Chest chest = dashboard.openNearbyChest(); // Vérifier si un coffre est proche
+        Chest chest = dashboard.openNearbyChest();
         if (chest != null) {
             System.out.println("🔓 Coffre trouvé, ouverture...");
             ChestUIManager chestUI = new ChestUIManager(this);
