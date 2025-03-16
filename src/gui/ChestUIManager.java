@@ -6,11 +6,12 @@ import data.item.Equipment;
 import data.item.EquipmentImageManager;
 import data.item.Inventory;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class ChestUIManager {
     private JFrame chestWindow;
     private EquipmentImageManager imageManager;
-    private MainGUI mainGUI;
+    private MainGUI mainGUI; // Référence à MainGUI pour modifier l'inventaire
 
     public ChestUIManager(MainGUI mainGUI) {
         this.mainGUI = mainGUI;
@@ -31,9 +32,8 @@ public class ChestUIManager {
 
         Inventory chestInventory = chest.getInventory();
 
-        if (chestInventory.getEquipments().isEmpty()) {
+        if (chestInventory.size() == 0) {
             JOptionPane.showMessageDialog(chestWindow, "Le coffre est vide !");
-            chestWindow.dispose();
             return;
         }
 
@@ -51,11 +51,13 @@ public class ChestUIManager {
 
                 JButton addButton = new JButton("Ajouter");
                 addButton.addActionListener(e -> {
-                    mainGUI.getInventory().addEquipment(equipment); // ✅ Correction ici
-                    mainGUI.updateInventoryDisplay();
+                    // ✅ Ajouter l’objet sélectionné à l’inventaire du joueur
+                    mainGUI.getInventory().getEquipments().add(equipment);
+                    mainGUI.getInventoryManager().updateInventoryDisplay();
 
-                    chestInventory.removeEquipment(equipment); // ✅ Correction ici
-                    addButton.setEnabled(false);
+                    // ✅ Supprimer l’objet du coffre après l’ajout
+                    chestInventory.getEquipments().remove(equipment);
+                    addButton.setEnabled(false); // Désactiver le bouton après ajout
                     JOptionPane.showMessageDialog(chestWindow, equipment.getName() + " ajouté à l’inventaire !");
                 });
 
@@ -80,5 +82,3 @@ public class ChestUIManager {
         chestWindow.setVisible(true);
     }
 }
-
-
