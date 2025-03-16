@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 public class QuestManager {
     private ArrayList<Quest> activeQuests;
+    private int totalCoins; // ✅ Ajout d'un compteur de pièces pour suivre les récompenses
 
     public QuestManager() {
         this.activeQuests = new ArrayList<>();
+        this.totalCoins = 0;
     }
 
     public void addQuest(Quest quest) {
@@ -20,6 +22,24 @@ public class QuestManager {
                 quest.updateProgress(amount);
             }
         }
+    }
+
+    public void claimQuestReward(String questName) {
+        for (Quest quest : activeQuests) {
+            if (quest.getName().equals(questName)) {
+                int reward = quest.claimReward();
+                if (reward > 0) {
+                    totalCoins += reward;
+                    System.out.println("💰 Total des pièces après récompense : " + totalCoins);
+                }
+                return;
+            }
+        }
+        System.out.println("❌ Quête introuvable : " + questName);
+    }
+
+    public int getTotalCoins() {
+        return totalCoins;
     }
 
     public ArrayList<Quest> getActiveQuests() {
@@ -40,29 +60,30 @@ public class QuestManager {
         QuestManager questManager = new QuestManager();
 
         // Ajouter des quêtes
-        questManager.addQuest(new Quest("Chasseur de Squelettes", "Tue 3 squelettes", Quest.TYPE_KILL, 3));
-        questManager.addQuest(new Quest("Chasseur de Slimes", "Tue 5 slimes", Quest.TYPE_KILL, 5));
-        questManager.addQuest(new Quest("Collecteur de pièces", "Ramasse 10 pièces", Quest.TYPE_COLLECT, 10));
+        questManager.addQuest(new Quest("Chasseur de Squelettes", "Tue 3 squelettes", Quest.TYPE_KILL, 3, 100));
+        questManager.addQuest(new Quest("Chasseur de Slimes", "Tue 5 slimes", Quest.TYPE_KILL, 5, 150));
+        questManager.addQuest(new Quest("Collecteur de pièces", "Ramasse 10 pièces", Quest.TYPE_COLLECT, 10, 200));
 
-        // Afficher les quêtes après ajout
         questManager.displayQuests();
 
         // Mise à jour de progression
         System.out.println("\n🔄 Mise à jour des quêtes...");
-        questManager.updateQuest("Chasseur de Squelettes", 1);
-        questManager.updateQuest("Chasseur de Slimes", 3);
-        questManager.updateQuest("Collecteur de pièces", 5);
+        questManager.updateQuest("Chasseur de Squelettes", 3);
+        questManager.updateQuest("Chasseur de Slimes", 5);
+        questManager.updateQuest("Collecteur de pièces", 10);
 
-        // Afficher après mise à jour
         questManager.displayQuests();
 
-        // Complétion des quêtes
-        System.out.println("\n🔄 Finalisation des quêtes...");
-        questManager.updateQuest("Chasseur de Squelettes", 2);
-        questManager.updateQuest("Chasseur de Slimes", 2);
-        questManager.updateQuest("Collecteur de pièces", 5);
+        // Réclamation des récompenses
+        System.out.println("\n🎁 Réclamation des récompenses...");
+        questManager.claimQuestReward("Chasseur de Squelettes");
+        questManager.claimQuestReward("Chasseur de Slimes");
+        questManager.claimQuestReward("Collecteur de pièces");
 
-        // Afficher après complétion
-        questManager.displayQuests();
+        // Vérification des pièces totales
+        System.out.println("💰 Total des pièces du joueur : " + questManager.getTotalCoins());
+
+        // Vérifier qu'on ne peut pas récupérer la récompense deux fois
+        questManager.claimQuestReward("Chasseur de Squelettes");
     }
 }

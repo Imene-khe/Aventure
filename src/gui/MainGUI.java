@@ -126,7 +126,7 @@ public class MainGUI extends JFrame {
         return instance != null ? instance.dashboard : null;
     }
 
-    private void advanceDialogue() {
+    public void advanceDialogue() {
         if (dialogueIndex < dialogues.length - 1) {
             dialogueIndex++;
             updateDialoguePanel();
@@ -160,7 +160,7 @@ public class MainGUI extends JFrame {
     }
 
 
-    private void updateDialoguePanel() {
+    public void updateDialoguePanel() {
         JTextArea newDialogue = new JTextArea(dialogues[dialogueIndex]);
         newDialogue.setEditable(false);
         newDialogue.setLineWrap(true);
@@ -215,8 +215,9 @@ public class MainGUI extends JFrame {
 
     }
 
-    private void interactWithNPC() {
-        Chest chest = dashboard.openNearbyChest();
+    public void interactWithNPC() {
+        Chest chest = dashboard.openNearbyChest(); // Vérifier si un coffre est proche
+
         if (chest != null) {
             System.out.println("🔓 Coffre trouvé, ouverture...");
             ChestUIManager chestUI = new ChestUIManager(this);
@@ -224,7 +225,10 @@ public class MainGUI extends JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "💬 Il n'y a rien à interagir ici !");
         }
+
+        requestFocusInWindow(); // ✅ Redonner le focus après l’interaction
     }
+
 
     public void incrementCoinCount() {
         coinCount++;

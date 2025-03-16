@@ -193,7 +193,7 @@ public class GameDisplay extends JPanel {
 	/**
      * Charge toutes les images nécessaires pour le rendu du jeu (terrains, objets, ennemis).
      */
-    private void loadImages() {
+	public void loadImages() {
         try {
             System.out.println(" Chargement des images...");
 
@@ -224,7 +224,7 @@ public class GameDisplay extends JPanel {
      * @param path Chemin vers le fichier image
      * @return L'image chargée, ou null si l'image n'existe pas
      */
-    private Image loadImage(String path) throws IOException {
+	public Image loadImage(String path) throws IOException {
         File file = new File(path);
         if (!file.exists()) {
             System.out.println("❌ L'image n'a pas été trouvée : " + path);
@@ -404,7 +404,7 @@ public class GameDisplay extends JPanel {
      * Dessine la barre de vie du héros.
      * @param g L'objet Graphics utilisé pour dessiner la barre de vie
      */
-    private void drawHealthBar(Graphics g) {
+    public void drawHealthBar(Graphics g) {
         int maxHealth = 100;
         int currentHealth = hero.getHealth();
 
