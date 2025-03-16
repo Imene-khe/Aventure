@@ -112,7 +112,7 @@ public class MainGUI extends JFrame {
                 }
             }
         });
-
+//test
         setFocusable(true);
         setVisible(true);
         requestFocusInWindow();
