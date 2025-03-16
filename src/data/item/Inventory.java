@@ -67,4 +67,9 @@ public class Inventory {
         // Affichage après ajout
         System.out.println(inventory);
     }
+
+	public void addEquipment(Equipment equipment2) {
+		// TODO Auto-generated method stub
+		
+	}
 }

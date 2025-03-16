@@ -1,176 +1,127 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
-import data.item.Chest;
 import data.item.Inventory;
 import data.item.InventoryManager;
 import data.map.Block;
 import data.player.Hero;
+import gui.*;
 
+/**
+ * Classe principale de l'interface utilisateur du jeu.
+ */
 public class MainGUI extends JFrame {
 
     private static final long serialVersionUID = 1L;
+    private static MainGUI instance;
 
-    private static MainGUI instance; // Stocke l'instance pour accéder à getGameDisplay()
-
-    // Affichage et gestion de la carte du jeu
     private GameDisplay dashboard;
+    private InventoryManager inventoryManager;
+    private Inventory inventory;
 
-    // Gestionnaire de l'inventaire
-    private InventoryManager inventory;
-
-    // Ajout du bouton d'interaction (dialogue, ouverture...)
-    private JButton interactionButton;
-    private boolean isInteracting;
-    private int coinCount = 0; // Nombre de pièces ramassées
-    private JLabel coinLabel;  // Label pour afficher le compteur
+    private JPanel bottomPanel;
+    private JPanel inventoryPanel;
+    private JLabel coinLabel;
+    private int coinCount = 0;
 
     /**
-     * Constructeur de la classe. Il initialise la fenêtre, les composants graphiques
-     * et les actions du clavier.
+     * Constructeur principal de l'interface.
      */
     public MainGUI() {
         super("Aventure - Déplacement du Héros");
 
-        instance = this; // Stocker l'instance actuelle pour l'accès statique
-
+        instance = this;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 800);
+        setSize(1000, 800);
+        setLayout(new BorderLayout());
+
+        // ✅ Instanciation correcte de GameDisplay
         this.dashboard = new GameDisplay();
-        this.inventory = new InventoryManager();
-        isInteracting = false;
+        this.inventoryManager = new InventoryManager();
+        this.inventory = inventoryManager.getInventory(); 
 
-        JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.add(dashboard, BorderLayout.CENTER);
+        add(dashboard, BorderLayout.CENTER);
 
-        JPanel bottomPanel = new JPanel(new BorderLayout());
-        bottomPanel.add(inventory, BorderLayout.CENTER);
-
-        interactionButton = new JButton("Interagir");
-        interactionButton.addActionListener(e -> {
-            if (isInteracting) return;
-
-            isInteracting = true;
-            Chest chest = dashboard.openNearbyChest();
-
-            if (chest != null) {
-                ChestUIManager chestUIManager = new ChestUIManager(this);
-                chestUIManager.displayChestContents(chest);
-            } else {
-                JOptionPane.showMessageDialog(this, "Aucun coffre à proximité !");
-            }
-
-            isInteracting = false;
-            requestFocusInWindow();
-        });
-
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        buttonPanel.add(interactionButton);
-        bottomPanel.add(buttonPanel, BorderLayout.EAST);
-        mainPanel.add(bottomPanel, BorderLayout.SOUTH);
-        add(mainPanel);
-
-        addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                moveHero(e.getKeyCode());
-            }
-        });
-
-        coinLabel = new JLabel("💰 Pièces : " + coinCount);
-        JPanel coinPanel = new JPanel();
-        coinPanel.add(coinLabel);
-
-        // Placer le compteur en haut à gauche
+        // 🔹 Barre du haut avec le compteur de pièces
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        topPanel.add(coinPanel);
-        mainPanel.add(topPanel, BorderLayout.NORTH);
+        coinLabel = new JLabel("💰 Pièces : " + coinCount);
+        coinLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        coinLabel.setForeground(Color.WHITE);
+        topPanel.add(coinLabel);
+        add(topPanel, BorderLayout.NORTH);
+
+        // 🔹 Panneau inférieur avec les boutons d'action
+        bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        bottomPanel.setPreferredSize(new Dimension(800, 60));
+        bottomPanel.setBackground(new Color(80, 80, 80));
+
+        JButton inventoryButton = new JButton("📦 Inventaire");
+        inventoryButton.setFont(new Font("Arial", Font.BOLD, 16));
+        inventoryButton.setPreferredSize(new Dimension(150, 40));
+        inventoryButton.addActionListener(e -> openInventory());
+
+        JButton interactButton = new JButton("💬 Interagir");
+        interactButton.setFont(new Font("Arial", Font.BOLD, 16));
+        interactButton.setPreferredSize(new Dimension(150, 40));
+        interactButton.addActionListener(e -> interactWithNPC());
+
+        bottomPanel.add(inventoryButton);
+        bottomPanel.add(interactButton);
+        add(bottomPanel, BorderLayout.SOUTH);
+
+        // 🔹 Panneau d'affichage de l'inventaire
+        inventoryPanel = new JPanel();
+        inventoryPanel.setBackground(new Color(50, 50, 50));
+        inventoryPanel.setPreferredSize(new Dimension(1000, 80));
+        inventoryPanel.add(new JLabel("🔹 Inventaire :"));
+        add(inventoryPanel, BorderLayout.SOUTH);
 
         setFocusable(true);
         setVisible(true);
-        requestFocusInWindow(); // ✅ S'assure que le KeyListener reste actif
+        requestFocusInWindow();
     }
 
-    public static GameDisplay getGameDisplay() {
-        return instance != null ? instance.dashboard : null;
+    public static MainGUI getInstance() {
+        return instance;
     }
-
-    public void incrementCoinCount() {
-        coinCount++;
-        coinLabel.setText("💰 Pièces : " + coinCount);
-    }
-
-    public int getCoinCount() {
-        return coinCount;
-    }
-
-    /**
-     * Déplace le héros en fonction de la touche pressée.
-     * @param keyCode Le code de la touche pressée
-     */
-    public void moveHero(int keyCode) {
-        Hero hero = dashboard.getHero();
-        Block currentPos = hero.getPosition();
-        Block newPos = currentPos;
-
-        if (keyCode == KeyEvent.VK_LEFT) {
-            newPos = dashboard.getMap().getBlock(currentPos.getLine(), currentPos.getColumn() - 1);
-            if (!dashboard.getMap().isBlocked(newPos)) {
-                hero.moveLeft();
-                hero.setPosition(newPos);
-            }
-        } else if (keyCode == KeyEvent.VK_RIGHT) {
-            newPos = dashboard.getMap().getBlock(currentPos.getLine(), currentPos.getColumn() + 1);
-            if (!dashboard.getMap().isBlocked(newPos)) {
-                hero.moveRight();
-                hero.setPosition(newPos);
-            }
-        } else if (keyCode == KeyEvent.VK_UP) {
-            newPos = dashboard.getMap().getBlock(currentPos.getLine() - 1, currentPos.getColumn());
-            if (!dashboard.getMap().isBlocked(newPos)) {
-                hero.moveUp();
-                hero.setPosition(newPos);
-            }
-        } else if (keyCode == KeyEvent.VK_DOWN) {
-            newPos = dashboard.getMap().getBlock(currentPos.getLine() + 1, currentPos.getColumn());
-            if (!dashboard.getMap().isBlocked(newPos)) {
-                hero.moveDown();
-                hero.setPosition(newPos);
-            }
-        }
-
-        // ✅ Vérifier si le héros marche sur une pièce
-        dashboard.checkHeroCoinCollision(this);
-
-        // 🔄 Rafraîchir l'affichage après le mouvement
-        dashboard.repaint();
-    }
-
 
     public Inventory getInventory() {
-        return inventory.getInventory();
-    }
-
-    public InventoryManager getInventoryManager() {
         return inventory;
     }
 
+    public InventoryManager getInventoryManager() {
+        return inventoryManager;
+    }
+
+    public void updateInventoryDisplay() {
+        inventoryPanel.removeAll();
+        inventoryPanel.add(new JLabel("🔹 Inventaire :"));
+        for (int i = 0; i < inventory.getEquipments().size(); i++) {
+            inventoryPanel.add(new JLabel("⚔ " + inventory.getEquipments().get(i).getName()));
+        }
+        inventoryPanel.revalidate();
+        inventoryPanel.repaint();
+    }
+
+    public void openInventory() {
+        JOptionPane.showMessageDialog(this, "📦 Inventaire ouvert !");
+        updateInventoryDisplay();
+    }
+
+    public void interactWithNPC() {
+        JOptionPane.showMessageDialog(this, "💬 Interaction avec un PNJ !");
+    }
+
     /**
-     * Méthode principale pour démarrer l'application et afficher l'interface graphique.
-     * @param args Arguments de ligne de commande (non utilisés)
+     * Méthode principale qui lance le jeu en affichant l'écran de démarrage avant le jeu.
      */
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(MainGUI::new);
+        SwingUtilities.invokeLater(() -> {
+            new StartScreen(); // ✅ Correction : Vérifie bien que StartScreen existe et est bien codé
+        });
     }
 }
 
