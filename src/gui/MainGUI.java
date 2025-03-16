@@ -6,6 +6,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import data.item.Chest;
+import data.item.Equipment;
 import data.item.InventoryManager;
 import data.map.Block;
 import data.player.Hero;
@@ -52,7 +53,7 @@ public class MainGUI extends JFrame {
 
         // ✅ Panneau de narration à droite
         sidePanel = new JPanel(new BorderLayout());
-        sidePanel.setPreferredSize(new Dimension(300, 800));
+        sidePanel.setPreferredSize(new Dimension(250, getHeight()));
         sidePanel.setBackground(new Color(50, 50, 50));
 
         characterImage = new JLabel(new ImageIcon("src/images/narrator.png"));
@@ -95,11 +96,22 @@ public class MainGUI extends JFrame {
         bottomPanel.add(coinLabel);
         bottomPanel.add(inventoryButton);
         bottomPanel.add(interactButton);
+     // ✅ Ajouter 5 boutons vides pour l'inventaire
+        for (int i = 0; i < 5; i++) {
+            JButton itemSlot = new JButton("Vide");
+            itemSlot.setFont(new Font("Arial", Font.BOLD, 14));
+            itemSlot.setPreferredSize(new Dimension(80, 40));
+            bottomPanel.add(itemSlot);
+        }
+
 
         // ✅ Ajout des composants principaux
+        dashboard.setPreferredSize(new Dimension(getWidth() - sidePanel.getPreferredSize().width, getHeight()));
         add(dashboard, BorderLayout.CENTER);
         add(sidePanel, BorderLayout.EAST);
         add(bottomPanel, BorderLayout.SOUTH); // ✅ Boutons réajoutés en bas
+       
+
 
         // ✅ KeyListener pour dialogues et déplacement
         addKeyListener(new KeyAdapter() {
@@ -191,8 +203,21 @@ public class MainGUI extends JFrame {
      * ✅ Ouvrir l’inventaire
      */
     private void openInventory() {
-        JOptionPane.showMessageDialog(this, "📦 Inventaire ouvert ! (À implémenter)");
+        JFrame inventoryWindow = new JFrame("Inventaire");
+        inventoryWindow.setSize(400, 300);
+        inventoryWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        inventoryWindow.setLocationRelativeTo(this);
+
+        JPanel panel = new JPanel(new GridLayout(2, 3, 10, 10)); // 2 lignes, 3 colonnes
+        for (Equipment item : inventory.getInventory().getEquipments()) {
+            JButton itemButton = new JButton(item.getName());
+            panel.add(itemButton);
+        }
+
+        inventoryWindow.add(panel);
+        inventoryWindow.setVisible(true);
     }
+
 
     /**
      * ✅ Interagir avec un NPC

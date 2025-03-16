@@ -25,8 +25,8 @@ import data.player.Hero;
 public class GameDisplay extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    private static final int GRID_SIZE = 30;  // Taille de la grille (30x30 blocs)
-    private static final int BLOCK_SIZE = 32; // Taille d'un bloc en pixels (32x32)
+    private static final int GRID_SIZE = 20;  // Réduire la taille à 20x20
+    private static final int BLOCK_SIZE = 32; // Taille inchangée
     private Map map; // Instance de la carte du jeu
     private Hero hero; // Instance du héros
     private EnemyImageManager enemyImageManager; // Gestionnaire des images des ennemis
@@ -212,7 +212,15 @@ public class GameDisplay extends JPanel {
         hero.setPosition(newPosition);
         checkHeroCoinCollision(mainGUI); // ✅ Vérifier si une pièce est ramassée
         repaint();
+
+        // ✅ Vérifier si un coffre est à proximité et l'ouvrir
+        Chest chest = openNearbyChest();
+        if (chest != null) {
+            ChestUIManager chestUI = new ChestUIManager(mainGUI);
+            chestUI.displayChestContents(chest);
+        }
     }
+
 
     /**
      * Méthode de rendu graphique. Elle dessine la carte, les ennemis, le héros et la barre de vie.
