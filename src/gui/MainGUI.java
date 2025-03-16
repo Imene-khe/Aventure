@@ -31,7 +31,7 @@ public class MainGUI extends JFrame {
     };
     private int dialogueIndex = 0;
     private boolean dialogueActive = true;
-
+    //Test
     // ✅ Panneau du bas (boutons d’inventaire et d’interaction)
     private JPanel bottomPanel;
     private JButton inventoryButton;
