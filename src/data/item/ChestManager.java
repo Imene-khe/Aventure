@@ -13,6 +13,7 @@ public class ChestManager {
 
     public ChestManager() {
         chests = new HashMap<>();
+        
     }
 
     // Ajoute un coffre à un bloc spécifique et y place des armes aléatoires
@@ -113,6 +114,7 @@ public class ChestManager {
             System.out.println("   - Coffre à " + block + " | Ouvert : " + chest.isOpened());
         }
     }
+
 
 
 

@@ -31,16 +31,20 @@ public class EquipmentImageManager {
         }
     }
 
-    private Image loadImage(String path) throws IOException {
-        File imageFile = new File(path);
-        Image image = ImageIO.read(imageFile);
-
-        if (image == null) {
-            System.out.println("❌ ERREUR : Impossible de charger l'image depuis : " + path);
+    private Image loadImage(String path) {
+        try {
+            File imageFile = new File(path);
+            if (!imageFile.exists()) {
+                System.out.println("❌ ERREUR : Fichier introuvable : " + path);
+                return null;
+            }
+            return ImageIO.read(imageFile);
+        } catch (IOException e) {
+            System.out.println("❌ ERREUR : Impossible de charger l'image : " + path);
+            return null;
         }
-
-        return image;
     }
+
 
     public Image getEquipmentImage(String equipmentType) {
         return equipmentImages.get(equipmentType);

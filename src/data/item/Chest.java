@@ -28,17 +28,14 @@ public class Chest {
      */
     private void fillChestWithRandomItems() {
         Random random = new Random();
-        
-        // Nombre d'objets à ajouter (entre 1 et 3)
         int numberOfItems = random.nextInt(3) + 1;
-        
+
         for (int i = 0; i < numberOfItems; i++) {
-            // Choisir un objet aléatoire parmi possibleItems
-            Equipment item = possibleItems[random.nextInt(possibleItems.length)];
-            addItem(item); // Ajouter l'équipement à l'inventaire du coffre
-            System.out.println("Ajout de l'objet au coffre: " + item.getName()); // Debugging
+            Equipment item = new Equipment(possibleItems[random.nextInt(possibleItems.length)].getName());
+            addItem(item);
         }
     }
+
 
 
     /**

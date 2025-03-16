@@ -8,7 +8,7 @@ import data.item.Inventory;
 import data.item.InventoryManager;
 import data.map.Block;
 import data.player.Hero;
-import gui.*;
+import data.map.GameDisplay;
 
 /**
  * Classe principale de l'interface utilisateur du jeu.
@@ -38,10 +38,17 @@ public class MainGUI extends JFrame {
         setSize(1000, 800);
         setLayout(new BorderLayout());
 
-        // ✅ Instanciation correcte de GameDisplay
+        // ✅ Initialisation correcte du GameDisplay
         this.dashboard = new GameDisplay();
         this.inventoryManager = new InventoryManager();
-        this.inventory = inventoryManager.getInventory(); 
+        this.inventory = inventoryManager.getInventory();
+
+        // Vérifier si les composants critiques sont bien initialisés
+        if (dashboard.getMap() == null || dashboard.getHero() == null) {
+            System.err.println("❌ ERREUR : La carte ou le héros ne sont pas initialisés !");
+            JOptionPane.showMessageDialog(this, "Erreur critique : Vérifiez l'initialisation du jeu.", "Erreur", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        }
 
         add(dashboard, BorderLayout.CENTER);
 
@@ -120,8 +127,7 @@ public class MainGUI extends JFrame {
      */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            new StartScreen(); // ✅ Correction : Vérifie bien que StartScreen existe et est bien codé
+            new StartScreen();
         });
     }
 }
-

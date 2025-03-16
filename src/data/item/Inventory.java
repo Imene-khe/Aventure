@@ -68,8 +68,15 @@ public class Inventory {
         System.out.println(inventory);
     }
 
-	public void addEquipment(Equipment equipment2) {
-		// TODO Auto-generated method stub
-		
-	}
+    public void addEquipment(Equipment item) {
+        if (item != null) {
+            equipment.add(item);
+        }
+    }
+
+    public void removeEquipment(Equipment item) {
+        equipment.remove(item);
+    }
+
+	
 }

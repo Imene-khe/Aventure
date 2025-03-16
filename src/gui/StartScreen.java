@@ -78,13 +78,12 @@ public class StartScreen extends JFrame {
                     ((Timer) e.getSource()).stop();
                     dispose();
                     new MainGUI();
-                } else {
+                } else if (isUndecorated()) {
                     setOpacity(opacity);
                 }
             }
         });
 
-        // ✅ Vérifier que la fenêtre est bien non décorée avant de modifier l'opacité
         if (isUndecorated()) {
             timer.start();
         } else {
@@ -92,6 +91,7 @@ public class StartScreen extends JFrame {
             new MainGUI();
         }
     }
+
 
     // ✅ Main pour tester l'affichage de l'écran de démarrage
     public static void main(String[] args) {
