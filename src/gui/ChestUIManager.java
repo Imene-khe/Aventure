@@ -85,6 +85,4 @@ public class ChestUIManager {
         chestWindow.setVisible(true);
     }
 
-    
-    
 }

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import data.item.Chest;
@@ -31,6 +31,9 @@ public class GameDisplay extends JPanel {
     private Hero hero; // Instance du héros
     private EnemyImageManager enemyImageManager; // Gestionnaire des images des ennemis
     private HashMap<String, Image> tileset; // Dictionnaire des images de terrain et objets
+    private boolean canTakeDamage = true; // ✅ Contrôle si le héros peut prendre des dégâts
+    private boolean isGameOver = false; // ✅ Empêche l'affichage multiple du message de Game Over
+
 
     /**
      * Constructeur de la classe. Initialise la carte, le héros et les images.
@@ -42,7 +45,19 @@ public class GameDisplay extends JPanel {
             this.map = new Map(GRID_SIZE, GRID_SIZE, numberOfChests);
             this.hero = new Hero(map.getBlock(GRID_SIZE / 2, GRID_SIZE / 2), 100);
             this.tileset = new HashMap<>();
-
+            
+            
+         // ✅ Thread pour vérifier en continu les collisions avec les ennemis
+            new Thread(() -> {
+                while (true) {
+                    try {
+                        Thread.sleep(100); // 🔄 Vérification toutes les 100 ms
+                        checkEnemyCollision(); // ✅ Vérifie si le héros touche un ennemi
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
             // Thread pour rafraîchir l'affichage des animations (ex: pièces en rotation)
             new Thread(() -> {
                 while (true) {
@@ -124,7 +139,7 @@ public class GameDisplay extends JPanel {
         map.getCoins().removeAll(collectedCoins);
     }
 
-
+    
 
     public Map getMap() {
 		return map;
@@ -204,22 +219,45 @@ public class GameDisplay extends JPanel {
      * @param newPosition La nouvelle position du héros
      */
     public void moveHero(Block newPosition, MainGUI mainGUI) {
-        if (map.getEnemies().containsKey(newPosition)) {
-            System.out.println("💀 Le héros a rencontré un ennemi !");
-            hero.takeDamage(10); // Le héros perd de la vie en touchant un ennemi
+        if (isGameOver) return; // 🔴 Si le jeu est terminé, empêcher les mouvements
+
+        System.out.println("➡️ Tentative de déplacement vers : " + newPosition);
+
+        // ✅ Vérifier si le bloc contient un ennemi AVANT de déplacer le héros
+        for (Block enemyPos : map.getEnemies().keySet()) {
+            if (enemyPos.equals(newPosition)) {
+                System.out.println("💀 COLLISION AVEC UN ENNEMI !");
+                hero.takeDamage(10); // ✅ Inflige 10 points de dégâts
+
+                // ✅ Vérifier si le héros est mort
+                if (hero.getHealth() <= 0) {
+                    System.out.println("☠️ GAME OVER ! Le héros est mort.");
+                    JOptionPane.showMessageDialog(this, "☠️ GAME OVER ! Le héros est mort.");
+                    isGameOver = true; // ✅ Empêcher tout nouveau déplacement
+                    return; // 🔴 Stopper la fonction immédiatement
+                }
+            }
         }
 
+        // ✅ Déplacer le héros si aucun obstacle n'est présent
         hero.setPosition(newPosition);
-        checkHeroCoinCollision(mainGUI); // ✅ Vérifier si une pièce est ramassée
-        repaint();
+        System.out.println("✅ Héros déplacé à : " + hero.getPosition());
 
-        // ✅ Vérifier si un coffre est à proximité et l'ouvrir
+        // ✅ Vérifier si une pièce est ramassée
+        checkHeroCoinCollision(mainGUI);
+
+        // ✅ Vérifier si un coffre est proche et l’ouvrir
         Chest chest = openNearbyChest();
         if (chest != null) {
             ChestUIManager chestUI = new ChestUIManager(mainGUI);
             chestUI.displayChestContents(chest);
         }
+
+        repaint(); // ✅ Mise à jour de l'affichage
     }
+
+
+
 
 
     /**
@@ -283,6 +321,53 @@ public class GameDisplay extends JPanel {
         // 🔹 Dessiner la barre de vie
         drawHealthBar(g);
     }
+    
+    
+    /**
+     * ✅ Vérifie si le héros est sur un ennemi et applique un délai avant de reprendre des dégâts.
+     */
+    public void checkEnemyCollision() {
+        if (isGameOver) return; // 🔴 Si le jeu est fini, ne rien faire
+
+        Block heroPosition = hero.getPosition(); // 📌 Position actuelle du héros
+
+        for (Block enemyPos : map.getEnemies().keySet()) {
+            if (enemyPos.getLine() == heroPosition.getLine() && enemyPos.getColumn() == heroPosition.getColumn()) {
+                if (!canTakeDamage) {
+                    return; // 🔴 Empêche de prendre des dégâts si le délai n'est pas écoulé
+                }
+
+                System.out.println("💀 COLLISION AVEC UN ENNEMI ! Dégâts infligés !");
+                hero.takeDamage(10); // ✅ Inflige 10 points de dégâts
+                canTakeDamage = false; // 🔴 Désactive temporairement les dégâts
+
+                // ✅ Réactiver la prise de dégâts après 1 seconde
+                new Thread(() -> {
+                    try {
+                        Thread.sleep(1000); // ⏳ Attendre 1 seconde
+                        canTakeDamage = true; // ✅ Réautoriser les dégâts après le délai
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }).start();
+
+                // ✅ Vérifier si le héros est mort
+                if (hero.getHealth() <= 0) {
+                    isGameOver = true; // 🔴 Empêcher le message de s'afficher plusieurs fois
+                    System.out.println("☠️ GAME OVER ! Le héros est mort.");
+                    JOptionPane.showMessageDialog(this, "☠️ GAME OVER ! Le héros est mort.");
+                    System.exit(0); // ✅ Ferme l'application proprement
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+
 
     /**
      * Dessine la barre de vie du héros.

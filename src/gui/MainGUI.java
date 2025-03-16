@@ -186,11 +186,7 @@ public class MainGUI extends JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "💬 Il n'y a rien à interagir ici !");
         }
-
-        // ✅ Redonner le focus à la fenêtre pour que le héros puisse se déplacer
-        this.requestFocusInWindow();
     }
-
 
     public void incrementCoinCount() {
         coinCount++;
