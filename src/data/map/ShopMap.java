@@ -1,4 +1,4 @@
-package gui;
+package data.map;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,8 +7,6 @@ import java.awt.event.KeyEvent;
 
 import data.player.Hero;
 import data.player.Marchant;
-import data.map.Map;
-import data.map.Block;
 
 public class ShopMap extends JPanel {
 
@@ -82,7 +80,7 @@ public class ShopMap extends JPanel {
 
     private void returnToMainMap() {
         JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
-        parent.setContentPane(new GameDisplay());
+       // parent.setContentPane(new GameDisplay());
         parent.revalidate();
         parent.repaint();
     }
