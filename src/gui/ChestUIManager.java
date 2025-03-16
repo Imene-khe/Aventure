@@ -34,6 +34,8 @@ public class ChestUIManager {
 
         if (chestInventory.size() == 0) {
             JOptionPane.showMessageDialog(chestWindow, "Le coffre est vide !");
+            chestWindow.dispose();
+            mainGUI.requestFocusInWindow(); // ✅ Redonner le focus après la fermeture
             return;
         }
 
@@ -51,14 +53,15 @@ public class ChestUIManager {
 
                 JButton addButton = new JButton("Ajouter");
                 addButton.addActionListener(e -> {
-                    // ✅ Ajouter l’objet sélectionné à l’inventaire du joueur
-                	mainGUI.getInventoryManager().getInventory().addEquipment(equipment);
+                    mainGUI.getInventoryManager().getInventory().addEquipment(equipment);
                     mainGUI.getInventoryManager().updateInventoryDisplay();
 
-                    // ✅ Supprimer l’objet du coffre après l’ajout
                     chestInventory.getEquipments().remove(equipment);
-                    addButton.setEnabled(false); // Désactiver le bouton après ajout
+                    addButton.setEnabled(false);
                     JOptionPane.showMessageDialog(chestWindow, equipment.getName() + " ajouté à l’inventaire !");
+                    
+                    // ✅ Redonner le focus après action
+                    mainGUI.requestFocusInWindow();
                 });
 
                 JPanel itemPanel = new JPanel(new BorderLayout());
@@ -81,6 +84,7 @@ public class ChestUIManager {
         chestWindow.add(scrollPane);
         chestWindow.setVisible(true);
     }
+
     
     
 }
