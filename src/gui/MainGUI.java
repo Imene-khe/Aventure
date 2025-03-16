@@ -6,7 +6,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import data.item.Chest;
-import data.item.Equipment;
 import data.item.InventoryManager;
 import data.map.Block;
 import data.player.Hero;
@@ -22,7 +21,7 @@ public class MainGUI extends JFrame {
     // ✅ Panneau de narration
     private JPanel sidePanel;
     private JLabel characterImage;
-    private JPanel dialoguePanel; // Panneau contenant plusieurs bulles de dialogue
+    private JPanel dialoguePanel;
     private String[] dialogues = {
             "Bienvenue, Raymond ! Le Royaume de Serre-Gy est en danger...",
             "Le Seigneur des Ombres a capturé Layla !",
@@ -32,13 +31,12 @@ public class MainGUI extends JFrame {
     };
     private int dialogueIndex = 0;
     private boolean dialogueActive = true;
-    //Test
-    // ✅ Panneau du bas (boutons d’inventaire et d’interaction)
+
+    // ✅ Panneau du bas
     private JPanel bottomPanel;
-    private JButton inventoryButton;
     private JButton interactButton;
     private JLabel coinLabel;
-    private int coinCount = 0; // Nombre de pièces ramassées
+    private int coinCount = 0;
 
     public MainGUI() {
         super("Aventure - Déplacement du Héros");
@@ -59,12 +57,10 @@ public class MainGUI extends JFrame {
         characterImage = new JLabel(new ImageIcon("src/images/narrator.png"));
         characterImage.setHorizontalAlignment(SwingConstants.CENTER);
 
-        // ✅ Panel pour empiler les bulles de dialogue
         dialoguePanel = new JPanel();
         dialoguePanel.setLayout(new BoxLayout(dialoguePanel, BoxLayout.Y_AXIS));
         dialoguePanel.setBackground(new Color(50, 50, 50));
 
-        // ✅ Initialisation du premier dialogue
         updateDialoguePanel();
 
         JScrollPane scrollPane = new JScrollPane(dialoguePanel);
@@ -74,15 +70,10 @@ public class MainGUI extends JFrame {
         sidePanel.add(characterImage, BorderLayout.NORTH);
         sidePanel.add(scrollPane, BorderLayout.CENTER);
 
-        // ✅ Panneau du bas avec boutons et compteur de pièces
+        // ✅ Panneau du bas
         bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         bottomPanel.setPreferredSize(new Dimension(800, 60));
         bottomPanel.setBackground(new Color(80, 80, 80));
-
-        inventoryButton = new JButton("📦 Inventaire");
-        inventoryButton.setFont(new Font("Arial", Font.BOLD, 16));
-        inventoryButton.setPreferredSize(new Dimension(150, 40));
-        inventoryButton.addActionListener(e -> openInventory());
 
         interactButton = new JButton("💬 Interagir");
         interactButton.setFont(new Font("Arial", Font.BOLD, 16));
@@ -94,9 +85,9 @@ public class MainGUI extends JFrame {
         coinLabel.setForeground(Color.WHITE);
 
         bottomPanel.add(coinLabel);
-        bottomPanel.add(inventoryButton);
         bottomPanel.add(interactButton);
-     // ✅ Ajouter 5 boutons vides pour l'inventaire
+
+        // ✅ Ajouter 5 boutons vides pour l'inventaire rapide
         for (int i = 0; i < 5; i++) {
             JButton itemSlot = new JButton("Vide");
             itemSlot.setFont(new Font("Arial", Font.BOLD, 14));
@@ -104,16 +95,11 @@ public class MainGUI extends JFrame {
             bottomPanel.add(itemSlot);
         }
 
-
-        // ✅ Ajout des composants principaux
         dashboard.setPreferredSize(new Dimension(getWidth() - sidePanel.getPreferredSize().width, getHeight()));
         add(dashboard, BorderLayout.CENTER);
         add(sidePanel, BorderLayout.EAST);
-        add(bottomPanel, BorderLayout.SOUTH); // ✅ Boutons réajoutés en bas
-       
+        add(bottomPanel, BorderLayout.SOUTH);
 
-
-        // ✅ KeyListener pour dialogues et déplacement
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -124,7 +110,7 @@ public class MainGUI extends JFrame {
                 }
             }
         });
-//test
+
         setFocusable(true);
         setVisible(true);
         requestFocusInWindow();
@@ -134,9 +120,6 @@ public class MainGUI extends JFrame {
         return instance != null ? instance.dashboard : null;
     }
 
-    /**
-     * ✅ Gérer la progression du dialogue et empiler les bulles
-     */
     private void advanceDialogue() {
         if (dialogueIndex < dialogues.length - 1) {
             dialogueIndex++;
@@ -147,15 +130,12 @@ public class MainGUI extends JFrame {
         }
     }
 
-    /**
-     * ✅ Met à jour le panneau de dialogue avec une nouvelle bulle à chaque avancée
-     */
     private void updateDialoguePanel() {
         JTextArea newDialogue = new JTextArea(dialogues[dialogueIndex]);
         newDialogue.setEditable(false);
         newDialogue.setLineWrap(true);
         newDialogue.setWrapStyleWord(true);
-        newDialogue.setBackground(new Color(255, 255, 204)); // Fond jaune clair
+        newDialogue.setBackground(new Color(255, 255, 204));
         newDialogue.setFont(new Font("Arial", Font.BOLD, 14));
         newDialogue.setMargin(new Insets(10, 10, 10, 10));
         newDialogue.setBorder(BorderFactory.createCompoundBorder(
@@ -169,9 +149,6 @@ public class MainGUI extends JFrame {
         dialoguePanel.repaint();
     }
 
-    /**
-     * ✅ Gestion des mouvements après la fin des dialogues.
-     */
     public void moveHero(int keyCode) {
         if (dialogueActive) return;
 
@@ -193,42 +170,24 @@ public class MainGUI extends JFrame {
             if (!dashboard.getMap().isBlocked(newPos)) hero.moveDown();
         }
 
-        // ✅ Vérifier si une pièce est ramassée
         dashboard.checkHeroCoinCollision(this);
-
         dashboard.repaint();
     }
 
     /**
-     * ✅ Ouvrir l’inventaire
-     */
-    private void openInventory() {
-        JFrame inventoryWindow = new JFrame("Inventaire");
-        inventoryWindow.setSize(400, 300);
-        inventoryWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        inventoryWindow.setLocationRelativeTo(this);
-
-        JPanel panel = new JPanel(new GridLayout(2, 3, 10, 10)); // 2 lignes, 3 colonnes
-        for (Equipment item : inventory.getInventory().getEquipments()) {
-            JButton itemButton = new JButton(item.getName());
-            panel.add(itemButton);
-        }
-
-        inventoryWindow.add(panel);
-        inventoryWindow.setVisible(true);
-    }
-
-
-    /**
-     * ✅ Interagir avec un NPC
+     * ✅ Interaction avec un coffre
      */
     private void interactWithNPC() {
-        JOptionPane.showMessageDialog(this, "💬 Tu veux interagir avec quelqu'un ? (À implémenter)");
+        Chest chest = dashboard.openNearbyChest(); // Vérifier si un coffre est proche
+        if (chest != null) {
+            System.out.println("🔓 Coffre trouvé, ouverture...");
+            ChestUIManager chestUI = new ChestUIManager(this);
+            chestUI.displayChestContents(chest);
+        } else {
+            JOptionPane.showMessageDialog(this, "💬 Il n'y a rien à interagir ici !");
+        }
     }
 
-    /**
-     * ✅ Mettre à jour l'affichage des pièces
-     */
     public void incrementCoinCount() {
         coinCount++;
         coinLabel.setText("💰 Pièces : " + coinCount);
@@ -242,12 +201,7 @@ public class MainGUI extends JFrame {
         return inventory;
     }
 
-    /**
-     * ✅ Main pour tester l'affichage
-     */
     public static void main(String[] args) {
-    	
         SwingUtilities.invokeLater(MainGUI::new);
     }
 }
-

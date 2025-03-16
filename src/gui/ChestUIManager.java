@@ -81,4 +81,6 @@ public class ChestUIManager {
         chestWindow.add(scrollPane);
         chestWindow.setVisible(true);
     }
+    
+    
 }
