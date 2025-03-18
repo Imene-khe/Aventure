@@ -192,53 +192,41 @@ public class MainGUI extends JFrame {
         Block currentPos = hero.getPosition();
         Block newPos = currentPos;
 
-        // ✅ Sélectionner la bonne carte (`currentMap` ou `shopMap`)
-        Map activeMap;
-        if (dashboard.isInShop()) {
-            activeMap = dashboard.getShopMap();
-        } else {
-            activeMap = dashboard.getMap();
-        }
+        // ✅ Sélectionner la carte active (`currentMap` ou `shopMap`)
+        Map activeMap = dashboard.isInShop() ? dashboard.getShopMap() : dashboard.getMap();
+
+        int newLine = currentPos.getLine();
+        int newColumn = currentPos.getColumn();
 
         if (keyCode == KeyEvent.VK_LEFT) {
-            newPos = activeMap.getBlock(currentPos.getLine(), currentPos.getColumn() - 1);
-            if (!activeMap.isBlocked(newPos)) hero.moveLeft();
+            newColumn--;
         } else if (keyCode == KeyEvent.VK_RIGHT) {
-            newPos = activeMap.getBlock(currentPos.getLine(), currentPos.getColumn() + 1);
-            if (!activeMap.isBlocked(newPos)) hero.moveRight();
+            newColumn++;
         } else if (keyCode == KeyEvent.VK_UP) {
-            newPos = activeMap.getBlock(currentPos.getLine() - 1, currentPos.getColumn());
-            if (!activeMap.isBlocked(newPos)) hero.moveUp();
+            newLine--;
         } else if (keyCode == KeyEvent.VK_DOWN) {
-            newPos = activeMap.getBlock(currentPos.getLine() + 1, currentPos.getColumn());
-            if (!activeMap.isBlocked(newPos)) hero.moveDown();
+            newLine++;
         }
 
-        dashboard.checkHeroCoinCollision(this); // ✅ Vérifie la collecte des pièces uniquement en `currentMap`
-        dashboard.repaint(); // ✅ Met à jour l'affichage après le déplacement
+        // ✅ Vérifier que le déplacement reste dans les limites de la carte
+        if (newLine >= 0 && newLine < activeMap.getLineCount() && newColumn >= 0 && newColumn < activeMap.getColumnCount()) {
+            newPos = activeMap.getBlock(newLine, newColumn);
 
-        // ✅ Vérifier si le héros est proche d'un objet interactif (shop, marchand, etc.)
-        Block heroPos = dashboard.getHero().getPosition();
-        if (dashboard.getMap().getStaticObjects().containsKey(heroPos)) {
-            String object = dashboard.getMap().getStaticObjects().get(heroPos);
-            System.out.println("🧐 Le héros a touché : " + object);
-            if (object.equals("merchant")) {
-                interactWithMerchant();
+            // ✅ Vérifier que le bloc n'est pas bloqué
+            if (!activeMap.isBlocked(newPos)) {
+                hero.setPosition(newPos);
+                dashboard.repaint();
+            } else {
+                System.out.println("🚫 Mouvement bloqué par un obstacle !");
             }
+        } else {
+            System.out.println("🚫 Mouvement interdit : hors des limites !");
         }
 
-        // ✅ Vérifier si le héros est proche du shop pour entrer automatiquement
-        if (!dashboard.isInShop() && isHeroNearShop()) {
-            System.out.println("🏪 Le héros est proche du shop ! Appuyez sur 'E' pour entrer.");
-        }
+        dashboard.checkHeroCoinCollision(this);
     }
 
 
-
-
-    /**
-     * Gère l'interaction avec les éléments proches (coffres, NPC, shop).
-     */
     /**
      * ✅ Vérifie l’interaction avec un coffre ou l’entrée du shop.
      */

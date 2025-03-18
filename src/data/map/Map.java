@@ -62,30 +62,35 @@ public class Map {
             generateCoins(10);  // Générer des pièces
             placeShopOnMap();   // ✅ Placer le shop après la génération des objets
         } else {
-            setupStaticShop(); // ✅ Configuration spéciale pour la boutique
+        	 setupStaticShop();
+        	    this.enemies.clear(); // ✅ Supprime les ennemis de `shopMap` mais pas sur du tout pour le retour sur la map classique
+        	    this.coins.clear();   // ✅ Supprime les pièces de `shopMap` 	mais pas sur du tout pour le retour sur la map classique
         }
     }
 
  // ✅ Méthode pour configurer une boutique avec un carré de 8x8 entouré de noir, torches et tables autour du marchand
+    /**
+     * ✅ Configure une boutique avec un contour de `blackWall` simple et un placement optimisé des torches.
+     */
     public void setupStaticShop() {
         for (int i = 0; i < lineCount; i++) {
             for (int j = 0; j < columnCount; j++) {
                 Block block = blocks[i][j];
 
-                // ✅ Définition des murs noirs (2 blocs d'épaisseur)
-                if (i < 2 || i >= lineCount - 2 || j < 2 || j >= columnCount - 2) {
-                    staticTerrain.put(block, "blackWall"); // ✅ Contour noir
+                // ✅ Définition d'un contour fin (1 seul bloc de `blackWall`)
+                if (i == 0 || i == lineCount - 1 || j == 0 || j == columnCount - 1) {
+                    staticTerrain.put(block, "blackWall"); // ✅ Contour fin
                 } else {
-                    staticTerrain.put(block, "shopFloor"); // ✅ Sol de la boutique
+                    staticTerrain.put(block, "shopFloor"); // ✅ Sol intérieur du shop
                 }
             }
         }
 
-        // ✅ Ajouter des torches dans les coins du carré 8x8
-        staticObjects.put(blocks[2][2], "torch"); // Coin haut-gauche
-        staticObjects.put(blocks[2][lineCount - 3], "torch"); // Coin haut-droit
-        staticObjects.put(blocks[lineCount - 3][2], "torch"); // Coin bas-gauche
-        staticObjects.put(blocks[lineCount - 3][lineCount - 3], "torch"); // Coin bas-droit
+        // ✅ Nouvelle disposition des torches (plus proches du centre du shop)
+        staticObjects.put(blocks[1][1], "torch"); // Coin haut-gauche intérieur
+        staticObjects.put(blocks[1][columnCount - 2], "torch"); // Coin haut-droit intérieur
+        staticObjects.put(blocks[lineCount - 2][1], "torch"); // Coin bas-gauche intérieur
+        staticObjects.put(blocks[lineCount - 2][columnCount - 2], "torch"); // Coin bas-droit intérieur
 
         // ✅ Placement fixe du marchand au centre de la boutique
         int merchantRow = lineCount / 2;
@@ -99,8 +104,9 @@ public class Map {
         staticObjects.put(blocks[merchantRow][merchantCol - 1], "bar"); // Gauche
         staticObjects.put(blocks[merchantRow][merchantCol + 1], "bar"); // Droite
 
-        System.out.println("✅ Boutique statique configurée avec torches et tables !");
+        System.out.println("✅ Boutique statique configurée avec un contour fin et un nouveau placement des torches !");
     }
+
 
 
 

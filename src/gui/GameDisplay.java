@@ -293,18 +293,36 @@ public class GameDisplay extends JPanel {
 	    hero.setPosition(newPosition);
 	    System.out.println("✅ Héros déplacé à : " + hero.getPosition());
 
-	    // ✅ Vérifier si on est dans `currentMap` pour ramasser des pièces ou ouvrir un coffre
+	    // ✅ Vérifier si on est dans `currentMap` pour ramasser des pièces, ouvrir un coffre et rencontrer des ennemis
 	    if (!isInShop) {
 	        checkHeroCoinCollision(mainGUI);
+
 	        Chest chest = openNearbyChest();
 	        if (chest != null) {
 	            ChestUIManager chestUI = new ChestUIManager(mainGUI);
 	            chestUI.displayChestContents(chest);
 	        }
+
+	        // ✅ Vérifier si le héros touche un ennemi (uniquement en `currentMap`)
+	        for (Block enemyPos : map.getEnemies().keySet()) {
+	            if (enemyPos.equals(newPosition)) {
+	                System.out.println("💀 COLLISION AVEC UN ENNEMI !");
+	                hero.takeDamage(10); // ✅ Inflige 10 points de dégâts
+
+	                // ✅ Vérifier si le héros est mort
+	                if (hero.getHealth() <= 0) {
+	                    System.out.println("☠️ GAME OVER ! Le héros est mort.");
+	                    JOptionPane.showMessageDialog(this, "☠️ GAME OVER ! Le héros est mort.");
+	                    isGameOver = true; // ✅ Empêcher tout nouveau déplacement
+	                    return; // 🔴 Stopper la fonction immédiatement
+	                }
+	            }
+	        }
 	    }
 
 	    repaint(); // ✅ Mise à jour de l'affichage
 	}
+
 
 
 
