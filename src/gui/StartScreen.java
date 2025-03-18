@@ -60,7 +60,7 @@ public class StartScreen extends JFrame {
     }
 
     // ✅ Méthode pour créer des boutons stylisés
-    private JButton createStyledButton(String text) {
+    public JButton createStyledButton(String text) {
         JButton button = new JButton(text);
         button.setFont(new Font("Arial", Font.BOLD, 14));
         button.setBackground(new Color(60, 63, 65));
@@ -86,7 +86,7 @@ public class StartScreen extends JFrame {
     }
 
     // ✅ Gérer le choix entre l'Aventure, la Boutique et le Mode Combat
-    private void startGame(String mapType) {
+    public void startGame(String mapType) {
         dispose(); // Fermer l’écran de démarrage
 
         switch (mapType) {
@@ -121,7 +121,7 @@ public class StartScreen extends JFrame {
     }
 
     // ✅ Effet de fondu progressif AVEC TIMER
-    private void fadeOutAndStartGame() {
+    public void fadeOutAndStartGame() {
         Timer timer = new Timer(50, new ActionListener() {
             float opacity = 1.0f;
 

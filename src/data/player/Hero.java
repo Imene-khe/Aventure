@@ -37,7 +37,7 @@ public class Hero extends Person {
     }
 
     // Charger l’image du héros
-    private void loadHeroSprite() {
+    public void loadHeroSprite() {
         try {
             heroSprite = ImageIO.read(new File("src/images/player/Player.png"));
             System.out.println("✅ Image du héros chargée !");
@@ -48,7 +48,7 @@ public class Hero extends Person {
     }
 
     // Mise à jour de l'animation (fait avancer le sprite)
-    private void updateAnimationFrame() {
+    public void updateAnimationFrame() {
         spriteX = (spriteX + SPRITE_WIDTH) % (SPRITE_WIDTH * SPRITE_FRAMES);
         System.out.println("🔄 Animation mise à jour : spriteX = " + spriteX);
     }

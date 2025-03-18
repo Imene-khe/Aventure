@@ -8,7 +8,6 @@ import java.awt.event.KeyEvent;
 import data.item.Chest;
 import data.item.InventoryManager;
 import data.map.Block;
-import data.map.ShopMap;
 import data.player.Hero;
 
 public class MainGUI extends JFrame {
@@ -140,14 +139,14 @@ public class MainGUI extends JFrame {
     /**
      * ✅ Change l'affichage pour afficher `shopMap` dans `GameDisplay`
      */
-    private void enterShop() {
+    public void enterShop() {
         System.out.println("🏪 Le héros entre dans le shop !");
         dashboard.enterShop(); // ✅ Active la boutique dans GameDisplay
     }
 
 
     
-    private void interactWithMerchant() {
+    public void interactWithMerchant() {
         if (coinCount < 10) {
             JOptionPane.showMessageDialog(this, "💬 Il te faut 10 pièces pour entrer dans la boutique !");
             return;
@@ -244,7 +243,7 @@ public class MainGUI extends JFrame {
     /**
      * ✅ Vérifie si le héros est proche du bâtiment `shop`
      */
-    private boolean isHeroNearShop() {
+    public boolean isHeroNearShop() {
         Block heroPos = dashboard.getHero().getPosition();
         int heroLine = heroPos.getLine();
         int heroColumn = heroPos.getColumn();
