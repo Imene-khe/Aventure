@@ -3,12 +3,15 @@ package gui;
 import java.awt.Graphics;
 import gui.*;
 import java.awt.Image;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -28,15 +31,18 @@ public class GameDisplay extends JPanel {
     private static final long serialVersionUID = 1L;
     private static final int GRID_SIZE = 20;  // Réduire la taille à 20x20
     private static final int BLOCK_SIZE = 32; // Taille inchangée
+    private static final int SHOP_SIZE = 10; //Taille de la boutique
     private Map map; // Instance de la carte du jeu
+    private Map shopMap;
     private Hero hero; // Instance du héros
     private EnemyImageManager enemyImageManager; // Gestionnaire des images des ennemis
     private HashMap<String, Image> tileset; // Dictionnaire des images de terrain et objets
     private boolean canTakeDamage = true; // ✅ Contrôle si le héros peut prendre des dégâts
     private boolean isGameOver = false; // ✅ Empêche l'affichage multiple du message de Game Over
-    private Image merchantSprite; // Image du marchand
-    private Block merchantPosition; // Position actuelle du marchand
-    private boolean showMerchant = true; // Permet de faire un effet de disparition
+    //private Image merchantSprite; // Image du marchand
+    //private Block merchantPosition; // Position actuelle du marchand
+    //private boolean showMerchant = true; // Permet de faire un effet de disparition
+    private boolean isInShop = false; // ✅ Indique si on est dans la boutique
 
 
 
@@ -47,7 +53,9 @@ public class GameDisplay extends JPanel {
         try {
             int numberOfChests = 5; // Ajustable selon besoins
             this.enemyImageManager = new EnemyImageManager();
-            this.map = new Map(GRID_SIZE, GRID_SIZE, numberOfChests);
+            this.map = new Map(GRID_SIZE, GRID_SIZE, numberOfChests,false);
+            this.shopMap = new Map(SHOP_SIZE, SHOP_SIZE, 0,true);    // Boutique plus petite
+            this.shopMap.setupStaticShop(); // ✅ Configuration de la boutique
             this.hero = new Hero(map.getBlock(GRID_SIZE / 2, GRID_SIZE / 2), 100);
             this.tileset = new HashMap<>();
             
@@ -75,9 +83,9 @@ public class GameDisplay extends JPanel {
                 }
             }).start();
 
-            // Chargement des images
+            // Chargement des images a supprimer dans un second temps
             loadImages();
-            merchantPosition = map.getBlock(10, 10); // Ajuste la position selon ta map
+            /*merchantPosition = map.getBlock(10, 10); // Ajuste la position selon ta map
             new Thread(() -> {
                 while (true) {
                     try {
@@ -88,7 +96,7 @@ public class GameDisplay extends JPanel {
                         e.printStackTrace();
                     }
                 }
-            }).start();
+            }).start();*/
 
 
             System.out.println("✅ GameDisplay créé avec succès !");
@@ -97,6 +105,8 @@ public class GameDisplay extends JPanel {
             e.printStackTrace();
         }
     }
+    
+    
     
     /**
      * Vérifie si un coffre est à proximité du héros et l'ouvre si c'est le cas.
@@ -190,6 +200,10 @@ public class GameDisplay extends JPanel {
 	public void setTileset(HashMap<String, Image> tileset) {
 		this.tileset = tileset;
 	}
+	
+	public Map getShopMap() {
+        return shopMap;
+    }
 
 	/**
      * Charge toutes les images nécessaires pour le rendu du jeu (terrains, objets, ennemis).
@@ -202,6 +216,15 @@ public class GameDisplay extends JPanel {
             tileset.put("grass", loadImage("src/images/outdoors/Grass_Middle.png"));
             tileset.put("water", loadImage("src/images/outdoors/Water_Middle.png"));
             tileset.put("path", loadImage("src/images/outdoors/Path_Middle.png"));
+            
+            //Chargement des terrains du shop
+            tileset.put("shopFloor", loadImage("src/images/shop/Cobble.png"));
+            tileset.put("blackWall", loadImage("src/images/shop/blackwall.png")); 
+            tileset.put("torch", loadImage("src/images/shop/torch.png")); 
+            tileset.put("bar", loadImage("src/images/shop/bar.png")); 
+            tileset.put("merchant", loadImage("src/images/shop/merchant.png")); 
+
+
 
             // Chargement des obstacles
             tileset.put("house", loadImage("src/images/outdoors/House.png"));
@@ -210,7 +233,7 @@ public class GameDisplay extends JPanel {
 
             // Chargement des objets
             tileset.put("chest", loadImage("src/images/outdoors/Chest.png"));
-            merchantSprite = loadImage("src/images/player/merchant_sprite.jpg");
+            //merchantSprite = loadImage("src/images/player/merchant_sprite.jpg");
 
 
             System.out.println("✅ Toutes les images sont chargées !");
@@ -273,9 +296,9 @@ public class GameDisplay extends JPanel {
             ChestUIManager chestUI = new ChestUIManager(mainGUI);
             chestUI.displayChestContents(chest);
         }
-        if (hero.getPosition().equals(merchantPosition)) {
+        /*if (hero.getPosition().equals(merchantPosition)) {
             //interactWithMerchant();
-        }
+        }*/
 
 
         repaint(); // ✅ Mise à jour de l'affichage
@@ -289,52 +312,81 @@ public class GameDisplay extends JPanel {
      * Méthode de rendu graphique. Elle dessine la carte, les ennemis, le héros et la barre de vie.
      * @param g L'objet Graphics utilisé pour dessiner
      */
+    
+    
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        if (map == null || tileset == null || tileset.isEmpty()) {
+        // ✅ Déterminer quelle carte dessiner (currentMap ou shopMap)
+        Map mapToDraw = isInShop ? shopMap : map;
+
+        if (mapToDraw == null || tileset == null || tileset.isEmpty()) {
             System.out.println("❌ Erreur: la map ou le tileset est null ou vide");
             return;
         }
 
-        Block[][] blocks = map.getBlocks();
+        Block[][] blocks = mapToDraw.getBlocks();
 
-        // 🔹 Dessiner la carte
-        for (int lineIndex = 0; lineIndex < map.getLineCount(); lineIndex++) {
-            for (int columnIndex = 0; columnIndex < map.getColumnCount(); columnIndex++) {
+        // 🔹 Dessiner la carte (terrains)
+        for (int lineIndex = 0; lineIndex < mapToDraw.getLineCount(); lineIndex++) {
+            for (int columnIndex = 0; columnIndex < mapToDraw.getColumnCount(); columnIndex++) {
                 Block block = blocks[lineIndex][columnIndex];
-                String terrainType = map.getStaticTerrain().getOrDefault(block, "grass");
+
+                // ✅ Vérifier si on est dans `shopMap` et utiliser `blackWall` pour le contour
+                String terrainType;
+                if (isInShop) {
+                    terrainType = mapToDraw.getStaticTerrain().getOrDefault(block, "shopFloor");
+                    if (terrainType.equals("blackWall")) {
+                        terrainType = "blackWall"; // ✅ Forcer l'affichage du contour noir
+                    }
+                } else {
+                    terrainType = mapToDraw.getStaticTerrain().getOrDefault(block, "grass");
+                }
+
                 Image terrainImage = tileset.get(terrainType);
 
                 if (terrainImage != null) {
                     g.drawImage(terrainImage, block.getColumn() * BLOCK_SIZE, block.getLine() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
                 }
 
-                // 🔹 Dessiner les objets statiques (arbres, maisons, coffres)
-                String objectType = map.getStaticObjects().get(block);
+                // 🔹 Dessiner les objets statiques (arbres, maisons, coffres, meubles, torches, tables, marchand)
+                String objectType = mapToDraw.getStaticObjects().get(block);
                 if (objectType != null && tileset.containsKey(objectType)) {
                     g.drawImage(tileset.get(objectType), block.getColumn() * BLOCK_SIZE, block.getLine() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
                 }
             }
         }
 
-        // 🔹 Dessiner les pièces (coins)
-        for (Coin coin : map.getCoins()) {
-            coin.draw(g, BLOCK_SIZE);
+        // 🔹 Dessiner le marchand (`merchant`) s'il est dans `shopMap`
+        if (isInShop) {
+            for (Block block : shopMap.getStaticObjects().keySet()) {
+                if (shopMap.getStaticObjects().get(block).equals("merchant") && tileset.containsKey("merchant")) {
+                    g.drawImage(tileset.get("merchant"), block.getColumn() * BLOCK_SIZE, block.getLine() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
+                }
+            }
         }
 
-        // 🔥 Dessiner les ennemis basés sur la position logique définie dans `Map`
-        for (Block block : map.getEnemies().keySet()) {
-            String enemyType = map.getEnemies().get(block);
-            Image enemyImage = enemyImageManager.getEnemyImage(enemyType, 0);
+        // 🔹 Dessiner les pièces (coins) uniquement si on est dans currentMap
+        if (!isInShop) {
+            for (Coin coin : map.getCoins()) {
+                coin.draw(g, BLOCK_SIZE);
+            }
+        }
 
-            if (enemyImage != null) {
-                int x = block.getColumn() * BLOCK_SIZE;
-                int y = block.getLine() * BLOCK_SIZE;
-                g.drawImage(enemyImage, x, y, BLOCK_SIZE, BLOCK_SIZE, null);
-            } else {
-                System.out.println("⚠ BUG: Ennemi " + enemyType + " non affiché !");
+        // 🔥 Dessiner les ennemis uniquement si on est dans currentMap
+        if (!isInShop) {
+            for (Block block : map.getEnemies().keySet()) {
+                String enemyType = map.getEnemies().get(block);
+                Image enemyImage = enemyImageManager.getEnemyImage(enemyType, 0);
+
+                if (enemyImage != null) {
+                    int x = block.getColumn() * BLOCK_SIZE;
+                    int y = block.getLine() * BLOCK_SIZE;
+                    g.drawImage(enemyImage, x, y, BLOCK_SIZE, BLOCK_SIZE, null);
+                } else {
+                    System.out.println("⚠ BUG: Ennemi " + enemyType + " non affiché !");
+                }
             }
         }
 
@@ -343,16 +395,16 @@ public class GameDisplay extends JPanel {
             hero.draw(g, BLOCK_SIZE);
         }
 
-        // 🔹 Dessiner la barre de vie
-        drawHealthBar(g);
-     // ✅ Afficher le marchand s’il est visible
-        if (showMerchant && merchantSprite != null) {
-            int x = merchantPosition.getColumn() * BLOCK_SIZE;
-            int y = merchantPosition.getLine() * BLOCK_SIZE;
-            g.drawImage(merchantSprite, x, y, BLOCK_SIZE, BLOCK_SIZE, this);
+        // 🔹 Dessiner la barre de vie uniquement si on est dans currentMap
+        if (!isInShop) {
+            drawHealthBar(g);
         }
-
     }
+
+
+
+
+
     
     
     /**
@@ -394,13 +446,6 @@ public class GameDisplay extends JPanel {
         }
     }
 
-
-
-
-
-
-
-
     /**
      * Dessine la barre de vie du héros.
      * @param g L'objet Graphics utilisé pour dessiner la barre de vie
@@ -417,4 +462,59 @@ public class GameDisplay extends JPanel {
         g.drawRect(10, 10, 200, 20);
         g.drawString("Vie : " + currentHealth + "%", 90, 25);
     }
+    
+    
+    /**
+     * Permet au héros d'entrer dans la boutique.
+     */
+    public void enterShop() {
+        isInShop = true;
+        hero.setPosition(shopMap.getBlock(1, 1)); // ✅ Position initiale dans la boutique
+        repaint(); // 🔄 Met à jour l'affichage
+    }
+    
+    /**
+     * Permet au héros de sortir de la boutique.
+     */
+    public void exitShop() {
+        isInShop = false;
+        hero.setPosition(map.getBlock(5, 5)); // ✅ Retour au spawn dans la map principale
+        repaint(); // 🔄 Met à jour l'affichage
+    }
+    
+    public static void main(String[] args) {
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            // ✅ Création de la fenêtre
+            JFrame frame = new JFrame("Test Affichage ShopMap");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+            // ✅ Création de GameDisplay (avec shopMap et currentMap)
+            GameDisplay gameDisplay = new GameDisplay();
+
+            // ✅ Gestion des touches pour entrer et sortir du magasin
+            gameDisplay.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    if (e.getKeyCode() == KeyEvent.VK_B && !gameDisplay.isInShop) {
+                        gameDisplay.enterShop();
+                        System.out.println("🏪 Entrée dans la boutique !");
+                    } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE && gameDisplay.isInShop) {
+                        gameDisplay.exitShop();
+                        System.out.println("🚪 Sortie de la boutique !");
+                    }
+                }
+            });
+
+            gameDisplay.setFocusable(true);
+            gameDisplay.requestFocusInWindow();
+
+            frame.add(gameDisplay);
+            frame.setSize(400, 400); // Ajuste la taille selon le rendu des blocs
+            frame.setLocationRelativeTo(null); // Centre la fenêtre
+            frame.setVisible(true);
+        });
+    }
+
+    
+    
 }

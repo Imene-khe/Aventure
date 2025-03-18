@@ -21,7 +21,7 @@ public class ShopMap extends JPanel {
         loadImages();
 
         // ✅ Créer une mini map pour la boutique
-        Map shopMap = new Map(5, 5, 0);
+        Map shopMap = new Map(5, 5, 0,true);
         this.marchant = new Marchant(shopMap, 2, 2);
 
         setPreferredSize(new Dimension(800, 600));
@@ -84,5 +84,7 @@ public class ShopMap extends JPanel {
         parent.revalidate();
         parent.repaint();
     }
+    
+ 
 }
 
