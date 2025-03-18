@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Graphics;
+import gui.*;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
@@ -273,7 +274,7 @@ public class GameDisplay extends JPanel {
             chestUI.displayChestContents(chest);
         }
         if (hero.getPosition().equals(merchantPosition)) {
-            interactWithMerchant();
+            //interactWithMerchant();
         }
 
 
