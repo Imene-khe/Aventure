@@ -60,6 +60,7 @@ public class Map {
             generateObjects();  // Générer les objets (arbres, maisons, coffres)
             generateEnemies();  // Générer les ennemis
             generateCoins(10);  // Générer des pièces
+            placeShopOnMap();   // ✅ Placer le shop après la génération des objets
         } else {
             setupStaticShop(); // ✅ Configuration spéciale pour la boutique
         }
@@ -141,6 +142,44 @@ public class Map {
             }
         }
     }
+    
+    /**
+     * ✅ Place une maison spéciale "Shop" à un emplacement fixe et sécurisé sur `currentMap`.
+     */
+    /**
+     * ✅ Place la maison spéciale "Shop" à un emplacement aléatoire mais sécurisé.
+     */
+    private void placeShopOnMap() {
+        Random random = new Random();
+        int maxAttempts = 100; // ✅ Évite une boucle infinie si la carte est très remplie
+        int attempts = 0;
+
+        while (attempts < maxAttempts) {
+            int shopRow = random.nextInt(lineCount - 2) + 1; // ✅ Évite les bords
+            int shopCol = random.nextInt(columnCount - 2) + 1;
+            Block shopBlock = blocks[shopRow][shopCol];
+
+            // ✅ Vérifier que le bloc est libre (ni eau, ni maison, ni coffre, ni obstacle)
+            String terrainType = staticTerrain.getOrDefault(shopBlock, "grass");
+            if (!terrainType.equals("water") &&
+                !staticObjects.containsKey(shopBlock) &&
+                !chestManager.getChests().containsKey(shopBlock) &&
+                !enemies.containsKey(shopBlock)) {
+
+                // ✅ Placer la maison "Shop" ici
+                staticObjects.put(shopBlock, "shop");
+                setTerrainBlocked(shopBlock, true);
+                System.out.println("✅ Shop placé en position : " + shopBlock);
+                return;
+            }
+
+            attempts++; // ✅ Incrémentation du compteur de tentatives
+        }
+
+        System.out.println("⚠ Impossible de placer le shop après " + maxAttempts + " essais !");
+    }
+
+
 
 
 

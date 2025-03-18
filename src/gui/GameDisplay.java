@@ -229,6 +229,7 @@ public class GameDisplay extends JPanel {
             // Chargement des obstacles
             tileset.put("house", loadImage("src/images/outdoors/House.png"));
             tileset.put("tree", loadImage("src/images/outdoors/Oak_Tree.png"));
+            tileset.put("shop", loadImage("src/images/shop/shop.png")); 
             
 
             // Chargement des objets
@@ -350,12 +351,21 @@ public class GameDisplay extends JPanel {
                     g.drawImage(terrainImage, block.getColumn() * BLOCK_SIZE, block.getLine() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
                 }
 
-                // 🔹 Dessiner les objets statiques (arbres, maisons, coffres, meubles, torches, tables)
+                // 🔹 Dessiner les objets statiques (arbres, maisons, coffres, meubles, torches, tables, shop)
                 String objectType = mapToDraw.getStaticObjects().get(block);
 
                 // ✅ Ne pas afficher `merchant` ici, il sera affiché séparément
                 if (objectType != null && !objectType.equals("merchant") && tileset.containsKey(objectType)) {
                     g.drawImage(tileset.get(objectType), block.getColumn() * BLOCK_SIZE, block.getLine() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
+                }
+            }
+        }
+
+        // 🔹 Dessiner le bâtiment shop (`shop`) uniquement dans `currentMap`
+        if (!isInShop && tileset.containsKey("shop")) {
+            for (Block block : map.getStaticObjects().keySet()) {
+                if ("shop".equals(map.getStaticObjects().get(block))) {
+                    g.drawImage(tileset.get("shop"), block.getColumn() * BLOCK_SIZE, block.getLine() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
                 }
             }
         }
@@ -402,6 +412,7 @@ public class GameDisplay extends JPanel {
             drawHealthBar(g);
         }
     }
+
 
 
 
@@ -468,13 +479,14 @@ public class GameDisplay extends JPanel {
     
     
     /**
-     * Permet au héros d'entrer dans la boutique.
+     * ✅ Active l'affichage de `shopMap`
      */
     public void enterShop() {
         isInShop = true;
-        hero.setPosition(shopMap.getBlock(1, 1)); // ✅ Position initiale dans la boutique
-        repaint(); // 🔄 Met à jour l'affichage
+        hero.setPosition(shopMap.getBlock(1, 1)); // ✅ Placer le héros dans la boutique
+        repaint(); // 🔄 Mise à jour de l'affichage
     }
+
     
     /**
      * Permet au héros de sortir de la boutique.

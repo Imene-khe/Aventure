@@ -137,12 +137,14 @@ public class MainGUI extends JFrame {
         }
     }
     
+    /**
+     * ✅ Change l'affichage pour afficher `shopMap` dans `GameDisplay`
+     */
     private void enterShop() {
-        JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
-        parent.setContentPane(new ShopMap(dashboard.getHero()));
-        parent.revalidate();
-        parent.repaint();
+        System.out.println("🏪 Le héros entre dans le shop !");
+        dashboard.enterShop(); // ✅ Active la boutique dans GameDisplay
     }
+
 
     
     private void interactWithMerchant() {
@@ -216,6 +218,12 @@ public class MainGUI extends JFrame {
 
     }
 
+    /**
+     * Gère l'interaction avec les éléments proches (coffres, NPC, shop).
+     */
+    /**
+     * ✅ Vérifie l’interaction avec un coffre ou l’entrée du shop.
+     */
     public void interactWithNPC() {
         Chest chest = dashboard.openNearbyChest(); // Vérifier si un coffre est proche
 
@@ -223,11 +231,47 @@ public class MainGUI extends JFrame {
             System.out.println("🔓 Coffre trouvé, ouverture...");
             ChestUIManager chestUI = new ChestUIManager(this);
             chestUI.displayChestContents(chest);
+        } else if (isHeroNearShop()) {
+            enterShop(); // ✅ Entrer dans la boutique si le héros est proche du shop
         } else {
             JOptionPane.showMessageDialog(this, "💬 Il n'y a rien à interagir ici !");
         }
 
         requestFocusInWindow(); // ✅ Redonner le focus après l’interaction
+    }
+
+
+    /**
+     * ✅ Vérifie si le héros est proche du bâtiment `shop`
+     */
+    private boolean isHeroNearShop() {
+        Block heroPos = dashboard.getHero().getPosition();
+        int heroLine = heroPos.getLine();
+        int heroColumn = heroPos.getColumn();
+
+        // Vérifier les cases adjacentes autour du héros
+        for (int deltaLine = -1; deltaLine <= 1; deltaLine++) {
+            for (int deltaColumn = -1; deltaColumn <= 1; deltaColumn++) {
+                if (deltaLine == 0 && deltaColumn == 0) continue; // Ignorer la case du héros lui-même
+
+                int newLine = heroLine + deltaLine;
+                int newColumn = heroColumn + deltaColumn;
+
+                // Vérifier que les coordonnées sont valides
+                if (newLine >= 0 && newLine < dashboard.getMap().getLineCount() &&
+                    newColumn >= 0 && newColumn < dashboard.getMap().getColumnCount()) {
+
+                    Block adjacentBlock = dashboard.getMap().getBlock(newLine, newColumn);
+
+                    // Vérifier si le bloc adjacent est le shop
+                    if (dashboard.getMap().getStaticObjects().containsKey(adjacentBlock) &&
+                        dashboard.getMap().getStaticObjects().get(adjacentBlock).equals("shop")) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
 
