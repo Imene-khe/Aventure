@@ -20,13 +20,9 @@ public class Marchant {
         this.position = map.getBlock(line, column);
         
         // ✅ Chargement correct du sprite sheet
-        try {
-            this.spriteSheet = ImageIO.read(new File("src/images/merchant_sprite.jpg"));
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("❌ ERREUR : Impossible de charger l'image du marchand !");
-        }
-        
+
+            //this.spriteSheet = ImageIO.read(new File("src/images/merchant_sprite.jpg"));
+       
         this.currentFrame = 0; // Débute à la première frame
         this.currentDirection = 0; // Par défaut, face au joueur
     }

@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import data.item.Chest;
 import data.item.InventoryManager;
 import data.map.Block;
+import data.map.ShopMap;
 import data.player.Hero;
 
 public class MainGUI extends JFrame {
@@ -248,6 +249,7 @@ public class MainGUI extends JFrame {
     }
 
     public static void main(String[] args) {
+    	
         SwingUtilities.invokeLater(MainGUI::new);
     }
 }
