@@ -101,8 +101,19 @@ public class StartScreen extends JFrame {
                 combatFrame.setVisible(true);
                 break;
             case "shop":
-           
+            	// ✅ Création de la fenêtre pour la boutique
+                JFrame shopFrame = new JFrame("Boutique");
+                shopFrame.setSize(800, 600);
+                shopFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+                // ✅ Création de GameDisplay et activation de shopMap
+                GameDisplay gameDisplay = new GameDisplay();
+                gameDisplay.enterShop(); // ✅ Afficher directement la boutique
+
+                shopFrame.add(gameDisplay);
+                shopFrame.setVisible(true);
                 break;
+                
             default:
                 new MainGUI();
                 break;

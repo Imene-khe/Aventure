@@ -350,18 +350,20 @@ public class GameDisplay extends JPanel {
                     g.drawImage(terrainImage, block.getColumn() * BLOCK_SIZE, block.getLine() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
                 }
 
-                // 🔹 Dessiner les objets statiques (arbres, maisons, coffres, meubles, torches, tables, marchand)
+                // 🔹 Dessiner les objets statiques (arbres, maisons, coffres, meubles, torches, tables)
                 String objectType = mapToDraw.getStaticObjects().get(block);
-                if (objectType != null && tileset.containsKey(objectType)) {
+
+                // ✅ Ne pas afficher `merchant` ici, il sera affiché séparément
+                if (objectType != null && !objectType.equals("merchant") && tileset.containsKey(objectType)) {
                     g.drawImage(tileset.get(objectType), block.getColumn() * BLOCK_SIZE, block.getLine() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
                 }
             }
         }
 
-        // 🔹 Dessiner le marchand (`merchant`) s'il est dans `shopMap`
-        if (isInShop) {
+        // 🔹 Dessiner le marchand (`merchant`) uniquement dans `shopMap`
+        if (isInShop && tileset.containsKey("merchant")) {
             for (Block block : shopMap.getStaticObjects().keySet()) {
-                if (shopMap.getStaticObjects().get(block).equals("merchant") && tileset.containsKey("merchant")) {
+                if ("merchant".equals(shopMap.getStaticObjects().get(block))) {
                     g.drawImage(tileset.get("merchant"), block.getColumn() * BLOCK_SIZE, block.getLine() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
                 }
             }
@@ -400,6 +402,7 @@ public class GameDisplay extends JPanel {
             drawHealthBar(g);
         }
     }
+
 
 
 
