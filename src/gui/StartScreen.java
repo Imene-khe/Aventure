@@ -5,9 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import data.player.Hero;
 import data.map.CombatMap;
-import data.map.ShopMap;
 
 public class StartScreen extends JFrame {
 

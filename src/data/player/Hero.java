@@ -2,13 +2,11 @@ package data.player;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import data.map.Block;
-import gui.GameDisplay; // Assurez-vous d'avoir accès au GameDisplay
 import gui.MainGUI;
 
 public class Hero extends Person {
