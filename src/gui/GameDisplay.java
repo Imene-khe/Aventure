@@ -46,7 +46,19 @@ public class GameDisplay extends JPanel {
 
 
 
-    /**
+    public boolean isInShop() {
+		return isInShop;
+	}
+
+
+
+	public void setInShop(boolean isInShop) {
+		this.isInShop = isInShop;
+	}
+
+
+
+	/**
      * Constructeur de la classe. Initialise la carte, le héros et les images.
      */
     public GameDisplay() {
@@ -263,47 +275,37 @@ public class GameDisplay extends JPanel {
      * Si la position contient un ennemi, le héros perd de la vie.
      * @param newPosition La nouvelle position du héros
      */
-    public void moveHero(Block newPosition, MainGUI mainGUI) {
-        if (isGameOver) return; // 🔴 Si le jeu est terminé, empêcher les mouvements
+	public void moveHero(Block newPosition, MainGUI mainGUI) {
+	    if (isGameOver) return; // 🔴 Si le jeu est terminé, empêcher les mouvements
 
-        System.out.println("➡️ Tentative de déplacement vers : " + newPosition);
+	    System.out.println("➡️ Tentative de déplacement vers : " + newPosition);
 
-        // ✅ Vérifier si le bloc contient un ennemi AVANT de déplacer le héros
-        for (Block enemyPos : map.getEnemies().keySet()) {
-            if (enemyPos.equals(newPosition)) {
-                System.out.println("💀 COLLISION AVEC UN ENNEMI !");
-                hero.takeDamage(10); // ✅ Inflige 10 points de dégâts
+	    // ✅ Déterminer sur quelle carte on joue actuellement
+	    Map activeMap = isInShop ? shopMap : map;
 
-                // ✅ Vérifier si le héros est mort
-                if (hero.getHealth() <= 0) {
-                    System.out.println("☠️ GAME OVER ! Le héros est mort.");
-                    JOptionPane.showMessageDialog(this, "☠️ GAME OVER ! Le héros est mort.");
-                    isGameOver = true; // ✅ Empêcher tout nouveau déplacement
-                    return; // 🔴 Stopper la fonction immédiatement
-                }
-            }
-        }
+	    // ✅ Vérifier si le bloc est bloqué avant de déplacer le héros
+	    if (activeMap.isBlocked(newPosition)) {
+	        System.out.println("🚫 Mouvement impossible, obstacle détecté !");
+	        return; // 🔴 Arrêter le déplacement si bloqué
+	    }
 
-        // ✅ Déplacer le héros si aucun obstacle n'est présent
-        hero.setPosition(newPosition);
-        System.out.println("✅ Héros déplacé à : " + hero.getPosition());
+	    // ✅ Déplacer le héros
+	    hero.setPosition(newPosition);
+	    System.out.println("✅ Héros déplacé à : " + hero.getPosition());
 
-        // ✅ Vérifier si une pièce est ramassée
-        checkHeroCoinCollision(mainGUI);
+	    // ✅ Vérifier si on est dans `currentMap` pour ramasser des pièces ou ouvrir un coffre
+	    if (!isInShop) {
+	        checkHeroCoinCollision(mainGUI);
+	        Chest chest = openNearbyChest();
+	        if (chest != null) {
+	            ChestUIManager chestUI = new ChestUIManager(mainGUI);
+	            chestUI.displayChestContents(chest);
+	        }
+	    }
 
-        // ✅ Vérifier si un coffre est proche et l’ouvrir
-        Chest chest = openNearbyChest();
-        if (chest != null) {
-            ChestUIManager chestUI = new ChestUIManager(mainGUI);
-            chestUI.displayChestContents(chest);
-        }
-        /*if (hero.getPosition().equals(merchantPosition)) {
-            //interactWithMerchant();
-        }*/
+	    repaint(); // ✅ Mise à jour de l'affichage
+	}
 
-
-        repaint(); // ✅ Mise à jour de l'affichage
-    }
 
 
 

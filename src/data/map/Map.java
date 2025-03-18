@@ -125,7 +125,7 @@ public class Map {
         }
     }
 
-    private void generateCoins(int coinCount) {
+    public void generateCoins(int coinCount) {
         ArrayList<Block> freeBlocks = getFreeBlocks(); // Récupère les blocs libres
         Random random = new Random();
 
@@ -149,7 +149,7 @@ public class Map {
     /**
      * ✅ Place la maison spéciale "Shop" à un emplacement aléatoire mais sécurisé.
      */
-    private void placeShopOnMap() {
+    public void placeShopOnMap() {
         Random random = new Random();
         int maxAttempts = 100; // ✅ Évite une boucle infinie si la carte est très remplie
         int attempts = 0;
@@ -193,7 +193,7 @@ public class Map {
         return staticTerrain;
     }
 
-    private void generateObjects() {
+    public void generateObjects() {
         int generatedChests = 0;
 
         // Générez les arbres et les maisons
