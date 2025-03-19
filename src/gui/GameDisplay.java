@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.Graphics;
-import gui.*;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -329,6 +328,7 @@ public class GameDisplay extends JPanel {
 
 
 
+
     /**
      * Méthode de rendu graphique. Elle dessine la carte, les ennemis, le héros et la barre de vie.
      * @param g L'objet Graphics utilisé pour dessiner
@@ -509,13 +509,19 @@ public class GameDisplay extends JPanel {
 
     
     /**
-     * Permet au héros de sortir de la boutique.
+     * ✅ Permet au héros de sortir du shop et de retourner sur `currentMap`.
      */
     public void exitShop() {
-        isInShop = false;
-        hero.setPosition(map.getBlock(5, 5)); // ✅ Retour au spawn dans la map principale
-        repaint(); // 🔄 Met à jour l'affichage
+        isInShop = false; // ✅ Désactive le mode boutique
+        hero.setPosition(map.getBlock(5, 5)); // ✅ Replace le héros sur `currentMap` (ajuste la position si nécessaire)
+        repaint(); // ✅ Mise à jour de l'affichage
+
+        // ✅ Assurer que la fenêtre reprend bien le focus pour la gestion des touches
+        requestFocusInWindow();
+
+        System.out.println("🚪 Sortie de la boutique, retour à la carte principale !");
     }
+
     
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(() -> {

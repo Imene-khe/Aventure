@@ -112,11 +112,15 @@ public class MainGUI extends JFrame {
             public void keyPressed(KeyEvent e) {
                 if (dialogueActive) {
                     advanceDialogue();
+                } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE && dashboard.isInShop()) {
+                    dashboard.exitShop(); // ✅ Quitter la boutique avec `ESC`
+                    System.out.println("🚪 Sortie de la boutique !");
                 } else {
                     moveHero(e.getKeyCode());
                 }
             }
         });
+
 
         setFocusable(true);
         setVisible(true);
