@@ -121,5 +121,17 @@ public class CombatMap extends JPanel {
         g.setColor(Color.BLACK);
         g.drawString("Vie du héros : " + hero.getHealth(), 50, 50);
     }
-}
 
+    // ✅ Main interne pour tester CombatMap
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("CombatMap Test");
+        CombatMap combatMap = new CombatMap();
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(800, 600);
+        frame.add(combatMap);
+        frame.setVisible(true);
+
+        combatMap.requestFocus();
+    }
+}
