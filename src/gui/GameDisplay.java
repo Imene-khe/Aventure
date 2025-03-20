@@ -512,21 +512,18 @@ public class GameDisplay extends JPanel {
      * ✅ Permet au héros de sortir du shop et de retourner sur `currentMap`.
      */
     public void exitShop() {
-        isInShop = false; // ✅ Désactive le mode boutique
-        hero.setPosition(map.getBlock(5, 5)); // ✅ Replace le héros sur `currentMap` (ajuste la position si nécessaire)
-        repaint(); // ✅ Mise à jour de l'affichage
-        returnToMainMap();
-
-        // ✅ Assurer que la fenêtre reprend bien le focus pour la gestion des touches
-
-        System.out.println("🚪 Sortie de la boutique, retour à la carte principale !");
+        returnToMainMap(); // ✅ Appelle returnToMainMap() une seule fois sans boucle infinie
     }
+
 
     
     public void returnToMainMap() {
-        GameDisplay gameDisplay = MainGUI.getGameDisplay(); // Récupérer l'instance existante de GameDisplay
-        if (gameDisplay != null) {
-            gameDisplay.exitShop(); // ✅ Quitte la boutique et replace le héros sur la map principale
+        if (isInShop) {  // ✅ Vérifie qu'on est bien dans la boutique avant de quitter
+            isInShop = false; // ✅ Désactive la boutique
+            hero.setPosition(map.getBlock(5, 5)); // ✅ Replace le héros sur la carte principale (ajuste la position si nécessaire)
+            repaint(); // ✅ Met à jour l'affichage
+            requestFocusInWindow(); // ✅ S'assure que la fenêtre reprend bien le focus
+            System.out.println("🚪 Sortie de la boutique, retour à la carte principale !");
         }
     }
 
