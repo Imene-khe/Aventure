@@ -26,6 +26,9 @@ public class MainGUI extends JFrame {
     private JPanel dialoguePanel;
     private DialogueManager dialogueManager = new DialogueManager();
     private boolean dialogueActive = true;
+    private JScrollPane scrollPane;
+
+    private String currentDialogueEvent = "intro"; // Par défaut au lancement
 
     // ✅ Panneau du bas
     private JPanel bottomPanel;
@@ -56,10 +59,8 @@ public class MainGUI extends JFrame {
         dialoguePanel.setLayout(new BoxLayout(dialoguePanel, BoxLayout.Y_AXIS));
         dialoguePanel.setBackground(new Color(50, 50, 50));
 
-        updateDialoguePanel();
 
-        JScrollPane scrollPane = new JScrollPane(dialoguePanel);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane = new JScrollPane(dialoguePanel);        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBorder(null);
 
         sidePanel.add(characterImage, BorderLayout.NORTH);
@@ -99,7 +100,6 @@ public class MainGUI extends JFrame {
         dashboard.setPreferredSize(new Dimension(getWidth() - sidePanel.getPreferredSize().width, getHeight()));
         add(dashboard, BorderLayout.CENTER);
         add(sidePanel, BorderLayout.EAST);
-        add(bottomPanel, BorderLayout.SOUTH);
 
         addKeyListener(new KeyAdapter() {
             @Override
@@ -118,6 +118,12 @@ public class MainGUI extends JFrame {
                 }
             }
         });
+        
+     add(bottomPanel, BorderLayout.SOUTH);
+
+     // ✅ Appel du dialogue seulement après l'initialisation complète
+     updateDialoguePanel(currentDialogueEvent);
+
 
 
 
@@ -131,13 +137,26 @@ public class MainGUI extends JFrame {
     }
 
     public void advanceDialogue() {
-        if (dialogueManager.hasNext()) {
-            dialogueManager.nextDialogue();
+        if (dialogueManager.hasNext(currentDialogueEvent)) {
+            dialogueManager.next(currentDialogueEvent);
+            updateDialoguePanel(currentDialogueEvent);
         } else {
             dialogueActive = false;
+            dialoguePanel.revalidate();
+            dialoguePanel.repaint();
         }
-        updateDialoguePanel();
     }
+    
+    public void triggerDialogue(String eventKey) {
+        if (!dialogueManager.hasDialogue(eventKey)) return;
+
+        currentDialogueEvent = eventKey;
+        dialogueManager.reset(eventKey);
+        dialogueActive = true;
+        updateDialoguePanel(eventKey);
+    }
+
+
 
     
     /**
@@ -157,7 +176,7 @@ public class MainGUI extends JFrame {
         }
 
         int choix = JOptionPane.showConfirmDialog(this, 
-            "💬 Le vieux marchand t’attend dans sa boutique...\nVeux-tu entrer ?", 
+            "💬 Le vieux marchand t’atta dans sa boutique...\nVeux-tu entrer ?", 
             "Marchand", JOptionPane.YES_NO_OPTION);
 
         if (choix == JOptionPane.YES_OPTION) {
@@ -166,8 +185,11 @@ public class MainGUI extends JFrame {
     }
 
 
-    public void updateDialoguePanel() {
-        JTextArea newDialogue = new JTextArea(dialogueManager.getCurrentDialogue());        
+    public void updateDialoguePanel(String eventKey) {
+        String dialogueText = dialogueManager.getCurrent(eventKey);
+        if (dialogueText == null) return;
+
+        JTextArea newDialogue = new JTextArea(dialogueText);
         newDialogue.setEditable(false);
         newDialogue.setLineWrap(true);
         newDialogue.setWrapStyleWord(true);
@@ -183,7 +205,14 @@ public class MainGUI extends JFrame {
         dialoguePanel.add(newDialogue);
         dialoguePanel.revalidate();
         dialoguePanel.repaint();
+
+        // ✅ Force le scroll tout en bas à chaque nouveau message
+        JScrollBar verticalBar = scrollPane.getVerticalScrollBar();
+        SwingUtilities.invokeLater(() -> verticalBar.setValue(verticalBar.getMaximum()));
     }
+
+
+
 
     /**
      * Gère les déplacements du héros en fonction de la carte active (`currentMap` ou `shopMap`).
