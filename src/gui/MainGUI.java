@@ -110,7 +110,7 @@ public class MainGUI extends JFrame {
                 } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE && dashboard.isInShop()) {
                     dashboard.exitShop(); // ✅ Quitter la boutique
                     System.out.println("🚪 Sortie de la boutique !");
-                    
+                    triggerDialogue("exit_shop_1");
                     requestFocusInWindow(); // ✅ Récupère le focus immédiatement pour les mouvements
                 } 
                 
