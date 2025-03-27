@@ -35,6 +35,19 @@ public class SpriteAnimator {
 
         startAnimationThread();
     }
+    
+    public SpriteAnimator(String[] imagePaths, int frameDelay) throws IOException {
+        this.frameCount = imagePaths.length;
+        this.frames = new Image[frameCount];
+        this.frameDelay = frameDelay;
+
+        for (int i = 0; i < frameCount; i++) {
+            frames[i] = ImageIO.read(new File(imagePaths[i]));
+        }
+
+        startAnimationThread();
+    }
+
 
     private void startAnimationThread() {
         new Thread(() -> {

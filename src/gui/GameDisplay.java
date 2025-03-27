@@ -44,6 +44,7 @@ public class GameDisplay extends JPanel {
     //private boolean showMerchant = true; // Permet de faire un effet de disparition
     private boolean isInShop = false; // ✅ Indique si on est dans la boutique
     private SpriteAnimator flameAnimator;
+    private SpriteAnimator coinAnimator;
 
 
 
@@ -72,6 +73,19 @@ public class GameDisplay extends JPanel {
             this.shopMap.setupStaticShop(); // ✅ Configuration de la boutique
             this.hero = new Hero(map.getBlock(GRID_SIZE / 2, GRID_SIZE / 2), 100);
             this.tileset = new HashMap<>();
+            
+            try {
+                String[] coinPaths = new String[8];
+                for (int i = 0; i < 8; i++) {
+                    coinPaths[i] = "src/images/items/coins/coin" + (i + 1) + ".png";
+                }
+                coinAnimator = new SpriteAnimator(coinPaths, 100); // ⏱️ 100 ms entre les frames
+                System.out.println("✅ coinAnimator (8 images) chargé avec succès !");
+            } catch (IOException e) {
+                System.out.println("❌ Impossible de charger les images d’animation des pièces !");
+                e.printStackTrace();
+            }
+
             
             
          // ✅ Thread pour vérifier en continu les collisions avec les ennemis
@@ -428,7 +442,19 @@ public class GameDisplay extends JPanel {
         // 🔹 Dessiner les pièces (coins) uniquement si on est dans currentMap
         if (!isInShop) {
             for (Coin coin : map.getCoins()) {
-                coin.draw(g, BLOCK_SIZE);
+                if (!coin.isCollected()) {
+                    Block block = coin.getBlock();
+                    int x = block.getColumn() * BLOCK_SIZE;
+                    int y = block.getLine() * BLOCK_SIZE;
+
+                    Image frame = coinAnimator.getCurrentFrame();
+                    
+
+                    int coinSize = (int) (BLOCK_SIZE * 0.5);
+                    int offset = (BLOCK_SIZE - coinSize) / 2;
+
+                    g.drawImage(frame, x + offset, y + offset, coinSize, coinSize, null);
+                }
             }
         }
 
