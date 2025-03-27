@@ -313,45 +313,44 @@ public class Map {
         return chestManager;
     } 
     
-    public static void main(String[] args) {
-        System.out.println("🔄 Initialisation de la boutique...");
+    
 
-        // ✅ Création d'une boutique statique
-        Map shopMap = new Map(10, 10, 0, true);
-
-        // ✅ Vérification des terrains générés
-        System.out.println("\n📌 Vérification du sol et des murs de la boutique :");
-        for (int i = 0; i < shopMap.getLineCount(); i++) {
-            for (int j = 0; j < shopMap.getColumnCount(); j++) {
-                Block block = shopMap.getBlock(i, j);
-                String terrain = shopMap.getStaticTerrain().getOrDefault(block, "shopFloor");
-
-                if (terrain.equals("blackWall")) {
-                    System.out.print("⬛ "); // Contour noir
-                } else {
-                    System.out.print("⬜ "); // Sol de la boutique
-                }
-            }
-            System.out.println();
-        }
-
-        // ✅ Vérification des objets statiques
-        System.out.println("\n🏠 Objets placés dans la boutique :");
-        for (Block block : shopMap.getStaticObjects().keySet()) {
-            System.out.println("📍 " + block + " → " + shopMap.getStaticObjects().get(block));
-        }
-
-        // ✅ Vérification du placement du marchand
-        System.out.println("\n🧑‍🦳 Position du marchand :");
-        for (Block block : shopMap.getStaticObjects().keySet()) {
-            if (shopMap.getStaticObjects().get(block).equals("merchant")) {
-                System.out.println("✅ Marchand positionné à : " + block);
+    public void setAllHousesOnFire() {
+        for (Block block : staticObjects.keySet()) {
+            String value = staticObjects.get(block);
+            if ("house".equals(value)) {
+                staticObjects.put(block, "house_burning");
             }
         }
-
-        System.out.println("\n✅ Test terminé ! Vérifie que la boutique est toujours la même à chaque exécution.");
     }
 
+    public static void main(String[] args) {
+        System.out.println("🔄 Initialisation d'une carte avec génération de maisons...");
+
+        // ✅ Création d'une carte dynamique avec objets (non statique)
+        Map map = new Map(10, 10, 0, false);
+
+        // ✅ Affichage des maisons AVANT le feu
+        System.out.println("\n🔥 Maisons AVANT le feu :");
+        for (Block block : map.getStaticObjects().keySet()) {
+            if ("house".equals(map.getStaticObjects().get(block))) {
+                System.out.println("🏠 Maison à : " + block);
+            }
+        }
+
+        // ✅ Déclenchement du feu
+        map.setAllHousesOnFire();
+
+        // ✅ Affichage des maisons APRES le feu
+        System.out.println("\n🔥 Maisons APRES le feu (doivent être en feu) :");
+        for (Block block : map.getStaticObjects().keySet()) {
+            if ("house_burning".equals(map.getStaticObjects().get(block))) {
+                System.out.println("🔥 Maison en feu à : " + block);
+            }
+        }
+
+        System.out.println("\n✅ Test de l'incendie terminé !");
+    }
 
 
 }

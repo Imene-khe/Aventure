@@ -113,13 +113,18 @@ public class MainGUI extends JFrame {
                 if (dialogueActive) {
                     advanceDialogue();
                 } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE && dashboard.isInShop()) {
-                    dashboard.exitShop(); // ✅ Quitter la boutique avec `ESC`
+                    dashboard.exitShop(); // ✅ Quitter la boutique
                     System.out.println("🚪 Sortie de la boutique !");
-                } else {
+                    requestFocusInWindow(); // ✅ Récupère le focus immédiatement pour les mouvements
+                } 
+                
+                // ✅ Une fois sorti du shop, on continue les déplacements normalement
+                if (!dashboard.isInShop()) {
                     moveHero(e.getKeyCode());
                 }
             }
         });
+
 
 
         setFocusable(true);

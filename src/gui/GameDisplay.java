@@ -20,6 +20,7 @@ import data.map.Block;
 import data.map.Map;
 import data.player.EnemyImageManager;
 import data.player.Hero;
+import gui.animation.SpriteAnimator;
 
 /**
  * Classe représentant l'affichage du jeu. Elle gère le rendu graphique de la CARTE, des ennemis, du héros
@@ -42,6 +43,8 @@ public class GameDisplay extends JPanel {
     //private Block merchantPosition; // Position actuelle du marchand
     //private boolean showMerchant = true; // Permet de faire un effet de disparition
     private boolean isInShop = false; // ✅ Indique si on est dans la boutique
+    private SpriteAnimator flameAnimator;
+
 
 
 
@@ -96,6 +99,13 @@ public class GameDisplay extends JPanel {
 
             // Chargement des images a supprimer dans un second temps
             loadImages();
+            try {
+                flameAnimator = new SpriteAnimator("src/images/outdoors/flames.png", 4, 3, 100);
+            } catch (IOException e) {
+                System.out.println("❌ Impossible de charger l'animation des flammes !");
+                e.printStackTrace();
+            }
+
             /*merchantPosition = map.getBlock(10, 10); // Ajuste la position selon ta map
             new Thread(() -> {
                 while (true) {
@@ -241,6 +251,8 @@ public class GameDisplay extends JPanel {
             tileset.put("house", loadImage("src/images/outdoors/House.png"));
             tileset.put("tree", loadImage("src/images/outdoors/Oak_Tree.png"));
             tileset.put("shop", loadImage("src/images/shop/shop.png")); 
+            //tileset.put("house_burning", loadImage("src/images/outdoors/flames.png"));
+
             
 
             // Chargement des objets
@@ -373,8 +385,22 @@ public class GameDisplay extends JPanel {
 
                 // 🔹 Dessiner les objets statiques (arbres, maisons, coffres, meubles, torches, tables, shop)
                 String objectType = mapToDraw.getStaticObjects().get(block);
+             // 🔥 Cas spécial : maison en feu (dessinée par-dessus la maison normale)
+                if ("house_burning".equals(objectType)) {
+                    // 1. Dessiner la maison normale
+                    if (tileset.containsKey("house")) {
+                        g.drawImage(tileset.get("house"), block.getColumn() * BLOCK_SIZE, block.getLine() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
+                    }
 
-                // ✅ Ne pas afficher `merchant` ici, il sera affiché séparément
+                    // 2. Dessiner les flammes animées par-dessus
+                    if (flameAnimator != null) {
+                        g.drawImage(flameAnimator.getCurrentFrame(), block.getColumn() * BLOCK_SIZE, block.getLine() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
+                    }
+
+                    continue; // ✅ Ne pas dessiner ce bloc à nouveau dans le bloc générique
+                }
+
+                // ✅ Cas normal : objets standards
                 if (objectType != null && !objectType.equals("merchant") && tileset.containsKey(objectType)) {
                     g.drawImage(tileset.get(objectType), block.getColumn() * BLOCK_SIZE, block.getLine() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
                 }
@@ -515,14 +541,16 @@ public class GameDisplay extends JPanel {
         returnToMainMap(); // ✅ Appelle returnToMainMap() une seule fois sans boucle infinie
     }
 
-
     
     public void returnToMainMap() {
         if (isInShop) {  // ✅ Vérifie qu'on est bien dans la boutique avant de quitter
             isInShop = false; // ✅ Désactive la boutique
             hero.setPosition(map.getBlock(5, 5)); // ✅ Replace le héros sur la carte principale (ajuste la position si nécessaire)
+
+            map.setAllHousesOnFire(); // 🔥 Met le feu à toutes les maisons après la sortie
+
             repaint(); // ✅ Met à jour l'affichage
-            requestFocusInWindow(); // ✅ S'assure que la fenêtre reprend bien le focus
+            requestFocusInWindow(); // ✅ Récupère le focus pour permettre les déplacements
             System.out.println("🚪 Sortie de la boutique, retour à la carte principale !");
         }
     }
