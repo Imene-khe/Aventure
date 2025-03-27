@@ -60,7 +60,8 @@ public class MainGUI extends JFrame {
         dialoguePanel.setBackground(new Color(50, 50, 50));
 
 
-        scrollPane = new JScrollPane(dialoguePanel);        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane = new JScrollPane(dialoguePanel); // ✅ assignation à l’attribut scrollPane        
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBorder(null);
 
         sidePanel.add(characterImage, BorderLayout.NORTH);
@@ -109,6 +110,7 @@ public class MainGUI extends JFrame {
                 } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE && dashboard.isInShop()) {
                     dashboard.exitShop(); // ✅ Quitter la boutique
                     System.out.println("🚪 Sortie de la boutique !");
+                    
                     requestFocusInWindow(); // ✅ Récupère le focus immédiatement pour les mouvements
                 } 
                 

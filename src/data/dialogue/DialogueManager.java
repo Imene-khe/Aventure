@@ -18,8 +18,10 @@ public class DialogueManager {
         });
      // Dialogue déclenché à la première sortie de la boutique
         dialoguesByEvent.put("exit_shop_1", new String[] {
-            "Le village est en flammes !",
-            "Dépêche-toi, il faut sauver les survivants !"
+            "Ahhhh te revoilà... Nous te cherchions !",
+            "Une horde de monstres de passage a entendu parler de toi et du fait que tu es trouvé les pièces.",
+            "En apprenant ce que tu avais fait, ils nous ont attaqués et se sont venger sur nos maisons !",
+            "Vite trouve un seau et va éteindre les maisons en feu ! Dépêche toi !"
         });
     }
 

@@ -565,6 +565,7 @@ public class GameDisplay extends JPanel {
      */
     public void exitShop() {
         returnToMainMap(); // ✅ Appelle returnToMainMap() une seule fois sans boucle infinie
+        
     }
 
     
