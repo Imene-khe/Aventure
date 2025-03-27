@@ -10,6 +10,7 @@ import data.item.InventoryManager;
 import data.map.Block;
 import data.map.Map;
 import data.player.Hero;
+import data.dialogue.DialogueManager;
 
 public class MainGUI extends JFrame {
 
@@ -23,14 +24,7 @@ public class MainGUI extends JFrame {
     private JPanel sidePanel;
     private JLabel characterImage;
     private JPanel dialoguePanel;
-    private String[] dialogues = {
-            "Bienvenue, Raymond ! Le Royaume de Serre-Gy est en danger...",
-            "Le Seigneur des Ombres a capturé Layla !",
-            "Tu dois partir en quête pour la sauver et empêcher la catastrophe.",
-            "Commence par avancer vers le nord et équipe-toi d'armes !",
-            "Cherche le vieux sage dans la forêt, il t’aidera dans ta mission."
-    };
-    private int dialogueIndex = 0;
+    private DialogueManager dialogueManager = new DialogueManager();
     private boolean dialogueActive = true;
 
     // ✅ Panneau du bas
@@ -76,7 +70,7 @@ public class MainGUI extends JFrame {
         bottomPanel.setPreferredSize(new Dimension(800, 60));
         bottomPanel.setBackground(new Color(80, 80, 80));
 
-        interactButton = new JButton("💬 Interagir");
+        interactButton = new JButton("Interagir");
         interactButton.setFont(new Font("Arial", Font.BOLD, 16));
         interactButton.setPreferredSize(new Dimension(150, 40));
         interactButton.addActionListener(e -> interactWithNPC());
@@ -137,14 +131,14 @@ public class MainGUI extends JFrame {
     }
 
     public void advanceDialogue() {
-        if (dialogueIndex < dialogues.length - 1) {
-            dialogueIndex++;
-            updateDialoguePanel();
+        if (dialogueManager.hasNext()) {
+            dialogueManager.nextDialogue();
         } else {
             dialogueActive = false;
-            updateDialoguePanel();
         }
+        updateDialoguePanel();
     }
+
     
     /**
      * ✅ Change l'affichage pour afficher `shopMap` dans `GameDisplay`
@@ -173,7 +167,7 @@ public class MainGUI extends JFrame {
 
 
     public void updateDialoguePanel() {
-        JTextArea newDialogue = new JTextArea(dialogues[dialogueIndex]);
+        JTextArea newDialogue = new JTextArea(dialogueManager.getCurrentDialogue());        
         newDialogue.setEditable(false);
         newDialogue.setLineWrap(true);
         newDialogue.setWrapStyleWord(true);
