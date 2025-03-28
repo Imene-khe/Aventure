@@ -59,8 +59,7 @@ public class MainGUI extends JFrame {
         dialoguePanel.setLayout(new BoxLayout(dialoguePanel, BoxLayout.Y_AXIS));
         dialoguePanel.setBackground(new Color(50, 50, 50));
 
-
-        scrollPane = new JScrollPane(dialoguePanel); // ✅ assignation à l’attribut scrollPane        
+        scrollPane = new JScrollPane(dialoguePanel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBorder(null);
 
@@ -68,39 +67,48 @@ public class MainGUI extends JFrame {
         sidePanel.add(scrollPane, BorderLayout.CENTER);
 
         // ✅ Panneau du bas
-        bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        bottomPanel = new JPanel(new BorderLayout());
         bottomPanel.setPreferredSize(new Dimension(800, 60));
         bottomPanel.setBackground(new Color(80, 80, 80));
 
-        interactButton = new JButton("Interagir");
-        interactButton.setFont(new Font("Arial", Font.BOLD, 16));
-        interactButton.setPreferredSize(new Dimension(150, 40));
-        interactButton.addActionListener(e -> interactWithNPC());
+        // ➤ Sous-panel gauche (pièces + boutons inventaire)
+        JPanel leftBottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        leftBottomPanel.setOpaque(false);
 
         coinLabel = new JLabel("💰 Pièces : " + coinCount);
         coinLabel.setFont(new Font("Arial", Font.BOLD, 16));
         coinLabel.setForeground(Color.WHITE);
+        leftBottomPanel.add(coinLabel);
 
-        bottomPanel.add(coinLabel);
-        bottomPanel.add(interactButton);
-
-        // ✅ Ajouter 5 boutons d'inventaire rapide et restaurer le focus après un clic
         for (int i = 0; i < 5; i++) {
             JButton itemSlot = new JButton("Vide");
             itemSlot.setFont(new Font("Arial", Font.BOLD, 14));
-            itemSlot.setPreferredSize(new Dimension(80, 40));
-
+            itemSlot.setPreferredSize(new Dimension(80, 30));
             itemSlot.addActionListener(e -> {
                 System.out.println("🎒 Bouton d'inventaire cliqué : " + itemSlot.getText());
-                requestFocusInWindow(); // ✅ Redonne le focus après un clic
+                requestFocusInWindow();
             });
-
-            bottomPanel.add(itemSlot);
+            leftBottomPanel.add(itemSlot);
         }
+
+        // ➤ Sous-panel droit (bouton Interagir)
+        JPanel rightBottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        rightBottomPanel.setOpaque(false);
+
+        interactButton = new JButton("Interagir");
+        interactButton.setFont(new Font("Arial", Font.BOLD, 16));
+        interactButton.setPreferredSize(new Dimension(100, 30));
+        interactButton.addActionListener(e -> interactWithNPC());
+
+        rightBottomPanel.add(interactButton);
+
+        bottomPanel.add(leftBottomPanel, BorderLayout.WEST);
+        bottomPanel.add(rightBottomPanel, BorderLayout.EAST);
 
         dashboard.setPreferredSize(new Dimension(getWidth() - sidePanel.getPreferredSize().width, getHeight()));
         add(dashboard, BorderLayout.CENTER);
         add(sidePanel, BorderLayout.EAST);
+        add(bottomPanel, BorderLayout.SOUTH);
 
         addKeyListener(new KeyAdapter() {
             @Override
@@ -108,31 +116,25 @@ public class MainGUI extends JFrame {
                 if (dialogueActive) {
                     advanceDialogue();
                 } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE && dashboard.isInShop()) {
-                    dashboard.exitShop(); // ✅ Quitter la boutique
+                    dashboard.exitShop();
                     System.out.println("🚪 Sortie de la boutique !");
                     triggerDialogue("exit_shop_1");
-                    requestFocusInWindow(); // ✅ Récupère le focus immédiatement pour les mouvements
-                } 
-                
-                // ✅ Une fois sorti du shop, on continue les déplacements normalement
+                    requestFocusInWindow();
+                }
+
                 if (!dashboard.isInShop()) {
                     moveHero(e.getKeyCode());
                 }
             }
         });
-        
-     add(bottomPanel, BorderLayout.SOUTH);
 
-     // ✅ Appel du dialogue seulement après l'initialisation complète
-     updateDialoguePanel(currentDialogueEvent);
-
-
-
+        updateDialoguePanel(currentDialogueEvent);
 
         setFocusable(true);
         setVisible(true);
         requestFocusInWindow();
     }
+
 
     public static GameDisplay getGameDisplay() {
         return instance != null ? instance.dashboard : null;
