@@ -16,11 +16,15 @@ public class CombatMap extends JPanel {
     private Hero hero;
     private WaveManager waveManager;
     private EnemyImageManager imageManager;
+    private Image decorSpriteSheet;
+
 
     public CombatMap() {
         this.hero = new Hero(null);
         this.imageManager = new EnemyImageManager(); // tu dois l’avoir déjà
         this.waveManager = new WaveManager(); // vague 0 par défaut
+        this.decorSpriteSheet = new ImageIcon("data.map/FT_x16Decorations.png").getImage(); 
+
 
         setFocusable(true);
         requestFocusInWindow();
@@ -84,6 +88,13 @@ public class CombatMap extends JPanel {
 
         repaint();
     }
+    private void drawTile(Graphics g, int tileX, int tileY, int destX, int destY) {
+        int tileSize = 16; // taille dans la spritesheet
+        g.drawImage(decorSpriteSheet, destX, destY, destX + 50, destY + 50,
+                tileX * tileSize, tileY * tileSize,
+                (tileX + 1) * tileSize, (tileY + 1) * tileSize, null);
+    }
+
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -92,6 +103,8 @@ public class CombatMap extends JPanel {
         // Fond vert forêt
         g.setColor(new Color(50, 120, 50));
         g.fillRect(0, 0, getWidth(), getHeight());
+        
+        // modification integrale du decor 
 
         //  Affichage du héros
         g.setColor(Color.BLUE);
