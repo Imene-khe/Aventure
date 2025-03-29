@@ -122,11 +122,10 @@ public class MainGUI extends JFrame {
                     requestFocusInWindow();
                 }
 
-                if (!dashboard.isInShop()) {
-                    moveHero(e.getKeyCode());
-                }
+                moveHero(e.getKeyCode()); // ✅ Toujours actif, que ce soit dans le shop ou non
             }
         });
+
 
         updateDialoguePanel(currentDialogueEvent);
 

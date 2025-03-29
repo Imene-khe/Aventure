@@ -31,7 +31,7 @@ public class GameDisplay extends JPanel {
     private static final long serialVersionUID = 1L;
     private static final int GRID_SIZE = 20;  // Réduire la taille à 20x20
     private static final int BLOCK_SIZE = 32; // Taille inchangée
-    private static final int SHOP_SIZE = 10; //Taille de la boutique
+    private static final int SHOP_SIZE = 15; //Taille de la boutique
     private Map map; // Instance de la carte du jeu
     private Map shopMap;
     private Hero hero; // Instance du héros
@@ -39,9 +39,6 @@ public class GameDisplay extends JPanel {
     private HashMap<String, Image> tileset; // Dictionnaire des images de terrain et objets
     private boolean canTakeDamage = true; // ✅ Contrôle si le héros peut prendre des dégâts
     private boolean isGameOver = false; // ✅ Empêche l'affichage multiple du message de Game Over
-    //private Image merchantSprite; // Image du marchand
-    //private Block merchantPosition; // Position actuelle du marchand
-    //private boolean showMerchant = true; // Permet de faire un effet de disparition
     private boolean isInShop = false; // ✅ Indique si on est dans la boutique
     private SpriteAnimator flameAnimator;
     private SpriteAnimator coinAnimator;
@@ -253,25 +250,24 @@ public class GameDisplay extends JPanel {
             tileset.put("path", loadImage("src/images/outdoors/Path_Middle.png"));
             
             //Chargement des terrains du shop
-            tileset.put("shopFloor", loadImage("src/images/shop/Cobble.png"));
-            tileset.put("blackWall", loadImage("src/images/shop/blackwall.png")); 
+            tileset.put("shopFloor", loadImage("src/images/shop/shopfloor.png"));
+            tileset.put("lightWall", loadImage("src/images/shop/lightwall.png")); 
             tileset.put("torch", loadImage("src/images/shop/torch.png")); 
             tileset.put("bar", loadImage("src/images/shop/bar.png")); 
             tileset.put("merchant", loadImage("src/images/shop/merchant.png")); 
+            tileset.put("carpet", loadImage("src/images/shop/carpet.png")); 
+            tileset.put("bookshelf", loadImage("src/images/shop/bookshelf.png")); 
 
-
-
+           
             // Chargement des obstacles
             tileset.put("house", loadImage("src/images/outdoors/House.png"));
             tileset.put("tree", loadImage("src/images/outdoors/Oak_Tree.png"));
             tileset.put("shop", loadImage("src/images/shop/shop.png")); 
-            //tileset.put("house_burning", loadImage("src/images/outdoors/flames.png"));
 
             
 
             // Chargement des objets
             tileset.put("chest", loadImage("src/images/outdoors/Chest.png"));
-            //merchantSprite = loadImage("src/images/player/merchant_sprite.jpg");
 
 
             System.out.println("✅ Toutes les images sont chargées !");
@@ -382,14 +378,8 @@ public class GameDisplay extends JPanel {
 
                 // ✅ Vérifier si on est dans `shopMap` et utiliser `blackWall` pour le contour
                 String terrainType;
-                if (isInShop) {
-                    terrainType = mapToDraw.getStaticTerrain().getOrDefault(block, "shopFloor");
-                    if (terrainType.equals("blackWall")) {
-                        terrainType = "blackWall"; // ✅ Forcer l'affichage du contour noir
-                    }
-                } else {
-                    terrainType = mapToDraw.getStaticTerrain().getOrDefault(block, "grass");
-                }
+                terrainType = mapToDraw.getStaticTerrain().getOrDefault(block, isInShop ? "shopFloor" : "grass");
+
 
                 Image terrainImage = tileset.get(terrainType);
 
@@ -414,10 +404,11 @@ public class GameDisplay extends JPanel {
                     continue; // ✅ Ne pas dessiner ce bloc à nouveau dans le bloc générique
                 }
 
-                // ✅ Cas normal : objets standards
-                if (objectType != null && !objectType.equals("merchant") && tileset.containsKey(objectType)) {
+                if (objectType != null && tileset.containsKey(objectType)) {
                     g.drawImage(tileset.get(objectType), block.getColumn() * BLOCK_SIZE, block.getLine() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
                 }
+
+
             }
         }
 
@@ -555,9 +546,10 @@ public class GameDisplay extends JPanel {
      */
     public void enterShop() {
         isInShop = true;
-        hero.setPosition(shopMap.getBlock(1, 1)); // ✅ Placer le héros dans la boutique
+        hero.setPosition(shopMap.getBlock(13, 7)); // ✅ Placer le héros dans l’entrée centrale du shop
         repaint(); // 🔄 Mise à jour de l'affichage
     }
+
 
     
     /**
