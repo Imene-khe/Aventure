@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.Graphics;
-import gui.*;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -21,6 +20,7 @@ import data.map.Block;
 import data.map.Map;
 import data.player.EnemyImageManager;
 import data.player.Hero;
+import gui.animation.SpriteAnimator;
 
 /**
  * Classe représentant l'affichage du jeu. Elle gère le rendu graphique de la CARTE, des ennemis, du héros
@@ -43,6 +43,9 @@ public class GameDisplay extends JPanel {
     //private Block merchantPosition; // Position actuelle du marchand
     //private boolean showMerchant = true; // Permet de faire un effet de disparition
     private boolean isInShop = false; // ✅ Indique si on est dans la boutique
+    private SpriteAnimator flameAnimator;
+    private SpriteAnimator coinAnimator;
+
 
 
 
@@ -71,6 +74,19 @@ public class GameDisplay extends JPanel {
             this.hero = new Hero(map.getBlock(GRID_SIZE / 2, GRID_SIZE / 2), 100);
             this.tileset = new HashMap<>();
             
+            try {
+                String[] coinPaths = new String[8];
+                for (int i = 0; i < 8; i++) {
+                    coinPaths[i] = "src/images/items/coins/coin" + (i + 1) + ".png";
+                }
+                coinAnimator = new SpriteAnimator(coinPaths, 100); // ⏱️ 100 ms entre les frames
+                System.out.println("✅ coinAnimator (8 images) chargé avec succès !");
+            } catch (IOException e) {
+                System.out.println("❌ Impossible de charger les images d’animation des pièces !");
+                e.printStackTrace();
+            }
+
+            
             
          // ✅ Thread pour vérifier en continu les collisions avec les ennemis
             new Thread(() -> {
@@ -97,6 +113,13 @@ public class GameDisplay extends JPanel {
 
             // Chargement des images a supprimer dans un second temps
             loadImages();
+            try {
+                flameAnimator = new SpriteAnimator("src/images/outdoors/flames.png", 4, 3, 100);
+            } catch (IOException e) {
+                System.out.println("❌ Impossible de charger l'animation des flammes !");
+                e.printStackTrace();
+            }
+
             /*merchantPosition = map.getBlock(10, 10); // Ajuste la position selon ta map
             new Thread(() -> {
                 while (true) {
@@ -242,6 +265,8 @@ public class GameDisplay extends JPanel {
             tileset.put("house", loadImage("src/images/outdoors/House.png"));
             tileset.put("tree", loadImage("src/images/outdoors/Oak_Tree.png"));
             tileset.put("shop", loadImage("src/images/shop/shop.png")); 
+            //tileset.put("house_burning", loadImage("src/images/outdoors/flames.png"));
+
             
 
             // Chargement des objets
@@ -329,6 +354,7 @@ public class GameDisplay extends JPanel {
 
 
 
+
     /**
      * Méthode de rendu graphique. Elle dessine la carte, les ennemis, le héros et la barre de vie.
      * @param g L'objet Graphics utilisé pour dessiner
@@ -373,8 +399,22 @@ public class GameDisplay extends JPanel {
 
                 // 🔹 Dessiner les objets statiques (arbres, maisons, coffres, meubles, torches, tables, shop)
                 String objectType = mapToDraw.getStaticObjects().get(block);
+             // 🔥 Cas spécial : maison en feu (dessinée par-dessus la maison normale)
+                if ("house_burning".equals(objectType)) {
+                    // 1. Dessiner la maison normale
+                    if (tileset.containsKey("house")) {
+                        g.drawImage(tileset.get("house"), block.getColumn() * BLOCK_SIZE, block.getLine() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
+                    }
 
-                // ✅ Ne pas afficher `merchant` ici, il sera affiché séparément
+                    // 2. Dessiner les flammes animées par-dessus
+                    if (flameAnimator != null) {
+                        g.drawImage(flameAnimator.getCurrentFrame(), block.getColumn() * BLOCK_SIZE, block.getLine() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
+                    }
+
+                    continue; // ✅ Ne pas dessiner ce bloc à nouveau dans le bloc générique
+                }
+
+                // ✅ Cas normal : objets standards
                 if (objectType != null && !objectType.equals("merchant") && tileset.containsKey(objectType)) {
                     g.drawImage(tileset.get(objectType), block.getColumn() * BLOCK_SIZE, block.getLine() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
                 }
@@ -402,7 +442,19 @@ public class GameDisplay extends JPanel {
         // 🔹 Dessiner les pièces (coins) uniquement si on est dans currentMap
         if (!isInShop) {
             for (Coin coin : map.getCoins()) {
-                coin.draw(g, BLOCK_SIZE);
+                if (!coin.isCollected()) {
+                    Block block = coin.getBlock();
+                    int x = block.getColumn() * BLOCK_SIZE;
+                    int y = block.getLine() * BLOCK_SIZE;
+
+                    Image frame = coinAnimator.getCurrentFrame();
+                    
+
+                    int coinSize = (int) (BLOCK_SIZE * 0.5);
+                    int offset = (BLOCK_SIZE - coinSize) / 2;
+
+                    g.drawImage(frame, x + offset, y + offset, coinSize, coinSize, null);
+                }
             }
         }
 
@@ -509,13 +561,27 @@ public class GameDisplay extends JPanel {
 
     
     /**
-     * Permet au héros de sortir de la boutique.
+     * ✅ Permet au héros de sortir du shop et de retourner sur `currentMap`.
      */
     public void exitShop() {
-        isInShop = false;
-        hero.setPosition(map.getBlock(5, 5)); // ✅ Retour au spawn dans la map principale
-        repaint(); // 🔄 Met à jour l'affichage
+        returnToMainMap(); // ✅ Appelle returnToMainMap() une seule fois sans boucle infinie
+        
     }
+
+    
+    public void returnToMainMap() {
+        if (isInShop) {  // ✅ Vérifie qu'on est bien dans la boutique avant de quitter
+            isInShop = false; // ✅ Désactive la boutique
+            hero.setPosition(map.getBlock(5, 5)); // ✅ Replace le héros sur la carte principale (ajuste la position si nécessaire)
+
+            map.setAllHousesOnFire(); // 🔥 Met le feu à toutes les maisons après la sortie
+
+            repaint(); // ✅ Met à jour l'affichage
+            requestFocusInWindow(); // ✅ Récupère le focus pour permettre les déplacements
+            System.out.println("🚪 Sortie de la boutique, retour à la carte principale !");
+        }
+    }
+
     
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(() -> {
@@ -549,6 +615,8 @@ public class GameDisplay extends JPanel {
             frame.setVisible(true);
         });
     }
+    
+    
 
     
     

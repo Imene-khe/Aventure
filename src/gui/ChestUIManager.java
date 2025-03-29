@@ -6,7 +6,6 @@ import data.item.Equipment;
 import data.item.EquipmentImageManager;
 import data.item.Inventory;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class ChestUIManager {
     private JFrame chestWindow;
@@ -53,11 +52,18 @@ public class ChestUIManager {
 
                 JButton addButton = new JButton("Ajouter");
                 addButton.addActionListener(e -> {
+                    // ✅ Ajout à l'inventaire
                     mainGUI.getInventoryManager().getInventory().addEquipment(equipment);
+                    
+                    // ✅ Mise à jour de l'affichage de l'inventaire graphique
                     mainGUI.getInventoryManager().updateInventoryDisplay();
 
+                    // ✅ Retrait de l'objet du coffre
                     chestInventory.getEquipments().remove(equipment);
+                    
+                    // ✅ Désactiver le bouton après l'ajout
                     addButton.setEnabled(false);
+                    
                     JOptionPane.showMessageDialog(chestWindow, equipment.getName() + " ajouté à l’inventaire !");
                     
                     // ✅ Redonner le focus après action
@@ -84,5 +90,4 @@ public class ChestUIManager {
         chestWindow.add(scrollPane);
         chestWindow.setVisible(true);
     }
-
 }

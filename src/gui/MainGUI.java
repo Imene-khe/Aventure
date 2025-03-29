@@ -10,6 +10,7 @@ import data.item.InventoryManager;
 import data.map.Block;
 import data.map.Map;
 import data.player.Hero;
+import data.dialogue.DialogueManager;
 
 public class MainGUI extends JFrame {
 
@@ -23,15 +24,11 @@ public class MainGUI extends JFrame {
     private JPanel sidePanel;
     private JLabel characterImage;
     private JPanel dialoguePanel;
-    private String[] dialogues = {
-            "Bienvenue, Raymond ! Le Royaume de Serre-Gy est en danger...",
-            "Le Seigneur des Ombres a capturé Layla !",
-            "Tu dois partir en quête pour la sauver et empêcher la catastrophe.",
-            "Commence par avancer vers le nord et équipe-toi d'armes !",
-            "Cherche le vieux sage dans la forêt, il t’aidera dans ta mission."
-    };
-    private int dialogueIndex = 0;
+    private DialogueManager dialogueManager = new DialogueManager();
     private boolean dialogueActive = true;
+    private JScrollPane scrollPane;
+
+    private String currentDialogueEvent = "intro"; // Par défaut au lancement
 
     // ✅ Panneau du bas
     private JPanel bottomPanel;
@@ -62,9 +59,7 @@ public class MainGUI extends JFrame {
         dialoguePanel.setLayout(new BoxLayout(dialoguePanel, BoxLayout.Y_AXIS));
         dialoguePanel.setBackground(new Color(50, 50, 50));
 
-        updateDialoguePanel();
-
-        JScrollPane scrollPane = new JScrollPane(dialoguePanel);
+        scrollPane = new JScrollPane(dialoguePanel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBorder(null);
 
@@ -72,35 +67,43 @@ public class MainGUI extends JFrame {
         sidePanel.add(scrollPane, BorderLayout.CENTER);
 
         // ✅ Panneau du bas
-        bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        bottomPanel = new JPanel(new BorderLayout());
         bottomPanel.setPreferredSize(new Dimension(800, 60));
         bottomPanel.setBackground(new Color(80, 80, 80));
 
-        interactButton = new JButton("💬 Interagir");
-        interactButton.setFont(new Font("Arial", Font.BOLD, 16));
-        interactButton.setPreferredSize(new Dimension(150, 40));
-        interactButton.addActionListener(e -> interactWithNPC());
+        // ➤ Sous-panel gauche (pièces + boutons inventaire)
+        JPanel leftBottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        leftBottomPanel.setOpaque(false);
 
         coinLabel = new JLabel("💰 Pièces : " + coinCount);
         coinLabel.setFont(new Font("Arial", Font.BOLD, 16));
         coinLabel.setForeground(Color.WHITE);
+        leftBottomPanel.add(coinLabel);
 
-        bottomPanel.add(coinLabel);
-        bottomPanel.add(interactButton);
-
-        // ✅ Ajouter 5 boutons d'inventaire rapide et restaurer le focus après un clic
         for (int i = 0; i < 5; i++) {
             JButton itemSlot = new JButton("Vide");
             itemSlot.setFont(new Font("Arial", Font.BOLD, 14));
-            itemSlot.setPreferredSize(new Dimension(80, 40));
-
+            itemSlot.setPreferredSize(new Dimension(80, 30));
             itemSlot.addActionListener(e -> {
                 System.out.println("🎒 Bouton d'inventaire cliqué : " + itemSlot.getText());
-                requestFocusInWindow(); // ✅ Redonne le focus après un clic
+                requestFocusInWindow();
             });
-
-            bottomPanel.add(itemSlot);
+            leftBottomPanel.add(itemSlot);
         }
+
+        // ➤ Sous-panel droit (bouton Interagir)
+        JPanel rightBottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        rightBottomPanel.setOpaque(false);
+
+        interactButton = new JButton("Interagir");
+        interactButton.setFont(new Font("Arial", Font.BOLD, 16));
+        interactButton.setPreferredSize(new Dimension(100, 30));
+        interactButton.addActionListener(e -> interactWithNPC());
+
+        rightBottomPanel.add(interactButton);
+
+        bottomPanel.add(leftBottomPanel, BorderLayout.WEST);
+        bottomPanel.add(rightBottomPanel, BorderLayout.EAST);
 
         dashboard.setPreferredSize(new Dimension(getWidth() - sidePanel.getPreferredSize().width, getHeight()));
         add(dashboard, BorderLayout.CENTER);
@@ -112,30 +115,53 @@ public class MainGUI extends JFrame {
             public void keyPressed(KeyEvent e) {
                 if (dialogueActive) {
                     advanceDialogue();
-                } else {
+                } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE && dashboard.isInShop()) {
+                    dashboard.exitShop();
+                    System.out.println("🚪 Sortie de la boutique !");
+                    triggerDialogue("exit_shop_1");
+                    requestFocusInWindow();
+                }
+
+                if (!dashboard.isInShop()) {
                     moveHero(e.getKeyCode());
                 }
             }
         });
+
+        updateDialoguePanel(currentDialogueEvent);
 
         setFocusable(true);
         setVisible(true);
         requestFocusInWindow();
     }
 
+
     public static GameDisplay getGameDisplay() {
         return instance != null ? instance.dashboard : null;
     }
 
     public void advanceDialogue() {
-        if (dialogueIndex < dialogues.length - 1) {
-            dialogueIndex++;
-            updateDialoguePanel();
+        if (dialogueManager.hasNext(currentDialogueEvent)) {
+            dialogueManager.next(currentDialogueEvent);
+            updateDialoguePanel(currentDialogueEvent);
         } else {
             dialogueActive = false;
-            updateDialoguePanel();
+            dialoguePanel.revalidate();
+            dialoguePanel.repaint();
         }
     }
+    
+    public void triggerDialogue(String eventKey) {
+        if (!dialogueManager.hasDialogue(eventKey)) return;
+
+        currentDialogueEvent = eventKey;
+        dialogueManager.reset(eventKey);
+        dialogueActive = true;
+        updateDialoguePanel(eventKey);
+    }
+
+
+
     
     /**
      * ✅ Change l'affichage pour afficher `shopMap` dans `GameDisplay`
@@ -154,7 +180,7 @@ public class MainGUI extends JFrame {
         }
 
         int choix = JOptionPane.showConfirmDialog(this, 
-            "💬 Le vieux marchand t’attend dans sa boutique...\nVeux-tu entrer ?", 
+            "💬 Le vieux marchand t’atta dans sa boutique...\nVeux-tu entrer ?", 
             "Marchand", JOptionPane.YES_NO_OPTION);
 
         if (choix == JOptionPane.YES_OPTION) {
@@ -163,8 +189,11 @@ public class MainGUI extends JFrame {
     }
 
 
-    public void updateDialoguePanel() {
-        JTextArea newDialogue = new JTextArea(dialogues[dialogueIndex]);
+    public void updateDialoguePanel(String eventKey) {
+        String dialogueText = dialogueManager.getCurrent(eventKey);
+        if (dialogueText == null) return;
+
+        JTextArea newDialogue = new JTextArea(dialogueText);
         newDialogue.setEditable(false);
         newDialogue.setLineWrap(true);
         newDialogue.setWrapStyleWord(true);
@@ -180,7 +209,14 @@ public class MainGUI extends JFrame {
         dialoguePanel.add(newDialogue);
         dialoguePanel.revalidate();
         dialoguePanel.repaint();
+
+        // ✅ Force le scroll tout en bas à chaque nouveau message
+        JScrollBar verticalBar = scrollPane.getVerticalScrollBar();
+        SwingUtilities.invokeLater(() -> verticalBar.setValue(verticalBar.getMaximum()));
     }
+
+
+
 
     /**
      * Gère les déplacements du héros en fonction de la carte active (`currentMap` ou `shopMap`).
