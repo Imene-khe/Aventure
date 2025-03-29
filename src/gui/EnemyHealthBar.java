@@ -22,7 +22,7 @@ public class EnemyHealthBar {
      */
     public static void draw(Graphics g, Antagonist enemy, int x, int y) {
         int maxHealth = enemy.getHealth();
-        int currentHealth = enemy.getHealth();
+        int currentHealth = enemy.getMaxHealth();
 
         // Calcul de la largeur de la barre verte
         int healthBarWidth = (int) ((currentHealth / (float) maxHealth) * BAR_WIDTH);

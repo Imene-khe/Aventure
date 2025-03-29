@@ -1,137 +1,115 @@
 package data.map;
 
+import data.player.Antagonist;
+import data.player.EnemyImageManager;
+import data.player.Hero;
+import gui.EnemyHealthBar;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Random;
-import data.player.Hero;
-import data.player.Skeleton;
 
 public class CombatMap extends JPanel {
+
     private Hero hero;
-    private ArrayList<Skeleton> skeletons;
-    private int skeletonsKilled = 0;
+    private WaveManager waveManager;
+    private EnemyImageManager imageManager;
 
     public CombatMap() {
-        this.hero = new Hero(null); // 100 HP, 10 ATK
-        this.skeletons = new ArrayList<>();
-        generateSkeletons(10); // Générer 10 squelettes aléatoires
+        this.hero = new Hero(null);
+        this.imageManager = new EnemyImageManager(); // tu dois l’avoir déjà
+        this.waveManager = new WaveManager(); // vague 0 par défaut
 
         setFocusable(true);
         requestFocusInWindow();
 
-        // ✅ Ajouter le listener pour X, Y, Z
+        //  Contrôles X Y Z les touches pour se battre
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyChar() == 'x') {
-                    attack();
-                } else if (e.getKeyChar() == 'y') {
-                    defend();
-                } else if (e.getKeyChar() == 'z') {
-                    dodge();
+                switch (e.getKeyChar()) {
+                    case 'x' -> attack();
+                    case 'y' -> defend();
+                    case 'z' -> dodge();
                 }
             }
         });
 
-        // ✅ Démarrer le mouvement automatique des squelettes
-        Timer skeletonTimer = new Timer(1000, e -> moveSkeletons());
-        skeletonTimer.start();
-    }
-
-    private void generateSkeletons(int count) {
-        Random random = new Random();
-        for (int i = 0; i < count; i++) {
-            skeletons.add(new Skeleton(4)); // Chaque squelette a 4 HP
-        }
-    }
-
-    private void moveSkeletons() {
-        for (Iterator<Skeleton> iterator = skeletons.iterator(); iterator.hasNext();) {
-            Skeleton skeleton = iterator.next();
-            skeleton.move(); // Déplacer le squelette
-
-            if (skeleton.getPosition() <= 0) {
-                hero.takeDamage(10); // Si un squelette atteint le héros, il prend 10 dégâts
-                iterator.remove();
-            }
-        }
-
-        repaint();
-
-        if (hero.getHealth() <= 0) {
-            JOptionPane.showMessageDialog(this, "💀 Tu as perdu ! Les squelettes t'ont vaincu.");
-            resetCombat();
-        }
+        //  Timer de déplacement/MAJ des ennemis
+        Timer gameLoop = new Timer(1000, e -> updateEnemies());
+        gameLoop.start();
     }
 
     private void attack() {
-        if (!skeletons.isEmpty()) {
-            Skeleton target = skeletons.get(0);
-            target.takeDamage(1);
-
-            if (target.getHealth() <= 0) {
-                skeletons.remove(target);
-                skeletonsKilled++;
+        // Attaque le premier slime vivant
+        for (Antagonist enemy : waveManager.getCurrentWaveEnemies()) {
+            if (!enemy.isDead()) {
+                enemy.takeDamage(10);
+                break;
             }
         }
 
-        if (skeletonsKilled >= 10) {
-            JOptionPane.showMessageDialog(this, "🏆 Victoire ! Tu as vaincu tous les squelettes !");
-            resetCombat();
-        }
-
         repaint();
+        waveManager.updateWave();
+
+        if (waveManager.isLevelFinished()) {
+            JOptionPane.showMessageDialog(this, "🏆 Tu as vaincu toutes les vagues !");
+        }
     }
 
     private void defend() {
-        //hero.heal(5);
+        JOptionPane.showMessageDialog(this, "🛡️ Tu te défends !");
         repaint();
     }
 
     private void dodge() {
-        JOptionPane.showMessageDialog(this, "Tu as esquivé l’attaque !");
+        JOptionPane.showMessageDialog(this, "💨 Tu esquives !");
     }
 
-    private void resetCombat() {
-        hero = new Hero(null);
-        skeletons.clear();
-        skeletonsKilled = 0;
-        generateSkeletons(10);
+    private void updateEnemies() {
+        // Ici tu peux ajouter un système de déplacement ou attaque auto si tu veux
+        for (Antagonist enemy : waveManager.getCurrentWaveEnemies()) {
+            if (!enemy.isDead()) {
+                hero.takeDamage(5); // attaque passive toutes les secondes
+                break;
+            }
+        }
+
+        if (hero.getHealth() <= 0) {
+            JOptionPane.showMessageDialog(this, "💀 Tu es mort !");
+            System.exit(0);
+        }
+
+        repaint();
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        // ✅ Dessiner le héros
+        // Fond vert forêt
+        g.setColor(new Color(50, 120, 50));
+        g.fillRect(0, 0, getWidth(), getHeight());
+
+        //  Affichage du héros
         g.setColor(Color.BLUE);
         g.fillRect(50, getHeight() - 100, 50, 50);
-
-        // ✅ Dessiner les squelettes
-        g.setColor(Color.RED);
-        for (int i = 0; i < skeletons.size(); i++) {
-            g.fillRect(200 + i * 60, 100, 50, 50);
-        }
-
-        // ✅ Afficher la vie du héros
         g.setColor(Color.BLACK);
-        g.drawString("Vie du héros : " + hero.getHealth(), 50, 50);
-    }
+        g.drawString("PV Héros : " + hero.getHealth(), 50, 50);
 
-    // ✅ Main interne pour tester CombatMap
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("CombatMap Test");
-        CombatMap combatMap = new CombatMap();
+        //  Affichage des ennemis de la vague en cours
+        int startX = 200;
+        int startY = getHeight() - 100;
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 600);
-        frame.add(combatMap);
-        frame.setVisible(true);
-
-        combatMap.requestFocus();
+        for (Antagonist enemy : waveManager.getCurrentWaveEnemies()) {
+            if (!enemy.isDead()) {
+                enemy.draw(g, 50); // utilise les frames animées du slime
+                EnemyHealthBar.draw(g, enemy, startX, startY);
+                startX += 60;
+            }
+        }
     }
 }
+
