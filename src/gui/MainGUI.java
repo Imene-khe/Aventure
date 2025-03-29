@@ -91,16 +91,25 @@ public class MainGUI extends JFrame {
             leftBottomPanel.add(itemSlot);
         }
 
-        // ➤ Sous-panel droit (bouton Interagir)
+        // ➤ Sous-panel droit (boutons Interagir + Mission côte à côte)
         JPanel rightBottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         rightBottomPanel.setOpaque(false);
 
+        // ➤ Bouton Interagir
         interactButton = new JButton("Interagir");
         interactButton.setFont(new Font("Arial", Font.BOLD, 16));
-        interactButton.setPreferredSize(new Dimension(100, 30));
+        interactButton.setPreferredSize(new Dimension(120, 30));
         interactButton.addActionListener(e -> interactWithNPC());
-
         rightBottomPanel.add(interactButton);
+
+        // ➤ Nouveau bouton Mission
+        JButton missionButton = new JButton("Mission");
+        missionButton.setFont(new Font("Arial", Font.BOLD, 16));
+        missionButton.setPreferredSize(new Dimension(120, 30));
+        missionButton.addActionListener(e -> {
+            JOptionPane.showMessageDialog(this, "📜 Objectif : Éteins les flammes des maisons !");
+        });
+        rightBottomPanel.add(missionButton);
 
         bottomPanel.add(leftBottomPanel, BorderLayout.WEST);
         bottomPanel.add(rightBottomPanel, BorderLayout.EAST);
@@ -126,13 +135,13 @@ public class MainGUI extends JFrame {
             }
         });
 
-
         updateDialoguePanel(currentDialogueEvent);
 
         setFocusable(true);
         setVisible(true);
         requestFocusInWindow();
     }
+
 
 
     public static GameDisplay getGameDisplay() {
