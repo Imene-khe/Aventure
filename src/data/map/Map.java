@@ -67,7 +67,7 @@ public class Map {
         }
     }
 
- // ✅ Méthode pour configurer une boutique avec un carré de 8x8 entouré de noir, torches et tables autour du marchand
+ 
     /**
      * ✅ Configure une boutique avec un contour de `blackWall` simple et un placement optimisé des torches.
      */
@@ -76,41 +76,65 @@ public class Map {
             for (int j = 0; j < columnCount; j++) {
                 Block block = blocks[i][j];
 
-                // ✅ Définition d'un contour fin (1 seul bloc de `blackWall`)
+                // ✅ Contour léger gris
                 if (i == 0 || i == lineCount - 1 || j == 0 || j == columnCount - 1) {
-                    staticTerrain.put(block, "blackWall"); // ✅ Contour fin
+                    staticTerrain.put(block, "lightWall");
                 } else {
-                    staticTerrain.put(block, "shopFloor"); // ✅ Sol intérieur du shop
+                    staticTerrain.put(block, "shopFloor");
                 }
             }
         }
 
-        // ✅ Nouvelle disposition des torches (plus proches du centre du shop)
-        staticObjects.put(blocks[1][1], "torch"); // Coin haut-gauche intérieur
-        staticObjects.put(blocks[1][columnCount - 2], "torch"); // Coin haut-droit intérieur
-        staticObjects.put(blocks[lineCount - 2][1], "torch"); // Coin bas-gauche intérieur
-        staticObjects.put(blocks[lineCount - 2][columnCount - 2], "torch"); // Coin bas-droit intérieur
-
-        // ✅ Placement fixe du marchand au centre de la boutique
-        int merchantRow = lineCount / 2;
+        // ✅ Placement du marchand en haut centré
+        int merchantRow = 2;
         int merchantCol = columnCount / 2;
         Block merchantBlock = blocks[merchantRow][merchantCol];
+        Block barLeft = blocks[merchantRow + 1][merchantCol - 1];
+        Block barCenter = blocks[merchantRow + 1][merchantCol];
+        Block barRight = blocks[merchantRow + 1][merchantCol + 1];
+
         staticObjects.put(merchantBlock, "merchant");
+        staticObjects.put(barLeft, "bar");
+        staticObjects.put(barCenter, "bar");
+        staticObjects.put(barRight, "bar");
 
-        // ✅ Ajouter des tables autour du marchand
-        staticObjects.put(blocks[merchantRow - 1][merchantCol], "bar"); // Haut
-        staticObjects.put(blocks[merchantRow + 1][merchantCol], "bar"); // Bas
-        staticObjects.put(blocks[merchantRow][merchantCol - 1], "bar"); // Gauche
-        staticObjects.put(blocks[merchantRow][merchantCol + 1], "bar"); // Droite
+        // ✅ Bordure intérieure avec bookshelf (1 bloc vers l’intérieur)
+        for (int i = 1; i < lineCount - 1; i++) {
+            for (int j = 1; j < columnCount - 1; j++) {
+                Block block = blocks[i][j];
 
-        System.out.println("✅ Boutique statique configurée avec un contour fin et un nouveau placement des torches !");
+                boolean isEdgeInner = i == 1 || i == lineCount - 2 || j == 1 || j == columnCount - 2;
+                boolean isEntry = i == lineCount - 2 && j >= 6 && j <= 8;
+                boolean isMerchantZone = block.equals(merchantBlock) || block.equals(barLeft) ||
+                                         block.equals(barCenter) || block.equals(barRight);
+
+                if (isEdgeInner && !isEntry && !isMerchantZone) {
+                    staticObjects.put(block, "bookshelf");
+                }
+            }
+        }
+
+        // ✅ Tapis en damier au centre de la pièce (7x7)
+        int carpetStartRow = (lineCount - 7) / 2;
+        int carpetStartCol = (columnCount - 7) / 2;
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 7; j++) {
+                Block block = blocks[carpetStartRow + i][carpetStartCol + j];
+
+                // ✅ Ne pas écraser les bars ou le marchand
+                if (!staticObjects.containsKey(block)) {
+                    if ((i + j) % 2 == 0) { // Motif damier
+                        staticTerrain.put(block, "carpet");
+                    }
+                }
+            }
+        }
+
+        System.out.println("✅ Boutique statique configurée : contour gris, marchand en haut, bordure bookshelf et tapis central !");
     }
 
 
 
-
-    
-    
     public void generateEnemies() {
         ArrayList<Block> freeBlocks = getFreeBlocks();
         Random random = new Random();
@@ -148,9 +172,7 @@ public class Map {
         }
     }
     
-    /**
-     * ✅ Place une maison spéciale "Shop" à un emplacement fixe et sécurisé sur `currentMap`.
-     */
+    
     /**
      * ✅ Place la maison spéciale "Shop" à un emplacement aléatoire mais sécurisé.
      */
@@ -246,14 +268,6 @@ public class Map {
                 }
             }
         }
-     // ✅ Placer le marchand sur le bord gauche de la carte
-        Block merchantBlock = getBlock(getLineCount() - 2, 1); // Bord bas gauche
-        staticObjects.put(merchantBlock, "merchant");
-        System.out.println("✅ Marchand ajouté à la position : " + merchantBlock);
-
-
-        
-  
     }
 
 
@@ -275,10 +289,24 @@ public class Map {
     
 
     public boolean isBlocked(Block block) {
-        return obstacles.containsKey(block) || terrainBlocked.getOrDefault(block, false) ||
+        // ✅ Si c'est une map statique (comme la shopMap), on autorise certains objets
+        if (isStatic) {
+            String object = staticObjects.get(block);
+            if (object == null) {
+                return false; // ✅ Aucun objet => libre
+            }
+
+            // ❌ Bloquer uniquement ce qui gêne réellement
+            return object.equals("bookshelf") || object.equals("merchant");
+        }
+
+        // ✅ Sinon, règle classique pour la map principale
+        return obstacles.containsKey(block) ||
+               terrainBlocked.getOrDefault(block, false) ||
                (staticTerrain.containsKey(block) && staticTerrain.get(block).equals("water")) ||
                staticObjects.containsKey(block);
     }
+
 
     public void setTerrainBlocked(Block block, boolean blocked) {
         terrainBlocked.put(block, blocked);
@@ -313,7 +341,7 @@ public class Map {
         return chestManager;
     } 
     
-    
+
 
     public void setAllHousesOnFire() {
         for (Block block : staticObjects.keySet()) {
@@ -325,32 +353,91 @@ public class Map {
     }
 
     public static void main(String[] args) {
-        System.out.println("🔄 Initialisation d'une carte avec génération de maisons...");
+        System.out.println("📚 Initialisation de la boutique 15x15 avec marchand derrière son comptoir en haut...");
 
-        // ✅ Création d'une carte dynamique avec objets (non statique)
-        Map map = new Map(10, 10, 0, false);
+        Map shopMap = new Map(15, 15, 0, true);
 
-        // ✅ Affichage des maisons AVANT le feu
-        System.out.println("\n🔥 Maisons AVANT le feu :");
-        for (Block block : map.getStaticObjects().keySet()) {
-            if ("house".equals(map.getStaticObjects().get(block))) {
-                System.out.println("🏠 Maison à : " + block);
+        int lineCount = shopMap.getLineCount();
+        int columnCount = shopMap.getColumnCount();
+        int centerCol = columnCount / 2;
+
+        // ✅ Contour gris (lightWall)
+        for (int i = 0; i < lineCount; i++) {
+            for (int j = 0; j < columnCount; j++) {
+                Block block = shopMap.getBlock(i, j);
+                if (i == 0 || i == lineCount - 1 || j == 0 || j == columnCount - 1) {
+                    shopMap.getStaticTerrain().put(block, "lightWall");
+                } else {
+                    shopMap.getStaticTerrain().put(block, "shopFloor");
+                }
             }
         }
 
-        // ✅ Déclenchement du feu
-        map.setAllHousesOnFire();
+        // ✅ Placement du comptoir (3 barres) et du marchand derrière
+        Block barLeft = shopMap.getBlock(3, centerCol - 1);
+        Block barCenter = shopMap.getBlock(3, centerCol);
+        Block barRight = shopMap.getBlock(3, centerCol + 1);
+        Block merchant = shopMap.getBlock(2, centerCol); // derrière le comptoir
 
-        // ✅ Affichage des maisons APRES le feu
-        System.out.println("\n🔥 Maisons APRES le feu (doivent être en feu) :");
-        for (Block block : map.getStaticObjects().keySet()) {
-            if ("house_burning".equals(map.getStaticObjects().get(block))) {
-                System.out.println("🔥 Maison en feu à : " + block);
+        shopMap.getStaticObjects().put(barLeft, "bar");
+        shopMap.getStaticObjects().put(barCenter, "bar");
+        shopMap.getStaticObjects().put(barRight, "bar");
+        shopMap.getStaticObjects().put(merchant, "merchant");
+        shopMap.getStaticTerrain().put(barCenter, "carpet");
+
+        // ✅ Bordure intérieure : 1 bloc de bookshelf tout autour sauf entrée et comptoir/marchand
+        for (int i = 1; i < lineCount - 1; i++) {
+            for (int j = 1; j < columnCount - 1; j++) {
+                Block block = shopMap.getBlock(i, j);
+
+                boolean isEdgeInner = i == 1 || i == lineCount - 2 || j == 1 || j == columnCount - 2;
+                boolean isEntry = i == lineCount - 2 && j >= 6 && j <= 8;
+                boolean isComptoir = block.equals(barLeft) || block.equals(barCenter) || block.equals(barRight);
+                boolean isMerchant = block.equals(merchant);
+
+                if (isEdgeInner && !isEntry && !isComptoir && !isMerchant) {
+                    shopMap.getStaticObjects().put(block, "bookshelf");
+                }
             }
         }
 
-        System.out.println("\n✅ Test de l'incendie terminé !");
+        // ✅ Affichage ASCII
+        System.out.println("\n🗺️ Affichage ASCII :");
+        for (int i = 0; i < lineCount; i++) {
+            for (int j = 0; j < columnCount; j++) {
+                Block block = shopMap.getBlock(i, j);
+                String terrain = shopMap.getStaticTerrain().getOrDefault(block, "??");
+                String obj = shopMap.getStaticObjects().getOrDefault(block, " ");
+
+                String symbol;
+                switch (obj) {
+                    case "merchant": symbol = "M"; break;
+                    case "bar": symbol = "B"; break;
+                    case "bookshelf": symbol = "📚"; break;
+                    case " ": // pas d’objet
+                        if ("lightWall".equals(terrain)) symbol = "░";
+                        else if ("carpet".equals(terrain)) symbol = "◉";
+                        else if ("shopFloor".equals(terrain)) symbol = ".";
+                        else symbol = "?";
+                        break;
+                    default: symbol = "?"; break;
+                }
+
+                System.out.print(symbol + " ");
+            }
+            System.out.println();
+        }
+
+        System.out.println("\n✅ Boutique 15x15 avec marchand en haut derrière son comptoir !");
     }
+
+
+
+
+
+
+
+
 
 
 }
