@@ -21,12 +21,15 @@ public class EnemyImageManager {
         try {
             System.out.println("🔄 Chargement des images des ennemis...");
 
-            // Chargement des ennemis normaux
-            enemyImages.put("skeleton", loadSpriteSheet("src/images/enemies/skeleton.png", 32, 32, 0, 3));
+            // Ennemis existants
+            enemyImages.put("skeleton", loadSpriteSheet("src/images/enemies/Skeleton.png", 32, 32, 0, 3));
             enemyImages.put("slime_green", loadSpriteSheet("src/images/enemies/slime_green2.png", 32, 32, 0, 1));
-
-            // 🔥 Charger uniquement les frames de saut pour le slime violet (exclut l'explosion)
             enemyImages.put("slime", loadSpriteSheet("src/images/enemies/slime.png", 32, 32, 0, 3));
+
+            // Ajout des types small, medium, large (⚠ nom exact des fichiers)
+            enemyImages.put("small", loadSpriteSheet("src/images/enemies/SmallSlime_Green.png", 32, 32, 0, 0));
+            enemyImages.put("medium", loadSpriteSheet("src/images/enemies/MediumSlime_Orange.png", 32, 32, 0, 0));
+            enemyImages.put("large", loadSpriteSheet("src/images/enemies/LargeSlime_Purple.png", 32, 32, 0, 0));
 
             System.out.println("✅ Toutes les images des ennemis ont été chargées !");
         } catch (Exception e) {

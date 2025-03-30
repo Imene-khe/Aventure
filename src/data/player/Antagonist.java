@@ -7,46 +7,57 @@ import data.map.Block;
 
 public class Antagonist extends Person implements Runnable {
 
-    private int currentFrame = 0;  // Frame actuelle de l'animation
-    private ArrayList<Image> enemyFrames;  // Stocke les frames de l'ennemi
+    private int currentFrame = 0;
+    private ArrayList<Image> enemyFrames;
     private String enemyType;
-    private static final int ANIMATION_DELAY = 150; // Temps entre chaque frame (ms)
+    private static final int ANIMATION_DELAY = 150;
 
-    private int health;      // Vie actuelle de l'ennemi
-    private int maxHealth;   // Vie maximale
+    private int health;
+    private int maxHealth;
 
     public Antagonist(Block startPosition, String enemyType, EnemyImageManager imageManager) {
         super(startPosition);
         this.enemyType = enemyType;
         this.enemyFrames = imageManager.getEnemyImages(enemyType);
 
-        // Initialisation des points de vie en fonction du type
+        // Initialisation des points de vie
         switch (enemyType) {
-            case "small":
-                this.maxHealth = 50;
-                break;
-            case "medium":
-                this.maxHealth = 80;
-                break;
-            case "large":
-                this.maxHealth = 120;
-                break;
-            default:
-                this.maxHealth = 60;
-                break;
+            case "small":  this.maxHealth = 50; break;
+            case "medium": this.maxHealth = 80; break;
+            case "large":  this.maxHealth = 120; break;
+            default:       this.maxHealth = 60; break;
         }
 
         this.health = maxHealth;
 
-        // Lancement de l'animation uniquement pour les slimes violets
+        // ✅ On ne lance l'animation que si la liste d'images est non vide
+        if (enemyFrames != null && !enemyFrames.isEmpty()) {
+            Thread animationThread = new Thread(this);
+            animationThread.start();
+        } else {
+            System.out.println("❌ Aucune frame chargée pour l'ennemi : " + enemyType);
+        }
+
+        this.health = maxHealth;
+
         if (shouldAnimate()) {
             Thread animationThread = new Thread(this);
             animationThread.start();
         }
     }
 
+    // ✅ Convertit le type générique en nom d’image réel
+    private String resolveType(String type) {
+        return switch (type.toLowerCase()) {
+            case "small" -> "SmallSlime_Green";
+            case "medium" -> "MediumSlime_Blue";
+            case "large" -> "LargeSlime_Red";
+            default -> type;
+        };
+    }
+
     private boolean shouldAnimate() {
-        return enemyType.equals("slime");
+        return true; // tu peux filtrer ici si tu veux animer uniquement certains types
     }
 
     @Override
@@ -73,8 +84,6 @@ public class Antagonist extends Person implements Runnable {
         }
     }
 
-    // On va leurs rajouter une barre de vie
-
     public int getHealth() {
         return health;
     }
@@ -85,9 +94,7 @@ public class Antagonist extends Person implements Runnable {
 
     public void takeDamage(int damage) {
         health -= damage;
-        if (health < 0) {
-            health = 0;
-        }
+        if (health < 0) health = 0;
     }
 
     public boolean isDead() {
