@@ -22,4 +22,6 @@ public class Coin {
     public void collect() {
         this.collected = true;
     }
+    
+    
 }

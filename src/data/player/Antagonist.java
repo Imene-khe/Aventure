@@ -100,4 +100,6 @@ public class Antagonist extends Person implements Runnable {
     public boolean isDead() {
         return health <= 0;
     }
+    
+    
 }

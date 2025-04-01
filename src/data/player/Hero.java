@@ -7,7 +7,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import data.map.Block;
-import gui.MainGUI;
 
 public class Hero extends Person {
     private int spriteX = 0;  // Frame d'animation
@@ -51,55 +50,7 @@ public class Hero extends Person {
         System.out.println("🔄 Animation mise à jour : spriteX = " + spriteX);
     }
 
-    public void moveLeft() {
-        System.out.println("➡️ Déplacement à gauche !");
-        spriteY = SPRITE_HEIGHT;
-        isFlipped = true;
-        updateAnimationFrame();
-
-        // Vérification que la case devant est libre
-        Block newPosition = new Block(getPosition().getLine(), getPosition().getColumn() - 1);
-        if (!MainGUI.getGameDisplay().getMap().isBlocked(newPosition)) {
-            setPosition(newPosition);
-        }
-    }
-
-    public void moveRight() {
-        System.out.println("➡️ Déplacement à droite !");
-        spriteY = SPRITE_HEIGHT;
-        isFlipped = false;
-        updateAnimationFrame();
-
-        Block newPosition = new Block(getPosition().getLine(), getPosition().getColumn() + 1);
-        if (!MainGUI.getGameDisplay().getMap().isBlocked(newPosition)) {
-            setPosition(newPosition);
-        }
-    }
-
-    public void moveUp() {
-        System.out.println("⬆️ Déplacement en haut !");
-        spriteY = SPRITE_HEIGHT * 2;
-        isFlipped = false;
-        updateAnimationFrame();
-
-        Block newPosition = new Block(getPosition().getLine() - 1, getPosition().getColumn());
-        if (!MainGUI.getGameDisplay().getMap().isBlocked(newPosition)) {
-            setPosition(newPosition);
-        }
-    }
-
-    public void moveDown() {
-        System.out.println("⬇️ Déplacement en bas !");
-        spriteY = 0;
-        isFlipped = false;
-        updateAnimationFrame();
-
-        Block newPosition = new Block(getPosition().getLine() + 1, getPosition().getColumn());
-        if (!MainGUI.getGameDisplay().getMap().isBlocked(newPosition)) {
-            setPosition(newPosition);
-        }
-    }
-
+    
 
     // Dessin du héros avec effet miroir pour la gauche
     public void draw(Graphics g, int blockSize) {

@@ -1,11 +1,14 @@
 package data.map;
 
+import java.awt.Graphics;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
 import data.item.ChestManager;
 import data.item.Coin;
+import gui.GameDisplay;
 
 public class Map {
     private Block[][] blocks;
@@ -289,23 +292,20 @@ public class Map {
     
 
     public boolean isBlocked(Block block) {
-        // ✅ Si c'est une map statique (comme la shopMap), on autorise certains objets
         if (isStatic) {
             String object = staticObjects.get(block);
-            if (object == null) {
-                return false; // ✅ Aucun objet => libre
-            }
+            if (object == null) return false;
 
-            // ❌ Bloquer uniquement ce qui gêne réellement
-            return object.equals("bookshelf") || object.equals("merchant");
+            // ✅ Ne bloquer que les objets qui prennent de la place
+            return object.equals("bookshelf") || object.equals("merchant") || object.equals("bar");
         }
 
-        // ✅ Sinon, règle classique pour la map principale
-        return obstacles.containsKey(block) ||
-               terrainBlocked.getOrDefault(block, false) ||
-               (staticTerrain.containsKey(block) && staticTerrain.get(block).equals("water")) ||
-               staticObjects.containsKey(block);
+        return obstacles.containsKey(block)
+            || terrainBlocked.getOrDefault(block, false)
+            || (staticTerrain.containsKey(block) && staticTerrain.get(block).equals("water"))
+            || staticObjects.containsKey(block);
     }
+
 
 
     public void setTerrainBlocked(Block block, boolean blocked) {
@@ -351,6 +351,24 @@ public class Map {
             }
         }
     }
+    
+    public void paintTerrain(Graphics g, GameDisplay display) {
+        Block[][] blocks = this.getBlocks();
+        boolean isInShop = display.isInShop();
+
+        for (int line = 0; line < getLineCount(); line++) {
+            for (int col = 0; col < getColumnCount(); col++) {
+                Block block = blocks[line][col];
+
+                String terrainType = this.getStaticTerrain().getOrDefault(block, isInShop ? "shopFloor" : "grass");
+                Image terrainImage = display.getTileset().get(terrainType);
+                if (terrainImage != null) {
+                    g.drawImage(terrainImage, block.getColumn() * 32, block.getLine() * 32, 32, 32, null);
+                }
+            }
+        }
+    }
+
 
     public static void main(String[] args) {
         System.out.println("📚 Initialisation de la boutique 15x15 avec marchand derrière son comptoir en haut...");

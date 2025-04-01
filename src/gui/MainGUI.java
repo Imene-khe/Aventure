@@ -2,14 +2,11 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-import data.item.Chest;
 import data.item.InventoryManager;
 import data.map.Block;
-import data.map.Map;
-import data.player.Hero;
 import data.dialogue.DialogueManager;
 
 public class MainGUI extends JFrame {
@@ -22,7 +19,7 @@ public class MainGUI extends JFrame {
 
     // ✅ Panneau de narration
     private JPanel sidePanel;
-    private JLabel characterImage;
+    private JLabel characterImage;	
     private JPanel dialoguePanel;
     private DialogueManager dialogueManager = new DialogueManager();
     private boolean dialogueActive = true;
@@ -119,21 +116,9 @@ public class MainGUI extends JFrame {
         add(sidePanel, BorderLayout.EAST);
         add(bottomPanel, BorderLayout.SOUTH);
 
-        addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (dialogueActive) {
-                    advanceDialogue();
-                } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE && dashboard.isInShop()) {
-                    dashboard.exitShop();
-                    System.out.println("🚪 Sortie de la boutique !");
-                    triggerDialogue("exit_shop_1");
-                    requestFocusInWindow();
-                }
+        addKeyListener(new KeyControls());
 
-                moveHero(e.getKeyCode()); // ✅ Toujours actif, que ce soit dans le shop ou non
-            }
-        });
+
 
         updateDialoguePanel(currentDialogueEvent);
 
@@ -232,63 +217,23 @@ public class MainGUI extends JFrame {
     public void moveHero(int keyCode) {
         if (dialogueActive) return; // ✅ Bloque les déplacements si un dialogue est actif
 
-        Hero hero = dashboard.getHero();
-        Block currentPos = hero.getPosition();
-        Block newPos = currentPos;
-
-        // ✅ Sélectionner la carte active (`currentMap` ou `shopMap`)
-        Map activeMap = dashboard.isInShop() ? dashboard.getShopMap() : dashboard.getMap();
-
-        int newLine = currentPos.getLine();
-        int newColumn = currentPos.getColumn();
-
-        if (keyCode == KeyEvent.VK_LEFT) {
-            newColumn--;
-        } else if (keyCode == KeyEvent.VK_RIGHT) {
-            newColumn++;
-        } else if (keyCode == KeyEvent.VK_UP) {
-            newLine--;
-        } else if (keyCode == KeyEvent.VK_DOWN) {
-            newLine++;
-        }
-
-        // ✅ Vérifier que le déplacement reste dans les limites de la carte
-        if (newLine >= 0 && newLine < activeMap.getLineCount() && newColumn >= 0 && newColumn < activeMap.getColumnCount()) {
-            newPos = activeMap.getBlock(newLine, newColumn);
-
-            // ✅ Vérifier que le bloc n'est pas bloqué
-            if (!activeMap.isBlocked(newPos)) {
-                hero.setPosition(newPos);
-                dashboard.repaint();
-            } else {
-                System.out.println("🚫 Mouvement bloqué par un obstacle !");
-            }
-        } else {
-            System.out.println("🚫 Mouvement interdit : hors des limites !");
-        }
-
-        dashboard.checkHeroCoinCollision(this);
+        dashboard.getController().moveHero(keyCode, this); // ✅ délégation complète
     }
+
 
 
     /**
      * ✅ Vérifie l’interaction avec un coffre ou l’entrée du shop.
      */
     public void interactWithNPC() {
-        Chest chest = dashboard.openNearbyChest(); // Vérifier si un coffre est proche
-
-        if (chest != null) {
-            System.out.println("🔓 Coffre trouvé, ouverture...");
-            ChestUIManager chestUI = new ChestUIManager(this);
-            chestUI.displayChestContents(chest);
-        } else if (isHeroNearShop()) {
-            enterShop(); // ✅ Entrer dans la boutique si le héros est proche du shop
-        } else {
-            JOptionPane.showMessageDialog(this, "💬 Il n'y a rien à interagir ici !");
+        // Exemple : priorité à un PNJ plus tard, sinon tente un coffre
+        if (!dashboard.getController().tryInteractWithNPC(this)) {
+            dashboard.getController().tryOpenChest(this);
         }
 
-        requestFocusInWindow(); // ✅ Redonner le focus après l’interaction
+        requestFocusInWindow(); // ✅ Redonne le focus clavier après interaction
     }
+
 
 
     /**
@@ -341,6 +286,38 @@ public class MainGUI extends JFrame {
     public InventoryManager getInventoryManager() {
         return inventory;
     }
+    
+    public void requestFocusOnGame() {
+        dashboard.requestFocusInWindow(); // dashboard est ton GameDisplay
+    }
+    
+    private class KeyControls implements KeyListener {
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (dialogueActive) {
+                advanceDialogue();
+                return;
+            }
+
+            if (e.getKeyCode() == KeyEvent.VK_ESCAPE && dashboard.isInShop()) {
+                dashboard.exitShop();
+                System.out.println("🚪 Sortie de la boutique !");
+                triggerDialogue("exit_shop_1");
+                requestFocusInWindow();
+            } else {
+                moveHero(e.getKeyCode()); // ⬅️ délégué au GameController
+            }
+        }
+
+        @Override
+        public void keyTyped(KeyEvent e) {}
+
+        @Override
+        public void keyReleased(KeyEvent e) {}
+    }
+
+
 
     public static void main(String[] args) {
     	

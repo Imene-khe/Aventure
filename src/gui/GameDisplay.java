@@ -2,25 +2,20 @@ package gui;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import data.item.Chest;
-import data.item.Coin;
-import data.map.Block;
+import control.GameController;
 import data.map.Map;
 import data.player.EnemyImageManager;
 import data.player.Hero;
 import gui.animation.SpriteAnimator;
+import viewstrategy.PaintStrategy;
 
 /**
  * Classe représentant l'affichage du jeu. Elle gère le rendu graphique de la CARTE, des ennemis, du héros
@@ -34,7 +29,7 @@ public class GameDisplay extends JPanel {
     private static final int SHOP_SIZE = 15; //Taille de la boutique
     private Map map; // Instance de la carte du jeu
     private Map shopMap;
-    private Hero hero; // Instance du héros
+	private Hero hero; // Instance du héros
     private EnemyImageManager enemyImageManager; // Gestionnaire des images des ennemis
     private HashMap<String, Image> tileset; // Dictionnaire des images de terrain et objets
     private boolean canTakeDamage = true; // ✅ Contrôle si le héros peut prendre des dégâts
@@ -42,15 +37,12 @@ public class GameDisplay extends JPanel {
     private boolean isInShop = false; // ✅ Indique si on est dans la boutique
     private SpriteAnimator flameAnimator;
     private SpriteAnimator coinAnimator;
-
-
-
+    private PaintStrategy paintStrategy = new DefaultPaintStrategy();
+    private GameController controller;
 
     public boolean isInShop() {
 		return isInShop;
 	}
-
-
 
 	public void setInShop(boolean isInShop) {
 		this.isInShop = isInShop;
@@ -61,146 +53,71 @@ public class GameDisplay extends JPanel {
 	/**
      * Constructeur de la classe. Initialise la carte, le héros et les images.
      */
-    public GameDisplay() {
-        try {
-            int numberOfChests = 5; // Ajustable selon besoins
-            this.enemyImageManager = new EnemyImageManager();
-            this.map = new Map(GRID_SIZE, GRID_SIZE, numberOfChests,false);
-            this.shopMap = new Map(SHOP_SIZE, SHOP_SIZE, 0,true);    // Boutique plus petite
-            this.shopMap.setupStaticShop(); // ✅ Configuration de la boutique
-            this.hero = new Hero(map.getBlock(GRID_SIZE / 2, GRID_SIZE / 2), 100);
-            this.tileset = new HashMap<>();
-            
-            try {
-                String[] coinPaths = new String[8];
-                for (int i = 0; i < 8; i++) {
-                    coinPaths[i] = "src/images/items/coins/coin" + (i + 1) + ".png";
-                }
-                coinAnimator = new SpriteAnimator(coinPaths, 100); // ⏱️ 100 ms entre les frames
-                System.out.println("✅ coinAnimator (8 images) chargé avec succès !");
-            } catch (IOException e) {
-                System.out.println("❌ Impossible de charger les images d’animation des pièces !");
-                e.printStackTrace();
-            }
+	public GameDisplay() {
+	    try {
+	        int numberOfChests = 5; // Ajustable selon besoins
+	        this.enemyImageManager = new EnemyImageManager();
+	        this.map = new Map(GRID_SIZE, GRID_SIZE, numberOfChests, false);
+	        this.shopMap = new Map(SHOP_SIZE, SHOP_SIZE, 0, true);    // Boutique plus petite
+	        this.shopMap.setupStaticShop(); // ✅ Configuration de la boutique
+	        this.hero = new Hero(map.getBlock(GRID_SIZE / 2, GRID_SIZE / 2), 100);
+	        this.tileset = new HashMap<>();
 
-            
-            
-         // ✅ Thread pour vérifier en continu les collisions avec les ennemis
-            new Thread(() -> {
-                while (true) {
-                    try {
-                        Thread.sleep(100); // 🔄 Vérification toutes les 100 ms
-                        checkEnemyCollision(); // ✅ Vérifie si le héros touche un ennemi
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
-            // Thread pour rafraîchir l'affichage des animations (ex: pièces en rotation)
-            new Thread(() -> {
-                while (true) {
-                    try {
-                        Thread.sleep(100);
-                        repaint(); // Force le redessin de la fenêtre
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
+	        this.controller = new GameController(this); // ✅ nouveau contrôleur
 
-            // Chargement des images a supprimer dans un second temps
-            loadImages();
-            try {
-                flameAnimator = new SpriteAnimator("src/images/outdoors/flames.png", 4, 3, 100);
-            } catch (IOException e) {
-                System.out.println("❌ Impossible de charger l'animation des flammes !");
-                e.printStackTrace();
-            }
+	        try {
+	            String[] coinPaths = new String[8];
+	            for (int i = 0; i < 8; i++) {
+	                coinPaths[i] = "src/images/items/coins/coin" + (i + 1) + ".png";
+	            }
+	            coinAnimator = new SpriteAnimator(coinPaths, 100); // ⏱️ 100 ms entre les frames
+	            System.out.println("✅ coinAnimator (8 images) chargé avec succès !");
+	        } catch (IOException e) {
+	            System.out.println("❌ Impossible de charger les images d’animation des pièces !");
+	            e.printStackTrace();
+	        }
 
-            /*merchantPosition = map.getBlock(10, 10); // Ajuste la position selon ta map
-            new Thread(() -> {
-                while (true) {
-                    try {
-                        Thread.sleep(1000);
-                        showMerchant = !showMerchant;
-                        repaint();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();*/
+	        // ✅ Thread collision déplacé vers le contrôleur
+	        new Thread(() -> {
+	            while (true) {
+	                try {
+	                    Thread.sleep(100); // 🔄 Vérification toutes les 100 ms
+	                    controller.checkEnemyCollision(); // ✅ via GameController
+	                } catch (InterruptedException e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	        }).start();
 
+	        // Thread pour rafraîchir l'affichage des animations (ex: pièces en rotation)
+	        new Thread(() -> {
+	            while (true) {
+	                try {
+	                    Thread.sleep(100);
+	                    repaint(); // Force le redessin de la fenêtre
+	                } catch (InterruptedException e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	        }).start();
 
-            System.out.println("✅ GameDisplay créé avec succès !");
-        } catch (Exception e) {
-            System.out.println("❌ ERREUR : Impossible d'initialiser GameDisplay !");
-            e.printStackTrace();
-        }
-    }
-    
-    
-    
-    /**
-     * Vérifie si un coffre est à proximité du héros et l'ouvre si c'est le cas.
-     * @return Le coffre ouvert, ou null si aucun coffre n'est proche.
-     */
-    public Chest openNearbyChest() {
-        Block heroPos = hero.getPosition();  // Récupère la position actuelle du héros
-        int heroLine = heroPos.getLine();
-        int heroColumn = heroPos.getColumn();
+	        loadImages(); // Chargement des images
 
-        // Vérifier les cases adjacentes autour du héros
-        for (int deltaLine = -1; deltaLine <= 1; deltaLine++) {
-            for (int deltaColumn = -1; deltaColumn <= 1; deltaColumn++) {
-                if (deltaLine == 0 && deltaColumn == 0) continue;  // Ignorer la case du héros lui-même
+	        try {
+	            flameAnimator = new SpriteAnimator("src/images/outdoors/flames.png", 4, 3, 100);
+	        } catch (IOException e) {
+	            System.out.println("❌ Impossible de charger l'animation des flammes !");
+	            e.printStackTrace();
+	        }
 
-                int newLine = heroLine + deltaLine;
-                int newColumn = heroColumn + deltaColumn;
+	        System.out.println("✅ GameDisplay créé avec succès !");
+	    } catch (Exception e) {
+	        System.out.println("❌ ERREUR : Impossible d'initialiser GameDisplay !");
+	        e.printStackTrace();
+	    }
+	}
 
-                // Vérifier que les coordonnées sont valides
-                if (newLine >= 0 && newLine < map.getLineCount() && newColumn >= 0 && newColumn < map.getColumnCount()) {
-                    Block adjacentBlock = map.getBlock(newLine, newColumn);
-
-                    // Vérifier si un coffre est présent
-                    if (map.getStaticObjects().containsKey(adjacentBlock) && map.getStaticObjects().get(adjacentBlock).equals("chest")) {
-                        Chest chest = map.getChestManager().getChests().get(adjacentBlock);
-                        if (chest != null) {
-                            System.out.println("🗃 Coffre trouvé à " + adjacentBlock + ", ouverture en cours...");
-                            return chest;
-                        }
-                    }
-                }
-            }
-        }
-
-        System.out.println("❌ Aucun coffre à proximité !");
-        return null;
-    }
-    
-    /**
-     * Vérifie si le héros est sur une pièce et la collecte.
-     * Met à jour le compteur de pièces dans `MainGUI`.
-     */
-    public void checkHeroCoinCollision(MainGUI mainGUI) {
-        ArrayList<Coin> collectedCoins = new ArrayList<>();
-
-        for (Coin coin : map.getCoins()) {
-            if (!coin.isCollected() && coin.getBlock().equals(hero.getPosition())) {
-                coin.collect(); // Marquer la pièce comme collectée
-                collectedCoins.add(coin);
-
-                // ✅ Augmenter le compteur de pièces dans MainGUI
-                mainGUI.incrementCoinCount();
-                System.out.println("💰 Pièce ramassée ! Total : " + mainGUI.getCoinCount());
-            }
-        }
-
-        // ✅ Supprimer les pièces collectées de la carte
-        map.getCoins().removeAll(collectedCoins);
-    }
-
-    
-
+   
     public Map getMap() {
 		return map;
 	}
@@ -292,236 +209,61 @@ public class GameDisplay extends JPanel {
     }
 
     /**
-     * Déplace le héros vers une nouvelle position.
-     * Si la position contient un ennemi, le héros perd de la vie.
-     * @param newPosition La nouvelle position du héros
-     */
-	public void moveHero(Block newPosition, MainGUI mainGUI) {
-	    if (isGameOver) return; // 🔴 Si le jeu est terminé, empêcher les mouvements
-
-	    System.out.println("➡️ Tentative de déplacement vers : " + newPosition);
-
-	    // ✅ Déterminer sur quelle carte on joue actuellement
-	    Map activeMap = isInShop ? shopMap : map;
-
-	    // ✅ Vérifier si le bloc est bloqué avant de déplacer le héros
-	    if (activeMap.isBlocked(newPosition)) {
-	        System.out.println("🚫 Mouvement impossible, obstacle détecté !");
-	        return; // 🔴 Arrêter le déplacement si bloqué
-	    }
-
-	    // ✅ Déplacer le héros
-	    hero.setPosition(newPosition);
-	    System.out.println("✅ Héros déplacé à : " + hero.getPosition());
-
-	    // ✅ Vérifier si on est dans `currentMap` pour ramasser des pièces, ouvrir un coffre et rencontrer des ennemis
-	    if (!isInShop) {
-	        checkHeroCoinCollision(mainGUI);
-
-	        Chest chest = openNearbyChest();
-	        if (chest != null) {
-	            ChestUIManager chestUI = new ChestUIManager(mainGUI);
-	            chestUI.displayChestContents(chest);
-	        }
-
-	        // ✅ Vérifier si le héros touche un ennemi (uniquement en `currentMap`)
-	        for (Block enemyPos : map.getEnemies().keySet()) {
-	            if (enemyPos.equals(newPosition)) {
-	                System.out.println("💀 COLLISION AVEC UN ENNEMI !");
-	                hero.takeDamage(10); // ✅ Inflige 10 points de dégâts
-
-	                // ✅ Vérifier si le héros est mort
-	                if (hero.getHealth() <= 0) {
-	                    System.out.println("☠️ GAME OVER ! Le héros est mort.");
-	                    JOptionPane.showMessageDialog(this, "☠️ GAME OVER ! Le héros est mort.");
-	                    isGameOver = true; // ✅ Empêcher tout nouveau déplacement
-	                    return; // 🔴 Stopper la fonction immédiatement
-	                }
-	            }
-	        }
-	    }
-
-	    repaint(); // ✅ Mise à jour de l'affichage
-	}
-
-
-
-
-
-
-
-
-    /**
      * Méthode de rendu graphique. Elle dessine la carte, les ennemis, le héros et la barre de vie.
      * @param g L'objet Graphics utilisé pour dessiner
      */
     
     
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
+	@Override
+	protected void paintComponent(Graphics g) {
+	    super.paintComponent(g);
 
-        // ✅ Déterminer quelle carte dessiner (currentMap ou shopMap)
-        Map mapToDraw = isInShop ? shopMap : map;
+	    Map mapToDraw = isInShop ? shopMap : map;
 
-        if (mapToDraw == null || tileset == null || tileset.isEmpty()) {
-            System.out.println("❌ Erreur: la map ou le tileset est null ou vide");
-            return;
-        }
+	    if (mapToDraw == null || tileset == null || tileset.isEmpty()) {
+	        System.out.println("❌ Erreur: la map ou le tileset est null ou vide");
+	        return;
+	    }
 
-        Block[][] blocks = mapToDraw.getBlocks();
+	    // ✅ 1. Fond de carte (grass, water, etc.)
+	    paintStrategy.paintTerrain(mapToDraw, g, this);
 
-        // 🔹 Dessiner la carte (terrains)
-        for (int lineIndex = 0; lineIndex < mapToDraw.getLineCount(); lineIndex++) {
-            for (int columnIndex = 0; columnIndex < mapToDraw.getColumnCount(); columnIndex++) {
-                Block block = blocks[lineIndex][columnIndex];
+	    // ✅ 2. Pièces (sous les objets statiques)
+	    if (!isInShop) {
+	        paintStrategy.paintCoins(map, g, this);
+	    }
 
-                // ✅ Vérifier si on est dans `shopMap` et utiliser `blackWall` pour le contour
-                String terrainType;
-                terrainType = mapToDraw.getStaticTerrain().getOrDefault(block, isInShop ? "shopFloor" : "grass");
+	    // ✅ 3. Objets statiques (arbres, coffres, meubles...)
+	    paintStrategy.paintStaticObjects(mapToDraw, g, this);
 
+	    // ✅ 4. Cas particuliers : maisons en feu, bâtiment shop, marchand
+	    if (!isInShop) {
+	        paintStrategy.paintBurningHouse(map, g, this);
+	        paintStrategy.paintShopBuilding(map, g, this);
+	    } else {
+	        paintStrategy.paintMerchant(shopMap, g, this);
+	    }
 
-                Image terrainImage = tileset.get(terrainType);
+	    // ✅ 5. Ennemis + barre de vie (map principale uniquement)
+	    if (!isInShop) {
+	        paintStrategy.paintEnemies(map, g, this);
+	        paintStrategy.paintHealthBar(hero, g, this);
+	    }
 
-                if (terrainImage != null) {
-                    g.drawImage(terrainImage, block.getColumn() * BLOCK_SIZE, block.getLine() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
-                }
-
-                // 🔹 Dessiner les objets statiques (arbres, maisons, coffres, meubles, torches, tables, shop)
-                String objectType = mapToDraw.getStaticObjects().get(block);
-             // 🔥 Cas spécial : maison en feu (dessinée par-dessus la maison normale)
-                if ("house_burning".equals(objectType)) {
-                    // 1. Dessiner la maison normale
-                    if (tileset.containsKey("house")) {
-                        g.drawImage(tileset.get("house"), block.getColumn() * BLOCK_SIZE, block.getLine() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
-                    }
-
-                    // 2. Dessiner les flammes animées par-dessus
-                    if (flameAnimator != null) {
-                        g.drawImage(flameAnimator.getCurrentFrame(), block.getColumn() * BLOCK_SIZE, block.getLine() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
-                    }
-
-                    continue; // ✅ Ne pas dessiner ce bloc à nouveau dans le bloc générique
-                }
-
-                if (objectType != null && tileset.containsKey(objectType)) {
-                    g.drawImage(tileset.get(objectType), block.getColumn() * BLOCK_SIZE, block.getLine() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
-                }
-
-
-            }
-        }
-
-        // 🔹 Dessiner le bâtiment shop (`shop`) uniquement dans `currentMap`
-        if (!isInShop && tileset.containsKey("shop")) {
-            for (Block block : map.getStaticObjects().keySet()) {
-                if ("shop".equals(map.getStaticObjects().get(block))) {
-                    g.drawImage(tileset.get("shop"), block.getColumn() * BLOCK_SIZE, block.getLine() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
-                }
-            }
-        }
-
-        // 🔹 Dessiner le marchand (`merchant`) uniquement dans `shopMap`
-        if (isInShop && tileset.containsKey("merchant")) {
-            for (Block block : shopMap.getStaticObjects().keySet()) {
-                if ("merchant".equals(shopMap.getStaticObjects().get(block))) {
-                    g.drawImage(tileset.get("merchant"), block.getColumn() * BLOCK_SIZE, block.getLine() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
-                }
-            }
-        }
-
-        // 🔹 Dessiner les pièces (coins) uniquement si on est dans currentMap
-        if (!isInShop) {
-            for (Coin coin : map.getCoins()) {
-                if (!coin.isCollected()) {
-                    Block block = coin.getBlock();
-                    int x = block.getColumn() * BLOCK_SIZE;
-                    int y = block.getLine() * BLOCK_SIZE;
-
-                    Image frame = coinAnimator.getCurrentFrame();
-                    
-
-                    int coinSize = (int) (BLOCK_SIZE * 0.5);
-                    int offset = (BLOCK_SIZE - coinSize) / 2;
-
-                    g.drawImage(frame, x + offset, y + offset, coinSize, coinSize, null);
-                }
-            }
-        }
-
-        // 🔥 Dessiner les ennemis uniquement si on est dans currentMap
-        if (!isInShop) {
-            for (Block block : map.getEnemies().keySet()) {
-                String enemyType = map.getEnemies().get(block);
-                Image enemyImage = enemyImageManager.getEnemyImage(enemyType, 0);
-
-                if (enemyImage != null) {
-                    int x = block.getColumn() * BLOCK_SIZE;
-                    int y = block.getLine() * BLOCK_SIZE;
-                    g.drawImage(enemyImage, x, y, BLOCK_SIZE, BLOCK_SIZE, null);
-                } else {
-                    System.out.println("⚠ BUG: Ennemi " + enemyType + " non affiché !");
-                }
-            }
-        }
-
-        // 🔹 Dessiner le héros
-        if (hero != null) {
-            hero.draw(g, BLOCK_SIZE);
-        }
-
-        // 🔹 Dessiner la barre de vie uniquement si on est dans currentMap
-        if (!isInShop) {
-            drawHealthBar(g);
-        }
-    }
-
-
-
-
-
-
-
+	    // ✅ 6. Héros (au-dessus de tout)
+	    paintStrategy.paintHero(hero, g, this);
+	}
     
-    
-    /**
-     * ✅ Vérifie si le héros est sur un ennemi et applique un délai avant de reprendre des dégâts.
-     */
-    public void checkEnemyCollision() {
-        if (isGameOver) return; // 🔴 Si le jeu est fini, ne rien faire
+    public boolean isGameOver() {
+		return isGameOver;
+	}
 
-        Block heroPosition = hero.getPosition(); // 📌 Position actuelle du héros
 
-        for (Block enemyPos : map.getEnemies().keySet()) {
-            if (enemyPos.getLine() == heroPosition.getLine() && enemyPos.getColumn() == heroPosition.getColumn()) {
-                if (!canTakeDamage) {
-                    return; // 🔴 Empêche de prendre des dégâts si le délai n'est pas écoulé
-                }
 
-                System.out.println("💀 COLLISION AVEC UN ENNEMI ! Dégâts infligés !");
-                hero.takeDamage(10); // ✅ Inflige 10 points de dégâts
-                canTakeDamage = false; // 🔴 Désactive temporairement les dégâts
+	public void setGameOver(boolean isGameOver) {
+		this.isGameOver = isGameOver;
+	}
 
-                // ✅ Réactiver la prise de dégâts après 1 seconde
-                new Thread(() -> {
-                    try {
-                        Thread.sleep(1000); // ⏳ Attendre 1 seconde
-                        canTakeDamage = true; // ✅ Réautoriser les dégâts après le délai
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }).start();
-
-                // ✅ Vérifier si le héros est mort
-                if (hero.getHealth() <= 0) {
-                    isGameOver = true; // 🔴 Empêcher le message de s'afficher plusieurs fois
-                    System.out.println("☠️ GAME OVER ! Le héros est mort.");
-                    JOptionPane.showMessageDialog(this, "☠️ GAME OVER ! Le héros est mort.");
-                    System.exit(0); // ✅ Ferme l'application proprement
-                }
-            }
-        }
-    }
 
     /**
      * Dessine la barre de vie du héros.
@@ -573,40 +315,48 @@ public class GameDisplay extends JPanel {
             System.out.println("🚪 Sortie de la boutique, retour à la carte principale !");
         }
     }
+    
+    public SpriteAnimator getFlameAnimator() {
+        return flameAnimator;
+    }
+    
+    public SpriteAnimator getCoinAnimator() {
+        return coinAnimator;
+    }
+    
+    public GameController getController() {
+		return controller;
+	}
+
+	public void setController(GameController controller) {
+		this.controller = controller;
+	}
+
 
     
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(() -> {
             // ✅ Création de la fenêtre
-            JFrame frame = new JFrame("Test Affichage ShopMap");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            JFrame frame = new JFrame("Test Affichage Terrain + Objets");
 
-            // ✅ Création de GameDisplay (avec shopMap et currentMap)
+            // ✅ Création du GameDisplay
             GameDisplay gameDisplay = new GameDisplay();
 
-            // ✅ Gestion des touches pour entrer et sortir du magasin
-            gameDisplay.addKeyListener(new KeyAdapter() {
-                @Override
-                public void keyPressed(KeyEvent e) {
-                    if (e.getKeyCode() == KeyEvent.VK_B && !gameDisplay.isInShop) {
-                        gameDisplay.enterShop();
-                        System.out.println("🏪 Entrée dans la boutique !");
-                    } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE && gameDisplay.isInShop) {
-                        gameDisplay.exitShop();
-                        System.out.println("🚪 Sortie de la boutique !");
-                    }
-                }
-            });
-
+            // ✅ Focus clavier (utile si tu veux tester les touches plus tard)
             gameDisplay.setFocusable(true);
             gameDisplay.requestFocusInWindow();
 
+            // ✅ Ajout du GameDisplay dans la fenêtre
             frame.add(gameDisplay);
-            frame.setSize(400, 400); // Ajuste la taille selon le rendu des blocs
-            frame.setLocationRelativeTo(null); // Centre la fenêtre
+            frame.setSize(800, 800); // Ajusté pour voir une bonne portion de map
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setLocationRelativeTo(null); // Centre la fenêtre à l'écran
             frame.setVisible(true);
         });
     }
+
+
+
     
     
 

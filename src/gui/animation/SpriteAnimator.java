@@ -79,6 +79,9 @@ public class SpriteAnimator {
         return frameCount;
     }
     
+  
+
+    
  // 🔽 Main de test intégré à la classe SpriteAnimator
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(() -> {
