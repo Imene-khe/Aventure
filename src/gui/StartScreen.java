@@ -95,7 +95,7 @@ public class StartScreen extends JFrame {
                 JFrame combatFrame = new JFrame("Mode Combat");
                 combatFrame.setSize(800, 600);
                 combatFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                combatFrame.add(new CombatMap());
+                combatFrame.add(new CombatMap(null));
                 combatFrame.setVisible(true);
                 break;
             case "shop":

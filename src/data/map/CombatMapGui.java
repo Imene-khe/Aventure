@@ -8,6 +8,7 @@ public class CombatMapGui {
 
     public CombatMapGui() {
         // Crée la fenêtre
+    	
         JFrame frame = new JFrame("🌿 Combat contre les slimes !");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);

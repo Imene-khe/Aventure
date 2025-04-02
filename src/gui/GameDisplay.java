@@ -32,9 +32,9 @@ public class GameDisplay extends JPanel {
 	private Hero hero; // Instance du héros
     private EnemyImageManager enemyImageManager; // Gestionnaire des images des ennemis
     private HashMap<String, Image> tileset; // Dictionnaire des images de terrain et objets
-    private boolean canTakeDamage = true; // ✅ Contrôle si le héros peut prendre des dégâts
-    private boolean isGameOver = false; // ✅ Empêche l'affichage multiple du message de Game Over
-    private boolean isInShop = false; // ✅ Indique si on est dans la boutique
+    private boolean canTakeDamage = true; //  Contrôle si le héros peut prendre des dégâts
+    private boolean isGameOver = false; //  Empêche l'affichage multiple du message de Game Over
+    private boolean isInShop = false; //  Indique si on est dans la boutique
     private SpriteAnimator flameAnimator;
     private SpriteAnimator coinAnimator;
     private PaintStrategy paintStrategy = new DefaultPaintStrategy();
@@ -59,30 +59,30 @@ public class GameDisplay extends JPanel {
 	        this.enemyImageManager = new EnemyImageManager();
 	        this.map = new Map(GRID_SIZE, GRID_SIZE, numberOfChests, false);
 	        this.shopMap = new Map(SHOP_SIZE, SHOP_SIZE, 0, true);    // Boutique plus petite
-	        this.shopMap.setupStaticShop(); // ✅ Configuration de la boutique
+	        this.shopMap.setupStaticShop(); // Configuration de la boutique
 	        this.hero = new Hero(map.getBlock(GRID_SIZE / 2, GRID_SIZE / 2), 100);
 	        this.tileset = new HashMap<>();
 
-	        this.controller = new GameController(this); // ✅ nouveau contrôleur
+	        this.controller = new GameController(this); // nouveau contrôleur
 
 	        try {
 	            String[] coinPaths = new String[8];
 	            for (int i = 0; i < 8; i++) {
 	                coinPaths[i] = "src/images/items/coins/coin" + (i + 1) + ".png";
 	            }
-	            coinAnimator = new SpriteAnimator(coinPaths, 100); // ⏱️ 100 ms entre les frames
+	            coinAnimator = new SpriteAnimator(coinPaths, 100); //  100 ms entre les frames
 	            System.out.println("✅ coinAnimator (8 images) chargé avec succès !");
 	        } catch (IOException e) {
 	            System.out.println("❌ Impossible de charger les images d’animation des pièces !");
 	            e.printStackTrace();
 	        }
 
-	        // ✅ Thread collision déplacé vers le contrôleur
+	        //  Thread collision déplacé vers le contrôleur
 	        new Thread(() -> {
 	            while (true) {
 	                try {
-	                    Thread.sleep(100); // 🔄 Vérification toutes les 100 ms
-	                    controller.checkEnemyCollision(); // ✅ via GameController
+	                    Thread.sleep(100); // Vérification toutes les 100 ms
+	                    controller.checkEnemyCollision(); // via GameController
 	                } catch (InterruptedException e) {
 	                    e.printStackTrace();
 	                }
@@ -187,9 +187,9 @@ public class GameDisplay extends JPanel {
             tileset.put("chest", loadImage("src/images/outdoors/Chest.png"));
 
 
-            System.out.println("✅ Toutes les images sont chargées !");
+            System.out.println(" Toutes les images sont chargées !");
         } catch (Exception e) {
-            System.out.println("❌ ERREUR : Impossible de charger les images !");
+            System.out.println(" ERREUR : Impossible de charger les images !");
             e.printStackTrace();
         }
     }
@@ -355,11 +355,4 @@ public class GameDisplay extends JPanel {
         });
     }
 
-
-
-    
-    
-
-    
-    
 }
