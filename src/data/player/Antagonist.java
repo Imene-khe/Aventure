@@ -2,73 +2,62 @@ package data.player;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.util.ArrayList;
+import java.io.IOException;
 
 import data.map.Block;
+import gui.animation.EnemyAnimator;
 
-public class Antagonist extends Person implements Runnable {
+public class Antagonist extends Person {
 
-    private int currentFrame = 0;
-    private ArrayList<Image> enemyFrames;
+    private EnemyAnimator animator;
     private String enemyType;
-    private static final int ANIMATION_DELAY = 150;
-
     private int health;
     private int maxHealth;
 
-    private int x, y; // ✅ Coordonnées pixels pour CombatMap
+    private int x, y; // Coordonnées pixels pour CombatMap
 
     public Antagonist(Block startPosition, String enemyType, EnemyImageManager imageManager) {
         super(startPosition);
         this.enemyType = enemyType;
-        this.enemyFrames = imageManager.getEnemyImages(enemyType);
 
         switch (enemyType) {
-            case "small":  this.maxHealth = 50; break;
-            case "medium": this.maxHealth = 80; break;
-            case "large":  this.maxHealth = 120; break;
-            default:       this.maxHealth = 60; break;
+            case "small" -> this.maxHealth = 50;
+            case "medium" -> this.maxHealth = 80;
+            case "large" -> this.maxHealth = 120;
+            default -> this.maxHealth = 60;
         }
-
         this.health = maxHealth;
 
-        // ✅ Conversion position logique en coordonnées pixels (pour CombatMap)
+        // Position en pixels
         if (startPosition != null) {
             this.x = startPosition.getColumn() * 50;
             this.y = startPosition.getLine() * 50;
         }
-        
-        
-        
-        
 
-        if (enemyFrames != null && !enemyFrames.isEmpty()) {
-            Thread animationThread = new Thread(this);
-            animationThread.start();
-        } else {
-            System.out.println("❌ Aucune frame chargée pour l'ennemi : " + enemyType);
+        // Chargement des sprites animés
+        try {
+            String spritePath = switch (enemyType) {
+                case "small" -> "src/images/enemies/SmallSlime_Green.png";
+                case "medium" -> "src/images/enemies/MediumSlime_Blue.png";
+                case "large" -> "src/images/enemies/LargeSlime_Grey.png";
+                default -> throw new IllegalArgumentException("Taille inconnue");
+            };
+            this.animator = new EnemyAnimator(spritePath, 5, 6); // 5 colonnes x 6 lignes
+        } catch (IOException e) {
+            System.out.println("❌ Erreur chargement animator pour " + enemyType);
+            e.printStackTrace();
         }
     }
 
-    @Override
     public void draw(Graphics g, int blockSize) {
-        if (enemyFrames != null && !enemyFrames.isEmpty()) {
-            g.drawImage(enemyFrames.get(currentFrame), x, y, blockSize, blockSize, null);
-        } else {
-            System.out.println("❌ Aucune image trouvée pour l'ennemi : " + enemyType);
+        if (animator != null) {
+            animator.updateFrame();
+            animator.draw(g, x, y, blockSize);
         }
     }
 
-    @Override
-    public void run() {
-        while (true) {
-            try {
-                Thread.sleep(ANIMATION_DELAY);
-                currentFrame = (currentFrame + 1) % enemyFrames.size();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+    public Image getCurrentImage() {
+        return animator != null ? animator.getCurrentFrame() : null;
     }
 
     public int getHealth() {
@@ -83,19 +72,12 @@ public class Antagonist extends Person implements Runnable {
         health -= damage;
         if (health < 0) health = 0;
     }
-    
-    public Image getCurrentImage() {
-        if (enemyFrames != null && !enemyFrames.isEmpty()) {
-            return enemyFrames.get(currentFrame);
-        }
-        return null;
-    }
 
     public boolean isDead() {
         return health <= 0;
     }
 
     public int getX() { return x; }
+
     public int getY() { return y; }
 }
-

@@ -1,8 +1,6 @@
 package gui.animation;
 
 import java.awt.Graphics;
-import java.awt.Image;
-
 
 public class HeroRenderer {
 
@@ -19,11 +17,16 @@ public class HeroRenderer {
         this.flipped = false;
     }
 
+    // ✅ Méthode attendue dans CombatMap
+    public void draw(Graphics g, int blockSize) {
+        animator.draw(g, x, y, spriteRow, flipped, blockSize);
+    }
+
+    // Optionnel : ancienne méthode toujours dispo
     public void draw(Graphics g) {
         animator.draw(g, x, y, spriteRow, flipped, 50);
     }
 
-    // --- Mouvements simples ---
     public void goUp() {
         y -= 10;
         spriteRow = 2;
@@ -48,13 +51,10 @@ public class HeroRenderer {
 
     public void attack() {
         spriteRow = 4;
-        // Retour à idle après 400 ms
-        new javax.swing.Timer(400, e -> {
-            spriteRow = 0;
-        }).start();
+        new javax.swing.Timer(400, e -> spriteRow = 0).start();
     }
 
-    // Getters si besoin
     public int getX() { return x; }
     public int getY() { return y; }
 }
+

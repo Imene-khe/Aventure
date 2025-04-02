@@ -5,17 +5,20 @@ import data.player.EnemyImageManager;
 import data.player.Hero;
 import gui.EnemyHealthBar;
 import gui.animation.HeroAnimator;
+import gui.animation.HeroRenderer;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import gui.*;
 
 public class CombatMap extends JPanel {
 
     private Hero hero;
     private HeroAnimator heroAnimator;
+    private HeroRenderer heroRenderer;
     private WaveManager waveManager;
     private EnemyImageManager imageManager;
     private Image decorSpriteSheet;
@@ -25,48 +28,46 @@ public class CombatMap extends JPanel {
         this.hero.setHealth(100);
         this.imageManager = imageManager;
         this.waveManager = new WaveManager(imageManager);
-        this.decorSpriteSheet = new ImageIcon(getClass().getResource("/images/outdoor/FT_x16Decorations.png")).getImage();
 
         try {
+        	
             this.heroAnimator = new HeroAnimator("src/images/player/Player.png");
+            this.heroRenderer = new HeroRenderer(heroAnimator, hero.getPosition().getColumn() * 50, hero.getPosition().getLine() * 50);
+
+         
         } catch (IOException e) {
             System.out.println("❌ Erreur chargement HeroAnimator");
             e.printStackTrace();
         }
 
+        this.decorSpriteSheet = new ImageIcon(getClass().getResource("/images/outdoor/FT_x16Decorations.png")).getImage();
+
         setFocusable(true);
         requestFocusInWindow();
 
-        // 🎮 Contrôles : flèches pour bouger, x/y/z pour actions
+        // ✅ Gestion des touches
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                Block pos = hero.getPosition();
-                int line = pos.getLine();
-                int col = pos.getColumn();
-
                 switch (e.getKeyCode()) {
-                    case KeyEvent.VK_LEFT -> hero.setPosition(new Block(line, col - 1));
-                    case KeyEvent.VK_RIGHT -> hero.setPosition(new Block(line, col + 1));
-                    case KeyEvent.VK_UP -> hero.setPosition(new Block(line - 1, col));
-                    case KeyEvent.VK_DOWN -> hero.setPosition(new Block(line + 1, col));
+                    case KeyEvent.VK_LEFT -> heroRenderer.goLeft();
+                    case KeyEvent.VK_RIGHT -> heroRenderer.goRight();
+                    case KeyEvent.VK_UP -> heroRenderer.goUp();
+                    case KeyEvent.VK_DOWN -> heroRenderer.goDown();
+                    case KeyEvent.VK_X -> {
+                        heroRenderer.attack(); // animation attaque
+                        attack();              // logique d’attaque
+                    }
                 }
-
-                switch (e.getKeyChar()) {
-                    case 'x' -> attack();
-                    case 'y' -> defend();
-                    case 'z' -> dodge();
-                }
-
                 repaint();
             }
         });
 
-        Timer gameLoop = new Timer(1000, e -> updateEnemies());
-        gameLoop.start();
+        // Timer logique jeu
+        new Timer(1000, e -> updateEnemies()).start();
 
-        Timer repaintTimer = new Timer(150, e -> repaint());
-        repaintTimer.start();
+        // Timer animation
+        new Timer(100, e -> repaint()).start();
     }
 
     private void attack() {
@@ -84,14 +85,6 @@ public class CombatMap extends JPanel {
         }
     }
 
-    private void defend() {
-        JOptionPane.showMessageDialog(this, "🛡️ Tu te défends !");
-    }
-
-    private void dodge() {
-        JOptionPane.showMessageDialog(this, "💨 Tu esquives !");
-    }
-
     private void updateEnemies() {
         for (Antagonist enemy : waveManager.getCurrentWaveEnemies()) {
             if (!enemy.isDead()) {
@@ -104,6 +97,8 @@ public class CombatMap extends JPanel {
             JOptionPane.showMessageDialog(this, "💀 Tu es mort !");
             System.exit(0);
         }
+
+        repaint();
     }
 
     private void drawTile(Graphics g, int tileX, int tileY, int destX, int destY) {
@@ -125,18 +120,16 @@ public class CombatMap extends JPanel {
         drawTile(g, 5, 3, 50, getHeight() - 150);
         drawTile(g, 6, 3, 500, getHeight() - 150);
 
-        // 👤 Ghaya (Héros)
-        if (heroAnimator != null) {
-            int drawX = hero.getPosition().getColumn() * 50;
-            int drawY = hero.getPosition().getLine() * 50;
-            heroAnimator.draw(g, drawX, drawY, 0, false, 50);
+        // ✅ Ghaya animé
+        if (heroRenderer != null) {
+            heroRenderer.draw(g, 50); // taille d’un bloc
         }
 
-        // ❤️ Vie du héros
+        // ❤️ PV Héros
         g.setColor(Color.BLACK);
         g.drawString("PV Héros : " + hero.getHealth(), 50, 50);
 
-        // 👾 Ennemis
+        // ✅ Ennemis avec animation
         for (Antagonist enemy : waveManager.getCurrentWaveEnemies()) {
             if (!enemy.isDead()) {
                 g.drawImage(enemy.getCurrentImage(), enemy.getX(), enemy.getY(), 50, 50, null);
