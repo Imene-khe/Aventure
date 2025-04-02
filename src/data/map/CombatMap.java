@@ -12,10 +12,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 
-
-
-
-
 public class CombatMap extends JPanel {
 
     private Hero hero;
@@ -23,13 +19,10 @@ public class CombatMap extends JPanel {
     private WaveManager waveManager;
     private EnemyImageManager imageManager;
     private Image decorSpriteSheet;
-    private int spriteRow = 0;
-    private boolean flipped = false;
-
 
     public CombatMap(EnemyImageManager imageManager) {
         this.hero = new Hero(new Block(4, 1));
-        this.hero.setHealth(100); 
+        this.hero.setHealth(100);
         this.imageManager = imageManager;
         this.waveManager = new WaveManager(imageManager);
         this.decorSpriteSheet = new ImageIcon(getClass().getResource("/images/outdoor/FT_x16Decorations.png")).getImage();
@@ -44,53 +37,55 @@ public class CombatMap extends JPanel {
         setFocusable(true);
         requestFocusInWindow();
 
+        // 🎮 Contrôles : flèches pour bouger, x/y/z pour actions
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
+                Block pos = hero.getPosition();
+                int line = pos.getLine();
+                int col = pos.getColumn();
+
+                switch (e.getKeyCode()) {
+                    case KeyEvent.VK_LEFT -> hero.setPosition(new Block(line, col - 1));
+                    case KeyEvent.VK_RIGHT -> hero.setPosition(new Block(line, col + 1));
+                    case KeyEvent.VK_UP -> hero.setPosition(new Block(line - 1, col));
+                    case KeyEvent.VK_DOWN -> hero.setPosition(new Block(line + 1, col));
+                }
+
                 switch (e.getKeyChar()) {
                     case 'x' -> attack();
                     case 'y' -> defend();
                     case 'z' -> dodge();
                 }
+
+                repaint();
             }
         });
 
-        // 🕒 Timer pour la logique de jeu (ennemis)
         Timer gameLoop = new Timer(1000, e -> updateEnemies());
         gameLoop.start();
 
-        // 🔄 Timer pour rafraîchir l'affichage des animations (héros notamment)
-        Timer repaintTimer = new Timer(100, e -> repaint());
+        Timer repaintTimer = new Timer(150, e -> repaint());
         repaintTimer.start();
     }
 
     private void attack() {
-        spriteRow = 4; // ligne de dispute/attaque
-        Timer resetAnimation = new Timer(400, e -> {
-            spriteRow = 0; // retour à idle
-            repaint();
-        });
-        resetAnimation.setRepeats(false);
-        resetAnimation.start();
-
         for (Antagonist enemy : waveManager.getCurrentWaveEnemies()) {
             if (!enemy.isDead()) {
                 enemy.takeDamage(10);
                 break;
             }
         }
-        repaint();
         waveManager.updateWave();
+        repaint();
 
         if (waveManager.isLevelFinished()) {
             JOptionPane.showMessageDialog(this, "🏆 Tu as vaincu toutes les vagues !");
         }
     }
 
-
     private void defend() {
         JOptionPane.showMessageDialog(this, "🛡️ Tu te défends !");
-        repaint();
     }
 
     private void dodge() {
@@ -109,8 +104,6 @@ public class CombatMap extends JPanel {
             JOptionPane.showMessageDialog(this, "💀 Tu es mort !");
             System.exit(0);
         }
-
-        repaint();
     }
 
     private void drawTile(Graphics g, int tileX, int tileY, int destX, int destY) {
@@ -124,48 +117,32 @@ public class CombatMap extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        // Sol herbe
         for (int x = 0; x < getWidth(); x += 50) {
             drawTile(g, 0, 2, x, getHeight() - 50);
-        }
-
-        // Terre dessous
-        for (int x = 0; x < getWidth(); x += 50) {
             drawTile(g, 0, 4, x, getHeight() - 100);
         }
 
-        // Arbres
         drawTile(g, 5, 3, 50, getHeight() - 150);
         drawTile(g, 6, 3, 500, getHeight() - 150);
 
-        // ✅ Héros animé via HeroAnimator
+        // 👤 Ghaya (Héros)
         if (heroAnimator != null) {
-            int x = 50;
-            int y = getHeight() - 100;
-            int spriteRow = 0;
-            boolean flipped = false;
-            heroAnimator.draw(g, 50, getHeight() - 100, spriteRow, flipped, 50);
-
+            int drawX = hero.getPosition().getColumn() * 50;
+            int drawY = hero.getPosition().getLine() * 50;
+            heroAnimator.draw(g, drawX, drawY, 0, false, 50);
         }
 
-        // PV du héros
+        // ❤️ Vie du héros
         g.setColor(Color.BLACK);
         g.drawString("PV Héros : " + hero.getHealth(), 50, 50);
 
-        // ✅ Ennemis (avec debug pour visibilité)
-        int startX = 200;
-        int startY = getHeight() - 100;
+        // 👾 Ennemis
         for (Antagonist enemy : waveManager.getCurrentWaveEnemies()) {
             if (!enemy.isDead()) {
-                Image img = enemy.getCurrentImage();
-                if (img != null) {
-                    g.drawImage(img, enemy.getX(), enemy.getY(), 50, 50, null);
-                } else {
-                    System.out.println("❌ Ennemi " + enemy + " n'a pas d'image !");
-                }
-                EnemyHealthBar.draw(g, enemy, startX, startY);
-                startX += 60;
+                g.drawImage(enemy.getCurrentImage(), enemy.getX(), enemy.getY(), 50, 50, null);
+                EnemyHealthBar.draw(g, enemy, enemy.getX(), enemy.getY() - 10);
             }
         }
     }
 }
+
