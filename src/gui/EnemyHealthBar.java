@@ -21,10 +21,9 @@ public class EnemyHealthBar {
      * @param y Position Y à l’écran
      */
     public static void draw(Graphics g, Antagonist enemy, int x, int y) {
-        int maxHealth = enemy.getHealth();
-        int currentHealth = enemy.getMaxHealth();
+        int currentHealth = enemy.getHealth();
+        int maxHealth = enemy.getMaxHealth();
 
-        // Calcul de la largeur de la barre verte
         int healthBarWidth = (int) ((currentHealth / (float) maxHealth) * BAR_WIDTH);
 
         // Fond rouge
