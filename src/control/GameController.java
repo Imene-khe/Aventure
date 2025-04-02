@@ -8,6 +8,9 @@ import data.player.Hero;
 import gui.ChestUIManager;
 import gui.GameDisplay;
 import gui.MainGUI;
+import log.LoggerUtility;
+
+import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -15,17 +18,19 @@ import java.util.ArrayList;
 
 public class GameController {
 
+    private static final Logger logger = LoggerUtility.getLogger(GameController.class, "text");
+
     private final GameDisplay display;
     private final Hero hero;
     private final Map map;
-    private final Map shopMap; // ✅ Ajouté
+    private final Map shopMap;
     private boolean canTakeDamage = true;
 
     public GameController(GameDisplay display) {
         this.display = display;
         this.hero = display.getHero();
         this.map = display.getMap();
-        this.shopMap = display.getShopMap(); // ✅ Initialisé
+        this.shopMap = display.getShopMap();
     }
 
     public void moveHero(Block newPosition, MainGUI mainGUI) {
@@ -65,7 +70,7 @@ public class GameController {
     }
 
     public void checkCoinCollection(MainGUI mainGUI) {
-        Map activeMap = display.isInShop() ? shopMap : map; // ✅
+        Map activeMap = display.isInShop() ? shopMap : map;
         ArrayList<Coin> collectedCoins = new ArrayList<>();
 
         for (Coin coin : activeMap.getCoins()) {
@@ -80,7 +85,7 @@ public class GameController {
     }
 
     public Chest tryOpenNearbyChest() {
-        Map activeMap = display.isInShop() ? shopMap : map; // ✅
+        Map activeMap = display.isInShop() ? shopMap : map;
         Block heroPos = hero.getPosition();
         int heroLine = heroPos.getLine();
         int heroColumn = heroPos.getColumn();
@@ -106,7 +111,7 @@ public class GameController {
     }
 
     public void checkEnemyCollision() {
-        if (display.isGameOver() || display.isInShop()) return; // ✅ Pas d'ennemis dans la boutique
+        if (display.isGameOver() || display.isInShop()) return;
 
         Block heroPos = hero.getPosition();
 
@@ -128,6 +133,7 @@ public class GameController {
 
                 if (hero.getHealth() <= 0) {
                     display.setGameOver(true);
+                    logger.error("☠️ GAME OVER ! Le héros est mort.");
                     JOptionPane.showMessageDialog(display, "☠️ GAME OVER ! Le héros est mort.");
                     System.exit(0);
                 }
@@ -141,7 +147,7 @@ public class GameController {
             new ChestUIManager(gui).displayChestContents(chest);
             gui.requestFocusInWindow();
         } else {
-            System.out.println("❌ Aucun coffre à proximité.");
+            logger.warn("❌ Aucun coffre à proximité.");
         }
     }
 
@@ -155,17 +161,19 @@ public class GameController {
                 int line = heroPos.getLine() + dl;
                 int col = heroPos.getColumn() + dc;
 
-                Map activeMap = display.isInShop() ? shopMap : map; // ✅
+                Map activeMap = display.isInShop() ? shopMap : map;
                 if (line >= 0 && col >= 0 && line < activeMap.getLineCount() && col < activeMap.getColumnCount()) {
                     Block block = activeMap.getBlock(line, col);
                     String object = activeMap.getStaticObjects().get(block);
 
                     if ("merchant".equals(object)) {
+                        logger.info("👴 Bienvenue dans ma boutique !");
                         JOptionPane.showMessageDialog(display, "👴 Bienvenue dans ma boutique !");
                         return true;
                     }
 
                     if (!display.isInShop() && "shop".equals(object)) {
+                        logger.info("🏪 Entrée dans la boutique détectée.");
                         display.enterShop();
                         return true;
                     }
@@ -189,6 +197,7 @@ public class GameController {
                 if (line >= 0 && col >= 0 && line < map.getLineCount() && col < map.getColumnCount()) {
                     Block block = map.getBlock(line, col);
                     if ("shop".equals(map.getStaticObjects().get(block))) {
+                        logger.info("🏪 Entrée dans la boutique.");
                         display.enterShop();
                         return true;
                     }

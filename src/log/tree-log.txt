@@ -1,0 +1,60 @@
+INFO AWT-EventQueue-0 control.GameController - 🏪 Entrée dans la boutique détectée.
+INFO AWT-EventQueue-0 gui.GameDisplay - Initialisation de GameDisplay...
+INFO AWT-EventQueue-0 gui.GameDisplay - ✅ coinAnimator (8 images) chargé avec succès !
+INFO AWT-EventQueue-0 gui.GameDisplay - Chargement des images...
+INFO AWT-EventQueue-0 gui.GameDisplay - ✅ Toutes les images sont chargées !
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.GameDisplay - Initialisation de GameDisplay...
+INFO AWT-EventQueue-0 gui.GameDisplay - ✅ coinAnimator (8 images) chargé avec succès !
+INFO AWT-EventQueue-0 gui.GameDisplay - Chargement des images...
+INFO AWT-EventQueue-0 gui.GameDisplay - ✅ Toutes les images sont chargées !
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🧭 Slot d'inventaire initialisé : Vide
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🧭 Slot d'inventaire initialisé : Vide
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🧭 Slot d'inventaire initialisé : Vide
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🧭 Slot d'inventaire initialisé : Vide
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🧭 Slot d'inventaire initialisé : Vide
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue, Ghaya ! Une nouvelle journée resplandissante s'annonce.
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 18
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 18
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Un marchand a établi son camp dans une nouvelle maison de bois claire non loin d'ici.
+INFO main data.map.Map - Création de la carte statique (shop) : 15x15
+INFO main data.map.Map - ✅ Boutique statique configurée.
+INFO main data.map.Map - 🏪 Carte boutique configurée (statique)
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.GameDisplay - Initialisation de GameDisplay...
+INFO AWT-EventQueue-0 data.map.Map - Création de la carte principale : 20x20
+INFO AWT-EventQueue-0 data.map.Map - 🌳 Génération des arbres et maisons...
+INFO AWT-EventQueue-0 data.map.Map - 📦 Génération des coffres...
+INFO AWT-EventQueue-0 data.map.Map - ✅ 5 coffres placés.
+DEBUG AWT-EventQueue-0 data.map.Map - 🌳 Objets générés (arbres, maisons, coffres)
+INFO AWT-EventQueue-0 data.map.Map - Début de la génération des ennemis...
+INFO AWT-EventQueue-0 data.map.Map - ✅ 10 ennemis générés.
+DEBUG AWT-EventQueue-0 data.map.Map - 👾 Ennemis générés sur la carte
+INFO AWT-EventQueue-0 data.map.Map - 🪙 Début de génération de 10 pièces...
+INFO AWT-EventQueue-0 data.map.Map - ✅ 10 pièces placées.
+DEBUG AWT-EventQueue-0 data.map.Map - 🪙 Pièces générées
+INFO AWT-EventQueue-0 data.map.Map - 🏪 Shop placé en position : Block [line=10, column=12]
+INFO AWT-EventQueue-0 data.map.Map - Création de la carte statique (shop) : 15x15
+INFO AWT-EventQueue-0 data.map.Map - ✅ Boutique statique configurée.
+INFO AWT-EventQueue-0 data.map.Map - 🏪 Carte boutique configurée (statique)
+INFO AWT-EventQueue-0 data.map.Map - ✅ Boutique statique configurée.
+INFO AWT-EventQueue-0 gui.GameDisplay - ✅ coinAnimator (8 images) chargé avec succès !
+INFO AWT-EventQueue-0 gui.GameDisplay - Chargement des images...
+INFO AWT-EventQueue-0 gui.GameDisplay - ✅ Toutes les images sont chargées !
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🧭 Slot d'inventaire initialisé : Vide
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🧭 Slot d'inventaire initialisé : Vide
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🧭 Slot d'inventaire initialisé : Vide
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🧭 Slot d'inventaire initialisé : Vide
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🧭 Slot d'inventaire initialisé : Vide
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue, Ghaya ! Une nouvelle journée resplandissante s'annonce.
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.

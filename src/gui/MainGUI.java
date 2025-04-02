@@ -5,6 +5,9 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import org.apache.log4j.Logger;
+import log.LoggerUtility;
+
 import data.item.InventoryManager;
 import data.map.Block;
 import data.dialogue.DialogueManager;
@@ -12,6 +15,8 @@ import data.dialogue.DialogueManager;
 public class MainGUI extends JFrame {
 
     private static final long serialVersionUID = 1L;
+    private static final Logger logger = LoggerUtility.getLogger(MainGUI.class, "text");
+    
     private static MainGUI instance;
 
     private GameDisplay dashboard;
@@ -35,13 +40,14 @@ public class MainGUI extends JFrame {
 
     public MainGUI() {
         super("Aventure - Déplacement du Héros");
-
+        logger.info("🟢 Initialisation de l'IHM MainGUI...");
         instance = this;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1000, 800);
         setLayout(new BorderLayout());
 
         this.dashboard = new GameDisplay();
+        logger.info("🎮 GameDisplay attaché au centre.");
         this.inventory = new InventoryManager();
 
         // ✅ Panneau de narration à droite
@@ -62,6 +68,7 @@ public class MainGUI extends JFrame {
 
         sidePanel.add(characterImage, BorderLayout.NORTH);
         sidePanel.add(scrollPane, BorderLayout.CENTER);
+        logger.info("📐 Panneaux UI ajoutés à la fenêtre.");
 
         // ✅ Panneau du bas
         bottomPanel = new JPanel(new BorderLayout());
@@ -76,8 +83,10 @@ public class MainGUI extends JFrame {
         coinLabel.setFont(new Font("Arial", Font.BOLD, 16));
         coinLabel.setForeground(Color.WHITE);
         leftBottomPanel.add(coinLabel);
+        logger.info("📐 Panneaux UI ajoutés à la fenêtre.");
 
         for (int i = 0; i < 5; i++) {
+        	logger.debug("🧭 Slot d'inventaire initialisé : Vide");
             JButton itemSlot = new JButton("Vide");
             itemSlot.setFont(new Font("Arial", Font.BOLD, 14));
             itemSlot.setPreferredSize(new Dimension(80, 30));
@@ -124,6 +133,7 @@ public class MainGUI extends JFrame {
 
         setFocusable(true);
         setVisible(true);
+        logger.info("🖥️ Fenêtre affichée avec succès.");
         requestFocusInWindow();
     }
 
@@ -135,18 +145,23 @@ public class MainGUI extends JFrame {
 
     public void advanceDialogue() {
         if (dialogueManager.hasNext(currentDialogueEvent)) {
+        	logger.debug("➡️ Dialogue avancé : " + currentDialogueEvent);
             dialogueManager.next(currentDialogueEvent);
             updateDialoguePanel(currentDialogueEvent);
         } else {
             dialogueActive = false;
             dialoguePanel.revalidate();
             dialoguePanel.repaint();
+            logger.info("📭 Fin du dialogue pour : " + currentDialogueEvent);
         }
     }
     
     public void triggerDialogue(String eventKey) {
-        if (!dialogueManager.hasDialogue(eventKey)) return;
-
+        if (!dialogueManager.hasDialogue(eventKey)) {
+        	logger.warn("❌ Aucun dialogue trouvé pour l’événement : " + eventKey);
+        	return;
+        }
+        logger.info("💬 Début du dialogue : " + eventKey);
         currentDialogueEvent = eventKey;
         dialogueManager.reset(eventKey);
         dialogueActive = true;
@@ -160,8 +175,8 @@ public class MainGUI extends JFrame {
      * ✅ Change l'affichage pour afficher `shopMap` dans `GameDisplay`
      */
     public void enterShop() {
-        System.out.println("🏪 Le héros entre dans le shop !");
-        dashboard.enterShop(); // ✅ Active la boutique dans GameDisplay
+    	logger.info("🏪 Entrée dans le shop déclenchée.");
+    	dashboard.enterShop(); // ✅ Active la boutique dans GameDisplay
     }
 
 
@@ -169,6 +184,7 @@ public class MainGUI extends JFrame {
     public void interactWithMerchant() {
         if (coinCount < 10) {
             JOptionPane.showMessageDialog(this, "💬 Il te faut 10 pièces pour entrer dans la boutique !");
+            logger.info("❌ Tentative d'entrée dans le shop sans assez de pièces.");
             return;
         }
 
@@ -184,8 +200,11 @@ public class MainGUI extends JFrame {
 
     public void updateDialoguePanel(String eventKey) {
         String dialogueText = dialogueManager.getCurrent(eventKey);
-        if (dialogueText == null) return;
-
+        if (dialogueText == null) {
+        	logger.warn("🔕 Aucun texte de dialogue pour : " + eventKey);
+        	return;
+        }
+        logger.debug("📝 Affichage dialogue : " + dialogueText);
         JTextArea newDialogue = new JTextArea(dialogueText);
         newDialogue.setEditable(false);
         newDialogue.setLineWrap(true);
@@ -229,6 +248,7 @@ public class MainGUI extends JFrame {
         // Exemple : priorité à un PNJ plus tard, sinon tente un coffre
         if (!dashboard.getController().tryInteractWithNPC(this)) {
             dashboard.getController().tryOpenChest(this);
+            logger.debug("👤 Interaction avec un PNJ ou un coffre tentée.");
         }
 
         requestFocusInWindow(); // ✅ Redonne le focus clavier après interaction
@@ -272,9 +292,11 @@ public class MainGUI extends JFrame {
 
     public void incrementCoinCount() {
         coinCount++;
+        logger.info("💰 Pièce ajoutée. Total = " + coinCount);
         coinLabel.setText("💰 Pièces : " + coinCount);
         
         if (coinCount == 10) {
+        	logger.info("🎯 Objectif atteint : 10 pièces.");
             JOptionPane.showMessageDialog(this, "💬 Bravo ! Tu as 10 pièces, va voir le marchand !");
         }
     }
@@ -295,6 +317,7 @@ public class MainGUI extends JFrame {
 
         @Override
         public void keyPressed(KeyEvent e) {
+        	logger.debug("🔡 Touche pressée : " + e.getKeyCode());
             if (dialogueActive) {
                 advanceDialogue();
                 return;
@@ -302,7 +325,8 @@ public class MainGUI extends JFrame {
 
             if (e.getKeyCode() == KeyEvent.VK_ESCAPE && dashboard.isInShop()) {
                 dashboard.exitShop();
-                System.out.println("🚪 Sortie de la boutique !");
+                logger.info("🚪 Sortie de la boutique !");
+                logger.info("🔙 Touche ESC pressée : tentative de sortie de boutique.");
                 triggerDialogue("exit_shop_1");
                 requestFocusInWindow();
             } else {

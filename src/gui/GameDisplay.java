@@ -10,6 +10,9 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import org.apache.log4j.Logger;
+import log.LoggerUtility;
+
 import control.GameController;
 import data.map.Map;
 import data.player.EnemyImageManager;
@@ -27,6 +30,9 @@ public class GameDisplay extends JPanel {
     private static final int GRID_SIZE = 20;  // Réduire la taille à 20x20
     private static final int BLOCK_SIZE = 32; // Taille inchangée
     private static final int SHOP_SIZE = 15; //Taille de la boutique
+    private static final Logger logger = LoggerUtility.getLogger(GameDisplay.class, "text");
+    
+    
     private Map map; // Instance de la carte du jeu
     private Map shopMap;
 	private Hero hero; // Instance du héros
@@ -56,6 +62,7 @@ public class GameDisplay extends JPanel {
 	public GameDisplay() {
 	    try {
 	        int numberOfChests = 5; // Ajustable selon besoins
+	        logger.info("Initialisation de GameDisplay...");
 	        this.enemyImageManager = new EnemyImageManager();
 	        this.map = new Map(GRID_SIZE, GRID_SIZE, numberOfChests, false);
 	        this.shopMap = new Map(SHOP_SIZE, SHOP_SIZE, 0, true);    // Boutique plus petite
@@ -71,10 +78,10 @@ public class GameDisplay extends JPanel {
 	                coinPaths[i] = "src/images/items/coins/coin" + (i + 1) + ".png";
 	            }
 	            coinAnimator = new SpriteAnimator(coinPaths, 100); //  100 ms entre les frames
-	            System.out.println("✅ coinAnimator (8 images) chargé avec succès !");
-	        } catch (IOException e) {
-	            System.out.println("❌ Impossible de charger les images d’animation des pièces !");
-	            e.printStackTrace();
+	            logger.info("✅ coinAnimator (8 images) chargé avec succès !");
+	            } catch (IOException e) {
+	            	logger.error("❌ Impossible de charger les images d’animation des pièces", e);
+	            	e.printStackTrace();
 	        }
 
 	        //  Thread collision déplacé vers le contrôleur
@@ -84,6 +91,7 @@ public class GameDisplay extends JPanel {
 	                    Thread.sleep(100); // Vérification toutes les 100 ms
 	                    controller.checkEnemyCollision(); // via GameController
 	                } catch (InterruptedException e) {
+	                	logger.error("Erreur dans le thread de collision", e);
 	                    e.printStackTrace();
 	                }
 	            }
@@ -96,6 +104,7 @@ public class GameDisplay extends JPanel {
 	                    Thread.sleep(100);
 	                    repaint(); // Force le redessin de la fenêtre
 	                } catch (InterruptedException e) {
+	                	logger.error("Erreur dans le thread de rafraîchissement", e);
 	                    e.printStackTrace();
 	                }
 	            }
@@ -112,8 +121,8 @@ public class GameDisplay extends JPanel {
 
 	        System.out.println("✅ GameDisplay créé avec succès !");
 	    } catch (Exception e) {
-	        System.out.println("❌ ERREUR : Impossible d'initialiser GameDisplay !");
-	        e.printStackTrace();
+	    	logger.fatal("❌ ERREUR : Impossible d'initialiser GameDisplay !", e);
+	    	e.printStackTrace();
 	    }
 	}
 
@@ -159,8 +168,7 @@ public class GameDisplay extends JPanel {
      */
 	public void loadImages() {
         try {
-            System.out.println(" Chargement des images...");
-
+        	logger.info("Chargement des images...");
             // Chargement des terrains
             tileset.put("grass", loadImage("src/images/outdoors/Grass_Middle.png"));
             tileset.put("water", loadImage("src/images/outdoors/Water_Middle.png"));
@@ -187,10 +195,10 @@ public class GameDisplay extends JPanel {
             tileset.put("chest", loadImage("src/images/outdoors/Chest.png"));
 
 
-            System.out.println(" Toutes les images sont chargées !");
-        } catch (Exception e) {
-            System.out.println(" ERREUR : Impossible de charger les images !");
-            e.printStackTrace();
+            logger.info("✅ Toutes les images sont chargées !");
+            } catch (Exception e) {
+            	logger.error("❌ ERREUR : Impossible de charger les images !", e);
+            	e.printStackTrace();
         }
     }
 
@@ -202,8 +210,8 @@ public class GameDisplay extends JPanel {
 	public Image loadImage(String path) throws IOException {
         File file = new File(path);
         if (!file.exists()) {
-            System.out.println("❌ L'image n'a pas été trouvée : " + path);
-            return null;
+        	logger.warn("❌ L'image n'a pas été trouvée : " + path);
+        	return null;
         }
         return ImageIO.read(file);
     }
@@ -221,10 +229,9 @@ public class GameDisplay extends JPanel {
 	    Map mapToDraw = isInShop ? shopMap : map;
 
 	    if (mapToDraw == null || tileset == null || tileset.isEmpty()) {
-	        System.out.println("❌ Erreur: la map ou le tileset est null ou vide");
-	        return;
+	    	logger.error("❌ Erreur: la map ou le tileset est null ou vide");
+	    	return;
 	    }
-
 	    // ✅ 1. Fond de carte (grass, water, etc.)
 	    paintStrategy.paintTerrain(mapToDraw, g, this);
 
@@ -232,10 +239,8 @@ public class GameDisplay extends JPanel {
 	    if (!isInShop) {
 	        paintStrategy.paintCoins(map, g, this);
 	    }
-
 	    // ✅ 3. Objets statiques (arbres, coffres, meubles...)
 	    paintStrategy.paintStaticObjects(mapToDraw, g, this);
-
 	    // ✅ 4. Cas particuliers : maisons en feu, bâtiment shop, marchand
 	    if (!isInShop) {
 	        paintStrategy.paintBurningHouse(map, g, this);
@@ -243,7 +248,6 @@ public class GameDisplay extends JPanel {
 	    } else {
 	        paintStrategy.paintMerchant(shopMap, g, this);
 	    }
-
 	    // ✅ 5. Ennemis + barre de vie (map principale uniquement)
 	    if (!isInShop) {
 	        paintStrategy.paintEnemies(map, g, this);
@@ -298,6 +302,7 @@ public class GameDisplay extends JPanel {
      * ✅ Permet au héros de sortir du shop et de retourner sur `currentMap`.
      */
     public void exitShop() {
+    	
         returnToMainMap(); // ✅ Appelle returnToMainMap() une seule fois sans boucle infinie
         
     }
@@ -312,8 +317,7 @@ public class GameDisplay extends JPanel {
 
             repaint(); // ✅ Met à jour l'affichage
             requestFocusInWindow(); // ✅ Récupère le focus pour permettre les déplacements
-            System.out.println("🚪 Sortie de la boutique, retour à la carte principale !");
-        }
+            logger.info("🚪 Sortie de la boutique, retour à la carte principale !");        }
     }
     
     public SpriteAnimator getFlameAnimator() {

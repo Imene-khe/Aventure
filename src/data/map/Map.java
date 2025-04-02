@@ -6,11 +6,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+import org.apache.log4j.Logger;
+import log.LoggerUtility;
+
+
 import data.item.ChestManager;
 import data.item.Coin;
 import gui.GameDisplay;
 
 public class Map {
+	private static final Logger logger = LoggerUtility.getLogger(Map.class, "text");
+	
     private Block[][] blocks;
     private HashMap<Block, Obstacle> obstacles = new HashMap<>();
     private HashMap<Block, Boolean> terrainBlocked = new HashMap<>();
@@ -26,6 +32,7 @@ public class Map {
 
 
     public Map(int lineCount, int columnCount, int maxChest, boolean isStatic) {
+    	logger.info("Création de la carte " + (isStatic ? "statique (shop)" : "principale") + " : " + lineCount + "x" + columnCount);
         this.lineCount = lineCount;
         this.columnCount = columnCount;
         this.blocks = new Block[lineCount][columnCount];
@@ -60,13 +67,17 @@ public class Map {
             }
 
             generateObjects();  // Générer les objets (arbres, maisons, coffres)
+            logger.debug("🌳 Objets générés (arbres, maisons, coffres)");
             generateEnemies();  // Générer les ennemis
+            logger.debug("👾 Ennemis générés sur la carte");
             generateCoins(10);  // Générer des pièces
+            logger.debug("🪙 Pièces générées");
             placeShopOnMap();   // ✅ Placer le shop après la génération des objets
         } else {
         	 setupStaticShop();
-        	    this.enemies.clear(); // ✅ Supprime les ennemis de `shopMap` mais pas sur du tout pour le retour sur la map classique
-        	    this.coins.clear();   // ✅ Supprime les pièces de `shopMap` 	mais pas sur du tout pour le retour sur la map classique
+        	 logger.info("🏪 Carte boutique configurée (statique)");
+        	 this.enemies.clear(); // ✅ Supprime les ennemis de `shopMap` mais pas sur du tout pour le retour sur la map classique
+        	 this.coins.clear();   // ✅ Supprime les pièces de `shopMap` 	mais pas sur du tout pour le retour sur la map classique
         }
     }
 
@@ -133,7 +144,7 @@ public class Map {
             }
         }
 
-        System.out.println("✅ Boutique statique configurée : contour gris, marchand en haut, bordure bookshelf et tapis central !");
+        logger.info("✅ Boutique statique configurée.");
     }
 
 
@@ -143,7 +154,7 @@ public class Map {
         Random random = new Random();
         int maxEnemies = 10; // Nombre max d'ennemis sur la carte
         int generatedEnemies = 0;
-
+        logger.info("Début de la génération des ennemis...");
         while (generatedEnemies < maxEnemies && !freeBlocks.isEmpty()) {
             int index = random.nextInt(freeBlocks.size());
             Block block = freeBlocks.remove(index); // Sélectionner un bloc libre
@@ -155,6 +166,7 @@ public class Map {
             enemies.put(block, enemyType);
             generatedEnemies++;
         }
+        logger.info("✅ " + generatedEnemies + " ennemis générés.");
     }
 
     public void generateCoins(int coinCount) {
@@ -162,6 +174,7 @@ public class Map {
         Random random = new Random();
 
         int generatedCoins = 0;
+        logger.info("🪙 Début de génération de " + coinCount + " pièces...");
         while (generatedCoins < coinCount && !freeBlocks.isEmpty()) {
             int index = random.nextInt(freeBlocks.size());
             Block block = freeBlocks.get(index);
@@ -173,6 +186,7 @@ public class Map {
                 generatedCoins++;
             }
         }
+        logger.info("✅ " + generatedCoins + " pièces placées.");
     }
     
     
@@ -199,15 +213,16 @@ public class Map {
                 // ✅ Placer la maison "Shop" ici
                 staticObjects.put(shopBlock, "shop");
                 setTerrainBlocked(shopBlock, true);
-                System.out.println("✅ Shop placé en position : " + shopBlock);
+                logger.info("🏪 Shop placé en position : " + shopBlock);
                 return;
             }
 
             attempts++; // ✅ Incrémentation du compteur de tentatives
         }
 
-        System.out.println("⚠ Impossible de placer le shop après " + maxAttempts + " essais !");
-    }
+        logger.warn("⚠️ Impossible de placer le shop après " + maxAttempts + " tentatives.");
+        
+   }
 
 
 
@@ -226,7 +241,7 @@ public class Map {
     public void generateObjects() {
         int generatedChests = 0;
 
-        // Générez les arbres et les maisons
+        logger.info("🌳 Génération des arbres et maisons...");
         for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
             for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
                 Block block = blocks[lineIndex][columnIndex];
@@ -246,7 +261,7 @@ public class Map {
             }
         }
 
-        // Générez les coffres de manière aléatoire tout en respectant le nombre maximal
+        logger.info("📦 Génération des coffres...");
         while (generatedChests < maxChests) {
             // Sélectionner un bloc aléatoire de la carte
             int randomLine = (int) (Math.random() * lineCount);   // Ligne aléatoire
@@ -271,6 +286,7 @@ public class Map {
                 }
             }
         }
+        logger.info("✅ " + generatedChests + " coffres placés.");
     }
 
 
@@ -350,6 +366,7 @@ public class Map {
                 staticObjects.put(block, "house_burning");
             }
         }
+        logger.info("🔥 Toutes les maisons ont été incendiées.");
     }
     
     public void paintTerrain(Graphics g, GameDisplay display) {
