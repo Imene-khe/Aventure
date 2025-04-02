@@ -112,13 +112,36 @@ public class CombatMap extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        for (int x = 0; x < getWidth(); x += 50) {
-            drawTile(g, 0, 2, x, getHeight() - 50);
-            drawTile(g, 0, 4, x, getHeight() - 100);
+        for (int y = 0; y < getHeight(); y += 50) {
+            for (int x = 0; x < getWidth(); x += 50) {
+
+                // ✅ Sol tout en bas (ex. terre foncée)
+                if (y >= getHeight() - 50) {
+                    drawTile(g, 0, 6, x, y); // ligne terre foncée (à adapter selon ta spritesheet)
+                }
+
+                // 🌸 Fleurs décoratives juste au-dessus
+                else if (y == getHeight() - 100) {
+                    drawTile(g, 2, 1, x, y); // fleurs dans bac
+                }
+
+                // ✅ Herbe (fond vert clair) sinon
+                else {
+                    g.setColor(new Color(170, 255, 170)); // fond vert clair
+                    g.fillRect(x, y, 50, 50);
+                }
+            }
         }
+
+
+
+
 
         drawTile(g, 5, 3, 50, getHeight() - 150);
         drawTile(g, 6, 3, 500, getHeight() - 150);
+        
+        
+        
 
         // ✅ Ghaya animé
         if (heroRenderer != null) {
