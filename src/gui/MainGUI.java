@@ -161,7 +161,13 @@ public class MainGUI extends JFrame {
         	logger.warn("❌ Aucun dialogue trouvé pour l’événement : " + eventKey);
         	return;
         }
+
         logger.info("💬 Début du dialogue : " + eventKey);
+        
+        // ✅ Nettoyer les anciens dialogues affichés
+        dialoguePanel.removeAll();
+        dialoguePanel.revalidate();
+        dialoguePanel.repaint();
         currentDialogueEvent = eventKey;
         dialogueManager.reset(eventKey);
         dialogueActive = true;
@@ -170,14 +176,18 @@ public class MainGUI extends JFrame {
 
 
 
+
     
     /**
      * ✅ Change l'affichage pour afficher `shopMap` dans `GameDisplay`
      */
     public void enterShop() {
-    	logger.info("🏪 Entrée dans le shop déclenchée.");
-    	dashboard.enterShop(); // ✅ Active la boutique dans GameDisplay
+        logger.info("🏪 Entrée dans le shop déclenchée.");
+        dashboard.enterShop(); // ✅ Active la boutique dans GameDisplay
+        logger.info("Déclenchement de triggerDialogue.");
+        triggerDialogue("enter_shop"); // ✅ Lance le dialogue du marchand
     }
+
 
 
     

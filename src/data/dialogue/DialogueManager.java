@@ -16,13 +16,20 @@ public class DialogueManager {
             "Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.",
             " et qui sait il t'offrira peut-être quelque chose en récompense..."
         });
-     // Dialogue déclenché à la première sortie de la boutique
-        dialoguesByEvent.put("exit_shop_1", new String[] {
-            "Ahhhh te revoilà... Nous te cherchions !",
-            "Une horde de monstres de passage a entendu parler de toi et du fait que tu es trouvé les pièces.",
-            "En apprenant ce que tu avais fait, ils nous ont attaqués et se sont venger sur nos maisons !",
-            "Vite trouve un seau et va éteindre les maisons en feu ! Dépêche toi !"
+
+        
+        dialoguesByEvent.put("enter_shop", new String[] {
+        	    "Bienvenue dans ma boutique, jeune aventurier !",
+        	    "Que puis-je faire pour toi ?!"
         });
+        
+        dialoguesByEvent.put("exit_shop_1", new String[] {
+                "Ahhhh te revoilà... Nous te cherchions !",
+                "Une horde de monstres de passage a entendu parler de toi et du fait que tu es trouvé les pièces.",
+                "En apprenant ce que tu avais fait, ils nous ont attaqués et se sont venger sur nos maisons !",
+                "Vite trouve un seau et va éteindre les maisons en feu ! Dépêche toi !"
+            });
+
     }
 
 	public boolean hasDialogue(String event) {
