@@ -154,8 +154,8 @@ public class GameController {
     public boolean tryInteractWithNPC(MainGUI gui) {
         Block heroPos = hero.getPosition();
 
-        for (int dl = -1; dl <= 1; dl++) {
-            for (int dc = -1; dc <= 1; dc++) {
+        for (int dl = -2; dl <= 2; dl++) {
+            for (int dc = -2; dc <= 2; dc++) {
                 if (dl == 0 && dc == 0) continue;
 
                 int line = heroPos.getLine() + dl;
@@ -167,14 +167,37 @@ public class GameController {
                     String object = activeMap.getStaticObjects().get(block);
 
                     if ("merchant".equals(object)) {
-                        logger.info("👴 Bienvenue dans ma boutique !");
-                        JOptionPane.showMessageDialog(display, "👴 Bienvenue dans ma boutique !");
+                        logger.info("🗨️ Interaction avec le marchand détectée.");
+
+                        String message = "👴 Le marchand te salue avec un sourire.\n\nQue veux-tu lui dire ?";
+                        String[] options = {
+                            "💰 Bonjour, j'ai cru comprendre que vous aviez perdu une bourse d'or...",
+                            "👋 Bonjour l'ami. Alors vous êtes nouveau dans la région ?"
+                        };
+
+                        int choix = JOptionPane.showOptionDialog(
+                            null,
+                            message,
+                            "Dialogue avec le marchand",
+                            JOptionPane.DEFAULT_OPTION,
+                            JOptionPane.PLAIN_MESSAGE,
+                            null,
+                            options,
+                            options[0]
+                        );
+
+                        if (choix == 0) {
+                            gui.triggerDialogue("enter_shop_give_gold");
+                        } else if (choix == 1) {
+                            gui.triggerDialogue("enter_shop_chat");
+                        }
+
                         return true;
                     }
 
                     if (!display.isInShop() && "shop".equals(object)) {
                         logger.info("🏪 Entrée dans la boutique détectée.");
-                        display.enterShop();
+                        enterShop(gui);
                         return true;
                     }
                 }
@@ -183,6 +206,15 @@ public class GameController {
 
         return false;
     }
+
+    
+    public void enterShop(MainGUI gui) {
+        display.enterShop(); // Change de map
+        gui.triggerDialogue("enter_shop"); // ✅ Dialogue automatique du marchand
+    }
+
+
+
 
     public boolean tryEnterShop(MainGUI gui) {
         Block heroPos = hero.getPosition();
@@ -198,9 +230,10 @@ public class GameController {
                     Block block = map.getBlock(line, col);
                     if ("shop".equals(map.getStaticObjects().get(block))) {
                         logger.info("🏪 Entrée dans la boutique.");
-                        display.enterShop();
+                        enterShop(gui); // au lieu de display.enterShop()
                         return true;
                     }
+
                 }
             }
         }

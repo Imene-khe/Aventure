@@ -10,33 +10,29 @@ import log.LoggerUtility;
 
 import data.item.InventoryManager;
 import data.map.Block;
+import data.quest.Quest;
+import data.quest.QuestManager;
 import data.dialogue.DialogueManager;
 
 public class MainGUI extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private static final Logger logger = LoggerUtility.getLogger(MainGUI.class, "text");
-    
     private static MainGUI instance;
-
     private GameDisplay dashboard;
     private InventoryManager inventory;
-
-    // ✅ Panneau de narration
     private JPanel sidePanel;
     private JLabel characterImage;	
     private JPanel dialoguePanel;
     private DialogueManager dialogueManager = new DialogueManager();
     private boolean dialogueActive = true;
     private JScrollPane scrollPane;
-
     private String currentDialogueEvent = "intro"; // Par défaut au lancement
-
-    // ✅ Panneau du bas
     private JPanel bottomPanel;
     private JButton interactButton;
     private JLabel coinLabel;
     private int coinCount = 0;
+    private QuestManager questManager = new QuestManager();
 
     public MainGUI() {
         super("Aventure - Déplacement du Héros");
@@ -113,8 +109,20 @@ public class MainGUI extends JFrame {
         missionButton.setFont(new Font("Arial", Font.BOLD, 16));
         missionButton.setPreferredSize(new Dimension(120, 30));
         missionButton.addActionListener(e -> {
-            JOptionPane.showMessageDialog(this, "📜 Objectif : Éteins les flammes des maisons !");
+            StringBuilder message = new StringBuilder("📜 Missions en cours :\n\n");
+            for (Quest quest : questManager.getActiveQuests()) {
+                if (!quest.isCompleted()) {
+                    message.append("• ").append(quest.getName())
+                           .append(" (").append(quest.getStatusText()).append(")\n")
+                           .append("  ➤ ").append(quest.getDescription()).append("\n")
+                           .append("  ➤ Progression : ").append(quest.getCurrentAmount())
+                           .append(" / ").append(quest.getRequiredAmount()).append("\n\n");
+                }
+            }
+            JOptionPane.showMessageDialog(this, message.toString(), "🎯 Objectifs", JOptionPane.INFORMATION_MESSAGE);
+            requestFocusInWindow();
         });
+
         rightBottomPanel.add(missionButton);
 
         bottomPanel.add(leftBottomPanel, BorderLayout.WEST);
@@ -124,11 +132,13 @@ public class MainGUI extends JFrame {
         add(dashboard, BorderLayout.CENTER);
         add(sidePanel, BorderLayout.EAST);
         add(bottomPanel, BorderLayout.SOUTH);
+        
+        questManager.addQuest(new Quest("Collecte pour le marchand", "Récoltez 10 pièces d'or", Quest.TYPE_COLLECT, 10, 0));
+        questManager.addQuest(new Quest("Flammes malveillantes", "Éteindre 3 maisons en feu", Quest.TYPE_KILL, 3, 0)); // ou TYPE_FIND si tu préfères
+        questManager.addQuest(new Quest("L'orbe sacré", "Trouvez l'orbe légendaire", Quest.TYPE_FIND, 1, 0));
+
 
         addKeyListener(new KeyControls());
-
-
-
         updateDialoguePanel(currentDialogueEvent);
 
         setFocusable(true);
@@ -176,20 +186,6 @@ public class MainGUI extends JFrame {
 
 
 
-
-    
-    /**
-     * ✅ Change l'affichage pour afficher `shopMap` dans `GameDisplay`
-     */
-    public void enterShop() {
-        logger.info("🏪 Entrée dans le shop déclenchée.");
-        dashboard.enterShop(); // ✅ Active la boutique dans GameDisplay
-        logger.info("Déclenchement de triggerDialogue.");
-        triggerDialogue("enter_shop"); // ✅ Lance le dialogue du marchand
-    }
-
-
-
     
     public void interactWithMerchant() {
         if (coinCount < 10) {
@@ -203,8 +199,9 @@ public class MainGUI extends JFrame {
             "Marchand", JOptionPane.YES_NO_OPTION);
 
         if (choix == JOptionPane.YES_OPTION) {
-            enterShop();
+            dashboard.getController().enterShop(this); // Appel du GameController
         }
+
     }
 
 
@@ -255,7 +252,6 @@ public class MainGUI extends JFrame {
      * ✅ Vérifie l’interaction avec un coffre ou l’entrée du shop.
      */
     public void interactWithNPC() {
-        // Exemple : priorité à un PNJ plus tard, sinon tente un coffre
         if (!dashboard.getController().tryInteractWithNPC(this)) {
             dashboard.getController().tryOpenChest(this);
             logger.debug("👤 Interaction avec un PNJ ou un coffre tentée.");
@@ -304,6 +300,8 @@ public class MainGUI extends JFrame {
         coinCount++;
         logger.info("💰 Pièce ajoutée. Total = " + coinCount);
         coinLabel.setText("💰 Pièces : " + coinCount);
+        questManager.updateQuest("Collecte pour le marchand", 1);
+
         
         if (coinCount == 10) {
         	logger.info("🎯 Objectif atteint : 10 pièces.");
