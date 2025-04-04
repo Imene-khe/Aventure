@@ -257,7 +257,6 @@ public class GameController {
                 gui.getQuestManager().updateQuest("Eteindre les flammes", 1); // ✅ Si la quête est active
                 gui.repaint();
                 gui.requestFocusInWindow();
-                JOptionPane.showMessageDialog(gui, "💧 Flamme éteinte !");
                 return;
             }
         }

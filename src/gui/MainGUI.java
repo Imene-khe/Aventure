@@ -134,7 +134,7 @@ public class MainGUI extends JFrame {
         add(bottomPanel, BorderLayout.SOUTH);
         
         questManager.addQuest(new Quest("Collecte pour le marchand", "Récoltez 10 pièces d'or", Quest.TYPE_COLLECT, 10, 0));
-        questManager.addQuest(new Quest("Flammes malveillantes", "Éteindre 3 maisons en feu", Quest.TYPE_KILL, 3, 0)); // ou TYPE_FIND si tu préfères
+        questManager.addQuest(new Quest("Eteindre les flammes", "Éteindre 3 maisons en feu", Quest.TYPE_KILL, 3, 0)); // ou TYPE_FIND si tu préfères
         questManager.addQuest(new Quest("L'orbe sacré", "Trouvez l'orbe légendaire", Quest.TYPE_FIND, 1, 0));
 
 
