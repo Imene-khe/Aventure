@@ -8,10 +8,10 @@ import java.util.Random;
 
 import org.apache.log4j.Logger;
 import log.LoggerUtility;
-
-
+import data.item.Chest;
 import data.item.ChestManager;
 import data.item.Coin;
+import data.item.Equipment;
 import data.item.Flame;
 import gui.GameDisplay;
 
@@ -289,6 +289,16 @@ public class Map {
                 }
             }
         }
+     // Après la boucle while de génération des coffres
+        if (generatedChests > 0) {
+            // Sélection aléatoire d'un coffre pour y placer l'orbe légendaire
+            ArrayList<Block> chestPositions = new ArrayList<>(chestManager.getChests().keySet());
+            Block orbChestBlock = chestPositions.get(new Random().nextInt(chestPositions.size()));
+            Chest orbChest = chestManager.getChests().get(orbChestBlock);
+            orbChest.addItem(new Equipment("orb")); // 💎 Ajout de l’orbe dans un coffre au hasard
+            System.out.println("✨ Un orbe a été placé dans le coffre en position : " + orbChestBlock);
+        }
+
         logger.info("✅ " + generatedChests + " coffres placés.");
     }
 

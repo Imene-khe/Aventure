@@ -2,7 +2,9 @@ package control;
 
 import data.item.Chest;
 import data.item.Coin;
+import data.item.Equipment;
 import data.item.Flame;
+import data.item.Inventory;
 import data.map.Block;
 import data.map.Map;
 import data.player.Hero;
@@ -146,11 +148,22 @@ public class GameController {
         Chest chest = tryOpenNearbyChest();
         if (chest != null) {
             new ChestUIManager(gui).displayChestContents(chest);
+
+            // 🔍 Vérifie si le coffre contient l’orbe légendaire
+            Inventory chestInventory = chest.getInventory();
+            for (Equipment eq : chestInventory.getEquipments()) {
+                if ("orb".equalsIgnoreCase(eq.getName())) {
+                    gui.getQuestManager().updateQuest("Trouver l'orbe", 1); // ✅ Mise à jour de la quête
+                    break;
+                }
+            }
+
             gui.requestFocusInWindow();
         } else {
             logger.warn("❌ Aucun coffre à proximité.");
         }
     }
+
 
     public boolean tryInteractWithNPC(MainGUI gui) {
         Block heroPos = hero.getPosition();
@@ -244,8 +257,9 @@ public class GameController {
     
     public void tryExtinguishFlame(MainGUI gui) {
         Block heroPos = display.getHero().getPosition();
+        Map map = display.getMap();
 
-        for (Flame flame : display.getMap().getFlames()) {
+        for (Flame flame : map.getFlames()) {
             Block flamePos = flame.getPosition();
 
             int dx = Math.abs(heroPos.getLine() - flamePos.getLine());
@@ -253,15 +267,22 @@ public class GameController {
 
             if (dx <= 1 && dy <= 1 && flame.isActive()) {
                 flame.extinguish();
-                display.getMap().getStaticObjects().put(flamePos, "house"); // Remet l'objet
-                gui.getQuestManager().updateQuest("Eteindre les flammes", 1); // ✅ Si la quête est active
+                map.getStaticObjects().put(flamePos, "house");
                 gui.repaint();
                 gui.requestFocusInWindow();
+
+                // ✅ Vérifie si toutes les flammes sont désormais éteintes
+                boolean allExtinguished = map.getFlames().stream().noneMatch(Flame::isActive);
+                if (allExtinguished) {
+                    gui.getQuestManager().updateQuest("Eteindre les flammes", 1); // valide la quête
+                }
+
                 return;
             }
         }
 
-        JOptionPane.showMessageDialog(gui, "❌ Aucune flamme à proximité !");
+        // Plus de JOptionPane ici, car tu ne veux pas de pop-up
     }
+
 
 }
