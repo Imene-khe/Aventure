@@ -2,6 +2,7 @@ package control;
 
 import data.item.Chest;
 import data.item.Coin;
+import data.item.Flame;
 import data.map.Block;
 import data.map.Map;
 import data.player.Hero;
@@ -240,4 +241,28 @@ public class GameController {
 
         return false;
     }
+    
+    public void tryExtinguishFlame(MainGUI gui) {
+        Block heroPos = display.getHero().getPosition();
+
+        for (Flame flame : display.getMap().getFlames()) {
+            Block flamePos = flame.getPosition();
+
+            int dx = Math.abs(heroPos.getLine() - flamePos.getLine());
+            int dy = Math.abs(heroPos.getColumn() - flamePos.getColumn());
+
+            if (dx <= 1 && dy <= 1 && flame.isActive()) {
+                flame.extinguish();
+                display.getMap().getStaticObjects().put(flamePos, "house"); // Remet l'objet
+                gui.getQuestManager().updateQuest("Eteindre les flammes", 1); // ✅ Si la quête est active
+                gui.repaint();
+                gui.requestFocusInWindow();
+                JOptionPane.showMessageDialog(gui, "💧 Flamme éteinte !");
+                return;
+            }
+        }
+
+        JOptionPane.showMessageDialog(gui, "❌ Aucune flamme à proximité !");
+    }
+
 }

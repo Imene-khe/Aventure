@@ -149,7 +149,19 @@ public class MainGUI extends JFrame {
 
 
 
-    public static GameDisplay getGameDisplay() {
+    public QuestManager getQuestManager() {
+		return questManager;
+	}
+
+
+
+	public void setQuestManager(QuestManager questManager) {
+		this.questManager = questManager;
+	}
+
+
+
+	public static GameDisplay getGameDisplay() {
         return instance != null ? instance.dashboard : null;
     }
 
@@ -255,6 +267,9 @@ public class MainGUI extends JFrame {
         if (!dashboard.getController().tryInteractWithNPC(this)) {
             dashboard.getController().tryOpenChest(this);
             logger.debug("👤 Interaction avec un PNJ ou un coffre tentée.");
+            dashboard.getController().tryExtinguishFlame(this); // ✅ Ajout ici
+            logger.debug("👤 Interaction avec maison en feu tentée.");
+
         }
 
         requestFocusInWindow(); // ✅ Redonne le focus clavier après interaction

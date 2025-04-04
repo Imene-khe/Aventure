@@ -12,6 +12,7 @@ import log.LoggerUtility;
 
 import data.item.ChestManager;
 import data.item.Coin;
+import data.item.Flame;
 import gui.GameDisplay;
 
 public class Map {
@@ -29,6 +30,8 @@ public class Map {
     private int maxChests;
     private ArrayList<Coin> coins;
     private boolean isStatic; // ✅ Ajout d'un booléen pour indiquer si la carte est fixe
+    private ArrayList<Flame> flames = new ArrayList<>();
+    
 
 
     public Map(int lineCount, int columnCount, int maxChest, boolean isStatic) {
@@ -357,17 +360,27 @@ public class Map {
         return chestManager;
     } 
     
+    public ArrayList<Flame> getFlames() {
+        return flames;
+    }
+    
+    public void addFlame(Block block) {
+        flames.add(new Flame(block));
+    }
+
+    
 
 
     public void setAllHousesOnFire() {
         for (Block block : staticObjects.keySet()) {
-            String value = staticObjects.get(block);
-            if ("house".equals(value)) {
+            if ("house".equals(staticObjects.get(block))) {
                 staticObjects.put(block, "house_burning");
+                addFlame(block); // ✅ Ajoute une flamme
             }
         }
         logger.info("🔥 Toutes les maisons ont été incendiées.");
     }
+
     
     public void paintTerrain(Graphics g, GameDisplay display) {
         Block[][] blocks = this.getBlocks();
