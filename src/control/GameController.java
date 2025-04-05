@@ -104,7 +104,34 @@ public class GameController {
                     Block adjacent = activeMap.getBlock(newL, newC);
 
                     if ("chest".equals(activeMap.getStaticObjects().get(adjacent))) {
-                        return activeMap.getChestManager().getChests().get(adjacent);
+                        Chest chest = activeMap.getChestManager().getChests().get(adjacent);
+
+                        // ✅ Vérifie si le coffre contient l'orbe
+                        if (chest != null && chest.getInventory() != null) {
+                            boolean hasOrb = false;
+                            for (Equipment eq : chest.getInventory().getEquipments()) {
+                                if ("orb".equalsIgnoreCase(eq.getName())) {
+                                    hasOrb = true;
+                                    break;
+                                }
+                            }
+
+                            if (hasOrb) {
+                                // ✅ Fenêtre de confirmation
+                                int response = JOptionPane.showConfirmDialog(
+                                    display,
+                                    "🌟 Vous avez trouvé l'Orbe légendaire !\nSouhaitez-vous poursuivre l'aventure ?",
+                                    "Poursuivre l'aventure",
+                                    JOptionPane.YES_NO_OPTION
+                                );
+
+                                if (response == JOptionPane.YES_OPTION) {
+                                    display.enterHostileMap(); // 🌋 Passage à la map hostile
+                                }
+                            }
+                        }
+
+                        return chest;
                     }
                 }
             }
@@ -112,6 +139,8 @@ public class GameController {
 
         return null;
     }
+
+
 
     public void checkEnemyCollision() {
         if (display.isGameOver() || display.isInShop()) return;

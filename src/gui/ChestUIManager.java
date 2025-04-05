@@ -11,6 +11,7 @@ public class ChestUIManager {
     private JFrame chestWindow;
     private EquipmentImageManager imageManager;
     private MainGUI mainGUI;
+    private Runnable onOrbTakenCallback;
 
     public ChestUIManager(MainGUI mainGUI) {
         this.mainGUI = mainGUI;
@@ -88,6 +89,12 @@ public class ChestUIManager {
         chestWindow.add(scrollPane);
         chestWindow.setVisible(true);
     }
+    
+
+    public void setOnOrbTakenCallback(Runnable callback) {
+        this.onOrbTakenCallback = callback;
+    }
+
     
     // === Main interne de test ===
     public static void main(String[] args) {

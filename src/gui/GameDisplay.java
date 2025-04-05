@@ -36,6 +36,10 @@ public class GameDisplay extends JPanel {
     
     private Map map; // Instance de la carte du jeu
     private Map shopMap;
+    
+    private HostileMap hostileMap;
+    private boolean isInHostileMap = false;
+
 	private Hero hero; // Instance du héros
     private EnemyImageManager enemyImageManager; // Gestionnaire des images des ennemis
     private HashMap<String, Image> tileset; // Dictionnaire des images de terrain et objets
@@ -130,9 +134,10 @@ public class GameDisplay extends JPanel {
 	}
 
    
-    public Map getMap() {
-		return map;
+	public Map getMap() {
+	    return isInHostileMap ? hostileMap : map;
 	}
+
 
 	public void setMap(Map map) {
 		this.map = map;
@@ -232,7 +237,7 @@ public class GameDisplay extends JPanel {
 	protected void paintComponent(Graphics g) {
 	    super.paintComponent(g);
 
-	    Map mapToDraw = isInShop ? shopMap : map;
+	    Map mapToDraw = isInShop ? shopMap : (isInHostileMap ? hostileMap : map);
 
 	    // ✅ LIGNE AJOUTÉE : choix dynamique du tileset à utiliser
 	    HashMap<String, Image> tilesetToUse = 
@@ -358,6 +363,26 @@ public class GameDisplay extends JPanel {
 	public void setController(GameController controller) {
 		this.controller = controller;
 	}
+	
+	public void enterHostileMap() {
+	    isInHostileMap = true;
+	    this.hostileMap = new HostileMap(GRID_SIZE, GRID_SIZE, 0); // 💀 pas de coffre
+	    this.hero.setPosition(hostileMap.getBlock(GRID_SIZE / 2, GRID_SIZE / 2));
+	    repaint();
+	    logger.info("💀 Entrée dans la carte hostile !");
+	}
+	
+	public void returnToMainMapFromHostile() {
+	    if (isInHostileMap) {
+	        isInHostileMap = false;
+	        this.hero.setPosition(map.getBlock(5, 5));
+	        repaint();
+	        requestFocusInWindow();
+	        logger.info("⬅️ Retour à la carte principale depuis la carte hostile !");
+	    }
+	}
+
+
 
 
     
