@@ -80,18 +80,7 @@ public class MainGUI extends JFrame {
         coinLabel.setForeground(Color.WHITE);
         leftBottomPanel.add(coinLabel);
         logger.info("📐 Panneaux UI ajoutés à la fenêtre.");
-
-        for (int i = 0; i < 5; i++) {
-        	logger.debug("🧭 Slot d'inventaire initialisé : Vide");
-            JButton itemSlot = new JButton("Vide");
-            itemSlot.setFont(new Font("Arial", Font.BOLD, 14));
-            itemSlot.setPreferredSize(new Dimension(80, 30));
-            itemSlot.addActionListener(e -> {
-                System.out.println("🎒 Bouton d'inventaire cliqué : " + itemSlot.getText());
-                requestFocusInWindow();
-            });
-            leftBottomPanel.add(itemSlot);
-        }
+        leftBottomPanel.add(inventory); // inventory est une instance de InventoryManager
 
         // ➤ Sous-panel droit (boutons Interagir + Mission côte à côte)
         JPanel rightBottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -158,6 +147,11 @@ public class MainGUI extends JFrame {
 	public void setQuestManager(QuestManager questManager) {
 		this.questManager = questManager;
 	}
+	
+	public static MainGUI getInstance() {
+	    return instance;
+	}
+
 
 
 

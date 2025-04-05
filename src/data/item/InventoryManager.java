@@ -9,62 +9,81 @@ import java.awt.*;
  */
 public class InventoryManager extends JPanel {
 
-    private static final long serialVersionUID = 1L; // Identifiant de version pour la sérialisation
-    private Inventory inventory; // Inventaire du joueur
+    private static final long serialVersionUID = 1L;
+    private Inventory inventory;
 
-    /**
-     * Constructeur par défaut de InventoryManager.
-     * Initialise un inventaire vide et configure l'affichage.
-     */
     public InventoryManager() {
-        this.inventory = new Inventory(); // Initialisation de l'inventaire
-        setLayout(new FlowLayout(FlowLayout.CENTER)); // Centrer les éléments dans le panneau
-        updateInventoryDisplay(); // Met à jour l'affichage initial de l'inventaire
+        this.inventory = new Inventory();
+        setLayout(new FlowLayout(FlowLayout.CENTER));
+        updateInventoryDisplay();
     }
 
-    /**
-     * Met à jour l'affichage de l'inventaire.
-     * Affiche les objets de l'inventaire sous forme de boutons et complète avec "Vide" si nécessaire.
-     */
     public void updateInventoryDisplay() {
-        removeAll(); // Supprime les éléments existants pour rafraîchir l'affichage
+        removeAll();
 
-        for (int i = 0; i < 5; i++) { // Toujours 5 emplacements visibles
-            JButton button = new JButton("Vide"); // Bouton par défaut
+        for (int i = 0; i < 5; i++) {
+            JButton button = new JButton("Vide");
 
-            if (i < inventory.size()) { // Si un objet est présent
+            if (i < inventory.size()) {
                 Equipment item = inventory.getEquipmentAt(i);
                 button.setToolTipText(item.getName());
                 button.setText(item.getName());
 
                 ImageIcon itemImage = loadImage(item.getName());
                 if (itemImage != null) {
-                    button.setIcon(itemImage);
+                    Image resized = itemImage.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
+                    button.setIcon(new ImageIcon(resized));
+                    button.setHorizontalTextPosition(SwingConstants.RIGHT);
+                    button.setIconTextGap(10); // espace entre l'icône et le texte
+                    button.setBackground(new Color(60, 63, 65));  // fond gris foncé
+                    button.setForeground(Color.WHITE);           // texte blanc
+                    button.setFont(new Font("Verdana", Font.BOLD, 12));
+                    button.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 2));
                 }
             }
 
-            add(button); // Ajoute le bouton mis à jour
+            button.setPreferredSize(new Dimension(120, 40));
+
+            // 🔁 Redonne le focus à la fenêtre principale après clic
+            button.addActionListener(e -> {
+                gui.MainGUI.getInstance().requestFocusInWindow();
+            });
+
+            add(button);
         }
 
         revalidate();
         repaint();
     }
 
-
-
-    /**
-     * Charge une image d'équipement à partir du répertoire des ressources.
-     * @param itemName Nom de l'objet dont l'image doit être chargée.
-     * @return Une ImageIcon si l'image est trouvée, sinon null.
-     */
     private ImageIcon loadImage(String itemName) {
-        String path = "src/images/items/" + itemName.toLowerCase() + ".png"; // Chemin de l'image
+        String path = "src/images/items/" + itemName.toLowerCase() + ".png";
         ImageIcon icon = new ImageIcon(path);
-        return icon.getIconWidth() > 0 ? icon : null; // Vérifie si l'image est valide
+        return icon.getIconWidth() > 0 ? icon : null;
     }
 
-	public Inventory getInventory() {
-		// TODO Auto-generated method stub
-		return inventory;
-	}
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("Test InventoryManager");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(700, 200);
+
+            InventoryManager inventoryManager = new InventoryManager();
+
+            // Ajout manuel de 3 équipements
+            inventoryManager.getInventory().addEquipment(new Equipment("woodsword"));
+            inventoryManager.getInventory().addEquipment(new Equipment("axe"));
+            inventoryManager.getInventory().addEquipment(new Equipment("orbe"));
+
+            // Mise à jour de l'affichage
+            inventoryManager.updateInventoryDisplay();
+
+            frame.add(inventoryManager);
+            frame.setVisible(true);
+        });
+    }
 }
