@@ -2,8 +2,10 @@ package gui;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.HashMap;
 
 import data.map.Block;
+import data.map.HostileMap;
 import data.map.Map;
 import data.player.Hero;
 import viewstrategy.PaintStrategy;
@@ -11,28 +13,34 @@ import viewstrategy.PaintStrategy;
 public class DefaultPaintStrategy implements PaintStrategy{
 
 	@Override
-	public void paintTerrain( Map map, Graphics g, GameDisplay display) {
-		// TODO Auto-generated method stub
-		Block[][] blocks = map.getBlocks();
+	public void paintTerrain(Map map, Graphics g, GameDisplay display) {
+	    Block[][] blocks = map.getBlocks();
 	    boolean isShop = display.isInShop();
+
+	    // ✅ Tileset sélectionné dynamiquement selon le type de map
+	    HashMap<String, Image> tileset =
+	        map instanceof data.map.HostileMap ? display.getHostileTileset() : display.getTileset();
 
 	    for (int line = 0; line < map.getLineCount(); line++) {
 	        for (int col = 0; col < map.getColumnCount(); col++) {
-	            Block block1 = blocks[line][col];
+	            Block block = blocks[line][col];
 
-	            String terrainType = map.getStaticTerrain().getOrDefault(block1, isShop ? "shopFloor" : "grass");
-	            Image terrainImage = display.getTileset().get(terrainType);
+	            String terrainType = map.getStaticTerrain().getOrDefault(block, isShop ? "shopFloor" : "grass");
+	            Image terrainImage = tileset.get(terrainType); // ✅ tileset dynamique
 
 	            if (terrainImage != null) {
-	                g.drawImage(terrainImage, block1.getColumn() * 32, block1.getLine() * 32, 32, 32, null);
+	                g.drawImage(terrainImage, block.getColumn() * 32, block.getLine() * 32, 32, 32, null);
 	            }
 	        }
 	    }
-		
 	}
 
 	@Override
 	public void paintStaticObjects(Map map, Graphics g, GameDisplay display) {
+	    // ✅ Sélection dynamique du bon tileset (hostile ou normal)
+	    HashMap<String, Image> tileset = 
+	        map instanceof HostileMap ? display.getHostileTileset() : display.getTileset();
+
 	    for (Block block : map.getStaticObjects().keySet()) {
 	        String objectType = map.getStaticObjects().get(block);
 
@@ -54,8 +62,8 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	        }
 
 	        // 💡 Cas générique : arbre, meuble, torche, coffre, etc.
-	        if (objectType != null && display.getTileset().containsKey(objectType)) {
-	            g.drawImage(display.getTileset().get(objectType),
+	        if (objectType != null && tileset.containsKey(objectType)) {
+	            g.drawImage(tileset.get(objectType),
 	                    block.getColumn() * 32, block.getLine() * 32,
 	                    32, 32, null);
 	        }

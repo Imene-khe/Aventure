@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import log.LoggerUtility;
 
 import control.GameController;
+import data.map.HostileMap;
 import data.map.Map;
 import data.player.EnemyImageManager;
 import data.player.Hero;
@@ -38,6 +39,7 @@ public class GameDisplay extends JPanel {
 	private Hero hero; // Instance du héros
     private EnemyImageManager enemyImageManager; // Gestionnaire des images des ennemis
     private HashMap<String, Image> tileset; // Dictionnaire des images de terrain et objets
+    private HashMap<String, Image> hostileTileset;
     private boolean canTakeDamage = true; //  Contrôle si le héros peut prendre des dégâts
     private boolean isGameOver = false; //  Empêche l'affichage multiple du message de Game Over
     private boolean isInShop = false; //  Indique si on est dans la boutique
@@ -69,6 +71,7 @@ public class GameDisplay extends JPanel {
 	        this.shopMap.setupStaticShop(); // Configuration de la boutique
 	        this.hero = new Hero(map.getBlock(GRID_SIZE / 2, GRID_SIZE / 2), 100);
 	        this.tileset = new HashMap<>();
+	        this.hostileTileset = new HashMap<>();
 
 	        this.controller = new GameController(this); // nouveau contrôleur
 
@@ -173,7 +176,6 @@ public class GameDisplay extends JPanel {
             tileset.put("grass", loadImage("src/images/outdoors/Grass_Middle.png"));
             tileset.put("water", loadImage("src/images/outdoors/Water_Middle.png"));
             tileset.put("path", loadImage("src/images/outdoors/Path_Middle.png"));
-            
             //Chargement des terrains du shop
             tileset.put("shopFloor", loadImage("src/images/shop/shopfloor.png"));
             tileset.put("lightWall", loadImage("src/images/shop/lightwall.png")); 
@@ -181,18 +183,22 @@ public class GameDisplay extends JPanel {
             tileset.put("bar", loadImage("src/images/shop/bar.png")); 
             tileset.put("merchant", loadImage("src/images/shop/merchant.png")); 
             tileset.put("carpet", loadImage("src/images/shop/carpet.png")); 
-            tileset.put("bookshelf", loadImage("src/images/shop/bookshelf.png")); 
-
-           
+            tileset.put("bookshelf", loadImage("src/images/shop/bookshelf.png"));
             // Chargement des obstacles
             tileset.put("house", loadImage("src/images/outdoors/House.png"));
             tileset.put("tree", loadImage("src/images/outdoors/Oak_Tree.png"));
-            tileset.put("shop", loadImage("src/images/shop/shop.png")); 
-
-            
-
+            tileset.put("shop", loadImage("src/images/shop/shop.png"));
             // Chargement des objets
             tileset.put("chest", loadImage("src/images/outdoors/Chest.png"));
+            
+            hostileTileset.put("deadTree1", loadImage("src/images/outdoor/hostile/deadTree1.png"));
+            hostileTileset.put("deadTree2", loadImage("src/images/outdoor/hostile/deadTree2.png"));
+            hostileTileset.put("deadTree3", loadImage("src/images/outdoor/hostile/deadTree3.png"));
+            hostileTileset.put("floor1", loadImage("src/images/outdoor/hostile/floor1.png"));
+            hostileTileset.put("floor2", loadImage("src/images/outdoor/hostile/floor2.png"));
+            hostileTileset.put("floor3", loadImage("src/images/outdoor/hostile/floor3.png"));
+            hostileTileset.put("lava", loadImage("src/images/outdoor/hostile/lava.png"));
+            hostileTileset.put("rock", loadImage("src/images/outdoor/hostile/rock.png"));
 
 
             logger.info("✅ Toutes les images sont chargées !");
@@ -228,10 +234,15 @@ public class GameDisplay extends JPanel {
 
 	    Map mapToDraw = isInShop ? shopMap : map;
 
+	    // ✅ LIGNE AJOUTÉE : choix dynamique du tileset à utiliser
+	    HashMap<String, Image> tilesetToUse = 
+	        mapToDraw instanceof data.map.HostileMap ? hostileTileset : tileset;
+
 	    if (mapToDraw == null || tileset == null || tileset.isEmpty()) {
-	    	logger.error("❌ Erreur: la map ou le tileset est null ou vide");
-	    	return;
+	        logger.error("❌ Erreur: la map ou le tileset est null ou vide");
+	        return;
 	    }
+
 	    // ✅ 1. Fond de carte (grass, water, etc.)
 	    paintStrategy.paintTerrain(mapToDraw, g, this);
 
@@ -239,8 +250,10 @@ public class GameDisplay extends JPanel {
 	    if (!isInShop) {
 	        paintStrategy.paintCoins(map, g, this);
 	    }
+
 	    // ✅ 3. Objets statiques (arbres, coffres, meubles...)
 	    paintStrategy.paintStaticObjects(mapToDraw, g, this);
+
 	    // ✅ 4. Cas particuliers : maisons en feu, bâtiment shop, marchand
 	    if (!isInShop) {
 	        paintStrategy.paintBurningHouse(map, g, this);
@@ -248,6 +261,7 @@ public class GameDisplay extends JPanel {
 	    } else {
 	        paintStrategy.paintMerchant(shopMap, g, this);
 	    }
+
 	    // ✅ 5. Ennemis + barre de vie (map principale uniquement)
 	    if (!isInShop) {
 	        paintStrategy.paintEnemies(map, g, this);
@@ -257,8 +271,17 @@ public class GameDisplay extends JPanel {
 	    // ✅ 6. Héros (au-dessus de tout)
 	    paintStrategy.paintHero(hero, g, this);
 	}
+
     
-    public boolean isGameOver() {
+    public HashMap<String, Image> getHostileTileset() {
+		return hostileTileset;
+	}
+
+	public void setHostileTileset(HashMap<String, Image> hostileTileset) {
+		this.hostileTileset = hostileTileset;
+	}
+
+	public boolean isGameOver() {
 		return isGameOver;
 	}
 
@@ -338,25 +361,25 @@ public class GameDisplay extends JPanel {
 
 
     
-    public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(() -> {
-            // ✅ Création de la fenêtre
-            JFrame frame = new JFrame("Test Affichage Terrain + Objets");
+	public static void main(String[] args) {
+	    javax.swing.SwingUtilities.invokeLater(() -> {
+	        JFrame frame = new JFrame("Test Affichage Terrain Hostile");
 
-            // ✅ Création du GameDisplay
-            GameDisplay gameDisplay = new GameDisplay();
+	        GameDisplay gameDisplay = new GameDisplay();
+	        gameDisplay.setMap(new HostileMap(20, 20, 5)); // 💀 map hostile
+	        gameDisplay.setHero(new Hero(gameDisplay.getMap().getBlock(10, 10), 100));
+	        gameDisplay.loadImages(); // 🔁 recharge les images (tilesets)
 
-            // ✅ Focus clavier (utile si tu veux tester les touches plus tard)
-            gameDisplay.setFocusable(true);
-            gameDisplay.requestFocusInWindow();
+	        frame.add(gameDisplay);
+	        frame.setSize(800, 800);
+	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        frame.setLocationRelativeTo(null);
+	        frame.setVisible(true);
 
-            // ✅ Ajout du GameDisplay dans la fenêtre
-            frame.add(gameDisplay);
-            frame.setSize(800, 800); // Ajusté pour voir une bonne portion de map
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setLocationRelativeTo(null); // Centre la fenêtre à l'écran
-            frame.setVisible(true);
-        });
-    }
+	        gameDisplay.setFocusable(true);
+	        gameDisplay.requestFocusInWindow();
+	    });
+	}
+
 
 }

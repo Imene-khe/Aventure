@@ -1,7 +1,5 @@
 package data.map;
 
-import java.awt.Graphics;
-import java.awt.Image;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -13,23 +11,22 @@ import data.item.ChestManager;
 import data.item.Coin;
 import data.item.Equipment;
 import data.item.Flame;
-import gui.GameDisplay;
 
 public class Map {
-	private static final Logger logger = LoggerUtility.getLogger(Map.class, "text");
+	protected static final Logger logger = LoggerUtility.getLogger(Map.class, "text");
 	
     private Block[][] blocks;
     private HashMap<Block, Obstacle> obstacles = new HashMap<>();
     private HashMap<Block, Boolean> terrainBlocked = new HashMap<>();
     private HashMap<Block, String> staticObjects = new HashMap<>();
-    private HashMap<Block, String> staticTerrain = new HashMap<>();
+    protected HashMap<Block, String> staticTerrain = new HashMap<>();
     private HashMap<Block, String> enemies = new HashMap<>();
     private ChestManager chestManager;   
     private int lineCount;
     private int columnCount;
     private int maxChests;
     private ArrayList<Coin> coins;
-    private boolean isStatic; // ✅ Ajout d'un booléen pour indiquer si la carte est fixe
+    protected boolean isStatic; // ✅ Ajout d'un booléen pour indiquer si la carte est fixe
     private ArrayList<Flame> flames = new ArrayList<>();
     
 
@@ -54,21 +51,7 @@ public class Map {
 
         // ✅ Si la carte est statique, on ne génère pas de terrain aléatoire
         if (!isStatic) {
-            // Génération aléatoire des terrains
-            for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
-                for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
-                    Block block = blocks[lineIndex][columnIndex];
-                    double random = Math.random();
-                    if (random < 0.15) {
-                        staticTerrain.put(block, "water");
-                    } else if (random < 0.2) {
-                        staticTerrain.put(block, "path");
-                    } else {
-                        staticTerrain.put(block, "grass");
-                    }
-                }
-            }
-
+        	generateTerrain();
             generateObjects();  // Générer les objets (arbres, maisons, coffres)
             logger.debug("🌳 Objets générés (arbres, maisons, coffres)");
             generateEnemies();  // Générer les ennemis
@@ -83,6 +66,24 @@ public class Map {
         	 this.coins.clear();   // ✅ Supprime les pièces de `shopMap` 	mais pas sur du tout pour le retour sur la map classique
         }
     }
+    
+    public void generateTerrain() {
+        for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
+            for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
+                Block block = blocks[lineIndex][columnIndex];
+                double random = Math.random();
+                if (random < 0.15) {
+                    staticTerrain.put(block, "water");
+                } else if (random < 0.2) {
+                    staticTerrain.put(block, "path");
+                } else {
+                    staticTerrain.put(block, "grass");
+                }
+            }
+        }
+        logger.info("🌿 Terrain classique généré (eau, chemins, herbe)");
+    }
+
 
  
     /**
@@ -391,23 +392,6 @@ public class Map {
         logger.info("🔥 Toutes les maisons ont été incendiées.");
     }
 
-    
-    public void paintTerrain(Graphics g, GameDisplay display) {
-        Block[][] blocks = this.getBlocks();
-        boolean isInShop = display.isInShop();
-
-        for (int line = 0; line < getLineCount(); line++) {
-            for (int col = 0; col < getColumnCount(); col++) {
-                Block block = blocks[line][col];
-
-                String terrainType = this.getStaticTerrain().getOrDefault(block, isInShop ? "shopFloor" : "grass");
-                Image terrainImage = display.getTileset().get(terrainType);
-                if (terrainImage != null) {
-                    g.drawImage(terrainImage, block.getColumn() * 32, block.getLine() * 32, 32, 32, null);
-                }
-            }
-        }
-    }
 
 
     public static void main(String[] args) {
