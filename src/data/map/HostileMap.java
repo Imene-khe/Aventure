@@ -32,9 +32,9 @@ public class HostileMap extends Map {
 	            Block block = getBlock(lineIndex, columnIndex);
 	            double rand = Math.random();
 
-	            if (rand < 0.33) {
+	            if (rand < 0.90) {
 	                staticTerrain.put(block, "floor1");
-	            } else if (rand < 0.66) {
+	            } else if (rand < 0.45) {
 	                staticTerrain.put(block, "floor2");
 	            } else {
 	                staticTerrain.put(block, "floor3");
