@@ -268,7 +268,7 @@ public class MainGUI extends JFrame {
         if (!dashboard.getController().tryInteractWithNPC(this)) {
             dashboard.getController().tryOpenChest(this);
             logger.debug("👤 Interaction avec un PNJ ou un coffre tentée.");
-            dashboard.getController().tryExtinguishFlame(this); // ✅ Ajout ici
+            dashboard.getController().tryExtinguishFlame(this); 
             logger.debug("👤 Interaction avec maison en feu tentée.");
 
         }

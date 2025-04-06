@@ -397,13 +397,19 @@ public class Map {
     } 
     
     public void setAllHousesOnFire() {
+        flames.clear(); // On vide l’ancienne liste avant de relancer le feu
+
         for (Block block : staticObjects.keySet()) {
             String value = staticObjects.get(block);
             if ("house".equals(value)) {
                 staticObjects.put(block, "house_burning");
+                flames.add(new data.item.Flame(block)); // ✅ ajoute l'objet Flame
             }
         }
+
+        logger.info("🔥 " + flames.size() + " maisons mises en feu !");
     }
+
     
     public void paintTerrain(Graphics g, GameDisplay display) {
         Block[][] blocks = this.getBlocks();
