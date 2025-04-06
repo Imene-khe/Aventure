@@ -1,4 +1,5 @@
 package control;
+
 import data.item.Chest;
 import data.item.Coin;
 import data.item.Equipment;
@@ -26,6 +27,7 @@ public class GameController {
     private final Hero hero;
     private Map map;
     private final Map shopMap;
+    private Map hostileMap;
     private boolean canTakeDamage = true;
 
     public GameController(GameDisplay display) {
@@ -33,7 +35,9 @@ public class GameController {
         this.hero = display.getHero();
         this.map = display.getMap();
         this.shopMap = display.getShopMap();
+        this.hostileMap = display.getHostileMap(); // ✅ Initialisé comme shopMap
     }
+
 
     public void moveHero(int keyCode, MainGUI gui) {
         Block current = hero.getPosition();
@@ -48,15 +52,13 @@ public class GameController {
             default -> { return; }
         }
 
-        Map activeMap = display.isInShop() ? shopMap : map;
+        Map activeMap = display.isInShop() ? shopMap :
+                        (display.isInHostileMap() ? hostileMap : map);
 
         int blockSize = display.getBlockSize();
-        int visibleHeight = display.getHeight(); // hauteur réelle allouée au GameDisplay
-
-        // ✅ Calcul du nombre de lignes visibles (dans GameDisplay uniquement)
+        int visibleHeight = display.getHeight();
         int maxVisibleLines = visibleHeight / blockSize;
 
-        // 🔒 Empêche de sortir de l'écran ou de la map (en bas)
         if (newLine < 0 || newCol < 0 ||
             newLine >= Math.min(activeMap.getLineCount(), maxVisibleLines) ||
             newCol >= activeMap.getColumnCount()) {
@@ -67,13 +69,12 @@ public class GameController {
         moveHero(newBlock, gui);
     }
 
-
-
-
     public void moveHero(Block newPosition, MainGUI mainGUI) {
         if (display.isGameOver()) return;
 
-        Map activeMap = display.isInShop() ? shopMap : map;
+        Map activeMap = display.isInShop() ? shopMap :
+                        (display.isInHostileMap() ? hostileMap : map);
+
         if (activeMap.isBlocked(newPosition)) return;
 
         hero.setPosition(newPosition);
@@ -87,7 +88,9 @@ public class GameController {
     }
 
     public void checkCoinCollection(MainGUI mainGUI) {
-        Map activeMap = display.isInShop() ? shopMap : map;
+        Map activeMap = display.isInShop() ? shopMap :
+                        (display.isInHostileMap() ? hostileMap : map);
+
         ArrayList<Coin> collectedCoins = new ArrayList<>();
 
         for (Coin coin : activeMap.getCoins()) {
@@ -102,7 +105,9 @@ public class GameController {
     }
 
     public Chest tryOpenNearbyChest() {
-        Map activeMap = display.isInShop() ? shopMap : map;
+        Map activeMap = display.isInShop() ? shopMap :
+                        (display.isInHostileMap() ? hostileMap : map);
+
         Block heroPos = hero.getPosition();
         int heroLine = heroPos.getLine();
         int heroColumn = heroPos.getColumn();
@@ -119,7 +124,6 @@ public class GameController {
                     if ("chest".equals(activeMap.getStaticObjects().get(adjacent))) {
                         Chest chest = activeMap.getChestManager().getChests().get(adjacent);
 
-                        // ✅ Vérifie si le coffre contient l'orbe
                         if (chest != null && chest.getInventory() != null) {
                             boolean hasOrb = false;
                             for (Equipment eq : chest.getInventory().getEquipments()) {
@@ -130,7 +134,6 @@ public class GameController {
                             }
 
                             if (hasOrb) {
-                                // ✅ Fenêtre de confirmation
                                 int response = JOptionPane.showConfirmDialog(
                                     display,
                                     "🌟 Vous avez trouvé l'Orbe légendaire !\nSouhaitez-vous poursuivre l'aventure ?",
@@ -139,10 +142,12 @@ public class GameController {
                                 );
 
                                 if (response == JOptionPane.YES_OPTION) {
-                                    display.enterHostileMap();         // 🌋 Passage à la nouvelle map
-                                    this.map = display.getMap();       // ✅ Met à jour la référence interne dans le contrôleur !
-                                    display.requestFocusInWindow();   // ✅ Redonne le focus à GameDisplay
+                                    display.enterHostileMap(); 
+                                    this.hostileMap = display.getHostileMap();
+                                    MainGUI.getInstance().setDialogueActive(false); // ✅ débloque les touches
+                                    display.requestFocusInWindow();
                                 }
+
                             }
                         }
 
@@ -156,13 +161,13 @@ public class GameController {
     }
 
 
-
     public void checkEnemyCollision() {
         if (display.isGameOver() || display.isInShop()) return;
 
         Block heroPos = hero.getPosition();
+        Map activeMap = display.isInHostileMap() ? hostileMap : map;
 
-        for (Block enemyBlock : map.getEnemies().keySet()) {
+        for (Block enemyBlock : activeMap.getEnemies().keySet()) {
             if (enemyBlock.equals(heroPos)) {
                 if (!canTakeDamage) return;
 
@@ -193,21 +198,20 @@ public class GameController {
         if (chest != null) {
             ChestUIManager chestUI = new ChestUIManager(gui);
 
-            // ✅ Callback déclenché si l’orbe est pris
             chestUI.setOnOrbTakenCallback(() -> {
-                gui.getQuestManager().updateQuest("Trouver l'orbe", 1); // mise à jour de la quête
-                display.enterHostileMap(); // 🌋 Changement de map
+                gui.getQuestManager().updateQuest("Trouver l'orbe", 1);
+                display.enterHostileMap();
+                this.hostileMap = display.getHostileMap();
+                MainGUI.getInstance().setDialogueActive(false); // ✅ débloque les touches
             });
 
-            chestUI.displayChestContents(chest);
 
+            chestUI.displayChestContents(chest);
             gui.requestFocusInWindow();
         } else {
             logger.warn("❌ Aucun coffre à proximité.");
         }
     }
-
-
 
 
     public boolean tryInteractWithNPC(MainGUI gui) {
@@ -220,7 +224,9 @@ public class GameController {
                 int line = heroPos.getLine() + dl;
                 int col = heroPos.getColumn() + dc;
 
-                Map activeMap = display.isInShop() ? shopMap : map;
+                Map activeMap = display.isInShop() ? shopMap :
+                                (display.isInHostileMap() ? hostileMap : map);
+
                 if (line >= 0 && col >= 0 && line < activeMap.getLineCount() && col < activeMap.getColumnCount()) {
                     Block block = activeMap.getBlock(line, col);
                     String object = activeMap.getStaticObjects().get(block);
@@ -245,11 +251,8 @@ public class GameController {
                             options[0]
                         );
 
-                        if (choix == 0) {
-                            gui.triggerDialogue("enter_shop_give_gold");
-                        } else if (choix == 1) {
-                            gui.triggerDialogue("enter_shop_chat");
-                        }
+                        if (choix == 0) gui.triggerDialogue("enter_shop_give_gold");
+                        else if (choix == 1) gui.triggerDialogue("enter_shop_chat");
 
                         return true;
                     }
@@ -266,14 +269,10 @@ public class GameController {
         return false;
     }
 
-    
     public void enterShop(MainGUI gui) {
-        display.enterShop(); // Change de map
-        gui.triggerDialogue("enter_shop"); // ✅ Dialogue automatique du marchand
+        display.enterShop();
+        gui.triggerDialogue("enter_shop");
     }
-
-
-
 
     public boolean tryEnterShop(MainGUI gui) {
         Block heroPos = hero.getPosition();
@@ -289,22 +288,22 @@ public class GameController {
                     Block block = map.getBlock(line, col);
                     if ("shop".equals(map.getStaticObjects().get(block))) {
                         logger.info("🏪 Entrée dans la boutique.");
-                        enterShop(gui); // au lieu de display.enterShop()
+                        enterShop(gui);
                         return true;
                     }
-
                 }
             }
         }
 
         return false;
     }
-    
+
     public void tryExtinguishFlame(MainGUI gui) {
         Block heroPos = display.getHero().getPosition();
-        Map map = display.isInShop() ? display.getShopMap() : display.getMap();
+        Map activeMap = display.isInShop() ? shopMap :
+                        (display.isInHostileMap() ? hostileMap : map);
 
-        for (Flame flame : map.getFlames()) {
+        for (Flame flame : activeMap.getFlames()) {
             Block flamePos = flame.getPosition();
 
             int dx = Math.abs(heroPos.getLine() - flamePos.getLine());
@@ -312,12 +311,11 @@ public class GameController {
 
             if (dx <= 1 && dy <= 1 && flame.isActive()) {
                 flame.extinguish();
-                map.getStaticObjects().put(flamePos, "house");
+                activeMap.getStaticObjects().put(flamePos, "house");
                 gui.repaint();
                 gui.requestFocusInWindow();
 
-                // ✅ Vérifie si toutes les flammes sont désormais éteintes
-                boolean allExtinguished = map.getFlames().stream().noneMatch(Flame::isActive);
+                boolean allExtinguished = activeMap.getFlames().stream().noneMatch(Flame::isActive);
                 if (allExtinguished) {
                     gui.getQuestManager().updateQuest("Eteindre les flammes", 1);
                 }
@@ -326,8 +324,4 @@ public class GameController {
             }
         }
     }
-
-
-
-
 }

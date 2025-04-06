@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import control.GameController;
+import data.map.HostileMap;
 import data.map.Map;
 import data.player.EnemyImageManager;
 import data.player.Hero;
@@ -28,15 +29,17 @@ public class GameDisplay extends JPanel {
     private static final long serialVersionUID = 1L;
     private static final int GRID_SIZE = 35;  
     public static int BLOCK_SIZE = 32; // Taille inchangée
-    private static final int SHOP_SIZE = 40; //Taille de la boutique
+    private static final int SHOP_SIZE = 20; //Taille de la boutique
     private Map map; // Instance de la carte du jeu
     private Map shopMap;
+    private Map hostileMap;
 	private Hero hero; // Instance du héros
     private EnemyImageManager enemyImageManager; // Gestionnaire des images des ennemis
     private HashMap<String, Image> tileset; // Dictionnaire des images de terrain et objets
     private boolean canTakeDamage = true; //  Contrôle si le héros peut prendre des dégâts
     private boolean isGameOver = false; //  Empêche l'affichage multiple du message de Game Over
     private boolean isInShop = false; //  Indique si on est dans la boutique
+    private boolean isInHostileMap = false;
     private SpriteAnimator flameAnimator;
     private SpriteAnimator coinAnimator;
     private PaintStrategy paintStrategy = new DefaultPaintStrategy();
@@ -70,6 +73,9 @@ public class GameDisplay extends JPanel {
 	        this.map = new Map(GRID_SIZE, GRID_SIZE, numberOfChests, false);
 	        this.shopMap = new Map(SHOP_SIZE, SHOP_SIZE, 0, true);    // Boutique plus petite
 	        this.shopMap.setupStaticShop(); // Configuration de la boutique
+	        
+	        this.hostileMap = new HostileMap(GRID_SIZE, GRID_SIZE, 0); // ✅ initialisation directe
+
 	        this.hero = new Hero(map.getBlock(GRID_SIZE / 2, GRID_SIZE / 2), 100);
 	        this.tileset = new HashMap<>();
 
@@ -260,43 +266,42 @@ public class GameDisplay extends JPanel {
 	protected void paintComponent(Graphics g) {
 	    super.paintComponent(g);
 
-	    Map mapToDraw = isInShop ? shopMap : map;
+	    Map mapToDraw = isInHostileMap ? hostileMap : (isInShop ? shopMap : map);
 
-	    if (mapToDraw == null || tileset == null || tileset.isEmpty()) {
-	        System.out.println("❌ Erreur: la map ou le tileset est null ou vide");
+	    if (mapToDraw == null || (isInHostileMap ? hostileTileset : tileset) == null) {
+	        System.out.println("❌ Erreur: map ou tileset null");
 	        return;
 	    }
 
-	    // ✅ 1. Fond de carte (grass, water, etc.)
+	    // ✅ 1. Fond de carte
 	    paintStrategy.paintTerrain(mapToDraw, g, this);
 
-	    // ✅ 2. Pièces (sous les objets statiques)
-	    if (!isInShop) {
+	    // ✅ 2. Pièces (pas dans shop)
+	    if (!isInShop && !isInHostileMap) {
 	        paintStrategy.paintCoins(map, g, this);
 	    }
 
-	    // ✅ 3. Objets statiques (arbres, coffres, meubles...)
+	    // ✅ 3. Objets statiques
 	    paintStrategy.paintStaticObjects(mapToDraw, g, this);
 
-	    // ✅ 4. Cas particuliers : maisons en feu, bâtiment shop, marchand
-	    if (!isInShop) {
+	    // ✅ 4. Cas spéciaux
+	    if (!isInShop && !isInHostileMap) {
 	        paintStrategy.paintBurningHouse(map, g, this);
 	        paintStrategy.paintShopBuilding(map, g, this);
-	    } else {
+	    } else if (isInShop) {
 	        paintStrategy.paintMerchant(shopMap, g, this);
 	    }
 
-	    // ✅ 5. Ennemis + barre de vie (map principale uniquement)
+	    // ✅ 5. Ennemis + vie (pas dans shop)
 	    if (!isInShop) {
-	        paintStrategy.paintEnemies(map, g, this);
+	        paintStrategy.paintEnemies(mapToDraw, g, this);
 	        paintStrategy.paintHealthBar(hero, g, this);
 	    }
 
-	    // ✅ 6. Héros (au-dessus de tout)
+	    // ✅ 6. Héros toujours visible
 	    paintStrategy.paintHero(hero, g, this);
-	    
-	    
 	}
+
     
     public boolean isGameOver() {
 		return isGameOver;
@@ -379,12 +384,30 @@ public class GameDisplay extends JPanel {
 	}
 	
 	public void enterHostileMap() {
-	    this.map = new data.map.HostileMap(35, 35, 0);
-	    this.hero.setPosition(map.getBlock(17, 5));
-	    this.repaint();
-	    this.setFocusable(true); // 🟢 Important
-	    this.requestFocusInWindow(); // 🟢 Focus ici et pas ailleurs
+	    this.isInHostileMap = true;                            // ✅ active le flag
+	    this.hero.setPosition(hostileMap.getBlock(17, 5));     // ✅ place le héros dessus
+	    this.repaint();                                        // 🔁 rafraîchit l’affichage
+	    this.setFocusable(true);
+	    this.requestFocusInWindow();                           // 🎯 très important
 	    System.out.println("🌋 Passage à la HostileMap !");
+	}
+
+
+
+	public Map getHostileMap() {
+		return hostileMap;
+	}
+
+	public void setHostileMap(Map hostileMap) {
+		this.hostileMap = hostileMap;
+	}
+
+	public void setHostileMap(HostileMap hostileMap) {
+		this.hostileMap = hostileMap;
+	}
+
+	public boolean isInHostileMap() {
+	    return isInHostileMap;
 	}
 
 

@@ -80,9 +80,12 @@ public class ChestUIManager {
                         );
 
                         if (result == JOptionPane.YES_OPTION) {
-                            mainGUI.getGameDisplay().enterHostileMap();
+                            chestWindow.dispose();                       // ✅ ferme la fenêtre du coffre
+                            mainGUI.requestFocusOnGame();               // ✅ remet le focus sur la carte
+                            mainGUI.getGameDisplay().enterHostileMap(); // ✅ entre dans la HostileMap
                         }
                     }
+
                 });
 
 

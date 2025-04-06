@@ -43,6 +43,7 @@ public class MainGUI extends JFrame {
         setLayout(new BorderLayout());
 
         this.dashboard = new GameDisplay();
+        this.dashboard.addKeyListener(new KeyControls()); // ✅ Pour capter les touches même si GameDisplay a le focus
         logger.info("🎮 GameDisplay attaché au centre.");
         this.inventory = new InventoryManager();
 
@@ -338,6 +339,10 @@ public class MainGUI extends JFrame {
     public void requestFocusOnGame() {
         dashboard.setFocusable(true);
         dashboard.requestFocusInWindow(); // ✅ C'est ça qu'on veut rappeler après l'inventaire
+    }
+    
+    public void setDialogueActive(boolean active) {
+        this.dialogueActive = active;
     }
 
     
