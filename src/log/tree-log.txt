@@ -8487,3 +8487,16 @@ DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 18
 DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
 DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
 DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 18
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue, Ghaya ! Une nouvelle journée resplandissante s'annonce.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue, Ghaya ! Une nouvelle journée resplandissante s'annonce.
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...

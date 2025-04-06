@@ -18,6 +18,7 @@ import data.player.Hero;
 import gui.animation.SpriteAnimator;
 import viewstrategy.PaintStrategy;
 
+
 /**
  * Classe représentant l'affichage du jeu. Elle gère le rendu graphique de la CARTE, des ennemis, du héros
  * et de la barre de vie. Elle permet également de déplacer le héros et de gérer les interactions avec les objets.
@@ -40,6 +41,9 @@ public class GameDisplay extends JPanel {
     private SpriteAnimator coinAnimator;
     private PaintStrategy paintStrategy = new DefaultPaintStrategy();
     private GameController controller;
+    private HashMap<String, Image> hostileTileset; //ajout
+
+    
 
     public boolean isInShop() {
 		return isInShop;
@@ -48,6 +52,11 @@ public class GameDisplay extends JPanel {
 	public void setInShop(boolean isInShop) {
 		this.isInShop = isInShop;
 	}
+	
+	public HashMap<String, Image> getHostileTileset() {
+	    return hostileTileset;
+	}
+
 
 
 
@@ -206,6 +215,18 @@ public class GameDisplay extends JPanel {
 
             // Chargement des objets
             tileset.put("chest", loadImage("src/images/outdoors/Chest.png"));
+            
+         // ✅ Chargement des tuiles hostiles
+            hostileTileset = new HashMap<>();
+            hostileTileset.put("lava", loadImage("src/images/outdoor/hostile/lava.png"));
+            hostileTileset.put("floor1", loadImage("src/images/outdoor/hostile/floor1.png"));
+            hostileTileset.put("floor2", loadImage("src/images/outdoor/hostile/floor2.png"));
+            hostileTileset.put("floor3", loadImage("src/images/outdoor/hostile/floor3.png"));
+            hostileTileset.put("rock", loadImage("src/images/outdoor/hostile/rock.png"));
+            hostileTileset.put("deadTree1", loadImage("src/images/outdoor/hostile/deadTree1.png"));
+            hostileTileset.put("deadTree2", loadImage("src/images/outdoor/hostile/deadTree2.png"));
+            hostileTileset.put("deadTree3", loadImage("src/images/outdoor/hostile/deadTree3.png"));
+
 
 
             System.out.println(" Toutes les images sont chargées !");
