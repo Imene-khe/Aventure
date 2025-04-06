@@ -341,20 +341,25 @@ public class Map {
 
 
 
-    public ArrayList<Block> getFreeBlocks() {
-        ArrayList<Block> freeBlocks = new ArrayList<>();
+	public ArrayList<Block> getFreeBlocks() {
+	    ArrayList<Block> freeBlocks = new ArrayList<>();
 
-        for (int i = 0; i < lineCount; i++) {
-            for (int j = 0; j < columnCount; j++) {
-                Block block = blocks[i][j];
-                // Vérifie que le bloc ne contient PAS d'obstacle et PAS d'ennemi
-                if (!staticObjects.containsKey(block) && !enemies.containsKey(block)) {
-                    freeBlocks.add(block);
-                }
-            }
-        }
-        return freeBlocks;
-    }
+	    for (int i = 0; i < lineCount; i++) {
+	        for (int j = 0; j < columnCount; j++) {
+	            Block block = blocks[i][j];
+
+	            boolean isOccupied = staticObjects.containsKey(block) || enemies.containsKey(block);
+	            boolean isBlocked = isBlocked(block); // ✅ nouveau test ajouté ici
+
+	            if (!isOccupied && !isBlocked) {
+	                freeBlocks.add(block);
+	            }
+	        }
+	    }
+
+	    return freeBlocks;
+	}
+
     
     
 
