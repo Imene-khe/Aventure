@@ -8,8 +8,11 @@ import java.util.Random;
 
 import org.apache.log4j.Logger;
 
+import data.item.Chest;
+import data.item.ChestFactory;
 import data.item.ChestManager;
 import data.item.Coin;
+import data.item.Equipment;
 import gui.GameDisplay;
 import log.LoggerUtility;
 
@@ -278,55 +281,64 @@ public class Map {
         return staticTerrain;
     }
 
-    public void generateObjects() {
+	public void generateObjects() {
         int generatedChests = 0;
+        boolean orbePlaced = false;
 
-        // Générez les arbres et les maisons
+        // ✅ Génère d’abord arbres et maisons
         for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
             for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
                 Block block = blocks[lineIndex][columnIndex];
-
                 String terrainType = staticTerrain.get(block);
 
                 if (terrainType.equals("grass")) {
                     double rand = Math.random();
                     if (rand < 0.05) {
-                        staticObjects.put(block, "tree");   // Arbre
+                        staticObjects.put(block, "tree");
                         setTerrainBlocked(block, true);
                     } else if (rand < 0.08) {
-                        staticObjects.put(block, "house");  // Maison
+                        staticObjects.put(block, "house");
                         setTerrainBlocked(block, true);
                     }
                 }
             }
         }
 
-        // Générez les coffres de manière aléatoire tout en respectant le nombre maximal
+        // ✅ Puis les coffres (remplis automatiquement par la factory)
         while (generatedChests < maxChests) {
-            // Sélectionner un bloc aléatoire de la carte
-            int randomLine = (int) (Math.random() * lineCount);   // Ligne aléatoire
-            int randomColumn = (int) (Math.random() * columnCount); // Colonne aléatoire
+            int randomLine = (int) (Math.random() * lineCount);
+            int randomColumn = (int) (Math.random() * columnCount);
             Block block = blocks[randomLine][randomColumn];
 
-            // Vérifier que le bloc est soit "path" ou "grass" et qu'il n'a pas déjà un objet statique
-            String terrainType = staticTerrain.getOrDefault(block, "grass"); // Terrain par défaut "grass"
+            String terrainType = staticTerrain.getOrDefault(block, "grass");
             if ((terrainType.equals("path") || terrainType.equals("grass")) && !staticObjects.containsKey(block)) {
                 double rand = Math.random();
-                if (rand < 0.1) { // 10% de chance d'ajouter un coffre sur ce bloc
-                    // Ajouter le coffre dans chestManager
-                    chestManager.addChest(block, "chest");
-                    
-                    // Ajouter également le coffre à staticObjects pour que getNearbyChestPosition() le trouve
-                    staticObjects.put(block, "chest");
-                    
-                    // Bloque le terrain pour ce bloc
-                    setTerrainBlocked(block, true);
 
-                    generatedChests++;  // Incrémenter le compteur de coffres générés
+                if (rand < 0.1) {
+                    Chest chest = ChestFactory.createChestWithRandomWeapons();
+
+                    // ✅ Place l'orbe une seule fois
+                    if (!orbePlaced) {
+                        chest.getInventory().addEquipment(new Equipment("orbe"));
+                        orbePlaced = true;
+                        System.out.println("🟥 Orbe inséré dans le coffre à : " + block);
+                    }
+
+                    chestManager.getChests().put(block, chest);
+                    staticObjects.put(block, "chest");
+                    setTerrainBlocked(block, true);
+                    generatedChests++;
                 }
             }
         }
+
+        if (!orbePlaced) {
+            System.out.println("⚠ Aucun coffre contenant l’orbe n’a pu être placé !");
+        }
     }
+
+
+
 
 
     public ArrayList<Block> getFreeBlocks() {

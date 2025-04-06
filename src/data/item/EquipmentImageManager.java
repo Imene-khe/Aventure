@@ -23,8 +23,7 @@ public class EquipmentImageManager {
             equipmentImages.put("axe", loadImage("src/images/items/axe.png"));
             equipmentImages.put("woodsword", loadImage("src/images/items/woodsword.png"));
             equipmentImages.put("woodstick", loadImage("src/images/items/woodstick.png"));
-            equipmentImages.put("orb", loadImage("src/images/items/orb_red.png"));
-            
+            equipmentImages.put("orbe", loadImage("src/images/items/orbe.png"));            
             System.out.println("✅ Images des équipements chargées !");
         } catch (Exception e) {
             System.out.println("❌ ERREUR lors du chargement des images des équipements !");
