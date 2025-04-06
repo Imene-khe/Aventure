@@ -1671,3 +1671,1824 @@ DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 18
 DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
 DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
 INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue, Ghaya ! Une nouvelle journée resplandissante s'annonce.
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Un marchand a établi son camp dans une nouvelle maison de bois claire non loin d'ici.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Seul problème, il a fait tomber sa bourse de pièces en cherchant un lieu pour loger.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : La nouvelle de ce butin perdu à rametter des monstres du Royaume des Tenèbres.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue :  et qui sait il t'offrira peut-être quelque chose en récompense...
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 17
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 17
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 17
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 17
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 17
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 18
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 18
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue, Ghaya ! Une nouvelle journée resplandissante s'annonce.
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 27
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 27
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Un marchand a établi son camp dans une nouvelle maison de bois claire non loin d'ici.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 27
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Seul problème, il a fait tomber sa bourse de pièces en cherchant un lieu pour loger.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 27
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : La nouvelle de ce butin perdu à rametter des monstres du Royaume des Tenèbres.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 27
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 17
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue :  et qui sait il t'offrira peut-être quelque chose en récompense...
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 524
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 110
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 27
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 27
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 27
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 17
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 18
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue, Ghaya ! Une nouvelle journée resplandissante s'annonce.
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 18
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 18
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Un marchand a établi son camp dans une nouvelle maison de bois claire non loin d'ici.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 18
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Seul problème, il a fait tomber sa bourse de pièces en cherchant un lieu pour loger.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 18
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : La nouvelle de ce butin perdu à rametter des monstres du Royaume des Tenèbres.
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue, Ghaya ! Une nouvelle journée resplandissante s'annonce.
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Un marchand a établi son camp dans une nouvelle maison de bois claire non loin d'ici.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Seul problème, il a fait tomber sa bourse de pièces en cherchant un lieu pour loger.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : La nouvelle de ce butin perdu à rametter des monstres du Royaume des Tenèbres.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue :  et qui sait il t'offrira peut-être quelque chose en récompense...
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue, Ghaya ! Une nouvelle journée resplandissante s'annonce.
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Un marchand a établi son camp dans une nouvelle maison de bois claire non loin d'ici.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Seul problème, il a fait tomber sa bourse de pièces en cherchant un lieu pour loger.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : La nouvelle de ce butin perdu à rametter des monstres du Royaume des Tenèbres.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue :  et qui sait il t'offrira peut-être quelque chose en récompense...
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 18
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 18
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue :  et qui sait il t'offrira peut-être quelque chose en récompense...
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 18
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 18
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue, Ghaya ! Une nouvelle journée resplandissante s'annonce.
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Un marchand a établi son camp dans une nouvelle maison de bois claire non loin d'ici.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Seul problème, il a fait tomber sa bourse de pièces en cherchant un lieu pour loger.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : La nouvelle de ce butin perdu à rametter des monstres du Royaume des Tenèbres.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue :  et qui sait il t'offrira peut-être quelque chose en récompense...
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue, Ghaya ! Une nouvelle journée resplandissante s'annonce.
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Un marchand a établi son camp dans une nouvelle maison de bois claire non loin d'ici.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Seul problème, il a fait tomber sa bourse de pièces en cherchant un lieu pour loger.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : La nouvelle de ce butin perdu à rametter des monstres du Royaume des Tenèbres.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue :  et qui sait il t'offrira peut-être quelque chose en récompense...
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 1
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue, Ghaya ! Une nouvelle journée resplandissante s'annonce.
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Un marchand a établi son camp dans une nouvelle maison de bois claire non loin d'ici.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Seul problème, il a fait tomber sa bourse de pièces en cherchant un lieu pour loger.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : La nouvelle de ce butin perdu à rametter des monstres du Royaume des Tenèbres.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue :  et qui sait il t'offrira peut-être quelque chose en récompense...
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 1
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 2
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 3
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue, Ghaya ! Une nouvelle journée resplandissante s'annonce.
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Un marchand a établi son camp dans une nouvelle maison de bois claire non loin d'ici.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Seul problème, il a fait tomber sa bourse de pièces en cherchant un lieu pour loger.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : La nouvelle de ce butin perdu à rametter des monstres du Royaume des Tenèbres.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue :  et qui sait il t'offrira peut-être quelque chose en récompense...
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 1
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 2
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue, Ghaya ! Une nouvelle journée resplandissante s'annonce.
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Un marchand a établi son camp dans une nouvelle maison de bois claire non loin d'ici.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Seul problème, il a fait tomber sa bourse de pièces en cherchant un lieu pour loger.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : La nouvelle de ce butin perdu à rametter des monstres du Royaume des Tenèbres.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue :  et qui sait il t'offrira peut-être quelque chose en récompense...
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 1
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 2
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue, Ghaya ! Une nouvelle journée resplandissante s'annonce.
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Un marchand a établi son camp dans une nouvelle maison de bois claire non loin d'ici.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Seul problème, il a fait tomber sa bourse de pièces en cherchant un lieu pour loger.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : La nouvelle de ce butin perdu à rametter des monstres du Royaume des Tenèbres.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue :  et qui sait il t'offrira peut-être quelque chose en récompense...
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 1
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue, Ghaya ! Une nouvelle journée resplandissante s'annonce.
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Un marchand a établi son camp dans une nouvelle maison de bois claire non loin d'ici.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Seul problème, il a fait tomber sa bourse de pièces en cherchant un lieu pour loger.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : La nouvelle de ce butin perdu à rametter des monstres du Royaume des Tenèbres.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue :  et qui sait il t'offrira peut-être quelque chose en récompense...
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 1
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 2
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 3
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 4
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 5
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 6
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 7
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 8
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 9
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 10
+INFO AWT-EventQueue-0 gui.MainGUI - 🎯 Objectif atteint : 10 pièces.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 11
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+INFO AWT-EventQueue-0 control.GameController - 🏪 Entrée dans la boutique détectée.
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Début du dialogue : enter_shop
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue dans ma boutique, jeune aventurier !
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_shop
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Que puis-je faire pour toi ?!
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : enter_shop
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+INFO AWT-EventQueue-0 control.GameController - 🗨️ Interaction avec le marchand détectée.
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Début du dialogue : enter_shop_chat
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Eh bien oui, je viens tout juste de m’installer.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_shop_chat
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Mais avec tous ces monstres dehors, ce n’est pas de tout repos !
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_shop_chat
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : D'ailleurs, n'aurais-tu pas vu une bourse remplie d'or ?
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_shop_chat
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Je crois qu'elle est tombé de ma charette pendant le voyage...
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : enter_shop_chat
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 27
+INFO AWT-EventQueue-0 data.map.HostileMap - 🔥 29 maisons mises en feu !
+INFO AWT-EventQueue-0 gui.MainGUI - 🚪 Sortie de la boutique !
+INFO AWT-EventQueue-0 gui.MainGUI - 🔙 Touche ESC pressée : tentative de sortie de boutique.
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Début du dialogue : exit_shop_1
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Ahhhh te revoilà... Nous te cherchions !
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : exit_shop_1
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Une horde de monstres de passage a entendu parler de toi et du fait que tu es trouvé les pièces.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : exit_shop_1
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : En apprenant ce que tu avais fait, ils nous ont attaqués et se sont venger sur nos maisons !
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : exit_shop_1
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Vite trouve un seau et va éteindre les maisons en feu ! Dépêche toi !
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : exit_shop_1
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 12
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 13
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue, Ghaya ! Une nouvelle journée resplandissante s'annonce.
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Un marchand a établi son camp dans une nouvelle maison de bois claire non loin d'ici.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Seul problème, il a fait tomber sa bourse de pièces en cherchant un lieu pour loger.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : La nouvelle de ce butin perdu à rametter des monstres du Royaume des Tenèbres.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue :  et qui sait il t'offrira peut-être quelque chose en récompense...
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 1
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 2
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue, Ghaya ! Une nouvelle journée resplandissante s'annonce.
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue, Ghaya ! Une nouvelle journée resplandissante s'annonce.
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 18
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Un marchand a établi son camp dans une nouvelle maison de bois claire non loin d'ici.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Seul problème, il a fait tomber sa bourse de pièces en cherchant un lieu pour loger.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : La nouvelle de ce butin perdu à rametter des monstres du Royaume des Tenèbres.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue :  et qui sait il t'offrira peut-être quelque chose en récompense...
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue, Ghaya ! Une nouvelle journée resplandissante s'annonce.
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Un marchand a établi son camp dans une nouvelle maison de bois claire non loin d'ici.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Seul problème, il a fait tomber sa bourse de pièces en cherchant un lieu pour loger.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : La nouvelle de ce butin perdu à rametter des monstres du Royaume des Tenèbres.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue :  et qui sait il t'offrira peut-être quelque chose en récompense...
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 1
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+INFO AWT-EventQueue-0 control.GameController - 🏪 Entrée dans la boutique détectée.
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Début du dialogue : enter_shop
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue dans ma boutique, jeune aventurier !
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue, Ghaya ! Une nouvelle journée resplandissante s'annonce.
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Un marchand a établi son camp dans une nouvelle maison de bois claire non loin d'ici.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Seul problème, il a fait tomber sa bourse de pièces en cherchant un lieu pour loger.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : La nouvelle de ce butin perdu à rametter des monstres du Royaume des Tenèbres.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue :  et qui sait il t'offrira peut-être quelque chose en récompense...
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 1
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue, Ghaya ! Une nouvelle journée resplandissante s'annonce.
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Un marchand a établi son camp dans une nouvelle maison de bois claire non loin d'ici.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Seul problème, il a fait tomber sa bourse de pièces en cherchant un lieu pour loger.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : La nouvelle de ce butin perdu à rametter des monstres du Royaume des Tenèbres.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue :  et qui sait il t'offrira peut-être quelque chose en récompense...
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 1
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 2
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue, Ghaya ! Une nouvelle journée resplandissante s'annonce.
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Un marchand a établi son camp dans une nouvelle maison de bois claire non loin d'ici.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Seul problème, il a fait tomber sa bourse de pièces en cherchant un lieu pour loger.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : La nouvelle de ce butin perdu à rametter des monstres du Royaume des Tenèbres.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue :  et qui sait il t'offrira peut-être quelque chose en récompense...
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue, Ghaya ! Une nouvelle journée resplandissante s'annonce.
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Un marchand a établi son camp dans une nouvelle maison de bois claire non loin d'ici.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Seul problème, il a fait tomber sa bourse de pièces en cherchant un lieu pour loger.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : La nouvelle de ce butin perdu à rametter des monstres du Royaume des Tenèbres.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue :  et qui sait il t'offrira peut-être quelque chose en récompense...
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
+DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.

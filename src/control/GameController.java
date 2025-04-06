@@ -24,7 +24,7 @@ public class GameController {
 
     private final GameDisplay display;
     private final Hero hero;
-    private final Map map;
+    private Map map;
     private final Map shopMap;
     private boolean canTakeDamage = true;
 
@@ -139,7 +139,9 @@ public class GameController {
                                 );
 
                                 if (response == JOptionPane.YES_OPTION) {
-                                    display.enterHostileMap(); // 🌋 Passage à la map hostile
+                                    display.enterHostileMap();         // 🌋 Passage à la nouvelle map
+                                    this.map = display.getMap();       // ✅ Met à jour la référence interne dans le contrôleur !
+                                    display.requestFocusInWindow();   // ✅ Redonne le focus à GameDisplay
                                 }
                             }
                         }
@@ -189,22 +191,23 @@ public class GameController {
     public void tryOpenChest(MainGUI gui) {
         Chest chest = tryOpenNearbyChest();
         if (chest != null) {
-            new ChestUIManager(gui).displayChestContents(chest);
+            ChestUIManager chestUI = new ChestUIManager(gui);
 
-            // 🔍 Vérifie si le coffre contient l’orbe légendaire
-            Inventory chestInventory = chest.getInventory();
-            for (Equipment eq : chestInventory.getEquipments()) {
-                if ("orb".equalsIgnoreCase(eq.getName())) {
-                    gui.getQuestManager().updateQuest("Trouver l'orbe", 1); // ✅ Mise à jour de la quête
-                    break;
-                }
-            }
+            // ✅ Callback déclenché si l’orbe est pris
+            chestUI.setOnOrbTakenCallback(() -> {
+                gui.getQuestManager().updateQuest("Trouver l'orbe", 1); // mise à jour de la quête
+                display.enterHostileMap(); // 🌋 Changement de map
+            });
+
+            chestUI.displayChestContents(chest);
 
             gui.requestFocusInWindow();
         } else {
             logger.warn("❌ Aucun coffre à proximité.");
         }
     }
+
+
 
 
     public boolean tryInteractWithNPC(MainGUI gui) {

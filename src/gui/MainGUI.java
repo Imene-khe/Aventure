@@ -39,7 +39,7 @@ public class MainGUI extends JFrame {
         logger.info("🟢 Initialisation de l'IHM MainGUI...");
         instance = this;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1000, 800);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLayout(new BorderLayout());
 
         this.dashboard = new GameDisplay();
@@ -139,6 +139,8 @@ public class MainGUI extends JFrame {
         setFocusable(true);
         //pack(); 
         setVisible(true);
+        dashboard.setFocusable(true); // 🟢 Assure que GameDisplay peut recevoir les touches
+        dashboard.requestFocusInWindow(); // 🟢 Force le focus
         logger.info("🖥️ Fenêtre affichée avec succès.");
         requestFocusInWindow();
     }
@@ -334,8 +336,10 @@ public class MainGUI extends JFrame {
     }
     
     public void requestFocusOnGame() {
-        dashboard.requestFocusInWindow(); // dashboard est ton GameDisplay
+        dashboard.setFocusable(true);
+        dashboard.requestFocusInWindow(); // ✅ C'est ça qu'on veut rappeler après l'inventaire
     }
+
     
     private class KeyControls implements KeyListener {
 

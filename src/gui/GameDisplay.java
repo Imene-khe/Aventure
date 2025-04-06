@@ -379,12 +379,14 @@ public class GameDisplay extends JPanel {
 	}
 	
 	public void enterHostileMap() {
-	    this.map = new data.map.HostileMap(35, 35, 0); // 💀 Génère la map hostile
-	    this.hero.setPosition(map.getBlock(17, 5));     // ✅ Position de départ personnalisée
-	    this.repaint();                                 // 🔁 Rafraîchit l'affichage
-	    this.requestFocusInWindow();                    // 🎯 Reprend le focus pour le clavier
+	    this.map = new data.map.HostileMap(35, 35, 0);
+	    this.hero.setPosition(map.getBlock(17, 5));
+	    this.repaint();
+	    this.setFocusable(true); // 🟢 Important
+	    this.requestFocusInWindow(); // 🟢 Focus ici et pas ailleurs
 	    System.out.println("🌋 Passage à la HostileMap !");
 	}
+
 
 
 

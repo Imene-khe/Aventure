@@ -74,11 +74,8 @@ public class HostileMap extends Map {
 	    }
 
 	}
-
-
-
-
-
+	
+ 
     @Override
     public void generateEnemies() {
         ArrayList<Block> freeBlocks = getFreeBlocks();

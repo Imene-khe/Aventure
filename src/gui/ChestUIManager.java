@@ -67,7 +67,24 @@ public class ChestUIManager {
                     addButton.setEnabled(false);
                     JOptionPane.showMessageDialog(chestWindow, equipment.getName() + " ajouté à l’inventaire !");
                     mainGUI.requestFocusInWindow();
+                    mainGUI.requestFocusOnGame(); // <- et pas juste requestFocusInWindow()
+
+
+                    // ✅ Si c'est l'orbe → proposer la suite de l'aventure
+                    if ("orbe".equalsIgnoreCase(equipment.getName())) {
+                        int result = JOptionPane.showConfirmDialog(
+                            chestWindow,
+                            "💠 Tu as trouvé l'orbe sacré !\nSouhaites-tu poursuivre l'aventure ?",
+                            "Nouvelle étape",
+                            JOptionPane.YES_NO_OPTION
+                        );
+
+                        if (result == JOptionPane.YES_OPTION) {
+                            mainGUI.getGameDisplay().enterHostileMap();
+                        }
+                    }
                 });
+
 
                 JPanel itemPanel = new JPanel(new BorderLayout());
                 itemPanel.add(label, BorderLayout.CENTER);
