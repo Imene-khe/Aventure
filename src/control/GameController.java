@@ -1,5 +1,4 @@
 package control;
-
 import data.item.Chest;
 import data.item.Coin;
 import data.item.Equipment;
@@ -36,22 +35,6 @@ public class GameController {
         this.shopMap = display.getShopMap();
     }
 
-    public void moveHero(Block newPosition, MainGUI mainGUI) {
-        if (display.isGameOver()) return;
-
-        Map activeMap = display.isInShop() ? shopMap : map;
-        if (activeMap.isBlocked(newPosition)) return;
-
-        hero.setPosition(newPosition);
-
-        if (!display.isInShop()) {
-            checkCoinCollection(mainGUI);
-            checkEnemyCollision();
-        }
-
-        display.repaint();
-    }
-
     public void moveHero(int keyCode, MainGUI gui) {
         Block current = hero.getPosition();
         int newLine = current.getLine();
@@ -66,10 +49,41 @@ public class GameController {
         }
 
         Map activeMap = display.isInShop() ? shopMap : map;
-        if (newLine < 0 || newCol < 0 || newLine >= activeMap.getLineCount() || newCol >= activeMap.getColumnCount()) return;
+
+        int blockSize = display.getBlockSize();
+        int visibleHeight = display.getHeight(); // hauteur réelle allouée au GameDisplay
+
+        // ✅ Calcul du nombre de lignes visibles (dans GameDisplay uniquement)
+        int maxVisibleLines = visibleHeight / blockSize;
+
+        // 🔒 Empêche de sortir de l'écran ou de la map (en bas)
+        if (newLine < 0 || newCol < 0 ||
+            newLine >= Math.min(activeMap.getLineCount(), maxVisibleLines) ||
+            newCol >= activeMap.getColumnCount()) {
+            return;
+        }
 
         Block newBlock = activeMap.getBlock(newLine, newCol);
         moveHero(newBlock, gui);
+    }
+
+
+
+
+    public void moveHero(Block newPosition, MainGUI mainGUI) {
+        if (display.isGameOver()) return;
+
+        Map activeMap = display.isInShop() ? shopMap : map;
+        if (activeMap.isBlocked(newPosition)) return;
+
+        hero.setPosition(newPosition);
+
+        if (!display.isInShop()) {
+            checkCoinCollection(mainGUI);
+            checkEnemyCollision();
+        }
+
+        display.repaint();
     }
 
     public void checkCoinCollection(MainGUI mainGUI) {
@@ -102,7 +116,6 @@ public class GameController {
 
                 if (newL >= 0 && newL < activeMap.getLineCount() && newC >= 0 && newC < activeMap.getColumnCount()) {
                     Block adjacent = activeMap.getBlock(newL, newC);
-
                     if ("chest".equals(activeMap.getStaticObjects().get(adjacent))) {
                         Chest chest = activeMap.getChestManager().getChests().get(adjacent);
 

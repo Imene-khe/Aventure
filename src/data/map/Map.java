@@ -1,38 +1,31 @@
 package data.map;
 
+import java.awt.Graphics;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-import org.apache.log4j.Logger;
-import log.LoggerUtility;
-import data.item.Chest;
 import data.item.ChestManager;
 import data.item.Coin;
-import data.item.Equipment;
-import data.item.Flame;
+import gui.GameDisplay;
 
 public class Map {
-	protected static final Logger logger = LoggerUtility.getLogger(Map.class, "text");
-	
     private Block[][] blocks;
     private HashMap<Block, Obstacle> obstacles = new HashMap<>();
     private HashMap<Block, Boolean> terrainBlocked = new HashMap<>();
     private HashMap<Block, String> staticObjects = new HashMap<>();
-    protected HashMap<Block, String> staticTerrain = new HashMap<>();
+    private HashMap<Block, String> staticTerrain = new HashMap<>();
     private HashMap<Block, String> enemies = new HashMap<>();
     private ChestManager chestManager;   
     private int lineCount;
     private int columnCount;
     private int maxChests;
     private ArrayList<Coin> coins;
-    protected boolean isStatic; // ✅ Ajout d'un booléen pour indiquer si la carte est fixe
-    private ArrayList<Flame> flames = new ArrayList<>();
-    
+    private boolean isStatic; // ✅ Ajout d'un booléen pour indiquer si la carte est fixe
 
 
     public Map(int lineCount, int columnCount, int maxChest, boolean isStatic) {
-    	logger.info("Création de la carte " + (isStatic ? "statique (shop)" : "principale") + " : " + lineCount + "x" + columnCount);
         this.lineCount = lineCount;
         this.columnCount = columnCount;
         this.blocks = new Block[lineCount][columnCount];
@@ -51,39 +44,31 @@ public class Map {
 
         // ✅ Si la carte est statique, on ne génère pas de terrain aléatoire
         if (!isStatic) {
-        	generateTerrain();
+            // Génération aléatoire des terrains
+            for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
+                for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
+                    Block block = blocks[lineIndex][columnIndex];
+                    double random = Math.random();
+                    if (random < 0.15) {
+                        staticTerrain.put(block, "water");
+                    } else if (random < 0.2) {
+                        staticTerrain.put(block, "path");
+                    } else {
+                        staticTerrain.put(block, "grass");
+                    }
+                }
+            }
+
             generateObjects();  // Générer les objets (arbres, maisons, coffres)
-            logger.debug("🌳 Objets générés (arbres, maisons, coffres)");
             generateEnemies();  // Générer les ennemis
-            logger.debug("👾 Ennemis générés sur la carte");
-            generateCoins(10);  // Générer des pièces
-            logger.debug("🪙 Pièces générées");
+            generateCoins(25);  // Générer des pièces
             placeShopOnMap();   // ✅ Placer le shop après la génération des objets
         } else {
         	 setupStaticShop();
-        	 logger.info("🏪 Carte boutique configurée (statique)");
-        	 this.enemies.clear(); // ✅ Supprime les ennemis de `shopMap` mais pas sur du tout pour le retour sur la map classique
-        	 this.coins.clear();   // ✅ Supprime les pièces de `shopMap` 	mais pas sur du tout pour le retour sur la map classique
+        	    this.enemies.clear(); // ✅ Supprime les ennemis de `shopMap` mais pas sur du tout pour le retour sur la map classique
+        	    this.coins.clear();   // ✅ Supprime les pièces de `shopMap` 	mais pas sur du tout pour le retour sur la map classique
         }
     }
-    
-    public void generateTerrain() {
-        for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
-            for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
-                Block block = blocks[lineIndex][columnIndex];
-                double random = Math.random();
-                if (random < 0.15) {
-                    staticTerrain.put(block, "water");
-                } else if (random < 0.2) {
-                    staticTerrain.put(block, "path");
-                } else {
-                    staticTerrain.put(block, "grass");
-                }
-            }
-        }
-        logger.info("🌿 Terrain classique généré (eau, chemins, herbe)");
-    }
-
 
  
     /**
@@ -148,7 +133,7 @@ public class Map {
             }
         }
 
-        logger.info("✅ Boutique statique configurée.");
+        System.out.println("✅ Boutique statique configurée : contour gris, marchand en haut, bordure bookshelf et tapis central !");
     }
 
 
@@ -158,7 +143,7 @@ public class Map {
         Random random = new Random();
         int maxEnemies = 10; // Nombre max d'ennemis sur la carte
         int generatedEnemies = 0;
-        logger.info("Début de la génération des ennemis...");
+
         while (generatedEnemies < maxEnemies && !freeBlocks.isEmpty()) {
             int index = random.nextInt(freeBlocks.size());
             Block block = freeBlocks.remove(index); // Sélectionner un bloc libre
@@ -170,7 +155,6 @@ public class Map {
             enemies.put(block, enemyType);
             generatedEnemies++;
         }
-        logger.info("✅ " + generatedEnemies + " ennemis générés.");
     }
 
     public void generateCoins(int coinCount) {
@@ -178,7 +162,6 @@ public class Map {
         Random random = new Random();
 
         int generatedCoins = 0;
-        logger.info("🪙 Début de génération de " + coinCount + " pièces...");
         while (generatedCoins < coinCount && !freeBlocks.isEmpty()) {
             int index = random.nextInt(freeBlocks.size());
             Block block = freeBlocks.get(index);
@@ -190,7 +173,6 @@ public class Map {
                 generatedCoins++;
             }
         }
-        logger.info("✅ " + generatedCoins + " pièces placées.");
     }
     
     
@@ -217,16 +199,15 @@ public class Map {
                 // ✅ Placer la maison "Shop" ici
                 staticObjects.put(shopBlock, "shop");
                 setTerrainBlocked(shopBlock, true);
-                logger.info("🏪 Shop placé en position : " + shopBlock);
+                System.out.println("✅ Shop placé en position : " + shopBlock);
                 return;
             }
 
             attempts++; // ✅ Incrémentation du compteur de tentatives
         }
 
-        logger.warn("⚠️ Impossible de placer le shop après " + maxAttempts + " tentatives.");
-        
-   }
+        System.out.println("⚠ Impossible de placer le shop après " + maxAttempts + " essais !");
+    }
 
 
 
@@ -245,7 +226,7 @@ public class Map {
     public void generateObjects() {
         int generatedChests = 0;
 
-        logger.info("🌳 Génération des arbres et maisons...");
+        // Générez les arbres et les maisons
         for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
             for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
                 Block block = blocks[lineIndex][columnIndex];
@@ -265,7 +246,7 @@ public class Map {
             }
         }
 
-        logger.info("📦 Génération des coffres...");
+        // Générez les coffres de manière aléatoire tout en respectant le nombre maximal
         while (generatedChests < maxChests) {
             // Sélectionner un bloc aléatoire de la carte
             int randomLine = (int) (Math.random() * lineCount);   // Ligne aléatoire
@@ -290,17 +271,6 @@ public class Map {
                 }
             }
         }
-     // Après la boucle while de génération des coffres
-        if (generatedChests > 0) {
-            // Sélection aléatoire d'un coffre pour y placer l'orbe légendaire
-            ArrayList<Block> chestPositions = new ArrayList<>(chestManager.getChests().keySet());
-            Block orbChestBlock = chestPositions.get(new Random().nextInt(chestPositions.size()));
-            Chest orbChest = chestManager.getChests().get(orbChestBlock);
-            orbChest.addItem(new Equipment("orb")); // 💎 Ajout de l’orbe dans un coffre au hasard
-            System.out.println("✨ Un orbe a été placé dans le coffre en position : " + orbChestBlock);
-        }
-
-        logger.info("✅ " + generatedChests + " coffres placés.");
     }
 
 
@@ -371,27 +341,33 @@ public class Map {
         return chestManager;
     } 
     
-    public ArrayList<Flame> getFlames() {
-        return flames;
-    }
-    
-    public void addFlame(Block block) {
-        flames.add(new Flame(block));
-    }
-
-    
 
 
     public void setAllHousesOnFire() {
         for (Block block : staticObjects.keySet()) {
-            if ("house".equals(staticObjects.get(block))) {
+            String value = staticObjects.get(block);
+            if ("house".equals(value)) {
                 staticObjects.put(block, "house_burning");
-                addFlame(block); // ✅ Ajoute une flamme
             }
         }
-        logger.info("🔥 Toutes les maisons ont été incendiées.");
     }
+    
+    public void paintTerrain(Graphics g, GameDisplay display) {
+        Block[][] blocks = this.getBlocks();
+        boolean isInShop = display.isInShop();
 
+        for (int line = 0; line < getLineCount(); line++) {
+            for (int col = 0; col < getColumnCount(); col++) {
+                Block block = blocks[line][col];
+
+                String terrainType = this.getStaticTerrain().getOrDefault(block, isInShop ? "shopFloor" : "grass");
+                Image terrainImage = display.getTileset().get(terrainType);
+                if (terrainImage != null) {
+                    g.drawImage(terrainImage, block.getColumn() * 32, block.getLine() * 32, 32, 32, null);
+                }
+            }
+        }
+    }
 
 
     public static void main(String[] args) {
@@ -472,6 +448,22 @@ public class Map {
 
         System.out.println("\n✅ Boutique 15x15 avec marchand en haut derrière son comptoir !");
     }
+
+
+	public int getWidth() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public int getRows() {
+	    return lineCount;
+	}
+
+	public int getCols() {
+	    return columnCount;
+	}
+
+
+
 
 
 

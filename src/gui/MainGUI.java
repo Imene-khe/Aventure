@@ -67,9 +67,12 @@ public class MainGUI extends JFrame {
         logger.info("📐 Panneaux UI ajoutés à la fenêtre.");
 
         // ✅ Panneau du bas
-        bottomPanel = new JPanel(new BorderLayout());
-        bottomPanel.setPreferredSize(new Dimension(800, 60));
+        bottomPanel = new JPanel();
+        bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
+        bottomPanel.setPreferredSize(new Dimension(1000, 65));
+        bottomPanel.setMaximumSize(new Dimension(1000, 60));
         bottomPanel.setBackground(new Color(80, 80, 80));
+
 
         // ➤ Sous-panel gauche (pièces + boutons inventaire)
         JPanel leftBottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -116,8 +119,11 @@ public class MainGUI extends JFrame {
 
         bottomPanel.add(leftBottomPanel, BorderLayout.WEST);
         bottomPanel.add(rightBottomPanel, BorderLayout.EAST);
+        
+        leftBottomPanel.setMaximumSize(new Dimension(800, 60));
+        rightBottomPanel.setMaximumSize(new Dimension(800, 60));
 
-        dashboard.setPreferredSize(new Dimension(getWidth() - sidePanel.getPreferredSize().width, getHeight()));
+
         add(dashboard, BorderLayout.CENTER);
         add(sidePanel, BorderLayout.EAST);
         add(bottomPanel, BorderLayout.SOUTH);
@@ -131,6 +137,7 @@ public class MainGUI extends JFrame {
         updateDialoguePanel(currentDialogueEvent);
 
         setFocusable(true);
+        //pack(); 
         setVisible(true);
         logger.info("🖥️ Fenêtre affichée avec succès.");
         requestFocusInWindow();

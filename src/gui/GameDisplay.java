@@ -9,17 +9,15 @@ import java.util.HashMap;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-import org.apache.log4j.Logger;
-import log.LoggerUtility;
+import javax.swing.SwingUtilities;
 
 import control.GameController;
-import data.map.HostileMap;
 import data.map.Map;
 import data.player.EnemyImageManager;
 import data.player.Hero;
 import gui.animation.SpriteAnimator;
 import viewstrategy.PaintStrategy;
+
 
 /**
  * Classe représentant l'affichage du jeu. Elle gère le rendu graphique de la CARTE, des ennemis, du héros
@@ -28,22 +26,14 @@ import viewstrategy.PaintStrategy;
 public class GameDisplay extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    private static final int GRID_SIZE = 20;  // Réduire la taille à 20x20
-    private static final int BLOCK_SIZE = 32; // Taille inchangée
-    private static final int SHOP_SIZE = 15; //Taille de la boutique
-    private static final Logger logger = LoggerUtility.getLogger(GameDisplay.class, "text");
-    
-    
+    private static final int GRID_SIZE = 35;  // Réduire la taille à 20x20
+    public static int BLOCK_SIZE = 32; // Taille inchangée
+    private static final int SHOP_SIZE = 40; //Taille de la boutique
     private Map map; // Instance de la carte du jeu
     private Map shopMap;
-    
-    private HostileMap hostileMap;
-    private boolean isInHostileMap = false;
-
 	private Hero hero; // Instance du héros
     private EnemyImageManager enemyImageManager; // Gestionnaire des images des ennemis
     private HashMap<String, Image> tileset; // Dictionnaire des images de terrain et objets
-    private HashMap<String, Image> hostileTileset;
     private boolean canTakeDamage = true; //  Contrôle si le héros peut prendre des dégâts
     private boolean isGameOver = false; //  Empêche l'affichage multiple du message de Game Over
     private boolean isInShop = false; //  Indique si on est dans la boutique
@@ -51,6 +41,9 @@ public class GameDisplay extends JPanel {
     private SpriteAnimator coinAnimator;
     private PaintStrategy paintStrategy = new DefaultPaintStrategy();
     private GameController controller;
+    private HashMap<String, Image> hostileTileset; //ajout
+
+    
 
     public boolean isInShop() {
 		return isInShop;
@@ -59,6 +52,11 @@ public class GameDisplay extends JPanel {
 	public void setInShop(boolean isInShop) {
 		this.isInShop = isInShop;
 	}
+	
+	public HashMap<String, Image> getHostileTileset() {
+	    return hostileTileset;
+	}
+
 
 
 
@@ -68,14 +66,12 @@ public class GameDisplay extends JPanel {
 	public GameDisplay() {
 	    try {
 	        int numberOfChests = 5; // Ajustable selon besoins
-	        logger.info("Initialisation de GameDisplay...");
 	        this.enemyImageManager = new EnemyImageManager();
 	        this.map = new Map(GRID_SIZE, GRID_SIZE, numberOfChests, false);
 	        this.shopMap = new Map(SHOP_SIZE, SHOP_SIZE, 0, true);    // Boutique plus petite
 	        this.shopMap.setupStaticShop(); // Configuration de la boutique
 	        this.hero = new Hero(map.getBlock(GRID_SIZE / 2, GRID_SIZE / 2), 100);
 	        this.tileset = new HashMap<>();
-	        this.hostileTileset = new HashMap<>();
 
 	        this.controller = new GameController(this); // nouveau contrôleur
 
@@ -85,10 +81,10 @@ public class GameDisplay extends JPanel {
 	                coinPaths[i] = "src/images/items/coins/coin" + (i + 1) + ".png";
 	            }
 	            coinAnimator = new SpriteAnimator(coinPaths, 100); //  100 ms entre les frames
-	            logger.info("✅ coinAnimator (8 images) chargé avec succès !");
-	            } catch (IOException e) {
-	            	logger.error("❌ Impossible de charger les images d’animation des pièces", e);
-	            	e.printStackTrace();
+	            System.out.println("✅ coinAnimator (8 images) chargé avec succès !");
+	        } catch (IOException e) {
+	            System.out.println("❌ Impossible de charger les images d’animation des pièces !");
+	            e.printStackTrace();
 	        }
 
 	        //  Thread collision déplacé vers le contrôleur
@@ -98,7 +94,6 @@ public class GameDisplay extends JPanel {
 	                    Thread.sleep(100); // Vérification toutes les 100 ms
 	                    controller.checkEnemyCollision(); // via GameController
 	                } catch (InterruptedException e) {
-	                	logger.error("Erreur dans le thread de collision", e);
 	                    e.printStackTrace();
 	                }
 	            }
@@ -111,7 +106,6 @@ public class GameDisplay extends JPanel {
 	                    Thread.sleep(100);
 	                    repaint(); // Force le redessin de la fenêtre
 	                } catch (InterruptedException e) {
-	                	logger.error("Erreur dans le thread de rafraîchissement", e);
 	                    e.printStackTrace();
 	                }
 	            }
@@ -128,15 +122,34 @@ public class GameDisplay extends JPanel {
 
 	        System.out.println("✅ GameDisplay créé avec succès !");
 	    } catch (Exception e) {
-	    	logger.fatal("❌ ERREUR : Impossible d'initialiser GameDisplay !", e);
-	    	e.printStackTrace();
+	        System.out.println("❌ ERREUR : Impossible d'initialiser GameDisplay !");
+	        e.printStackTrace();
 	    }
 	}
 
    
-	public Map getMap() {
-	    return isInHostileMap ? hostileMap : map;
+    public Map getMap() {
+		return map;
 	}
+    @Override
+    public java.awt.Dimension getPreferredSize() {
+        return new java.awt.Dimension(750, 740); // Ajustement fixe
+    }
+
+
+
+    public int getBlockSize() {
+        return BLOCK_SIZE;
+    }
+
+    //public java.awt.Dimension getPreferredSize() {
+     ////   Map currentMap = isInShop ? shopMap : map;
+     //   int width = currentMap.getCols() * BLOCK_SIZE;
+      //  int height = currentMap.getRows() * BLOCK_SIZE;
+
+      //  return new java.awt.Dimension(width, height);
+    //}
+    
 
 
 	public void setMap(Map map) {
@@ -176,11 +189,13 @@ public class GameDisplay extends JPanel {
      */
 	public void loadImages() {
         try {
-        	logger.info("Chargement des images...");
+            System.out.println(" Chargement des images...");
+
             // Chargement des terrains
             tileset.put("grass", loadImage("src/images/outdoors/Grass_Middle.png"));
             tileset.put("water", loadImage("src/images/outdoors/Water_Middle.png"));
             tileset.put("path", loadImage("src/images/outdoors/Path_Middle.png"));
+            
             //Chargement des terrains du shop
             tileset.put("shopFloor", loadImage("src/images/shop/shopfloor.png"));
             tileset.put("lightWall", loadImage("src/images/shop/lightwall.png")); 
@@ -188,28 +203,36 @@ public class GameDisplay extends JPanel {
             tileset.put("bar", loadImage("src/images/shop/bar.png")); 
             tileset.put("merchant", loadImage("src/images/shop/merchant.png")); 
             tileset.put("carpet", loadImage("src/images/shop/carpet.png")); 
-            tileset.put("bookshelf", loadImage("src/images/shop/bookshelf.png"));
+            tileset.put("bookshelf", loadImage("src/images/shop/bookshelf.png")); 
+
+           
             // Chargement des obstacles
             tileset.put("house", loadImage("src/images/outdoors/House.png"));
             tileset.put("tree", loadImage("src/images/outdoors/Oak_Tree.png"));
-            tileset.put("shop", loadImage("src/images/shop/shop.png"));
+            tileset.put("shop", loadImage("src/images/shop/shop.png")); 
+
+            
+
             // Chargement des objets
             tileset.put("chest", loadImage("src/images/outdoors/Chest.png"));
             
-            hostileTileset.put("deadTree1", loadImage("src/images/outdoor/hostile/deadTree1.png"));
-            hostileTileset.put("deadTree2", loadImage("src/images/outdoor/hostile/deadTree2.png"));
-            hostileTileset.put("deadTree3", loadImage("src/images/outdoor/hostile/deadTree3.png"));
+         // ✅ Chargement des tuiles hostiles
+            hostileTileset = new HashMap<>();
+            hostileTileset.put("lava", loadImage("src/images/outdoor/hostile/lava.png"));
             hostileTileset.put("floor1", loadImage("src/images/outdoor/hostile/floor1.png"));
             hostileTileset.put("floor2", loadImage("src/images/outdoor/hostile/floor2.png"));
             hostileTileset.put("floor3", loadImage("src/images/outdoor/hostile/floor3.png"));
-            hostileTileset.put("lava", loadImage("src/images/outdoor/hostile/lava.png"));
             hostileTileset.put("rock", loadImage("src/images/outdoor/hostile/rock.png"));
+            hostileTileset.put("deadTree1", loadImage("src/images/outdoor/hostile/deadTree1.png"));
+            hostileTileset.put("deadTree2", loadImage("src/images/outdoor/hostile/deadTree2.png"));
+            hostileTileset.put("deadTree3", loadImage("src/images/outdoor/hostile/deadTree3.png"));
 
 
-            logger.info("✅ Toutes les images sont chargées !");
-            } catch (Exception e) {
-            	logger.error("❌ ERREUR : Impossible de charger les images !", e);
-            	e.printStackTrace();
+
+            System.out.println(" Toutes les images sont chargées !");
+        } catch (Exception e) {
+            System.out.println(" ERREUR : Impossible de charger les images !");
+            e.printStackTrace();
         }
     }
 
@@ -221,8 +244,8 @@ public class GameDisplay extends JPanel {
 	public Image loadImage(String path) throws IOException {
         File file = new File(path);
         if (!file.exists()) {
-        	logger.warn("❌ L'image n'a pas été trouvée : " + path);
-        	return null;
+            System.out.println("❌ L'image n'a pas été trouvée : " + path);
+            return null;
         }
         return ImageIO.read(file);
     }
@@ -237,14 +260,10 @@ public class GameDisplay extends JPanel {
 	protected void paintComponent(Graphics g) {
 	    super.paintComponent(g);
 
-	    Map mapToDraw = isInShop ? shopMap : (isInHostileMap ? hostileMap : map);
-
-	    // ✅ LIGNE AJOUTÉE : choix dynamique du tileset à utiliser
-	    HashMap<String, Image> tilesetToUse = 
-	        mapToDraw instanceof data.map.HostileMap ? hostileTileset : tileset;
+	    Map mapToDraw = isInShop ? shopMap : map;
 
 	    if (mapToDraw == null || tileset == null || tileset.isEmpty()) {
-	        logger.error("❌ Erreur: la map ou le tileset est null ou vide");
+	        System.out.println("❌ Erreur: la map ou le tileset est null ou vide");
 	        return;
 	    }
 
@@ -275,18 +294,11 @@ public class GameDisplay extends JPanel {
 
 	    // ✅ 6. Héros (au-dessus de tout)
 	    paintStrategy.paintHero(hero, g, this);
+	    
+	    
 	}
-
     
-    public HashMap<String, Image> getHostileTileset() {
-		return hostileTileset;
-	}
-
-	public void setHostileTileset(HashMap<String, Image> hostileTileset) {
-		this.hostileTileset = hostileTileset;
-	}
-
-	public boolean isGameOver() {
+    public boolean isGameOver() {
 		return isGameOver;
 	}
 
@@ -330,10 +342,11 @@ public class GameDisplay extends JPanel {
      * ✅ Permet au héros de sortir du shop et de retourner sur `currentMap`.
      */
     public void exitShop() {
-    	
         returnToMainMap(); // ✅ Appelle returnToMainMap() une seule fois sans boucle infinie
         
     }
+    
+
 
     
     public void returnToMainMap() {
@@ -345,7 +358,8 @@ public class GameDisplay extends JPanel {
 
             repaint(); // ✅ Met à jour l'affichage
             requestFocusInWindow(); // ✅ Récupère le focus pour permettre les déplacements
-            logger.info("🚪 Sortie de la boutique, retour à la carte principale !");        }
+            System.out.println("🚪 Sortie de la boutique, retour à la carte principale !");
+        }
     }
     
     public SpriteAnimator getFlameAnimator() {
@@ -363,46 +377,23 @@ public class GameDisplay extends JPanel {
 	public void setController(GameController controller) {
 		this.controller = controller;
 	}
-	
-	public void enterHostileMap() {
-	    isInHostileMap = true;
-	    this.hostileMap = new HostileMap(GRID_SIZE, GRID_SIZE, 0); // 💀 pas de coffre
-	    this.hero.setPosition(hostileMap.getBlock(GRID_SIZE / 2, GRID_SIZE / 2));
-	    repaint();
-	    logger.info("💀 Entrée dans la carte hostile !");
-	}
-	
-	public void returnToMainMapFromHostile() {
-	    if (isInHostileMap) {
-	        isInHostileMap = false;
-	        this.hero.setPosition(map.getBlock(5, 5));
-	        repaint();
-	        requestFocusInWindow();
-	        logger.info("⬅️ Retour à la carte principale depuis la carte hostile !");
-	    }
-	}
-
-
 
 
     
 	public static void main(String[] args) {
-	    javax.swing.SwingUtilities.invokeLater(() -> {
-	        JFrame frame = new JFrame("Test Affichage Terrain Hostile");
+	    SwingUtilities.invokeLater(() -> {
+	        JFrame frame = new JFrame("Aventure - Vue complète");
 
 	        GameDisplay gameDisplay = new GameDisplay();
-	        gameDisplay.setMap(new HostileMap(20, 20, 5)); // 💀 map hostile
-	        gameDisplay.setHero(new Hero(gameDisplay.getMap().getBlock(10, 10), 100));
-	        gameDisplay.loadImages(); // 🔁 recharge les images (tilesets)
-
-	        frame.add(gameDisplay);
-	        frame.setSize(800, 800);
-	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        frame.setLocationRelativeTo(null);
-	        frame.setVisible(true);
 
 	        gameDisplay.setFocusable(true);
 	        gameDisplay.requestFocusInWindow();
+
+	        frame.add(gameDisplay); // Pas de JScrollPane
+	        frame.setSize(gameDisplay.getPreferredSize()); // ⬅️ taille exacte selon la carte
+	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        frame.setLocationRelativeTo(null);
+	        frame.setVisible(true);
 	    });
 	}
 
