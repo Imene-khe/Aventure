@@ -52,6 +52,11 @@ public class QuestManager {
             System.out.println(quest);
         }
     }
+    
+    public void notifyFlameExtinguished() {
+        updateQuest("Éteindre les flammes", 1); // ou le nom exact que tu as donné
+    }
+
 
     // 🔥 Main interne pour tester QuestManager
     public static void main(String[] args) {

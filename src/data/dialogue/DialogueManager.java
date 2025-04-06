@@ -16,13 +16,34 @@ public class DialogueManager {
             "Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.",
             " et qui sait il t'offrira peut-être quelque chose en récompense..."
         });
-     // Dialogue déclenché à la première sortie de la boutique
-        dialoguesByEvent.put("exit_shop_1", new String[] {
-            "Ahhhh te revoilà... Nous te cherchions !",
-            "Une horde de monstres de passage a entendu parler de toi et du fait que tu es trouvé les pièces.",
-            "En apprenant ce que tu avais fait, ils nous ont attaqués et se sont venger sur nos maisons !",
-            "Vite trouve un seau et va éteindre les maisons en feu ! Dépêche toi !"
+
+        
+        dialoguesByEvent.put("enter_shop", new String[] {
+        	    "Bienvenue dans ma boutique, jeune aventurier !",
+        	    "Que puis-je faire pour toi ?!"
         });
+        
+        dialoguesByEvent.put("exit_shop_1", new String[] {
+                "Ahhhh te revoilà... Nous te cherchions !",
+                "Une horde de monstres de passage a entendu parler de toi et du fait que tu es trouvé les pièces.",
+                "En apprenant ce que tu avais fait, ils nous ont attaqués et se sont venger sur nos maisons !",
+                "Vite trouve un seau et va éteindre les maisons en feu ! Dépêche toi !"
+        });
+        
+        dialoguesByEvent.put("enter_shop_give_gold", new String[] {
+        	    "Ohhh... c’est donc toi qui m’a rapporté cette bourse !",
+        	    "Tu n’imagines pas à quel point tu me sauves.",
+        	    "Tiens, prends ceci en remerciement !"
+        });
+
+        dialoguesByEvent.put("enter_shop_chat", new String[] {
+        	    "Eh bien oui, je viens tout juste de m’installer.",
+        	    "Mais avec tous ces monstres dehors, ce n’est pas de tout repos !",
+        	    "D'ailleurs, n'aurais-tu pas vu une bourse remplie d'or ?",
+        	    "Je crois qu'elle est tombé de ma charette pendant le voyage..."
+        });
+
+
     }
 
 	public boolean hasDialogue(String event) {

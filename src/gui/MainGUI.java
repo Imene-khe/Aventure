@@ -5,43 +5,45 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import org.apache.log4j.Logger;
+import log.LoggerUtility;
+
 import data.item.InventoryManager;
 import data.map.Block;
+import data.quest.Quest;
+import data.quest.QuestManager;
 import data.dialogue.DialogueManager;
 
 public class MainGUI extends JFrame {
 
     private static final long serialVersionUID = 1L;
+    private static final Logger logger = LoggerUtility.getLogger(MainGUI.class, "text");
     private static MainGUI instance;
-
     private GameDisplay dashboard;
     private InventoryManager inventory;
-
-    // ✅ Panneau de narration
     private JPanel sidePanel;
     private JLabel characterImage;	
     private JPanel dialoguePanel;
     private DialogueManager dialogueManager = new DialogueManager();
     private boolean dialogueActive = true;
     private JScrollPane scrollPane;
-
     private String currentDialogueEvent = "intro"; // Par défaut au lancement
-
-    // ✅ Panneau du bas
     private JPanel bottomPanel;
     private JButton interactButton;
     private JLabel coinLabel;
     private int coinCount = 0;
+    private QuestManager questManager = new QuestManager();
 
     public MainGUI() {
         super("Aventure - Déplacement du Héros");
-
+        logger.info("🟢 Initialisation de l'IHM MainGUI...");
         instance = this;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1000, 800);
         setLayout(new BorderLayout());
 
         this.dashboard = new GameDisplay();
+        logger.info("🎮 GameDisplay attaché au centre.");
         this.inventory = new InventoryManager();
 
         // ✅ Panneau de narration à droite
@@ -62,6 +64,7 @@ public class MainGUI extends JFrame {
 
         sidePanel.add(characterImage, BorderLayout.NORTH);
         sidePanel.add(scrollPane, BorderLayout.CENTER);
+        logger.info("📐 Panneaux UI ajoutés à la fenêtre.");
 
         // ✅ Panneau du bas
         bottomPanel = new JPanel();
@@ -79,17 +82,8 @@ public class MainGUI extends JFrame {
         coinLabel.setFont(new Font("Arial", Font.BOLD, 16));
         coinLabel.setForeground(Color.WHITE);
         leftBottomPanel.add(coinLabel);
-
-        for (int i = 0; i < 5; i++) {
-            JButton itemSlot = new JButton("Vide");
-            itemSlot.setFont(new Font("Arial", Font.BOLD, 14));
-            itemSlot.setPreferredSize(new Dimension(80, 30));
-            itemSlot.addActionListener(e -> {
-                System.out.println("🎒 Bouton d'inventaire cliqué : " + itemSlot.getText());
-                requestFocusInWindow();
-            });
-            leftBottomPanel.add(itemSlot);
-        }
+        logger.info("📐 Panneaux UI ajoutés à la fenêtre.");
+        leftBottomPanel.add(inventory); // inventory est une instance de InventoryManager
 
         // ➤ Sous-panel droit (boutons Interagir + Mission côte à côte)
         JPanel rightBottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -107,8 +101,20 @@ public class MainGUI extends JFrame {
         missionButton.setFont(new Font("Arial", Font.BOLD, 16));
         missionButton.setPreferredSize(new Dimension(120, 30));
         missionButton.addActionListener(e -> {
-            JOptionPane.showMessageDialog(this, "📜 Objectif : Éteins les flammes des maisons !");
+            StringBuilder message = new StringBuilder("📜 Missions en cours :\n\n");
+            for (Quest quest : questManager.getActiveQuests()) {
+                if (!quest.isCompleted()) {
+                    message.append("• ").append(quest.getName())
+                           .append(" (").append(quest.getStatusText()).append(")\n")
+                           .append("  ➤ ").append(quest.getDescription()).append("\n")
+                           .append("  ➤ Progression : ").append(quest.getCurrentAmount())
+                           .append(" / ").append(quest.getRequiredAmount()).append("\n\n");
+                }
+            }
+            JOptionPane.showMessageDialog(this, message.toString(), "🎯 Objectifs", JOptionPane.INFORMATION_MESSAGE);
+            requestFocusInWindow();
         });
+
         rightBottomPanel.add(missionButton);
 
         bottomPanel.add(leftBottomPanel, BorderLayout.WEST);
@@ -121,39 +127,70 @@ public class MainGUI extends JFrame {
         add(dashboard, BorderLayout.CENTER);
         add(sidePanel, BorderLayout.EAST);
         add(bottomPanel, BorderLayout.SOUTH);
+        
+        questManager.addQuest(new Quest("Collecte pour le marchand", "Récoltez 10 pièces d'or", Quest.TYPE_COLLECT, 10, 0));
+        questManager.addQuest(new Quest("Eteindre les flammes", "Éteindre 3 maisons en feu", Quest.TYPE_KILL, 3, 0)); // ou TYPE_FIND si tu préfères
+        questManager.addQuest(new Quest("L'orbe sacré", "Trouvez l'orbe légendaire", Quest.TYPE_FIND, 1, 0));
+
 
         addKeyListener(new KeyControls());
-
-
-
         updateDialoguePanel(currentDialogueEvent);
 
         setFocusable(true);
         //pack(); 
         setVisible(true);
+        logger.info("🖥️ Fenêtre affichée avec succès.");
         requestFocusInWindow();
     }
 
 
 
-    public static GameDisplay getGameDisplay() {
+    public QuestManager getQuestManager() {
+		return questManager;
+	}
+
+
+
+	public void setQuestManager(QuestManager questManager) {
+		this.questManager = questManager;
+	}
+	
+	public static MainGUI getInstance() {
+	    return instance;
+	}
+
+
+
+
+	public static GameDisplay getGameDisplay() {
         return instance != null ? instance.dashboard : null;
     }
 
     public void advanceDialogue() {
         if (dialogueManager.hasNext(currentDialogueEvent)) {
+        	logger.debug("➡️ Dialogue avancé : " + currentDialogueEvent);
             dialogueManager.next(currentDialogueEvent);
             updateDialoguePanel(currentDialogueEvent);
         } else {
             dialogueActive = false;
             dialoguePanel.revalidate();
             dialoguePanel.repaint();
+            logger.info("📭 Fin du dialogue pour : " + currentDialogueEvent);
         }
     }
     
     public void triggerDialogue(String eventKey) {
-        if (!dialogueManager.hasDialogue(eventKey)) return;
+        if (!dialogueManager.hasDialogue(eventKey)) {
+        	logger.warn("❌ Aucun dialogue trouvé pour l’événement : " + eventKey);
+        	return;
+        }
 
+        logger.info("💬 Début du dialogue : " + eventKey);
+        
+        // ✅ Nettoyer les anciens dialogues affichés
+        dialoguePanel.removeAll();
+        dialoguePanel.revalidate();
+        dialoguePanel.repaint();
         currentDialogueEvent = eventKey;
         dialogueManager.reset(eventKey);
         dialogueActive = true;
@@ -163,19 +200,10 @@ public class MainGUI extends JFrame {
 
 
     
-    /**
-     * ✅ Change l'affichage pour afficher `shopMap` dans `GameDisplay`
-     */
-    public void enterShop() {
-        System.out.println("🏪 Le héros entre dans le shop !");
-        dashboard.enterShop(); // ✅ Active la boutique dans GameDisplay
-    }
-
-
-    
     public void interactWithMerchant() {
         if (coinCount < 10) {
             JOptionPane.showMessageDialog(this, "💬 Il te faut 10 pièces pour entrer dans la boutique !");
+            logger.info("❌ Tentative d'entrée dans le shop sans assez de pièces.");
             return;
         }
 
@@ -184,15 +212,19 @@ public class MainGUI extends JFrame {
             "Marchand", JOptionPane.YES_NO_OPTION);
 
         if (choix == JOptionPane.YES_OPTION) {
-            enterShop();
+            dashboard.getController().enterShop(this); // Appel du GameController
         }
+
     }
 
 
     public void updateDialoguePanel(String eventKey) {
         String dialogueText = dialogueManager.getCurrent(eventKey);
-        if (dialogueText == null) return;
-
+        if (dialogueText == null) {
+        	logger.warn("🔕 Aucun texte de dialogue pour : " + eventKey);
+        	return;
+        }
+        logger.debug("📝 Affichage dialogue : " + dialogueText);
         JTextArea newDialogue = new JTextArea(dialogueText);
         newDialogue.setEditable(false);
         newDialogue.setLineWrap(true);
@@ -233,9 +265,12 @@ public class MainGUI extends JFrame {
      * ✅ Vérifie l’interaction avec un coffre ou l’entrée du shop.
      */
     public void interactWithNPC() {
-        // Exemple : priorité à un PNJ plus tard, sinon tente un coffre
         if (!dashboard.getController().tryInteractWithNPC(this)) {
             dashboard.getController().tryOpenChest(this);
+            logger.debug("👤 Interaction avec un PNJ ou un coffre tentée.");
+            dashboard.getController().tryExtinguishFlame(this); // ✅ Ajout ici
+            logger.debug("👤 Interaction avec maison en feu tentée.");
+
         }
 
         requestFocusInWindow(); // ✅ Redonne le focus clavier après interaction
@@ -279,9 +314,13 @@ public class MainGUI extends JFrame {
 
     public void incrementCoinCount() {
         coinCount++;
+        logger.info("💰 Pièce ajoutée. Total = " + coinCount);
         coinLabel.setText("💰 Pièces : " + coinCount);
+        questManager.updateQuest("Collecte pour le marchand", 1);
+
         
         if (coinCount == 10) {
+        	logger.info("🎯 Objectif atteint : 10 pièces.");
             JOptionPane.showMessageDialog(this, "💬 Bravo ! Tu as 10 pièces, va voir le marchand !");
         }
     }
@@ -302,6 +341,7 @@ public class MainGUI extends JFrame {
 
         @Override
         public void keyPressed(KeyEvent e) {
+        	logger.debug("🔡 Touche pressée : " + e.getKeyCode());
             if (dialogueActive) {
                 advanceDialogue();
                 return;
@@ -309,7 +349,8 @@ public class MainGUI extends JFrame {
 
             if (e.getKeyCode() == KeyEvent.VK_ESCAPE && dashboard.isInShop()) {
                 dashboard.exitShop();
-                System.out.println("🚪 Sortie de la boutique !");
+                logger.info("🚪 Sortie de la boutique !");
+                logger.info("🔙 Touche ESC pressée : tentative de sortie de boutique.");
                 triggerDialogue("exit_shop_1");
                 requestFocusInWindow();
             } else {

@@ -10,7 +10,8 @@ import java.awt.*;
 public class ChestUIManager {
     private JFrame chestWindow;
     private EquipmentImageManager imageManager;
-    private MainGUI mainGUI; // Référence à MainGUI pour modifier l'inventaire
+    private MainGUI mainGUI;
+    private Runnable onOrbTakenCallback;
 
     public ChestUIManager(MainGUI mainGUI) {
         this.mainGUI = mainGUI;
@@ -31,10 +32,18 @@ public class ChestUIManager {
 
         Inventory chestInventory = chest.getInventory();
 
+        // ✅ Vérifie si l’orbe est présent dans le coffre
+        for (Equipment item : chestInventory.getEquipments()) {
+            if ("orbe".equalsIgnoreCase(item.getName())) {
+                mainGUI.getQuestManager().updateQuest("Trouver l’orbe", 1);
+                break;
+            }
+        }
+
         if (chestInventory.size() == 0) {
             JOptionPane.showMessageDialog(chestWindow, "Le coffre est vide !");
             chestWindow.dispose();
-            mainGUI.requestFocusInWindow(); // ✅ Redonner le focus après la fermeture
+            mainGUI.requestFocusInWindow();
             return;
         }
 
@@ -52,21 +61,11 @@ public class ChestUIManager {
 
                 JButton addButton = new JButton("Ajouter");
                 addButton.addActionListener(e -> {
-                    // ✅ Ajout à l'inventaire
                     mainGUI.getInventoryManager().getInventory().addEquipment(equipment);
-                    
-                    // ✅ Mise à jour de l'affichage de l'inventaire graphique
                     mainGUI.getInventoryManager().updateInventoryDisplay();
-
-                    // ✅ Retrait de l'objet du coffre
                     chestInventory.getEquipments().remove(equipment);
-                    
-                    // ✅ Désactiver le bouton après l'ajout
                     addButton.setEnabled(false);
-                    
                     JOptionPane.showMessageDialog(chestWindow, equipment.getName() + " ajouté à l’inventaire !");
-                    
-                    // ✅ Redonner le focus après action
                     mainGUI.requestFocusInWindow();
                 });
 
@@ -90,4 +89,47 @@ public class ChestUIManager {
         chestWindow.add(scrollPane);
         chestWindow.setVisible(true);
     }
+    
+
+    public void setOnOrbTakenCallback(Runnable callback) {
+        this.onOrbTakenCallback = callback;
+    }
+
+    
+    // === Main interne de test ===
+    public static void main(String[] args) {
+        // Création d'un coffre avec un orbe
+        Chest chest = new Chest();
+        chest.addItem(new Equipment("orbe")); // ✅ Ajoute manuellement l'orbe au coffre
+
+        // Simulation minimale de MainGUI et QuestManager
+        MainGUI fakeGUI = new MainGUI() {
+            private final data.quest.QuestManager questManager = new data.quest.QuestManager();
+            private final data.item.InventoryManager inventoryManager = new data.item.InventoryManager();
+
+            {
+                // Ajoute la quête "Trouver l’orbe"
+                questManager.addQuest(new data.quest.Quest(
+                        "Trouver l’orbe", "Retrouver l’orbe magique dans un coffre", 
+                        data.quest.Quest.TYPE_FIND, 1, 100
+                ));
+            }
+
+            @Override
+            public data.quest.QuestManager getQuestManager() {
+                return questManager;
+            }
+
+            @Override
+            public data.item.InventoryManager getInventoryManager() {
+                return inventoryManager;
+            }
+        };
+
+        // Affichage de la fenêtre
+        SwingUtilities.invokeLater(() -> {
+            new ChestUIManager(fakeGUI).displayChestContents(chest);
+        });
+    }
+
 }

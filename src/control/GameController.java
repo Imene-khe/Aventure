@@ -1,18 +1,26 @@
 package control;
 import data.item.Chest;
 import data.item.Coin;
+import data.item.Equipment;
+import data.item.Flame;
+import data.item.Inventory;
 import data.map.Block;
 import data.map.Map;
 import data.player.Hero;
 import gui.ChestUIManager;
 import gui.GameDisplay;
 import gui.MainGUI;
+import log.LoggerUtility;
+
+import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class GameController {
+
+    private static final Logger logger = LoggerUtility.getLogger(GameController.class, "text");
 
     private final GameDisplay display;
     private final Hero hero;
@@ -109,7 +117,34 @@ public class GameController {
                 if (newL >= 0 && newL < activeMap.getLineCount() && newC >= 0 && newC < activeMap.getColumnCount()) {
                     Block adjacent = activeMap.getBlock(newL, newC);
                     if ("chest".equals(activeMap.getStaticObjects().get(adjacent))) {
-                        return activeMap.getChestManager().getChests().get(adjacent);
+                        Chest chest = activeMap.getChestManager().getChests().get(adjacent);
+
+                        // ✅ Vérifie si le coffre contient l'orbe
+                        if (chest != null && chest.getInventory() != null) {
+                            boolean hasOrb = false;
+                            for (Equipment eq : chest.getInventory().getEquipments()) {
+                                if ("orb".equalsIgnoreCase(eq.getName())) {
+                                    hasOrb = true;
+                                    break;
+                                }
+                            }
+
+                            if (hasOrb) {
+                                // ✅ Fenêtre de confirmation
+                                int response = JOptionPane.showConfirmDialog(
+                                    display,
+                                    "🌟 Vous avez trouvé l'Orbe légendaire !\nSouhaitez-vous poursuivre l'aventure ?",
+                                    "Poursuivre l'aventure",
+                                    JOptionPane.YES_NO_OPTION
+                                );
+
+                                if (response == JOptionPane.YES_OPTION) {
+                                    display.enterHostileMap(); // 🌋 Passage à la map hostile
+                                }
+                            }
+                        }
+
+                        return chest;
                     }
                 }
             }
@@ -117,6 +152,8 @@ public class GameController {
 
         return null;
     }
+
+
 
     public void checkEnemyCollision() {
         if (display.isGameOver() || display.isInShop()) return;
@@ -141,6 +178,7 @@ public class GameController {
 
                 if (hero.getHealth() <= 0) {
                     display.setGameOver(true);
+                    logger.error("☠️ GAME OVER ! Le héros est mort.");
                     JOptionPane.showMessageDialog(display, "☠️ GAME OVER ! Le héros est mort.");
                     System.exit(0);
                 }
@@ -152,17 +190,28 @@ public class GameController {
         Chest chest = tryOpenNearbyChest();
         if (chest != null) {
             new ChestUIManager(gui).displayChestContents(chest);
+
+            // 🔍 Vérifie si le coffre contient l’orbe légendaire
+            Inventory chestInventory = chest.getInventory();
+            for (Equipment eq : chestInventory.getEquipments()) {
+                if ("orb".equalsIgnoreCase(eq.getName())) {
+                    gui.getQuestManager().updateQuest("Trouver l'orbe", 1); // ✅ Mise à jour de la quête
+                    break;
+                }
+            }
+
             gui.requestFocusInWindow();
         } else {
-            System.out.println("❌ Aucun coffre à proximité.");
+            logger.warn("❌ Aucun coffre à proximité.");
         }
     }
+
 
     public boolean tryInteractWithNPC(MainGUI gui) {
         Block heroPos = hero.getPosition();
 
-        for (int dl = -1; dl <= 1; dl++) {
-            for (int dc = -1; dc <= 1; dc++) {
+        for (int dl = -2; dl <= 2; dl++) {
+            for (int dc = -2; dc <= 2; dc++) {
                 if (dl == 0 && dc == 0) continue;
 
                 int line = heroPos.getLine() + dl;
@@ -174,12 +223,37 @@ public class GameController {
                     String object = activeMap.getStaticObjects().get(block);
 
                     if ("merchant".equals(object)) {
-                        JOptionPane.showMessageDialog(display, "👴 Bienvenue dans ma boutique !");
+                        logger.info("🗨️ Interaction avec le marchand détectée.");
+
+                        String message = "👴 Le marchand te salue avec un sourire.\n\nQue veux-tu lui dire ?";
+                        String[] options = {
+                            "💰 Bonjour, j'ai cru comprendre que vous aviez perdu une bourse d'or...",
+                            "👋 Bonjour l'ami. Alors vous êtes nouveau dans la région ?"
+                        };
+
+                        int choix = JOptionPane.showOptionDialog(
+                            null,
+                            message,
+                            "Dialogue avec le marchand",
+                            JOptionPane.DEFAULT_OPTION,
+                            JOptionPane.PLAIN_MESSAGE,
+                            null,
+                            options,
+                            options[0]
+                        );
+
+                        if (choix == 0) {
+                            gui.triggerDialogue("enter_shop_give_gold");
+                        } else if (choix == 1) {
+                            gui.triggerDialogue("enter_shop_chat");
+                        }
+
                         return true;
                     }
 
                     if (!display.isInShop() && "shop".equals(object)) {
-                        display.enterShop();
+                        logger.info("🏪 Entrée dans la boutique détectée.");
+                        enterShop(gui);
                         return true;
                     }
                 }
@@ -188,6 +262,15 @@ public class GameController {
 
         return false;
     }
+
+    
+    public void enterShop(MainGUI gui) {
+        display.enterShop(); // Change de map
+        gui.triggerDialogue("enter_shop"); // ✅ Dialogue automatique du marchand
+    }
+
+
+
 
     public boolean tryEnterShop(MainGUI gui) {
         Block heroPos = hero.getPosition();
@@ -202,13 +285,46 @@ public class GameController {
                 if (line >= 0 && col >= 0 && line < map.getLineCount() && col < map.getColumnCount()) {
                     Block block = map.getBlock(line, col);
                     if ("shop".equals(map.getStaticObjects().get(block))) {
-                        display.enterShop();
+                        logger.info("🏪 Entrée dans la boutique.");
+                        enterShop(gui); // au lieu de display.enterShop()
                         return true;
                     }
+
                 }
             }
         }
 
         return false;
     }
+    
+    public void tryExtinguishFlame(MainGUI gui) {
+        Block heroPos = display.getHero().getPosition();
+        Map map = display.getMap();
+
+        for (Flame flame : map.getFlames()) {
+            Block flamePos = flame.getPosition();
+
+            int dx = Math.abs(heroPos.getLine() - flamePos.getLine());
+            int dy = Math.abs(heroPos.getColumn() - flamePos.getColumn());
+
+            if (dx <= 1 && dy <= 1 && flame.isActive()) {
+                flame.extinguish();
+                map.getStaticObjects().put(flamePos, "house");
+                gui.repaint();
+                gui.requestFocusInWindow();
+
+                // ✅ Vérifie si toutes les flammes sont désormais éteintes
+                boolean allExtinguished = map.getFlames().stream().noneMatch(Flame::isActive);
+                if (allExtinguished) {
+                    gui.getQuestManager().updateQuest("Eteindre les flammes", 1); // valide la quête
+                }
+
+                return;
+            }
+        }
+
+        // Plus de JOptionPane ici, car tu ne veux pas de pop-up
+    }
+
+
 }
