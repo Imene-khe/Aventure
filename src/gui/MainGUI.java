@@ -350,7 +350,6 @@ public class MainGUI extends JFrame {
 
         @Override
         public void keyPressed(KeyEvent e) {
-        	logger.debug("🔡 Touche pressée : " + e.getKeyCode());
             if (dialogueActive) {
                 advanceDialogue();
                 return;

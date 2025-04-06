@@ -74,7 +74,7 @@ public class GameDisplay extends JPanel {
 	        this.shopMap = new Map(SHOP_SIZE, SHOP_SIZE, 0, true);    // Boutique plus petite
 	        this.shopMap.setupStaticShop(); // Configuration de la boutique
 	        
-	        this.hostileMap = new HostileMap(GRID_SIZE, GRID_SIZE, 0); // ✅ initialisation directe
+	        this.hostileMap = new HostileMap(23, 23, 0); // a adapte le temps que l'on trouve la solution pour la map rectangulaire
 
 	        this.hero = new Hero(map.getBlock(GRID_SIZE / 2, GRID_SIZE / 2), 100);
 	        this.tileset = new HashMap<>();
