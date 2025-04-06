@@ -48,14 +48,23 @@ public class HostileMap extends Map {
 	    Random rand = new Random();
 
 	    for (int i = 0; i < getColumnCount(); i++) {
-	        if (x >= 0 && x < getColumnCount() && y >= 0 && y < getLineCount()) {
-	            Block lavaBlock = getBlock(y, x);
-	            staticTerrain.put(lavaBlock, "lava");
+	    	if (x >= 0 && x < getColumnCount() && y >= 0 && y < getLineCount()) {
+	    	    Block lavaBlock = getBlock(y, x);
+	    	    staticTerrain.put(lavaBlock, "lava");
+	    	    setTerrainBlocked(lavaBlock, true); // ✅ empêche le passage
 
-	            // Variante un peu plus large
-	            if (y + 1 < getLineCount()) staticTerrain.put(getBlock(y + 1, x), "lava");
-	            if (y - 1 >= 0) staticTerrain.put(getBlock(y - 1, x), "lava");
-	        }
+	    	    // Variante un peu plus large
+	    	    if (y + 1 < getLineCount()) {
+	    	        Block b = getBlock(y + 1, x);
+	    	        staticTerrain.put(b, "lava");
+	    	        setTerrainBlocked(b, true);
+	    	    }
+	    	    if (y - 1 >= 0) {
+	    	        Block b = getBlock(y - 1, x);
+	    	        staticTerrain.put(b, "lava");
+	    	        setTerrainBlocked(b, true);
+	    	    }
+	    	}
 
 	        x++;
 	        int direction = rand.nextInt(3) - 1; // -1, 0 ou 1

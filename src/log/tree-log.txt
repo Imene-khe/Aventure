@@ -4764,3 +4764,4 @@ DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
 DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 37
 DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
 DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 40
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
