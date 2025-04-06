@@ -1,5 +1,6 @@
 package data.map;
 
+import java.lang.System.Logger;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -7,15 +8,16 @@ import javax.swing.JFrame;
 
 import data.player.Hero;
 import gui.GameDisplay;
+import log.LoggerUtility;
 
 public class HostileMap extends Map {
+	
 
 	public HostileMap(int lineCount, int columnCount, int maxChest) {
 	    // On passe true → empêche la génération automatique dans Map
 	    super(lineCount, columnCount, maxChest, true);
 
-	    this.isStatic = false; // Important : on réactive manuellement le mode non statique
-
+	    setStatic(false);
 	    // ✅ Appel explicite à la bonne version (celle de HostileMap)
 	    generateTerrain();       // => appel à ta version hostile
 	    generateObjects();       // => tu peux override si besoin
@@ -71,7 +73,6 @@ public class HostileMap extends Map {
 	        }
 	    }
 
-	    logger.info("🔥 Terrain hostile généré avec rivière de lave + passage sécurisé !");
 	}
 
 
@@ -85,7 +86,6 @@ public class HostileMap extends Map {
         int maxEnemies = 20; // 💀 HostileMap → plus d’ennemis
         int generatedEnemies = 0;
 
-        logger.info("💀 Génération ennemis hostiles...");
 
         while (generatedEnemies < maxEnemies && !freeBlocks.isEmpty()) {
             int index = random.nextInt(freeBlocks.size());
@@ -95,19 +95,16 @@ public class HostileMap extends Map {
             String enemyType = (rand < 0.5) ? "skeleton" : "slime"; // ✅ Plus de demon
             getEnemies().put(block, enemyType);
             if (!enemyType.equals("skeleton") && !enemyType.equals("slime")) {
-                logger.warn("⚠ Ennemi inconnu ignoré : " + enemyType);
                 continue; // ne l'ajoute pas à la map
             }
 
             generatedEnemies++;
         }
 
-        logger.info("☠️ " + generatedEnemies + " ennemis hostiles placés.");
     }
 
     @Override
     public void generateObjects() {
-        logger.info("🌑 Génération des objets hostiles (arbres morts, rochers)");
 
         for (int i = 0; i < getLineCount(); i++) {
             for (int j = 0; j < getColumnCount(); j++) {
@@ -138,7 +135,6 @@ public class HostileMap extends Map {
             }
         }
 
-        logger.info("✅ Objets hostiles placés (avec terrain sous les rochers)");
     }
 
 

@@ -26,7 +26,7 @@ import viewstrategy.PaintStrategy;
 public class GameDisplay extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    private static final int GRID_SIZE = 35;  // Réduire la taille à 20x20
+    private static final int GRID_SIZE = 35;  
     public static int BLOCK_SIZE = 32; // Taille inchangée
     private static final int SHOP_SIZE = 40; //Taille de la boutique
     private Map map; // Instance de la carte du jeu
@@ -377,6 +377,15 @@ public class GameDisplay extends JPanel {
 	public void setController(GameController controller) {
 		this.controller = controller;
 	}
+	
+	public void enterHostileMap() {
+	    this.map = new data.map.HostileMap(35, 35, 0); // 💀 Génère la map hostile
+	    this.hero.setPosition(map.getBlock(17, 5));     // ✅ Position de départ personnalisée
+	    this.repaint();                                 // 🔁 Rafraîchit l'affichage
+	    this.requestFocusInWindow();                    // 🎯 Reprend le focus pour le clavier
+	    System.out.println("🌋 Passage à la HostileMap !");
+	}
+
 
 
     

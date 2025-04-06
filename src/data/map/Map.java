@@ -6,16 +6,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+import org.apache.log4j.Logger;
+
 import data.item.ChestManager;
 import data.item.Coin;
 import gui.GameDisplay;
+import log.LoggerUtility;
 
 public class Map {
     private Block[][] blocks;
     private HashMap<Block, Obstacle> obstacles = new HashMap<>();
     private HashMap<Block, Boolean> terrainBlocked = new HashMap<>();
     private HashMap<Block, String> staticObjects = new HashMap<>();
-    private HashMap<Block, String> staticTerrain = new HashMap<>();
+    protected HashMap<Block, String> staticTerrain = new HashMap<>();
     private HashMap<Block, String> enemies = new HashMap<>();
     private ChestManager chestManager;   
     private int lineCount;
@@ -23,6 +26,9 @@ public class Map {
     private int maxChests;
     private ArrayList<Coin> coins;
     private boolean isStatic; // ✅ Ajout d'un booléen pour indiquer si la carte est fixe
+    private ArrayList<data.item.Flame> flames = new ArrayList<>();
+    private static final Logger logger = LoggerUtility.getLogger(HostileMap.class, "text");
+
 
 
     public Map(int lineCount, int columnCount, int maxChest, boolean isStatic) {
@@ -34,6 +40,7 @@ public class Map {
         this.enemies = new HashMap<>();
         this.coins = new ArrayList<>();
         this.isStatic = isStatic; // ✅ Définition du mode statique
+        this.flames = new ArrayList<>();
 
         // Création des blocs
         for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
@@ -44,21 +51,7 @@ public class Map {
 
         // ✅ Si la carte est statique, on ne génère pas de terrain aléatoire
         if (!isStatic) {
-            // Génération aléatoire des terrains
-            for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
-                for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
-                    Block block = blocks[lineIndex][columnIndex];
-                    double random = Math.random();
-                    if (random < 0.15) {
-                        staticTerrain.put(block, "water");
-                    } else if (random < 0.2) {
-                        staticTerrain.put(block, "path");
-                    } else {
-                        staticTerrain.put(block, "grass");
-                    }
-                }
-            }
-
+            generateTerrain();
             generateObjects();  // Générer les objets (arbres, maisons, coffres)
             generateEnemies();  // Générer les ennemis
             generateCoins(25);  // Générer des pièces
@@ -71,7 +64,69 @@ public class Map {
     }
 
  
-    /**
+    public ArrayList<data.item.Flame> getFlames() {
+		return flames;
+	}
+
+
+	public void setFlames(ArrayList<data.item.Flame> flames) {
+		this.flames = flames;
+	}
+
+
+	public boolean isStatic() {
+		return isStatic;
+	}
+    
+    public void generateTerrain() {
+        for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
+            for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
+                Block block = blocks[lineIndex][columnIndex];
+                double random = Math.random();
+                if (random < 0.15) {
+                    staticTerrain.put(block, "water");
+                } else if (random < 0.2) {
+                    staticTerrain.put(block, "path");
+                } else {
+                    staticTerrain.put(block, "grass");
+                }
+            }
+        }
+    }
+
+
+
+	public void setStatic(boolean isStatic) {
+		this.isStatic = isStatic;
+	}
+
+
+	public void setBlocks(Block[][] blocks) {
+		this.blocks = blocks;
+	}
+
+
+	public void setEnemies(HashMap<Block, String> enemies) {
+		this.enemies = enemies;
+	}
+
+
+	public void setChestManager(ChestManager chestManager) {
+		this.chestManager = chestManager;
+	}
+
+
+	public void setColumnCount(int columnCount) {
+		this.columnCount = columnCount;
+	}
+
+
+	public void setCoins(ArrayList<Coin> coins) {
+		this.coins = coins;
+	}
+
+
+	/**
      * ✅ Configure une boutique avec un contour de `blackWall` simple et un placement optimisé des torches.
      */
     public void setupStaticShop() {
@@ -341,8 +396,6 @@ public class Map {
         return chestManager;
     } 
     
-
-
     public void setAllHousesOnFire() {
         for (Block block : staticObjects.keySet()) {
             String value = staticObjects.get(block);

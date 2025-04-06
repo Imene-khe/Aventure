@@ -299,7 +299,7 @@ public class GameController {
     
     public void tryExtinguishFlame(MainGUI gui) {
         Block heroPos = display.getHero().getPosition();
-        Map map = display.getMap();
+        Map map = display.isInShop() ? display.getShopMap() : display.getMap();
 
         for (Flame flame : map.getFlames()) {
             Block flamePos = flame.getPosition();
@@ -316,15 +316,15 @@ public class GameController {
                 // ✅ Vérifie si toutes les flammes sont désormais éteintes
                 boolean allExtinguished = map.getFlames().stream().noneMatch(Flame::isActive);
                 if (allExtinguished) {
-                    gui.getQuestManager().updateQuest("Eteindre les flammes", 1); // valide la quête
+                    gui.getQuestManager().updateQuest("Eteindre les flammes", 1);
                 }
 
                 return;
             }
         }
-
-        // Plus de JOptionPane ici, car tu ne veux pas de pop-up
     }
+
+
 
 
 }
