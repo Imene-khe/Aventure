@@ -19,10 +19,10 @@ import log.LoggerUtility;
 public class Map {
     private Block[][] blocks;
     private HashMap<Block, Obstacle> obstacles = new HashMap<>();
-    private HashMap<Block, Boolean> terrainBlocked = new HashMap<>();
-    private HashMap<Block, String> staticObjects = new HashMap<>();
+    protected HashMap<Block, Boolean> terrainBlocked = new HashMap<>();
+    protected HashMap<Block, String> staticObjects = new HashMap<>();
     protected HashMap<Block, String> staticTerrain = new HashMap<>();
-    private HashMap<Block, String> enemies = new HashMap<>();
+    protected HashMap<Block, String> enemies = new HashMap<>();
     private ChestManager chestManager;   
     private int lineCount;
     private int columnCount;

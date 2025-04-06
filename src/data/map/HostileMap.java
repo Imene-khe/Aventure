@@ -18,7 +18,14 @@ public class HostileMap extends Map {
 	    super(lineCount, columnCount, maxChest, true);
 
 	    setStatic(false);
-	    // ✅ Appel explicite à la bonne version (celle de HostileMap)
+
+	    // ✅ On efface les données héritées de la map principale
+	    staticObjects.clear();
+	    staticTerrain.clear();
+	    enemies.clear();
+	    terrainBlocked.clear();
+
+	    // ✅ Appels explicites aux méthodes personnalisées
 	    generateTerrain();       // => appel à ta version hostile
 	    generateObjects();       // => tu peux override si besoin
 	    generateEnemies();       // => override dans HostileMap
@@ -78,7 +85,7 @@ public class HostileMap extends Map {
     public void generateEnemies() {
         ArrayList<Block> freeBlocks = getFreeBlocks();
         Random random = new Random();
-        int maxEnemies = 20; // 💀 HostileMap → plus d’ennemis
+        int maxEnemies = 35; // 💀 HostileMap → plus d’ennemis
         int generatedEnemies = 0;
 
 

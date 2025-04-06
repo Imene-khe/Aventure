@@ -6787,3 +6787,83 @@ DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
 DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 39
 DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
 DEBUG AWT-EventQueue-0 gui.MainGUI - 🔡 Touche pressée : 38
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue, Ghaya ! Une nouvelle journée resplandissante s'annonce.
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Un marchand a établi son camp dans une nouvelle maison de bois claire non loin d'ici.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Seul problème, il a fait tomber sa bourse de pièces en cherchant un lieu pour loger.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : La nouvelle de ce butin perdu à rametter des monstres du Royaume des Tenèbres.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue :  et qui sait il t'offrira peut-être quelque chose en récompense...
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue, Ghaya ! Une nouvelle journée resplandissante s'annonce.
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Un marchand a établi son camp dans une nouvelle maison de bois claire non loin d'ici.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Seul problème, il a fait tomber sa bourse de pièces en cherchant un lieu pour loger.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : La nouvelle de ce butin perdu à rametter des monstres du Royaume des Tenèbres.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue :  et qui sait il t'offrira peut-être quelque chose en récompense...
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 1
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 2
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue, Ghaya ! Une nouvelle journée resplandissante s'annonce.
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Un marchand a établi son camp dans une nouvelle maison de bois claire non loin d'ici.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Seul problème, il a fait tomber sa bourse de pièces en cherchant un lieu pour loger.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : La nouvelle de ce butin perdu à rametter des monstres du Royaume des Tenèbres.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue :  et qui sait il t'offrira peut-être quelque chose en récompense...
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 1
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 2
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.

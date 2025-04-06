@@ -69,8 +69,8 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	        }
 	    }
 
-	    // 🔹 Affichage du bâtiment shop dans la map principale
-	    if (!display.isInShop() && display.getTileset().containsKey("shop")) {
+	    /// 🔹 Affichage du bâtiment shop UNIQUEMENT dans la carte principale
+	    if (!display.isInShop() && !display.isInHostileMap() && display.getTileset().containsKey("shop")) {
 	        for (Block block : display.getMap().getStaticObjects().keySet()) {
 	            if ("shop".equals(display.getMap().getStaticObjects().get(block))) {
 	                g.drawImage(display.getTileset().get("shop"),
@@ -79,6 +79,7 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	            }
 	        }
 	    }
+
 
 	    // 🔹 Affichage du marchand dans la boutique
 	    if (display.isInShop() && display.getTileset().containsKey("merchant")) {

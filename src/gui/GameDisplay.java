@@ -278,16 +278,18 @@ public class GameDisplay extends JPanel {
 
 	    // ✅ 2. Pièces (pas dans shop)
 	    if (!isInShop && !isInHostileMap) {
-	        paintStrategy.paintCoins(map, g, this);
+	        paintStrategy.paintCoins(mapToDraw, g, this);
 	    }
+
 
 	    // ✅ 3. Objets statiques
 	    paintStrategy.paintStaticObjects(mapToDraw, g, this);
 
 	    // ✅ 4. Cas spéciaux
 	    if (!isInShop && !isInHostileMap) {
-	        paintStrategy.paintBurningHouse(map, g, this);
-	        paintStrategy.paintShopBuilding(map, g, this);
+	    	paintStrategy.paintBurningHouse(mapToDraw, g, this);
+	    	paintStrategy.paintShopBuilding(mapToDraw, g, this);
+
 	    } else if (isInShop) {
 	        paintStrategy.paintMerchant(shopMap, g, this);
 	    }
