@@ -9,6 +9,7 @@ import java.util.HashMap;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import control.GameController;
 import data.map.Map;
@@ -24,9 +25,9 @@ import viewstrategy.PaintStrategy;
 public class GameDisplay extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    private static final int GRID_SIZE = 20;  // Réduire la taille à 20x20
-    private static final int BLOCK_SIZE = 32; // Taille inchangée
-    private static final int SHOP_SIZE = 15; //Taille de la boutique
+    private static final int GRID_SIZE = 35;  // Réduire la taille à 20x20
+    public static int BLOCK_SIZE = 32; // Taille inchangée
+    private static final int SHOP_SIZE = 40; //Taille de la boutique
     private Map map; // Instance de la carte du jeu
     private Map shopMap;
 	private Hero hero; // Instance du héros
@@ -121,6 +122,26 @@ public class GameDisplay extends JPanel {
     public Map getMap() {
 		return map;
 	}
+    @Override
+    public java.awt.Dimension getPreferredSize() {
+        return new java.awt.Dimension(750, 740); // Ajustement fixe
+    }
+
+
+
+    public int getBlockSize() {
+        return BLOCK_SIZE;
+    }
+
+    //public java.awt.Dimension getPreferredSize() {
+     ////   Map currentMap = isInShop ? shopMap : map;
+     //   int width = currentMap.getCols() * BLOCK_SIZE;
+      //  int height = currentMap.getRows() * BLOCK_SIZE;
+
+      //  return new java.awt.Dimension(width, height);
+    //}
+    
+
 
 	public void setMap(Map map) {
 		this.map = map;
@@ -252,6 +273,8 @@ public class GameDisplay extends JPanel {
 
 	    // ✅ 6. Héros (au-dessus de tout)
 	    paintStrategy.paintHero(hero, g, this);
+	    
+	    
 	}
     
     public boolean isGameOver() {
@@ -301,6 +324,8 @@ public class GameDisplay extends JPanel {
         returnToMainMap(); // ✅ Appelle returnToMainMap() une seule fois sans boucle infinie
         
     }
+    
+
 
     
     public void returnToMainMap() {
@@ -334,25 +359,22 @@ public class GameDisplay extends JPanel {
 
 
     
-    public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(() -> {
-            // ✅ Création de la fenêtre
-            JFrame frame = new JFrame("Test Affichage Terrain + Objets");
+	public static void main(String[] args) {
+	    SwingUtilities.invokeLater(() -> {
+	        JFrame frame = new JFrame("Aventure - Vue complète");
 
-            // ✅ Création du GameDisplay
-            GameDisplay gameDisplay = new GameDisplay();
+	        GameDisplay gameDisplay = new GameDisplay();
 
-            // ✅ Focus clavier (utile si tu veux tester les touches plus tard)
-            gameDisplay.setFocusable(true);
-            gameDisplay.requestFocusInWindow();
+	        gameDisplay.setFocusable(true);
+	        gameDisplay.requestFocusInWindow();
 
-            // ✅ Ajout du GameDisplay dans la fenêtre
-            frame.add(gameDisplay);
-            frame.setSize(800, 800); // Ajusté pour voir une bonne portion de map
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setLocationRelativeTo(null); // Centre la fenêtre à l'écran
-            frame.setVisible(true);
-        });
-    }
+	        frame.add(gameDisplay); // Pas de JScrollPane
+	        frame.setSize(gameDisplay.getPreferredSize()); // ⬅️ taille exacte selon la carte
+	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        frame.setLocationRelativeTo(null);
+	        frame.setVisible(true);
+	    });
+	}
+
 
 }

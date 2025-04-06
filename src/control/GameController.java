@@ -1,5 +1,4 @@
 package control;
-
 import data.item.Chest;
 import data.item.Coin;
 import data.map.Block;
@@ -18,15 +17,50 @@ public class GameController {
     private final GameDisplay display;
     private final Hero hero;
     private final Map map;
-    private final Map shopMap; // ✅ Ajouté
+    private final Map shopMap;
     private boolean canTakeDamage = true;
 
     public GameController(GameDisplay display) {
         this.display = display;
         this.hero = display.getHero();
         this.map = display.getMap();
-        this.shopMap = display.getShopMap(); // ✅ Initialisé
+        this.shopMap = display.getShopMap();
     }
+
+    public void moveHero(int keyCode, MainGUI gui) {
+        Block current = hero.getPosition();
+        int newLine = current.getLine();
+        int newCol = current.getColumn();
+
+        switch (keyCode) {
+            case KeyEvent.VK_UP -> newLine--;
+            case KeyEvent.VK_DOWN -> newLine++;
+            case KeyEvent.VK_LEFT -> newCol--;
+            case KeyEvent.VK_RIGHT -> newCol++;
+            default -> { return; }
+        }
+
+        Map activeMap = display.isInShop() ? shopMap : map;
+
+        int blockSize = display.getBlockSize();
+        int visibleHeight = display.getHeight(); // hauteur réelle allouée au GameDisplay
+
+        // ✅ Calcul du nombre de lignes visibles (dans GameDisplay uniquement)
+        int maxVisibleLines = visibleHeight / blockSize;
+
+        // 🔒 Empêche de sortir de l'écran ou de la map (en bas)
+        if (newLine < 0 || newCol < 0 ||
+            newLine >= Math.min(activeMap.getLineCount(), maxVisibleLines) ||
+            newCol >= activeMap.getColumnCount()) {
+            return;
+        }
+
+        Block newBlock = activeMap.getBlock(newLine, newCol);
+        moveHero(newBlock, gui);
+    }
+
+
+
 
     public void moveHero(Block newPosition, MainGUI mainGUI) {
         if (display.isGameOver()) return;
@@ -44,28 +78,8 @@ public class GameController {
         display.repaint();
     }
 
-    public void moveHero(int keyCode, MainGUI gui) {
-        Block current = hero.getPosition();
-        int newLine = current.getLine();
-        int newCol = current.getColumn();
-
-        switch (keyCode) {
-            case KeyEvent.VK_UP -> newLine--;
-            case KeyEvent.VK_DOWN -> newLine++;
-            case KeyEvent.VK_LEFT -> newCol--;
-            case KeyEvent.VK_RIGHT -> newCol++;
-            default -> { return; }
-        }
-
-        Map activeMap = display.isInShop() ? shopMap : map;
-        if (newLine < 0 || newCol < 0 || newLine >= activeMap.getLineCount() || newCol >= activeMap.getColumnCount()) return;
-
-        Block newBlock = activeMap.getBlock(newLine, newCol);
-        moveHero(newBlock, gui);
-    }
-
     public void checkCoinCollection(MainGUI mainGUI) {
-        Map activeMap = display.isInShop() ? shopMap : map; // ✅
+        Map activeMap = display.isInShop() ? shopMap : map;
         ArrayList<Coin> collectedCoins = new ArrayList<>();
 
         for (Coin coin : activeMap.getCoins()) {
@@ -80,7 +94,7 @@ public class GameController {
     }
 
     public Chest tryOpenNearbyChest() {
-        Map activeMap = display.isInShop() ? shopMap : map; // ✅
+        Map activeMap = display.isInShop() ? shopMap : map;
         Block heroPos = hero.getPosition();
         int heroLine = heroPos.getLine();
         int heroColumn = heroPos.getColumn();
@@ -94,7 +108,6 @@ public class GameController {
 
                 if (newL >= 0 && newL < activeMap.getLineCount() && newC >= 0 && newC < activeMap.getColumnCount()) {
                     Block adjacent = activeMap.getBlock(newL, newC);
-
                     if ("chest".equals(activeMap.getStaticObjects().get(adjacent))) {
                         return activeMap.getChestManager().getChests().get(adjacent);
                     }
@@ -106,7 +119,7 @@ public class GameController {
     }
 
     public void checkEnemyCollision() {
-        if (display.isGameOver() || display.isInShop()) return; // ✅ Pas d'ennemis dans la boutique
+        if (display.isGameOver() || display.isInShop()) return;
 
         Block heroPos = hero.getPosition();
 
@@ -155,7 +168,7 @@ public class GameController {
                 int line = heroPos.getLine() + dl;
                 int col = heroPos.getColumn() + dc;
 
-                Map activeMap = display.isInShop() ? shopMap : map; // ✅
+                Map activeMap = display.isInShop() ? shopMap : map;
                 if (line >= 0 && col >= 0 && line < activeMap.getLineCount() && col < activeMap.getColumnCount()) {
                     Block block = activeMap.getBlock(line, col);
                     String object = activeMap.getStaticObjects().get(block);

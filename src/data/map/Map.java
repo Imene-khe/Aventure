@@ -61,7 +61,7 @@ public class Map {
 
             generateObjects();  // Générer les objets (arbres, maisons, coffres)
             generateEnemies();  // Générer les ennemis
-            generateCoins(10);  // Générer des pièces
+            generateCoins(25);  // Générer des pièces
             placeShopOnMap();   // ✅ Placer le shop après la génération des objets
         } else {
         	 setupStaticShop();
@@ -448,6 +448,22 @@ public class Map {
 
         System.out.println("\n✅ Boutique 15x15 avec marchand en haut derrière son comptoir !");
     }
+
+
+	public int getWidth() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public int getRows() {
+	    return lineCount;
+	}
+
+	public int getCols() {
+	    return columnCount;
+	}
+
+
+
 
 
 
