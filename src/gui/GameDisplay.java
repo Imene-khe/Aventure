@@ -398,7 +398,8 @@ public class GameDisplay extends JPanel {
 	    this.hero.setPosition(hostileMap.getBlock(17, 5));     // ✅ place le héros dessus
 	    this.repaint();                                        // 🔁 rafraîchit l’affichage
 	    this.setFocusable(true);
-	    this.requestFocusInWindow();                           // 🎯 très important
+	    this.requestFocusInWindow();    
+	    MainGUI.getInstance().getQuestManager().clearAllQuests();
 	    System.out.println("🌋 Passage à la HostileMap !");
 	}
 

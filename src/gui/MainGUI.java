@@ -98,7 +98,7 @@ public class MainGUI extends JFrame {
         interactButton.setPreferredSize(new Dimension(120, 30));
         interactButton.addActionListener(e -> interactWithNPC());
         rightBottomPanel.add(interactButton);
-
+        
         // ➤ Nouveau bouton Mission
         JButton missionButton = new JButton("Mission");
         missionButton.setFont(new Font("Arial", Font.BOLD, 16));

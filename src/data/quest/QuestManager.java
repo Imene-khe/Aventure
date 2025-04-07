@@ -65,6 +65,12 @@ public class QuestManager {
             }
         }
     }
+    
+    public void clearAllQuests() {
+        activeQuests.clear();
+        System.out.println("🧹 Toutes les quêtes ont été supprimées.");
+    }
+
 
 
 
