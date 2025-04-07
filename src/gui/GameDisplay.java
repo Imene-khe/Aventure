@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -232,6 +233,13 @@ public class GameDisplay extends JPanel {
             hostileTileset.put("deadTree1", loadImage("src/images/outdoor/hostile/deadTree1.png"));
             hostileTileset.put("deadTree2", loadImage("src/images/outdoor/hostile/deadTree2.png"));
             hostileTileset.put("deadTree3", loadImage("src/images/outdoor/hostile/deadTree3.png"));
+            hostileTileset.put("cave_left", loadImage("src/images/outdoor/hostile/cave/cave_left.png"));
+            hostileTileset.put("cave_right", loadImage("src/images/outdoor/hostile/cave/cave_right.png"));
+            hostileTileset.put("cave_top", loadImage("src/images/outdoor/hostile/cave/cave_top.png"));
+            hostileTileset.put("cave_bottom", loadImage("src/images/outdoor/hostile/cave/cave_bottom.png")); 
+
+            hostileTileset.put("cave_shadow", loadImage("src/images/outdoor/hostile/cave/shadow.png")); 
+
 
 
 

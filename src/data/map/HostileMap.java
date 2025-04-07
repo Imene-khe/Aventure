@@ -29,6 +29,7 @@ public class HostileMap extends Map {
 	    generateTerrain();       // => appel à ta version hostile
 	    generateObjects();       // => tu peux override si besoin
 	    generateEnemies();       // => override dans HostileMap
+        generateCave(); // ✅ ajoutée en dernier pour ne pas être écrasée
 	}
 
 	@Override
@@ -79,7 +80,39 @@ public class HostileMap extends Map {
 	}
 
 
-	
+	public void generateCave() {
+	    int baseLine = 14;
+	    int baseCol = 17;
+
+	    Block top = getBlock(baseLine, baseCol + 1);
+	    Block shadow = getBlock(baseLine + 1, baseCol + 1);
+
+	    Block leftTop = getBlock(baseLine, baseCol);
+	    Block leftBottom = getBlock(baseLine + 1, baseCol);
+
+	    Block rightTop = getBlock(baseLine, baseCol + 2);
+	    Block rightBottom = getBlock(baseLine + 1, baseCol + 2);
+
+	    // 🔝 Première ligne
+	    staticObjects.put(leftTop, "cave_left");
+	    staticObjects.put(top, "cave_top");
+	    staticObjects.put(rightTop, "cave_right");
+
+	    // 🔽 Deuxième ligne
+	    staticObjects.put(leftBottom, "cave_bottom");
+	    staticObjects.put(shadow, "cave_shadow");
+	    staticObjects.put(rightBottom, "cave_bottom");
+
+	    // ❌ Blocage pour éviter que le joueur passe à travers
+	    setTerrainBlocked(leftTop, true);
+	    setTerrainBlocked(top, true);
+	    setTerrainBlocked(rightTop, true);
+	    setTerrainBlocked(leftBottom, true);
+	    setTerrainBlocked(shadow, true);
+	    setTerrainBlocked(rightBottom, true);
+	}
+
+
  
     @Override
     public void generateEnemies() {
@@ -168,30 +201,19 @@ public class HostileMap extends Map {
  // ✅ Méthode main pour tester visuellement la map hostile
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(() -> {
-            // Création d'une map hostile de test
             HostileMap hostileMap = new HostileMap(23, 40, 0);
-            hostileMap.generateObjects();
-            hostileMap.generateEnemies();
-
-            // Création du GameDisplay
             GameDisplay gameDisplay = new GameDisplay();
             gameDisplay.setMap(hostileMap);
-
-            // Chargement des images (tileset normal + hostile)
-            gameDisplay.loadImages(); // ⚠️ seulement si ce n'est pas déjà appelé dans le constructeur
-
-            // Placement du héros au centre de la carte hostile
+            gameDisplay.loadImages();
             gameDisplay.setHero(new Hero(hostileMap.getBlock(10, 10), 100));
 
-            // Préparation de la fenêtre
-            JFrame frame = new JFrame("🧪 Test de la HostileMap");
+            JFrame frame = new JFrame("🧪 Test de la HostileMap avec Grotte");
             frame.add(gameDisplay);
             frame.setSize(800, 800);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
 
-            // Focus clavier
             gameDisplay.setFocusable(true);
             gameDisplay.requestFocusInWindow();
         });
