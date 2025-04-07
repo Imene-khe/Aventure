@@ -70,11 +70,11 @@ public class GameDisplay extends JPanel {
 	    try {
 	        int numberOfChests = 5; // Ajustable selon besoins
 	        this.enemyImageManager = new EnemyImageManager();
-	        this.map = new Map(GRID_SIZE, GRID_SIZE, numberOfChests, false);
+	        this.map = new Map(23, 40, numberOfChests, false);
 	        this.shopMap = new Map(SHOP_SIZE, SHOP_SIZE, 0, true);    // Boutique plus petite
 	        this.shopMap.setupStaticShop(); // Configuration de la boutique
 	        
-	        this.hostileMap = new HostileMap(23, 23, 0); // a adapte le temps que l'on trouve la solution pour la map rectangulaire
+	        this.hostileMap = new HostileMap(23, 40, 0); // a adapte le temps que l'on trouve la solution pour la map rectangulaire
 
 	        this.hero = new Hero(map.getBlock(GRID_SIZE / 2, GRID_SIZE / 2), 100);
 	        this.tileset = new HashMap<>();
