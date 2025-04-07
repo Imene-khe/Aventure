@@ -56,6 +56,16 @@ public class QuestManager {
     public void notifyFlameExtinguished() {
         updateQuest("Éteindre les flammes", 1); // ou le nom exact que tu as donné
     }
+    
+    public void setRequiredAmount(String questName, int requiredAmount) {
+        for (Quest quest : activeQuests) {
+            if (quest.getName().equals(questName)) {
+                quest.setRequiredAmount(requiredAmount);
+                return;
+            }
+        }
+    }
+
 
 
     // 🔥 Main interne pour tester QuestManager

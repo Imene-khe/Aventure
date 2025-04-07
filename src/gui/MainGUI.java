@@ -4,12 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 import log.LoggerUtility;
-
+import data.item.Flame;
 import data.item.InventoryManager;
 import data.map.Block;
+import data.map.Map;
 import data.quest.Quest;
 import data.quest.QuestManager;
 import data.dialogue.DialogueManager;
@@ -103,8 +105,22 @@ public class MainGUI extends JFrame {
         missionButton.setPreferredSize(new Dimension(120, 30));
         missionButton.addActionListener(e -> {
             StringBuilder message = new StringBuilder("📜 Missions en cours :\n\n");
+
             for (Quest quest : questManager.getActiveQuests()) {
                 if (!quest.isCompleted()) {
+
+                    // 🔥 Cas spécial pour les flammes
+                    if ("Eteindre les flammes".equals(quest.getName())) {
+                    	Map map = MainGUI.getGameDisplay().getMap();
+                    	ArrayList<Flame> flames = map.getFlames(); // les flammes ont été générées dans returnToMainMap()
+
+                        int totalFlames = flames.size();
+                        int extinguished = (int) flames.stream().filter(f -> !f.isActive()).count();
+
+                        quest.setRequiredAmount(totalFlames);
+                        quest.setCurrentAmount(extinguished);
+                    }
+
                     message.append("• ").append(quest.getName())
                            .append(" (").append(quest.getStatusText()).append(")\n")
                            .append("  ➤ ").append(quest.getDescription()).append("\n")
@@ -112,9 +128,12 @@ public class MainGUI extends JFrame {
                            .append(" / ").append(quest.getRequiredAmount()).append("\n\n");
                 }
             }
+
             JOptionPane.showMessageDialog(this, message.toString(), "🎯 Objectifs", JOptionPane.INFORMATION_MESSAGE);
             requestFocusInWindow();
         });
+
+
 
         rightBottomPanel.add(missionButton);
 
@@ -130,7 +149,8 @@ public class MainGUI extends JFrame {
         add(bottomPanel, BorderLayout.SOUTH);
         
         questManager.addQuest(new Quest("Collecte pour le marchand", "Récoltez 10 pièces d'or", Quest.TYPE_COLLECT, 10, 0));
-        questManager.addQuest(new Quest("Eteindre les flammes", "Éteindre 3 maisons en feu", Quest.TYPE_KILL, 3, 0)); // ou TYPE_FIND si tu préfères
+        int flameCount = dashboard.getHostileMap().getFlames().size();
+        questManager.addQuest(new Quest("Eteindre les flammes", "Éteindre toutes les maisons en feu", Quest.TYPE_KILL, flameCount, 0));
         questManager.addQuest(new Quest("L'orbe sacré", "Trouvez l'orbe légendaire", Quest.TYPE_FIND, 1, 0));
 
 
@@ -161,10 +181,7 @@ public class MainGUI extends JFrame {
 	public static MainGUI getInstance() {
 	    return instance;
 	}
-
-
-
-
+	
 	public static GameDisplay getGameDisplay() {
         return instance != null ? instance.dashboard : null;
     }

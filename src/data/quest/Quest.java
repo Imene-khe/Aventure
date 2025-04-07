@@ -38,8 +38,17 @@ public class Quest {
             }
         }
     }
+    
+    public void setRequiredAmount(int amount) {
+        this.requiredAmount = amount;
+    }
 
-    public boolean isCompleted() {
+
+    public void setCurrentAmount(int currentAmount) {
+		this.currentAmount = currentAmount;
+	}
+
+	public boolean isCompleted() {
         return status.equals(STATUS_TERMINEE);
     }
 

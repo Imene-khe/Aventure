@@ -13,6 +13,7 @@ import data.item.ChestFactory;
 import data.item.ChestManager;
 import data.item.Coin;
 import data.item.Equipment;
+import data.item.Flame;
 import gui.GameDisplay;
 import log.LoggerUtility;
 
@@ -414,18 +415,24 @@ public class Map {
     } 
     
     public void setAllHousesOnFire() {
-        flames.clear(); // On vide l’ancienne liste avant de relancer le feu
+        flames.clear();
 
         for (Block block : staticObjects.keySet()) {
             String value = staticObjects.get(block);
             if ("house".equals(value)) {
                 staticObjects.put(block, "house_burning");
-                flames.add(new data.item.Flame(block)); // ✅ ajoute l'objet Flame
+                flames.add(new Flame(block));
             }
         }
 
+        // 🟡 Mise à jour dynamique de l'objectif avec le bon nombre total
+        int totalFlames = flames.size();
+        data.quest.QuestManager questManager = gui.MainGUI.getInstance().getQuestManager();
+        questManager.setRequiredAmount("Éteindre les flammes", totalFlames);
+
         logger.info("🔥 " + flames.size() + " maisons mises en feu !");
     }
+
 
     
     public void paintTerrain(Graphics g, GameDisplay display) {
