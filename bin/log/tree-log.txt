@@ -8238,3 +8238,154 @@ DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée
 WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
 DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
 DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue, Ghaya ! Ca me fait plaisir de te revoir
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Un marchand a établi son camp dans une maison de bois claire non loin d'ici.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Seul problème, il a fait tomber sa bourse de pièces...
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : En apprenant l'existence de ce petit trésor, une horde de monstre est apparue...
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Mais fais bien attention à la horde.
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 1
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 2
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 3
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 4
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 5
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 6
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue, Ghaya ! Ca me fait plaisir de te revoir
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Un marchand a établi son camp dans une maison de bois claire non loin d'ici.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Seul problème, il a fait tomber sa bourse de pièces...
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : En apprenant l'existence de ce petit trésor, une horde de monstre est apparue...
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Mais fais bien attention à la horde.
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+INFO AWT-EventQueue-0 control.GameController - 🏪 Entrée dans la boutique détectée.
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Début du dialogue : enter_shop
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue dans ma boutique, jeune aventurier !
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_shop
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Que puis-je faire pour toi ?!
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : enter_shop
+INFO AWT-EventQueue-0 data.map.HostileMap - 🔥 30 maisons mises en feu !
+INFO AWT-EventQueue-0 gui.MainGUI - 🚪 Sortie de la boutique !
+INFO AWT-EventQueue-0 gui.MainGUI - 🔙 Touche ESC pressée : tentative de sortie de boutique.
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Début du dialogue : exit_shop_1
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Ahhhh te revoilà... Nous te cherchions !
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : exit_shop_1
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Le chef de la horde est devenu fou de rage quand il a appris que tu avais recupérer les pièces !
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : exit_shop_1
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Sa bande nous a attaqué, ils ont mis le feu à toutes nos maisons. 
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : exit_shop_1
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Aide nous à éteindre nos maisons par pitié !
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : exit_shop_1
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 1
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 2
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue, Ghaya ! Ca me fait plaisir de te revoir
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue, Ghaya ! Ca me fait plaisir de te revoir
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Un marchand a établi son camp dans une maison de bois claire non loin d'ici.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Seul problème, il a fait tomber sa bourse de pièces...
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : En apprenant l'existence de ce petit trésor, une horde de monstre est apparue...
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Mais fais bien attention à la horde.
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 1
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 2
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 3
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 4
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 5
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 6
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 7
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 8
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 9
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 10
+INFO AWT-EventQueue-0 gui.MainGUI - 🎯 Objectif atteint : 10 pièces.
+INFO AWT-EventQueue-0 control.GameController - 🏪 Entrée dans la boutique détectée.
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Début du dialogue : enter_shop
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Bienvenue dans ma boutique, jeune aventurier !
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_shop
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Que puis-je faire pour toi ?!
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : enter_shop
+INFO AWT-EventQueue-0 control.GameController - 🗨️ Interaction avec le marchand détectée.
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Début du dialogue : enter_shop_give_gold
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Ohhh... c’est donc toi qui m’a rapporté cette bourse !
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_shop_give_gold
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Tu n’imagines pas à quel point tu me sauves.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_shop_give_gold
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Tiens, prends ceci en remerciement !
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : enter_shop_give_gold
+INFO AWT-EventQueue-0 data.map.HostileMap - 🔥 24 maisons mises en feu !
+INFO AWT-EventQueue-0 gui.MainGUI - 🚪 Sortie de la boutique !
+INFO AWT-EventQueue-0 gui.MainGUI - 🔙 Touche ESC pressée : tentative de sortie de boutique.
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Début du dialogue : exit_shop_1
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Ahhhh te revoilà... Nous te cherchions !
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : exit_shop_1
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Le chef de la horde est devenu fou de rage quand il a appris que tu avais recupérer les pièces !
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : exit_shop_1
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Sa bande nous a attaqué, ils ont mis le feu à toutes nos maisons. 
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : exit_shop_1
+DEBUG AWT-EventQueue-0 gui.MainGUI - 📝 Affichage dialogue : Aide nous à éteindre nos maisons par pitié !
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : exit_shop_1
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+ERROR AWT-EventQueue-0 control.GameController - ☠️ GAME OVER ! Le héros est mort.
