@@ -4,7 +4,6 @@ import data.item.Chest;
 import data.item.Coin;
 import data.item.Equipment;
 import data.item.Flame;
-import data.item.Inventory;
 import data.map.Block;
 import data.map.Map;
 import data.player.Hero;
@@ -265,9 +264,9 @@ public class GameController {
                 }
             }
         }
-
         return false;
     }
+
 
     public void enterShop(MainGUI gui) {
         display.enterShop();
@@ -325,4 +324,13 @@ public class GameController {
             }
         }
     }
+    
+    
+
+    public boolean isAdjacent(Block a, Block b) {
+        int dx = Math.abs(a.getLine() - b.getLine());
+        int dy = Math.abs(a.getColumn() - b.getColumn());
+        return (dx + dy) == 1;
+    }
+
 }

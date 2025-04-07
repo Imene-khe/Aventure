@@ -1,6 +1,5 @@
 package data.map;
 
-import java.lang.System.Logger;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -8,7 +7,6 @@ import javax.swing.JFrame;
 
 import data.player.Hero;
 import gui.GameDisplay;
-import log.LoggerUtility;
 
 public class HostileMap extends Map {
 	

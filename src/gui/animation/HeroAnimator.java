@@ -20,7 +20,6 @@ public class HeroAnimator {
     // Largeur/hauteur d’un sprite
     private static final int SPRITE_WIDTH = 32;
     private static final int SPRITE_HEIGHT = 32;
-    private static final int COLUMNS = 10;
 
     public HeroAnimator(String pathToPlayerSpriteSheet) throws IOException {
         fullSheet = ImageIO.read(new File(pathToPlayerSpriteSheet));

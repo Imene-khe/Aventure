@@ -12,7 +12,6 @@ import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-import gui.*;
 
 public class CombatMap extends JPanel {
 
