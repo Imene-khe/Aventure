@@ -318,6 +318,7 @@ public class GameController {
                 boolean allExtinguished = activeMap.getFlames().stream().noneMatch(Flame::isActive);
                 if (allExtinguished) {
                     gui.getQuestManager().updateQuest("Eteindre les flammes", 1);
+                    gui.triggerDialogue("flames_extinguished"); 
                 }
 
                 return;

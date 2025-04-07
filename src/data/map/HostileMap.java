@@ -107,31 +107,30 @@ public class HostileMap extends Map {
 
     @Override
     public void generateObjects() {
-        int centerLine = getLineCount() - 6;
-        int centerCol = 6;
-        int radius = 5;
+        Random rng = new Random();
 
-        Random rng = new Random(42); // ✅ pour reproductibilité
+        // === BOSQUETS dispersés (groupes d’arbres morts) ===
+        int numBosquets = 10; // nombre de bosquets sur la carte
+        for (int b = 0; b < numBosquets; b++) {
+            int centerLine = rng.nextInt(getLineCount() - 6) + 3;
+            int centerCol = rng.nextInt(getColumnCount() - 6) + 3;
+            int radius = rng.nextInt(2) + 2; // rayon aléatoire entre 2 et 3
 
-        for (int i = centerLine - radius; i <= centerLine + radius; i++) {
-            for (int j = centerCol - radius; j <= centerCol + radius; j++) {
-                if (i < 0 || j < 0 || i >= getLineCount() || j >= getColumnCount()) continue;
+            for (int i = centerLine - radius; i <= centerLine + radius; i++) {
+                for (int j = centerCol - radius; j <= centerCol + radius; j++) {
+                    if (i < 0 || j < 0 || i >= getLineCount() || j >= getColumnCount()) continue;
 
-                Block block = getBlock(i, j);
-                String terrainType = getStaticTerrain().get(block);
+                    Block block = getBlock(i, j);
+                    String terrainType = getStaticTerrain().get(block);
 
-                if (terrainType != null && terrainType.startsWith("floor")) {
-
-                    // ✅ distance au centre (forme ronde + aléatoire)
                     double dx = j - centerCol;
                     double dy = i - centerLine;
                     double distance = Math.sqrt(dx * dx + dy * dy);
-                    double noise = rng.nextDouble();
+                    double prob = 1.0 - (distance / radius);
 
-                    double prob = 1.0 - (distance / radius); // ↘ densité décroît vers les bords
+                    if (terrainType != null && terrainType.startsWith("floor") &&
+                        !getStaticObjects().containsKey(block) && rng.nextDouble() < prob * 0.8) {
 
-                    // 💡 Ajout d’un peu d’aléatoire à la forme pour casser le côté “rond parfait”
-                    if (distance <= radius && noise < prob * 0.8) {
                         int type = rng.nextInt(3) + 1;
                         getStaticObjects().put(block, "deadTree" + type);
                         setTerrainBlocked(block, true);
@@ -140,7 +139,7 @@ public class HostileMap extends Map {
             }
         }
 
-        // 🪨 Rochers ailleurs (hors zone de forêt)
+        // === ROCHERS dispersés en dehors des bosquets ===
         for (int i = 0; i < getLineCount(); i++) {
             for (int j = 0; j < getColumnCount(); j++) {
                 Block block = getBlock(i, j);
@@ -162,6 +161,7 @@ public class HostileMap extends Map {
 
 
 
+
     
 
 
@@ -169,7 +169,7 @@ public class HostileMap extends Map {
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(() -> {
             // Création d'une map hostile de test
-            HostileMap hostileMap = new HostileMap(20, 20, 5);
+            HostileMap hostileMap = new HostileMap(23, 40, 0);
             hostileMap.generateObjects();
             hostileMap.generateEnemies();
 
