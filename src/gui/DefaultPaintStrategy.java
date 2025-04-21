@@ -174,7 +174,6 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	    }
 	}
 
-
 	@Override
 	public void paintShopBuilding(Map map, Graphics g, GameDisplay display) {
 	    if (!display.isInShop() && display.getTileset().containsKey("shop")) {
@@ -187,7 +186,6 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	        }
 	    }
 	}
-
 
 	@Override
 	public void paintMerchant(Map map, Graphics g, GameDisplay display) {

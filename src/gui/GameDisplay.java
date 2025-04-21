@@ -43,7 +43,7 @@ public class GameDisplay extends JPanel {
     private SpriteAnimator coinAnimator;
     private PaintStrategy paintStrategy = new DefaultPaintStrategy();
     private GameController controller;
-    private HashMap<String, Image> hostileTileset; //ajout
+    private HashMap<String, Image> hostileTileset;
 
     
 
@@ -216,8 +216,6 @@ public class GameDisplay extends JPanel {
             tileset.put("tree", loadImage("src/images/outdoors/Oak_Tree.png"));
             tileset.put("shop", loadImage("src/images/shop/shop.png")); 
 
-            
-
             // Chargement des objets
             tileset.put("chest", loadImage("src/images/outdoors/Chest.png"));
             
@@ -228,6 +226,15 @@ public class GameDisplay extends JPanel {
             hostileTileset.put("floor2", loadImage("src/images/outdoor/hostile/floor2.png"));
             hostileTileset.put("floor3", loadImage("src/images/outdoor/hostile/floor3.png"));
             hostileTileset.put("rock", loadImage("src/images/outdoor/hostile/rock.png"));
+            
+            hostileTileset.put("toprock", loadImage("src/images/outdoor/hostile/shelter/toprock.png"));
+            hostileTileset.put("rightborderrock", loadImage("src/images/outdoor/hostile/shelter/rightborderrock.png"));
+            hostileTileset.put("leftborderrock", loadImage("src/images/outdoor/hostile/shelter/leftborderrock.png"));
+            hostileTileset.put("topleftrock", loadImage("src/images/outdoor/hostile/shelter/topleftrock.png"));
+            hostileTileset.put("toprightrock", loadImage("src/images/outdoor/hostile/shelter/toprightrock.png"));
+
+            hostileTileset.put("campfire", loadImage("src/images/outdoor/hostile/shelter/CampFire.png"));
+
             hostileTileset.put("deadTree1", loadImage("src/images/outdoor/hostile/deadTree1.png"));
             hostileTileset.put("deadTree2", loadImage("src/images/outdoor/hostile/deadTree2.png"));
             hostileTileset.put("deadTree3", loadImage("src/images/outdoor/hostile/deadTree3.png"));

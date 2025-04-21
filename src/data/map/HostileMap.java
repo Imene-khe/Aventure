@@ -12,8 +12,9 @@ import gui.GameDisplay;
 
 public class HostileMap extends Map {
 
-    private final ArrayList<Antagonist> antagonistList = new ArrayList<>();
-    private final HashMap<Antagonist, String> antagonistTypes = new HashMap<>();
+    private ArrayList<Antagonist> antagonistList = new ArrayList<>();
+    private HashMap<Antagonist, String> antagonistTypes = new HashMap<>();
+    private ArrayList<Block> shelterBlocks = new ArrayList<>();
 
    
 
@@ -30,6 +31,8 @@ public class HostileMap extends Map {
         generateObjects();
         generateEnemies();
         generateCave();
+        generateSafeShelter();
+
     }
 
     @Override
@@ -76,11 +79,26 @@ public class HostileMap extends Map {
     @Override
     public void generateEnemies() {
         ArrayList<Block> freeBlocks = getFreeBlocks();
+
+        ArrayList<Block> toRemove = new ArrayList<>();
+        for (Block block : freeBlocks) {
+            for (Block shelter : getShelterBlocks()) {
+                int dx = Math.abs(block.getLine() - shelter.getLine());
+                int dy = Math.abs(block.getColumn() - shelter.getColumn());
+                if ((dx + dy) <= 1) { // 🔒 à moins d’un bloc du shelter
+                    toRemove.add(block);
+                    break;
+                }
+            }
+        }
+        freeBlocks.removeAll(toRemove);
+
+
         Random random = new Random();
         int maxEnemies = 10;
 
         antagonistList.clear();
-        antagonistTypes.clear(); // important : reset
+        antagonistTypes.clear();
 
         for (int i = 0; i < maxEnemies && !freeBlocks.isEmpty(); i++) {
             int index = random.nextInt(freeBlocks.size());
@@ -91,9 +109,10 @@ public class HostileMap extends Map {
 
             Antagonist enemy = new Antagonist(block, type, null);
             antagonistList.add(enemy);
-            antagonistTypes.put(enemy, type); // 🔗 association
+            antagonistTypes.put(enemy, type);
         }
     }
+
 
 
     @Override
@@ -170,6 +189,87 @@ public class HostileMap extends Map {
         setTerrainBlocked(leftBottom, true);
         setTerrainBlocked(shadow, true);
         setTerrainBlocked(rightBottom, true);
+    }
+    
+    public void generateSafeShelter() {
+        int centerLine = 4;
+        int centerCol = getColumnCount() - 6;
+        int radius = 2;
+
+        for (int i = centerLine - radius - 1; i <= centerLine + radius + 1; i++) {
+            for (int j = centerCol - radius - 1; j <= centerCol + radius + 1; j++) {
+                if (i < 0 || j < 0 || i >= getLineCount() || j >= getColumnCount()) continue;
+
+                Block block = getBlock(i, j);
+                String terrain = staticTerrain.get(block);
+
+                // ❌ Ne pas placer sur la lave
+                if (terrain == null || terrain.equals("lava")) continue;
+
+                // 🧹 Supprime l’objet existant (arbre, rocher, etc.)
+                staticObjects.remove(block);
+
+                double dx = j - centerCol;
+                double dy = i - centerLine;
+                double distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance >= radius - 0.5 && distance <= radius + 0.5) {
+                    if (i == centerLine + radius && j == centerCol) continue; // entrée
+
+                    String rockType;
+                    if (i == centerLine - radius && j == centerCol) {
+                        rockType = "toprock";
+                    } else if (j == centerCol - radius && i == centerLine) {
+                        rockType = "rightborderrock"; // gauche visuellement
+                    } else if (j == centerCol + radius && i == centerLine) {
+                        rockType = "leftborderrock"; // droite visuellement
+                    } else if (j < centerCol && i < centerLine) {
+                        rockType = "topleftrock";
+                    } else if (j > centerCol && i < centerLine) {
+                        rockType = "toprightrock";
+                    } else if (j < centerCol && i > centerLine) {
+                        rockType = "topleftrock";
+                    } else if (j > centerCol && i > centerLine) {
+                        rockType = "toprightrock";
+                    } else {
+                        rockType = "toprock";
+                    }
+
+                    staticObjects.put(block, rockType);
+                    if (!"campfire".equals(rockType)) {
+                        setTerrainBlocked(block, true); // 🔒 les rochers bloquent
+                    }
+                    shelterBlocks.add(block); // ✅ garde trace
+                }
+            }
+        }
+
+        // ✅ Débloque l’entrée après la boucle
+        Block entry = getBlock(centerLine + radius, centerCol);
+        staticObjects.remove(entry);
+        setTerrainBlocked(entry, false);
+        shelterBlocks.add(entry);
+
+        // 🔥 Placement du feu de camp
+        Block center = getBlock(centerLine, centerCol);
+        String centerTerrain = staticTerrain.get(center);
+        if (centerTerrain != null && !centerTerrain.equals("lava")) {
+            staticObjects.remove(center); // 🧹 supprime tout objet au centre (ex: arbre)
+            staticObjects.put(center, "campfire");
+            setTerrainBlocked(center, true);
+            shelterBlocks.add(center); // ✅ on ajoute le centre aussi
+        }
+    }
+
+
+
+
+
+
+
+
+    public ArrayList<Block> getShelterBlocks() {
+        return shelterBlocks;
     }
     
     public ArrayList<Antagonist> getAntagonistList() {

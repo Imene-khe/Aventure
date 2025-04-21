@@ -377,7 +377,9 @@ public class Map {
         return obstacles.containsKey(block)
             || terrainBlocked.getOrDefault(block, false)
             || (staticTerrain.containsKey(block) && staticTerrain.get(block).equals("water"))
-            || staticObjects.containsKey(block);
+            || (staticObjects.containsKey(block)
+            && !staticObjects.get(block).equals("campfire")
+            && !staticObjects.get(block).equals("entry"));
     }
 
 

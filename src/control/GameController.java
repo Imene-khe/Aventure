@@ -358,12 +358,19 @@ public class GameController {
 
         if (hostileMap instanceof HostileMap hMap) {
             Block heroPos = hero.getPosition();
-            ArrayList<Block> occupied = new ArrayList<>();
+            int safeCenterLine = 4;
+            int safeCenterCol = hMap.getColumnCount() - 6;
+            int safeRadius = 2;
 
             for (Antagonist enemy : hMap.getAntagonistList()) {
-                Block next = computeNextEnemyBlock(enemy, heroPos, hostileMap, occupied);
-                enemy.setPosition(next);
-                occupied.add(next); // réserve la case
+                Block current = enemy.getPosition();
+
+                // 🔒 Vérifie si l’ennemi est déjà trop proche du Safe Shelter
+                int dx = Math.abs(current.getLine() - safeCenterLine);
+                int dy = Math.abs(current.getColumn() - safeCenterCol);
+                if ((dx + dy) <= safeRadius) continue; // 🔒 Ne pas s’approcher à moins d’un bloc
+
+                enemy.moveTowards(heroPos, hostileMap); // 👣 déplacement normal
             }
 
             checkEnemyCollision();
@@ -372,7 +379,8 @@ public class GameController {
     }
 
 
-    private Block computeNextEnemyBlock(Antagonist enemy, Block heroPos, Map map, ArrayList<Block> occupied) {
+
+    public Block computeNextEnemyBlock(Antagonist enemy, Block heroPos, Map map, ArrayList<Block> occupied) {
         Block current = enemy.getPosition();
         int dLine = heroPos.getLine() - current.getLine();
         int dCol = heroPos.getColumn() - current.getColumn();

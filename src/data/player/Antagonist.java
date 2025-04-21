@@ -2,6 +2,7 @@ package data.player;
 
 
 import data.map.Block;
+import data.map.HostileMap;
 import data.map.Map;
 
 public class Antagonist extends Person {
@@ -52,16 +53,25 @@ public class Antagonist extends Person {
         int dCol = target.getColumn() - current.getColumn();
         int nextLine = current.getLine();
         int nextCol = current.getColumn();
+
         if (Math.abs(dLine) > Math.abs(dCol)) {
             nextLine += Integer.compare(dLine, 0); // +1 ou -1
         } else if (dCol != 0) {
             nextCol += Integer.compare(dCol, 0);
         }
+
         Block nextBlock = map.getBlock(nextLine, nextCol);
+
+        // ⛔ Interdiction d'entrer dans le shelter
+        if (map instanceof HostileMap hostileMap && hostileMap.getShelterBlocks().contains(nextBlock)) {
+            return;
+        }
+
         if (!map.isBlocked(nextBlock)) {
             setPosition(nextBlock);
         }
     }
+
 
 
 
