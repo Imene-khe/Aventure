@@ -49,8 +49,6 @@ public abstract class Person {
         this.position = position;
     }
 
-    // Méthode abstraite pour forcer les sous-classes à gérer leur propre affichage
-    public abstract void draw(Graphics g, int blockSize);
 
     // Autres méthodes (gestion des personnages)
     public void showPersonInfo() {

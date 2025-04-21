@@ -14,6 +14,7 @@ import data.item.ChestManager;
 import data.item.Coin;
 import data.item.Equipment;
 import data.item.Flame;
+import data.player.Antagonist;
 import gui.GameDisplay;
 import log.LoggerUtility;
 
@@ -544,6 +545,7 @@ public class Map {
 	public int getCols() {
 	    return columnCount;
 	}
+
 
 
 }

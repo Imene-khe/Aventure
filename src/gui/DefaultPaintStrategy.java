@@ -7,6 +7,7 @@ import java.util.HashMap;
 import data.map.Block;
 import data.map.HostileMap;
 import data.map.Map;
+import data.player.Antagonist;
 import data.player.Hero;
 import viewstrategy.PaintStrategy;
 
@@ -201,6 +202,29 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	    }
 	}
 
+	
+	@Override
+	public void paintMobileAntagonists(Map map, Graphics g, GameDisplay display) {
+	    if (map instanceof HostileMap hMap) {
+	        int size = display.getBlockSize();
+
+	        for (Antagonist enemy : hMap.getAntagonistList()) {
+	            Block block = enemy.getPosition();
+	            String type = hMap.getAntagonistTypes().get(enemy); // 🔍 récupérer le type aléatoire
+
+	            if (type != null) {
+	                Image image = display.getEnemyImageManager().getEnemyImage(type, 0);
+	                if (image != null) {
+	                    int x = block.getColumn() * size;
+	                    int y = block.getLine()   * size;
+	                    g.drawImage(image, x, y, size, size, null);
+	                } else {
+	                    System.out.println("⚠️ Image non trouvée pour l'ennemi : " + type);
+	                }
+	            }
+	        }
+	    }
+	}
 
 	
 }

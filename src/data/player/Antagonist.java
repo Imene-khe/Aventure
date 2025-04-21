@@ -1,16 +1,11 @@
 package data.player;
 
-import java.awt.Graphics;
-import java.awt.Image;
-import java.io.IOException;
 
 import data.map.Block;
-import gui.animation.EnemyAnimator;
+import data.map.Map;
 
 public class Antagonist extends Person {
 
-    private EnemyAnimator animator;
-    private String enemyType;
     private int health;
     private int maxHealth;
 
@@ -18,14 +13,7 @@ public class Antagonist extends Person {
 
     public Antagonist(Block startPosition, String enemyType, EnemyImageManager imageManager) {
         super(startPosition);
-        this.enemyType = enemyType;
 
-        switch (enemyType) {
-            case "small" -> this.maxHealth = 50;
-            case "medium" -> this.maxHealth = 80;
-            case "large" -> this.maxHealth = 120;
-            default -> this.maxHealth = 60;
-        }
         this.health = maxHealth;
 
         // Position en pixels
@@ -34,30 +22,7 @@ public class Antagonist extends Person {
             this.y = startPosition.getLine() * 50;
         }
 
-        // Chargement des sprites animés
-        try {
-            String spritePath = switch (enemyType) {
-                case "small" -> "src/images/enemies/SmallSlime_Green.png";
-                case "medium" -> "src/images/enemies/MediumSlime_Blue.png";
-                case "large" -> "src/images/enemies/LargeSlime_Grey.png";
-                default -> throw new IllegalArgumentException("Taille inconnue");
-            };
-            this.animator = new EnemyAnimator(spritePath, 5, 6); // 5 colonnes x 6 lignes
-        } catch (IOException e) {
-            System.out.println("❌ Erreur chargement animator pour " + enemyType);
-            e.printStackTrace();
-        }
-    }
-
-    public void draw(Graphics g, int blockSize) {
-        if (animator != null) {
-            animator.updateFrame();
-            animator.draw(g, x, y, blockSize);
-        }
-    }
-
-    public Image getCurrentImage() {
-        return animator != null ? animator.getCurrentFrame() : null;
+ 
     }
 
     public int getHealth() {
@@ -80,4 +45,24 @@ public class Antagonist extends Person {
     public int getX() { return x; }
 
     public int getY() { return y; }
+    
+    public void moveTowards(Block target, Map map) {
+        Block current = getPosition();
+        int dLine = target.getLine() - current.getLine();
+        int dCol = target.getColumn() - current.getColumn();
+        int nextLine = current.getLine();
+        int nextCol = current.getColumn();
+        if (Math.abs(dLine) > Math.abs(dCol)) {
+            nextLine += Integer.compare(dLine, 0); // +1 ou -1
+        } else if (dCol != 0) {
+            nextCol += Integer.compare(dCol, 0);
+        }
+        Block nextBlock = map.getBlock(nextLine, nextCol);
+        if (!map.isBlocked(nextBlock)) {
+            setPosition(nextBlock);
+        }
+    }
+
+
+
 }

@@ -5,7 +5,9 @@ import data.item.Coin;
 import data.item.Equipment;
 import data.item.Flame;
 import data.map.Block;
+import data.map.HostileMap;
 import data.map.Map;
+import data.player.Antagonist;
 import data.player.Hero;
 import gui.ChestUIManager;
 import gui.GameDisplay;
@@ -35,6 +37,8 @@ public class GameController {
         this.map = display.getMap();
         this.shopMap = display.getShopMap();
         this.hostileMap = display.getHostileMap(); // ✅ Initialisé comme shopMap
+   
+
     }
 
 
@@ -166,31 +170,46 @@ public class GameController {
         Block heroPos = hero.getPosition();
         Map activeMap = display.isInHostileMap() ? hostileMap : map;
 
-        for (Block enemyBlock : activeMap.getEnemies().keySet()) {
-            if (enemyBlock.equals(heroPos)) {
-                if (!canTakeDamage) return;
-
-                hero.takeDamage(10);
-                canTakeDamage = false;
-
-                new Thread(() -> {
-                    try {
-                        Thread.sleep(1000);
-                        canTakeDamage = true;
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }).start();
-
-                if (hero.getHealth() <= 0) {
-                    display.setGameOver(true);
-                    logger.error("☠️ GAME OVER ! Le héros est mort.");
-                    JOptionPane.showMessageDialog(display, "☠️ GAME OVER ! Le héros est mort.");
-                    System.exit(0);
+        if (activeMap instanceof HostileMap hMap) {
+            for (Antagonist enemy : hMap.getAntagonistList()) {
+                if (enemy.getPosition().equals(heroPos)) {
+                    applyHeroDamage();
+                    return;
+                }
+            }
+        } else {
+            for (Block enemyBlock : activeMap.getEnemies().keySet()) {
+                if (enemyBlock.equals(heroPos)) {
+                    applyHeroDamage();
+                    return;
                 }
             }
         }
     }
+
+    public void applyHeroDamage() {
+        if (!canTakeDamage) return;
+
+        hero.takeDamage(10);
+        canTakeDamage = false;
+
+        new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+                canTakeDamage = true;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+
+        if (hero.getHealth() <= 0) {
+            display.setGameOver(true);
+            logger.error("☠️ GAME OVER ! Le héros est mort.");
+            JOptionPane.showMessageDialog(display, "☠️ GAME OVER ! Le héros est mort.");
+            System.exit(0);
+        }
+    }
+
 
     public void tryOpenChest(MainGUI gui) {
         Chest chest = tryOpenNearbyChest();
@@ -332,5 +351,48 @@ public class GameController {
         int dy = Math.abs(a.getColumn() - b.getColumn());
         return (dx + dy) == 1;
     }
+    
+    
+    public void moveEnemiesTowardsHero() {
+        if (!display.isInHostileMap()) return;
+
+        if (hostileMap instanceof HostileMap hMap) {
+            Block heroPos = hero.getPosition();
+            ArrayList<Block> occupied = new ArrayList<>();
+
+            for (Antagonist enemy : hMap.getAntagonistList()) {
+                Block next = computeNextEnemyBlock(enemy, heroPos, hostileMap, occupied);
+                enemy.setPosition(next);
+                occupied.add(next); // réserve la case
+            }
+
+            checkEnemyCollision();
+            display.repaint();
+        }
+    }
+
+
+    private Block computeNextEnemyBlock(Antagonist enemy, Block heroPos, Map map, ArrayList<Block> occupied) {
+        Block current = enemy.getPosition();
+        int dLine = heroPos.getLine() - current.getLine();
+        int dCol = heroPos.getColumn() - current.getColumn();
+        int nextLine = current.getLine();
+        int nextCol = current.getColumn();
+
+        if (Math.abs(dLine) > Math.abs(dCol)) {
+            nextLine += Integer.compare(dLine, 0);
+        } else if (dCol != 0) {
+            nextCol += Integer.compare(dCol, 0);
+        }
+
+        Block nextBlock = map.getBlock(nextLine, nextCol);
+        if (!map.isBlocked(nextBlock) && !occupied.contains(nextBlock)) {
+            return nextBlock;
+        }
+
+        return current; // reste en place
+    }
+
+
 
 }

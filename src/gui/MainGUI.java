@@ -149,7 +149,7 @@ public class MainGUI extends JFrame {
         add(bottomPanel, BorderLayout.SOUTH);
         
         questManager.addQuest(new Quest("Collecte pour le marchand", "Récoltez 10 pièces d'or", Quest.TYPE_COLLECT, 10, 0));
-        int flameCount = dashboard.getHostileMap().getFlames().size();
+        int flameCount = dashboard.getMap().getFlames().size(); // ✅ map principale
         questManager.addQuest(new Quest("Eteindre les flammes", "Éteindre toutes les maisons en feu", Quest.TYPE_KILL, flameCount, 0));
         questManager.addQuest(new Quest("L'orbe sacré", "Trouvez l'orbe légendaire", Quest.TYPE_FIND, 1, 0));
 
@@ -164,6 +164,22 @@ public class MainGUI extends JFrame {
         dashboard.requestFocusInWindow(); // 🟢 Force le focus
         logger.info("🖥️ Fenêtre affichée avec succès.");
         requestFocusInWindow();
+        new Thread(() -> {
+            while (true) {
+                try {
+                    Thread.sleep(1000); // ⏱️ pause de 300 ms (ajuste si besoin)
+
+                    // ❌ Ne bouge pas les ennemis pendant un dialogue
+                    if (!dialogueActive) {
+                        dashboard.getController().moveEnemiesTowardsHero(); // 💥 Mouvement automatique
+                    }
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
     }
 
 

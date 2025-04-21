@@ -1,151 +1,109 @@
 package data.map;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import javax.swing.JFrame;
 
+import data.player.Antagonist;
 import data.player.Hero;
 import gui.GameDisplay;
 
 public class HostileMap extends Map {
-	
 
-	public HostileMap(int lineCount, int columnCount, int maxChest) {
-	    // On passe true → empêche la génération automatique dans Map
-	    super(lineCount, columnCount, maxChest, true);
+    private final ArrayList<Antagonist> antagonistList = new ArrayList<>();
+    private final HashMap<Antagonist, String> antagonistTypes = new HashMap<>();
 
-	    setStatic(false);
+   
 
-	    // ✅ On efface les données héritées de la map principale
-	    staticObjects.clear();
-	    staticTerrain.clear();
-	    enemies.clear();
-	    terrainBlocked.clear();
+    public HostileMap(int lineCount, int columnCount, int maxChest) {
+        super(lineCount, columnCount, maxChest, true);
+        setStatic(false);
 
-	    // ✅ Appels explicites aux méthodes personnalisées
-	    generateTerrain();       // => appel à ta version hostile
-	    generateObjects();       // => tu peux override si besoin
-	    generateEnemies();       // => override dans HostileMap
-        generateCave(); // ✅ ajoutée en dernier pour ne pas être écrasée
-	}
+        staticObjects.clear();
+        staticTerrain.clear();
+        enemies.clear();
+        terrainBlocked.clear();
 
-	@Override
-	public void generateTerrain() {
-	    // Étape 1 : sol de base
-	    for (int line = 0; line < getLineCount(); line++) {
-	        for (int col = 0; col < getColumnCount(); col++) {
-	            Block block = getBlock(line, col);
-	            staticTerrain.put(block, "floor1"); // sol de base simple
-	            setTerrainBlocked(block, false);
-	        }
-	    }
+        generateTerrain();
+        generateObjects();
+        generateEnemies();
+        generateCave();
+    }
 
-	    // Étape 2 : contour de lave
-	    for (int col = 0; col < getColumnCount(); col++) {
-	        Block top = getBlock(0, col);
-	        Block bottom = getBlock(getLineCount() - 1, col);
-	        staticTerrain.put(top, "lava");
-	        staticTerrain.put(bottom, "lava");
-	        setTerrainBlocked(top, true);
-	        setTerrainBlocked(bottom, true);
-	    }
+    @Override
+    public void generateTerrain() {
+        for (int line = 0; line < getLineCount(); line++) {
+            for (int col = 0; col < getColumnCount(); col++) {
+                Block block = getBlock(line, col);
+                staticTerrain.put(block, "floor1");
+                setTerrainBlocked(block, false);
+            }
+        }
 
-	    for (int line = 0; line < getLineCount(); line++) {
-	        Block left = getBlock(line, 0);
-	        Block right = getBlock(line, getColumnCount() - 1);
-	        staticTerrain.put(left, "lava");
-	        staticTerrain.put(right, "lava");
-	        setTerrainBlocked(left, true);
-	        setTerrainBlocked(right, true);
-	    }
+        for (int col = 0; col < getColumnCount(); col++) {
+            Block top = getBlock(0, col);
+            Block bottom = getBlock(getLineCount() - 1, col);
+            staticTerrain.put(top, "lava");
+            staticTerrain.put(bottom, "lava");
+            setTerrainBlocked(top, true);
+            setTerrainBlocked(bottom, true);
+        }
 
-	    // Étape 3 : petits débordements internes
-	    Random rand = new Random();
-	    for (int i = 0; i < 30; i++) { // 💧 30 débordements max
-	        int line = rand.nextInt(getLineCount());
-	        int col = rand.nextInt(getColumnCount());
+        for (int line = 0; line < getLineCount(); line++) {
+            Block left = getBlock(line, 0);
+            Block right = getBlock(line, getColumnCount() - 1);
+            staticTerrain.put(left, "lava");
+            staticTerrain.put(right, "lava");
+            setTerrainBlocked(left, true);
+            setTerrainBlocked(right, true);
+        }
 
-	        // 💡 On limite les débordements à une bande de 3 cases autour du bord
-	        if (line <= 2 || line >= getLineCount() - 3 || col <= 2 || col >= getColumnCount() - 3) {
-	            Block block = getBlock(line, col);
-	            staticTerrain.put(block, "lava");
-	            setTerrainBlocked(block, true);
-	        }
-	    }
+        Random rand = new Random();
+        for (int i = 0; i < 30; i++) {
+            int line = rand.nextInt(getLineCount());
+            int col = rand.nextInt(getColumnCount());
 
-	    // ✅ Le reste de la map est praticable et la lave encadre visuellement la zone jouable
-	}
+            if (line <= 2 || line >= getLineCount() - 3 || col <= 2 || col >= getColumnCount() - 3) {
+                Block block = getBlock(line, col);
+                staticTerrain.put(block, "lava");
+                setTerrainBlocked(block, true);
+            }
+        }
+    }
 
-
-	public void generateCave() {
-	    int baseLine = 14;
-	    int baseCol = 17;
-
-	    Block top = getBlock(baseLine, baseCol + 1);
-	    Block shadow = getBlock(baseLine + 1, baseCol + 1);
-
-	    Block leftTop = getBlock(baseLine, baseCol);
-	    Block leftBottom = getBlock(baseLine + 1, baseCol);
-
-	    Block rightTop = getBlock(baseLine, baseCol + 2);
-	    Block rightBottom = getBlock(baseLine + 1, baseCol + 2);
-
-	    // 🔝 Première ligne
-	    staticObjects.put(leftTop, "cave_left");
-	    staticObjects.put(top, "cave_top");
-	    staticObjects.put(rightTop, "cave_right");
-
-	    // 🔽 Deuxième ligne
-	    staticObjects.put(leftBottom, "cave_bottom");
-	    staticObjects.put(shadow, "cave_shadow");
-	    staticObjects.put(rightBottom, "cave_bottom");
-
-	    // ❌ Blocage pour éviter que le joueur passe à travers
-	    setTerrainBlocked(leftTop, true);
-	    setTerrainBlocked(top, true);
-	    setTerrainBlocked(rightTop, true);
-	    setTerrainBlocked(leftBottom, true);
-	    setTerrainBlocked(shadow, true);
-	    setTerrainBlocked(rightBottom, true);
-	}
-
-
- 
     @Override
     public void generateEnemies() {
         ArrayList<Block> freeBlocks = getFreeBlocks();
         Random random = new Random();
-        int maxEnemies = 35; // 💀 HostileMap → plus d’ennemis
-        int generatedEnemies = 0;
+        int maxEnemies = 10;
 
+        antagonistList.clear();
+        antagonistTypes.clear(); // important : reset
 
-        while (generatedEnemies < maxEnemies && !freeBlocks.isEmpty()) {
+        for (int i = 0; i < maxEnemies && !freeBlocks.isEmpty(); i++) {
             int index = random.nextInt(freeBlocks.size());
             Block block = freeBlocks.remove(index);
 
-            double rand = Math.random();
-            String enemyType = (rand < 0.5) ? "skeleton" : "slime"; // ✅ Plus de demon
-            getEnemies().put(block, enemyType);
-            if (!enemyType.equals("skeleton") && !enemyType.equals("slime")) {
-                continue; // ne l'ajoute pas à la map
-            }
+            // Choix aléatoire du type
+            String type = Math.random() < 0.5 ? "skeleton" : "slime";
 
-            generatedEnemies++;
+            Antagonist enemy = new Antagonist(block, type, null);
+            antagonistList.add(enemy);
+            antagonistTypes.put(enemy, type); // 🔗 association
         }
-
     }
+
 
     @Override
     public void generateObjects() {
         Random rng = new Random();
-
-        // === BOSQUETS dispersés (groupes d’arbres morts) ===
-        int numBosquets = 10; // nombre de bosquets sur la carte
+        int numBosquets = 10;
         for (int b = 0; b < numBosquets; b++) {
             int centerLine = rng.nextInt(getLineCount() - 6) + 3;
             int centerCol = rng.nextInt(getColumnCount() - 6) + 3;
-            int radius = rng.nextInt(2) + 2; // rayon aléatoire entre 2 et 3
+            int radius = rng.nextInt(2) + 2;
 
             for (int i = centerLine - radius; i <= centerLine + radius; i++) {
                 for (int j = centerCol - radius; j <= centerCol + radius; j++) {
@@ -170,7 +128,6 @@ public class HostileMap extends Map {
             }
         }
 
-        // === ROCHERS dispersés en dehors des bosquets ===
         for (int i = 0; i < getLineCount(); i++) {
             for (int j = 0; j < getColumnCount(); j++) {
                 Block block = getBlock(i, j);
@@ -186,17 +143,42 @@ public class HostileMap extends Map {
         }
     }
 
+    public void generateCave() {
+        int baseLine = 14;
+        int baseCol = 17;
 
+        Block top = getBlock(baseLine, baseCol + 1);
+        Block shadow = getBlock(baseLine + 1, baseCol + 1);
 
+        Block leftTop = getBlock(baseLine, baseCol);
+        Block leftBottom = getBlock(baseLine + 1, baseCol);
 
+        Block rightTop = getBlock(baseLine, baseCol + 2);
+        Block rightBottom = getBlock(baseLine + 1, baseCol + 2);
 
+        staticObjects.put(leftTop, "cave_left");
+        staticObjects.put(top, "cave_top");
+        staticObjects.put(rightTop, "cave_right");
 
+        staticObjects.put(leftBottom, "cave_bottom");
+        staticObjects.put(shadow, "cave_shadow");
+        staticObjects.put(rightBottom, "cave_bottom");
 
-
+        setTerrainBlocked(leftTop, true);
+        setTerrainBlocked(top, true);
+        setTerrainBlocked(rightTop, true);
+        setTerrainBlocked(leftBottom, true);
+        setTerrainBlocked(shadow, true);
+        setTerrainBlocked(rightBottom, true);
+    }
     
+    public ArrayList<Antagonist> getAntagonistList() {
+        return antagonistList;
+    }
+    public HashMap<Antagonist, String> getAntagonistTypes() {
+        return antagonistTypes;
+    }
 
-
- // ✅ Méthode main pour tester visuellement la map hostile
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(() -> {
             HostileMap hostileMap = new HostileMap(23, 40, 0);
@@ -216,5 +198,4 @@ public class HostileMap extends Map {
             gameDisplay.requestFocusInWindow();
         });
     }
-
 }

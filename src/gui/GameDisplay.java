@@ -36,7 +36,6 @@ public class GameDisplay extends JPanel {
 	private Hero hero; // Instance du héros
     private EnemyImageManager enemyImageManager; // Gestionnaire des images des ennemis
     private HashMap<String, Image> tileset; // Dictionnaire des images de terrain et objets
-    private boolean canTakeDamage = true; //  Contrôle si le héros peut prendre des dégâts
     private boolean isGameOver = false; //  Empêche l'affichage multiple du message de Game Over
     private boolean isInShop = false; //  Indique si on est dans la boutique
     private boolean isInHostileMap = false;
@@ -305,6 +304,10 @@ public class GameDisplay extends JPanel {
 	    if (!isInShop) {
 	        paintStrategy.paintEnemies(mapToDraw, g, this);
 	        paintStrategy.paintHealthBar(hero, g, this);
+	    }
+	    
+	    if (isInHostileMap) {
+	        paintStrategy.paintMobileAntagonists(hostileMap, g, this);
 	    }
 
 	    // ✅ 6. Héros toujours visible

@@ -31,4 +31,8 @@ public interface PaintStrategy {
     void paintHero(Hero hero, Graphics g, GameDisplay display);
 
     // Barre de vie du héros
-    void paintHealthBar(Hero hero, Graphics g, GameDisplay display);}
+    void paintHealthBar(Hero hero, Graphics g, GameDisplay display);
+    
+    void paintMobileAntagonists(Map map, Graphics g, GameDisplay display);
+    
+    }
