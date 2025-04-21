@@ -403,7 +403,6 @@ public class GameDisplay extends JPanel {
 	}
 
 
-
 	public Map getHostileMap() {
 		return hostileMap;
 	}
