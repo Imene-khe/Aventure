@@ -9,6 +9,8 @@ import data.map.HostileMap;
 import data.map.Map;
 import data.player.Antagonist;
 import data.player.Hero;
+import data.quest.Quest;
+import data.quest.QuestManager;
 import gui.ChestUIManager;
 import gui.GameDisplay;
 import gui.MainGUI;
@@ -233,7 +235,51 @@ public class GameController {
 
 
     public boolean tryInteractWithNPC(MainGUI gui) {
+        if (display.isInHostileMap() && tryChopDeadTree(gui)) {
+            return true;
+        }
+
+        if (tryMerchantOrShopInteraction(gui)) {
+            return true;
+        }
+
+        display.getController().tryIgniteCampfire(gui);
+        return false;
+    }
+
+
+    public boolean tryChopDeadTree(MainGUI gui) {
         Block heroPos = hero.getPosition();
+        Map activeMap = hostileMap;
+
+        for (int dl = -1; dl <= 1; dl++) {
+            for (int dc = -1; dc <= 1; dc++) {
+                if (dl == 0 && dc == 0) continue;
+
+                int line = heroPos.getLine() + dl;
+                int col = heroPos.getColumn() + dc;
+
+                if (line >= 0 && col >= 0 && line < activeMap.getLineCount() && col < activeMap.getColumnCount()) {
+                    Block block = activeMap.getBlock(line, col);
+                    String object = activeMap.getStaticObjects().get(block);
+
+                    if (object != null && object.startsWith("deadTree")) {
+                        activeMap.getStaticObjects().remove(block);
+                        activeMap.setTerrainBlocked(block, false);
+                        gui.getQuestManager().updateQuest("Trouve du bois sec", 1);
+                        JOptionPane.showMessageDialog(gui, "🪓 Tu as récupéré du bois sec !");
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    
+    public boolean tryMerchantOrShopInteraction(MainGUI gui) {
+        Block heroPos = hero.getPosition();
+        Map activeMap = display.isInShop() ? shopMap :
+                        (display.isInHostileMap() ? hostileMap : map);
 
         for (int dl = -2; dl <= 2; dl++) {
             for (int dc = -2; dc <= 2; dc++) {
@@ -242,36 +288,12 @@ public class GameController {
                 int line = heroPos.getLine() + dl;
                 int col = heroPos.getColumn() + dc;
 
-                Map activeMap = display.isInShop() ? shopMap :
-                                (display.isInHostileMap() ? hostileMap : map);
-
                 if (line >= 0 && col >= 0 && line < activeMap.getLineCount() && col < activeMap.getColumnCount()) {
                     Block block = activeMap.getBlock(line, col);
                     String object = activeMap.getStaticObjects().get(block);
 
                     if ("merchant".equals(object)) {
-                        logger.info("🗨️ Interaction avec le marchand détectée.");
-
-                        String message = "👴 Le marchand te salue avec un sourire.\n\nQue veux-tu lui dire ?";
-                        String[] options = {
-                            "💰 Bonjour, j'ai cru comprendre que vous aviez perdu une bourse d'or...",
-                            "👋 Bonjour l'ami. Alors vous êtes nouveau dans la région ?"
-                        };
-
-                        int choix = JOptionPane.showOptionDialog(
-                            null,
-                            message,
-                            "Dialogue avec le marchand",
-                            JOptionPane.DEFAULT_OPTION,
-                            JOptionPane.PLAIN_MESSAGE,
-                            null,
-                            options,
-                            options[0]
-                        );
-
-                        if (choix == 0) gui.triggerDialogue("enter_shop_give_gold");
-                        else if (choix == 1) gui.triggerDialogue("enter_shop_chat");
-
+                        openMerchantDialogue(gui);
                         return true;
                     }
 
@@ -285,6 +307,32 @@ public class GameController {
         }
         return false;
     }
+
+    public void openMerchantDialogue(MainGUI gui) {
+        logger.info("🗨️ Interaction avec le marchand détectée.");
+        String message = "👴 Le marchand te salue avec un sourire.\n\nQue veux-tu lui dire ?";
+        String[] options = {
+            "💰 Bonjour, j'ai cru comprendre que vous aviez perdu une bourse d'or...",
+            "👋 Bonjour l'ami. Alors vous êtes nouveau dans la région ?"
+        };
+
+        int choix = JOptionPane.showOptionDialog(
+            null,
+            message,
+            "Dialogue avec le marchand",
+            JOptionPane.DEFAULT_OPTION,
+            JOptionPane.PLAIN_MESSAGE,
+            null,
+            options,
+            options[0]
+        );
+
+        if (choix == 0) gui.triggerDialogue("enter_shop_give_gold");
+        else if (choix == 1) gui.triggerDialogue("enter_shop_chat");
+    }
+
+
+
 
 
     public void enterShop(MainGUI gui) {
@@ -400,6 +448,57 @@ public class GameController {
 
         return current; // reste en place
     }
+    
+    public void setupHostileQuests() {
+        QuestManager questManager = MainGUI.getInstance().getQuestManager();
+        questManager.clearAllQuests();
+        questManager.addQuest(new Quest("Trouve du bois sec", "Atteinds le refuge et allume un feu", Quest.TYPE_FIND, 3, 0));
+        questManager.addQuest(new Quest("Chasseur de Slimes", "Élimine 5 slimes hostiles", Quest.TYPE_KILL, 5, 200));
+        questManager.addQuest(new Quest("Chasseur de Squelettes", "Élimine 3 squelettes hostiles", Quest.TYPE_KILL, 3, 250));
+    }
+    
+    public void tryIgniteCampfire(MainGUI gui) {
+        if (!display.isInHostileMap()) return;
+
+        Block heroPos = hero.getPosition();
+        Map activeMap = hostileMap;
+
+        for (int dl = -1; dl <= 1; dl++) {
+            for (int dc = -1; dc <= 1; dc++) {
+                int line = heroPos.getLine() + dl;
+                int col = heroPos.getColumn() + dc;
+
+                if (line < 0 || col < 0 || line >= activeMap.getLineCount() || col >= activeMap.getColumnCount())
+                    continue;
+
+                Block block = activeMap.getBlock(line, col);
+                String object = activeMap.getStaticObjects().get(block);
+
+                // 🔥 Vérifie que c’est bien un feu de camp éteint
+                if ("campfire_off".equals(object)) {
+                    QuestManager qm = MainGUI.getInstance().getQuestManager();
+                    Quest quest = qm.getActiveQuests().stream()
+                        .filter(q -> q.getName().equals("Trouve du bois sec"))
+                        .findFirst().orElse(null);
+
+                    if (quest != null && quest.getCurrentAmount() >= 3 && !quest.isCompleted()) {
+                        activeMap.getStaticObjects().put(block, "campfire_on"); // change l’image
+                        qm.updateQuest("Trouve du bois sec", 1); // ajoute la dernière étape
+                        JOptionPane.showMessageDialog(gui, "🔥 Tu as allumé le feu de camp !");
+                        display.repaint(); // met à jour visuellement
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(gui, "💨 Il te faut au moins 3 bois secs pour allumer le feu.");
+                    }
+                    return;
+                }
+            }
+        }
+    }
+
+
+
+
 
 
 

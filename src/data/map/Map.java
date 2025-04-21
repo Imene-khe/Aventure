@@ -14,7 +14,6 @@ import data.item.ChestManager;
 import data.item.Coin;
 import data.item.Equipment;
 import data.item.Flame;
-import data.player.Antagonist;
 import gui.GameDisplay;
 import log.LoggerUtility;
 
@@ -30,8 +29,8 @@ public class Map {
     private int columnCount;
     private int maxChests;
     private ArrayList<Coin> coins;
-    private boolean isStatic; // ✅ Ajout d'un booléen pour indiquer si la carte est fixe
-    private ArrayList<data.item.Flame> flames = new ArrayList<>();
+    private boolean isStatic; 
+    private ArrayList<Flame> flames = new ArrayList<>();
     private static final Logger logger = LoggerUtility.getLogger(HostileMap.class, "text");
 
 
@@ -44,17 +43,13 @@ public class Map {
         this.maxChests = maxChest;
         this.enemies = new HashMap<>();
         this.coins = new ArrayList<>();
-        this.isStatic = isStatic; // ✅ Définition du mode statique
+        this.isStatic = isStatic; 
         this.flames = new ArrayList<>();
-
-        // Création des blocs
         for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
             for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
                 blocks[lineIndex][columnIndex] = new Block(lineIndex, columnIndex);
             }
         }
-
-        // ✅ Si la carte est statique, on ne génère pas de terrain aléatoire
         if (!isStatic) {
             generateTerrain();
             generateObjects();  // Générer les objets (arbres, maisons, coffres)

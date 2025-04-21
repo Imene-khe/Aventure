@@ -85,7 +85,7 @@ public class HostileMap extends Map {
             for (Block shelter : getShelterBlocks()) {
                 int dx = Math.abs(block.getLine() - shelter.getLine());
                 int dy = Math.abs(block.getColumn() - shelter.getColumn());
-                if ((dx + dy) <= 1) { // 🔒 à moins d’un bloc du shelter
+                if ((dx + dy) <= 1) {
                     toRemove.add(block);
                     break;
                 }
@@ -103,17 +103,12 @@ public class HostileMap extends Map {
         for (int i = 0; i < maxEnemies && !freeBlocks.isEmpty(); i++) {
             int index = random.nextInt(freeBlocks.size());
             Block block = freeBlocks.remove(index);
-
-            // Choix aléatoire du type
             String type = Math.random() < 0.5 ? "skeleton" : "slime";
-
             Antagonist enemy = new Antagonist(block, type, null);
             antagonistList.add(enemy);
             antagonistTypes.put(enemy, type);
         }
     }
-
-
 
     @Override
     public void generateObjects() {
@@ -199,30 +194,22 @@ public class HostileMap extends Map {
         for (int i = centerLine - radius - 1; i <= centerLine + radius + 1; i++) {
             for (int j = centerCol - radius - 1; j <= centerCol + radius + 1; j++) {
                 if (i < 0 || j < 0 || i >= getLineCount() || j >= getColumnCount()) continue;
-
                 Block block = getBlock(i, j);
                 String terrain = staticTerrain.get(block);
-
-                // ❌ Ne pas placer sur la lave
                 if (terrain == null || terrain.equals("lava")) continue;
-
-                // 🧹 Supprime l’objet existant (arbre, rocher, etc.)
                 staticObjects.remove(block);
-
                 double dx = j - centerCol;
                 double dy = i - centerLine;
                 double distance = Math.sqrt(dx * dx + dy * dy);
-
                 if (distance >= radius - 0.5 && distance <= radius + 0.5) {
-                    if (i == centerLine + radius && j == centerCol) continue; // entrée
-
+                    if (i == centerLine + radius && j == centerCol) continue; 
                     String rockType;
                     if (i == centerLine - radius && j == centerCol) {
                         rockType = "toprock";
                     } else if (j == centerCol - radius && i == centerLine) {
-                        rockType = "rightborderrock"; // gauche visuellement
+                        rockType = "rightborderrock"; 
                     } else if (j == centerCol + radius && i == centerLine) {
-                        rockType = "leftborderrock"; // droite visuellement
+                        rockType = "leftborderrock"; 
                     } else if (j < centerCol && i < centerLine) {
                         rockType = "topleftrock";
                     } else if (j > centerCol && i < centerLine) {
@@ -236,28 +223,24 @@ public class HostileMap extends Map {
                     }
 
                     staticObjects.put(block, rockType);
-                    if (!"campfire".equals(rockType)) {
-                        setTerrainBlocked(block, true); // 🔒 les rochers bloquent
+                    if (!"campfire_off".equals(rockType)) {
+                        setTerrainBlocked(block, true);
                     }
-                    shelterBlocks.add(block); // ✅ garde trace
+                    shelterBlocks.add(block); 
                 }
             }
         }
-
-        // ✅ Débloque l’entrée après la boucle
         Block entry = getBlock(centerLine + radius, centerCol);
         staticObjects.remove(entry);
         setTerrainBlocked(entry, false);
         shelterBlocks.add(entry);
-
-        // 🔥 Placement du feu de camp
         Block center = getBlock(centerLine, centerCol);
         String centerTerrain = staticTerrain.get(center);
         if (centerTerrain != null && !centerTerrain.equals("lava")) {
-            staticObjects.remove(center); // 🧹 supprime tout objet au centre (ex: arbre)
-            staticObjects.put(center, "campfire");
+            staticObjects.remove(center); 
+            staticObjects.put(center, "campfire_off");
             setTerrainBlocked(center, true);
-            shelterBlocks.add(center); // ✅ on ajoute le centre aussi
+            shelterBlocks.add(center); 
         }
     }
 

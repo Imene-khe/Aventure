@@ -233,7 +233,9 @@ public class GameDisplay extends JPanel {
             hostileTileset.put("topleftrock", loadImage("src/images/outdoor/hostile/shelter/topleftrock.png"));
             hostileTileset.put("toprightrock", loadImage("src/images/outdoor/hostile/shelter/toprightrock.png"));
 
-            hostileTileset.put("campfire", loadImage("src/images/outdoor/hostile/shelter/CampFire.png"));
+            hostileTileset.put("campfire_off", loadImage("src/images/outdoor/hostile/shelter/CampFireOff.png"));
+            hostileTileset.put("campfire_on", loadImage("src/images/outdoor/hostile/shelter/CampFireOn.png"));
+
 
             hostileTileset.put("deadTree1", loadImage("src/images/outdoor/hostile/deadTree1.png"));
             hostileTileset.put("deadTree2", loadImage("src/images/outdoor/hostile/deadTree2.png"));
@@ -403,14 +405,15 @@ public class GameDisplay extends JPanel {
 	}
 	
 	public void enterHostileMap() {
-	    this.isInHostileMap = true;                            // ✅ active le flag
-	    this.hero.setPosition(hostileMap.getBlock(17, 5));     // ✅ place le héros dessus
-	    this.repaint();                                        // 🔁 rafraîchit l’affichage
+	    this.isInHostileMap = true;
+	    this.hero.setPosition(hostileMap.getBlock(17, 5));
+	    this.repaint();
 	    this.setFocusable(true);
-	    this.requestFocusInWindow();    
-	    MainGUI.getInstance().getQuestManager().clearAllQuests();
+	    this.requestFocusInWindow();
+	    controller.setupHostileQuests(); 
 	    System.out.println("🌋 Passage à la HostileMap !");
 	}
+
 
 
 	public Map getHostileMap() {

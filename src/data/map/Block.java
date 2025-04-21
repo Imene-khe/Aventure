@@ -34,12 +34,14 @@ public class Block {
         return "Block [line=" + line + ", column=" + column + "]";
     }
 
-    public boolean equals(Block obj) {
+    @Override
+    public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Block block = (Block) obj;
         return line == block.line && column == block.column;
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(line, column);
