@@ -38,9 +38,10 @@ public class Block {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        Block block = (Block) obj;
-        return line == block.line && column == block.column;
+        Block other = (Block) obj;
+        return this.line == other.line && this.column == other.column;
     }
+
 
     @Override
     public int hashCode() {

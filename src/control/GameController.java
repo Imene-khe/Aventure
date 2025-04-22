@@ -63,8 +63,7 @@ public class GameController {
             default -> { return; }
         }
 
-        Map activeMap = display.isInShop() ? shopMap :
-                        (display.isInHostileMap() ? hostileMap : map);
+        Map activeMap = display.getActiveMap();
 
         int blockSize = display.getBlockSize();
         int visibleHeight = display.getHeight();
@@ -116,8 +115,7 @@ public class GameController {
     public void moveHero(Block newPosition, MainGUI mainGUI) {
         if (display.isGameOver()) return;
 
-        Map activeMap = display.isInShop() ? shopMap :
-                        (display.isInHostileMap() ? hostileMap : map);
+        Map activeMap = display.getActiveMap();
 
         if (activeMap.isBlocked(newPosition)) return;
 
@@ -132,8 +130,7 @@ public class GameController {
     }
 
     public void checkCoinCollection(MainGUI mainGUI) {
-        Map activeMap = display.isInShop() ? shopMap :
-                        (display.isInHostileMap() ? hostileMap : map);
+    	Map activeMap = display.getActiveMap();
 
         ArrayList<Coin> collectedCoins = new ArrayList<>();
 
@@ -149,9 +146,7 @@ public class GameController {
     }
 
     public Chest tryOpenNearbyChest() {
-        Map activeMap = display.isInShop() ? shopMap :
-                        (display.isInHostileMap() ? hostileMap : map);
-
+    	Map activeMap = display.getActiveMap();
         Block heroPos = hero.getPosition();
         int heroLine = heroPos.getLine();
         int heroColumn = heroPos.getColumn();
@@ -209,7 +204,7 @@ public class GameController {
         if (display.isGameOver() || display.isInShop()) return;
 
         Block heroPos = hero.getPosition();
-        Map activeMap = display.isInHostileMap() ? hostileMap : map;
+        Map activeMap = display.getActiveMap();
 
         if (activeMap instanceof HostileMap hMap) {
             for (Antagonist enemy : hMap.getAntagonistList()) {
@@ -321,9 +316,7 @@ public class GameController {
     
     public boolean tryMerchantOrShopInteraction(MainGUI gui) {
         Block heroPos = hero.getPosition();
-        Map activeMap = display.isInShop() ? shopMap :
-                        (display.isInHostileMap() ? hostileMap : map);
-
+        Map activeMap = display.getActiveMap();
         for (int dl = -2; dl <= 2; dl++) {
             for (int dc = -2; dc <= 2; dc++) {
                 if (dl == 0 && dc == 0) continue;
@@ -409,9 +402,7 @@ public class GameController {
 
     public void tryExtinguishFlame(MainGUI gui) {
         Block heroPos = display.getHero().getPosition();
-        Map activeMap = display.isInShop() ? shopMap :
-                        (display.isInHostileMap() ? hostileMap : map);
-
+        Map activeMap = display.getActiveMap();
         for (Flame flame : activeMap.getFlames()) {
             Block flamePos = flame.getPosition();
 
@@ -502,7 +493,7 @@ public class GameController {
     
     public void setupHostileQuests() {
         QuestManager questManager = MainGUI.getInstance().getQuestManager();
-        questManager.clearAllQuests();
+        questManager.clearQuests();
         questManager.addQuest(new Quest("Trouve du bois sec", "Atteinds le refuge et allume un feu", Quest.TYPE_FIND, 3, 0));
         questManager.addQuest(new Quest("Chasseur de têtes", "Élimine 5 monstres hostiles", Quest.TYPE_KILL, 5, 250));
         questManager.addQuest(new Quest("Activer les runes", "Marche sur les 3 runes anciennes", "rune", 3, 0));}

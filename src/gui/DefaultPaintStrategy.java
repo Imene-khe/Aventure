@@ -40,7 +40,6 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	                continue; // pas besoin de double affichage
 	            }
 
-
 	            Image terrainImage = tileset.get(terrainType);
 	            if (terrainImage != null) {
 	                g.drawImage(terrainImage, block.getColumn() * 32, block.getLine() * 32, 32, 32, null);
@@ -48,6 +47,7 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	        }
 	    }
 	}
+
 
 
 	@Override

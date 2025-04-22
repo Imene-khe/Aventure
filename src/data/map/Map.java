@@ -347,7 +347,7 @@ public class Map {
 
 	            boolean isOccupied = staticObjects.containsKey(block) || enemies.containsKey(block);
 	            boolean isBlocked = isBlocked(block); // ✅ nouveau test ajouté ici
-
+	            System.out.println("✅ Bloc libre : " + block);
 	            if (!isOccupied && !isBlocked) {
 	                freeBlocks.add(block);
 	            }
@@ -361,8 +361,13 @@ public class Map {
     
 
 	public boolean isBlocked(Block block) {
+	    System.out.println("🧱 Vérif bloc : " + block + " | terrain = " + staticTerrain.get(block) + 
+	            " | object = " + staticObjects.get(block) + 
+	            " | terrainBlocked = " + terrainBlocked.get(block));
+
 	    if (isStatic) {
 	        String object = staticObjects.get(block);
+
 	        if (object == null) return false;
 
 	        return object.equals("bookshelf") || object.equals("merchant") || object.equals("bar");
@@ -385,6 +390,7 @@ public class Map {
 
 	    return false;
 	}
+
 
 
 

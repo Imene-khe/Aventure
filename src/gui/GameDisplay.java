@@ -13,7 +13,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import control.CombatController;
 import control.GameController;
 import data.map.CombatMap;
 import data.map.HostileMap;
@@ -37,13 +36,14 @@ public class GameDisplay extends JPanel {
     private Map map; // Instance de la carte du jeu
     private Map shopMap;
     private Map hostileMap;
-    private Map combatmap;
+    private CombatMap combatMap;
 	private Hero hero; // Instance du héros
     private EnemyImageManager enemyImageManager; // Gestionnaire des images des ennemis
     private HashMap<String, Image> tileset; // Dictionnaire des images de terrain et objets
     private boolean isGameOver = false; //  Empêche l'affichage multiple du message de Game Over
     private boolean isInShop = false; //  Indique si on est dans la boutique
     private boolean isInHostileMap = false;
+    private boolean isInCombatMap = false;
     private SpriteAnimator flameAnimator;
     private SpriteAnimator coinAnimator;
     private PaintStrategy paintStrategy = new DefaultPaintStrategy();
@@ -57,6 +57,9 @@ public class GameDisplay extends JPanel {
     public boolean isInShop() {
 		return isInShop;
 	}
+    public boolean isInCombatMap() {
+        return isInCombatMap;
+    }
 
 	public void setInShop(boolean isInShop) {
 		this.isInShop = isInShop;
@@ -346,14 +349,18 @@ public class GameDisplay extends JPanel {
 	}
 
     
-    public Map getCombatmap() {
-		return combatmap;
-	}
+    
 
-	public void setCombatmap(Map combatmap) {
-		this.combatmap = combatmap;
-	}
 
+	
+	public CombatMap getCombatMap() {
+		return combatMap;
+	}
+	
+	public void setCombatMap(CombatMap combatMap) {
+		this.combatMap = combatMap;
+	}
+	
 	public HashMap<String, Image> getCombatTileset() {
 		return combatTileset;
 	}
@@ -458,17 +465,28 @@ public class GameDisplay extends JPanel {
 	}
 	
 	public void enterCombatMap() {
-	    this.combatmap = new CombatMap(23, 40); // ou une autre taille si besoin
-	    this.map = this.combatmap;
-	    this.hero.setPosition(combatmap.getBlock(12, 20)); // position centrale par défaut
+	    this.combatMap = new CombatMap(23, 40); 
+	    this.map = this.combatMap;
+	    this.hero.setPosition(combatMap.getArenaEntryPosition());
 	    this.isInHostileMap = false;
 	    this.isInShop = false;
+	    this.isInCombatMap = true;
+
+	    MainGUI.getInstance().getQuestManager().clearQuests();
+	    MainGUI.getInstance().getQuestManager().loadCombatMapQuests();
+
 	    repaint();
 	    setFocusable(true);
 	    requestFocusInWindow();
-
-	    System.out.println("⚔️ CombatMap activée !");
 	}
+	
+	public Map getActiveMap() {
+	    if (isInCombatMap) return combatMap;
+	    if (isInHostileMap) return hostileMap;
+	    if (isInShop) return shopMap;
+	    return map;
+	}
+
 
 
 
@@ -517,7 +535,7 @@ public class GameDisplay extends JPanel {
 	        // 💥 Remplace la carte principale par la CombatMap
 	        CombatMap arena = new CombatMap(23, 40); // ou une autre taille si nécessaire
 	        gameDisplay.setMap(arena);
-	        gameDisplay.setHero(new Hero(arena.getBlock(12, 20), 100)); // centre de l’arène
+	        gameDisplay.setHero(new Hero(arena.getBlock(12, 20), 100)); 
 	        gameDisplay.repaint();
 
 	        frame.add(gameDisplay);
