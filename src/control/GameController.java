@@ -19,19 +19,21 @@ import log.LoggerUtility;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
+
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class GameController {
 
     private static final Logger logger = LoggerUtility.getLogger(GameController.class, "text");
-
-    private final GameDisplay display;
+	private final GameDisplay display;
     private final Hero hero;
     private Map map;
     private final Map shopMap;
     private Map hostileMap;
     private boolean canTakeDamage = true;
+    private CombatController combatController;
 
     public GameController(GameDisplay display) {
         this.display = display;
@@ -39,6 +41,8 @@ public class GameController {
         this.map = display.getMap();
         this.shopMap = display.getShopMap();
         this.hostileMap = display.getHostileMap(); // ✅ Initialisé comme shopMap
+        this.combatController = new CombatController(display, this); // ou juste this si tu veux un lien vers GameController
+
    
 
     }
@@ -453,9 +457,7 @@ public class GameController {
         QuestManager questManager = MainGUI.getInstance().getQuestManager();
         questManager.clearAllQuests();
         questManager.addQuest(new Quest("Trouve du bois sec", "Atteinds le refuge et allume un feu", Quest.TYPE_FIND, 3, 0));
-        questManager.addQuest(new Quest("Chasseur de Slimes", "Élimine 5 slimes hostiles", Quest.TYPE_KILL, 5, 200));
-        questManager.addQuest(new Quest("Chasseur de Squelettes", "Élimine 3 squelettes hostiles", Quest.TYPE_KILL, 3, 250));
-    }
+        questManager.addQuest(new Quest("Chasseur de têtes", "Élimine 5 monstres hostiles", Quest.TYPE_KILL, 5, 250));    }
     
     public void tryIgniteCampfire(MainGUI gui) {
         if (!display.isInHostileMap()) return;
@@ -481,7 +483,7 @@ public class GameController {
                         .filter(q -> q.getName().equals("Trouve du bois sec"))
                         .findFirst().orElse(null);
 
-                    if (quest != null && quest.getCurrentAmount() >= 3 && !quest.isCompleted()) {
+                    if (quest != null && quest.getCurrentAmount() == 3 && quest.getRequiredAmount() == 3) {
                         activeMap.getStaticObjects().put(block, "campfire_on"); // change l’image
                         qm.updateQuest("Trouve du bois sec", 1); // ajoute la dernière étape
                         JOptionPane.showMessageDialog(gui, "🔥 Tu as allumé le feu de camp !");
@@ -495,6 +497,21 @@ public class GameController {
             }
         }
     }
+
+    public void handleCombatClick(Point clickPoint) {
+        if (combatController != null) {
+            combatController.handleClick(clickPoint); // ✅ passe la main
+        }
+    }
+    
+    public CombatController getCombatController() {
+		return combatController;
+	}
+
+
+	public void setCombatController(CombatController combatController) {
+		this.combatController = combatController;
+	}
 
 
 

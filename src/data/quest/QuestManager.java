@@ -1,10 +1,13 @@
 package data.quest;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class QuestManager {
     private ArrayList<Quest> activeQuests;
     private int totalCoins; // ✅ Ajout d'un compteur de pièces pour suivre les récompenses
+    private final Map<String, Integer> dynamicCounters = new HashMap<>();
 
     public QuestManager() {
         this.activeQuests = new ArrayList<>();
@@ -18,11 +21,14 @@ public class QuestManager {
 
     public void updateQuest(String questName, int amount) {
         for (Quest quest : activeQuests) {
-            if (quest.getName().equals(questName) && !quest.isCompleted()) {
+            System.out.println("🔎 Tentative mise à jour de : " + quest.getName());
+            if (quest.getName().trim().equalsIgnoreCase(questName.trim()) && !quest.isCompleted()) {
                 quest.updateProgress(amount);
+                System.out.println("✅ Progression : " + quest.getCurrentAmount() + "/" + quest.getRequiredAmount());
             }
         }
     }
+
 
     public void claimQuestReward(String questName) {
         for (Quest quest : activeQuests) {
@@ -70,6 +76,29 @@ public class QuestManager {
         activeQuests.clear();
         System.out.println("🧹 Toutes les quêtes ont été supprimées.");
     }
+
+    public void notifyQuestProgress(String type, int amount) {
+        System.out.println("🔔 Appel à notifyQuestProgress(type = " + type + ", amount = " + amount + ")");
+
+        for (Quest quest : activeQuests) {
+            System.out.println("🧪 ➤ Quête : " + quest.getName() + " | Type = " + quest.getType() + " | Avancement = " + quest.getCurrentAmount() + "/" + quest.getRequiredAmount());
+
+            if (!quest.isCompleted() && quest.getType().equals(type)) {
+                System.out.println("✅ Mise à jour : " + quest.getName());
+                quest.updateProgress(amount);
+                System.out.println("📊 ➤ Nouveau total : " + quest.getCurrentAmount() + "/" + quest.getRequiredAmount());
+
+                if (quest.isCompleted()) {
+                    System.out.println("🏁 ✅ Quête complétée : " + quest.getName());
+                }
+            }
+        }
+    }
+
+
+
+ 
+
 
 
 

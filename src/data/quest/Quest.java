@@ -29,15 +29,22 @@ public class Quest {
     }
 
     public void updateProgress(int amount) {
+        System.out.println("🔧 updateProgress() appelé pour " + name +
+            " | amount = " + amount + ", current = " + currentAmount);
+
         if (status.equals(STATUS_EN_COURS)) {
             currentAmount += amount;
+            System.out.println("📈 Nouveau currentAmount = " + currentAmount);
             if (currentAmount >= requiredAmount) {
                 currentAmount = requiredAmount;
                 status = STATUS_TERMINEE;
                 System.out.println("✔ Quête terminée : " + name);
             }
+        } else {
+            System.out.println("⛔ Quête déjà terminée, pas de mise à jour.");
         }
     }
+
     
     public void setRequiredAmount(int amount) {
         this.requiredAmount = amount;

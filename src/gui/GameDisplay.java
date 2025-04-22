@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -77,8 +79,8 @@ public class GameDisplay extends JPanel {
 
 	        this.hero = new Hero(map.getBlock(GRID_SIZE / 2, GRID_SIZE / 2), 100);
 	        this.tileset = new HashMap<>();
-
 	        this.controller = new GameController(this); // nouveau contrôleur
+	        this.addMouseListener(new MouseControls()); // ✅ Gère les clics souris
 
 	        try {
 	            String[] coinPaths = new String[8];
@@ -410,7 +412,12 @@ public class GameDisplay extends JPanel {
 	    this.repaint();
 	    this.setFocusable(true);
 	    this.requestFocusInWindow();
-	    controller.setupHostileQuests(); 
+	    this.addMouseListener(new MouseControls()); // ✅ à mettre ici
+	    controller.setupHostileQuests();
+	    this.setFocusable(true);
+	    this.requestFocusInWindow(); // déjà présent ? ajoute aussi :
+	    this.requestFocus(); // pour forcer en dernier recours
+
 	    System.out.println("🌋 Passage à la HostileMap !");
 	}
 
@@ -431,6 +438,19 @@ public class GameDisplay extends JPanel {
 	public boolean isInHostileMap() {
 	    return isInHostileMap;
 	}
+	
+	private class MouseControls extends MouseAdapter {
+	    @Override
+	    public void mouseClicked(MouseEvent e) {
+	        if (SwingUtilities.isLeftMouseButton(e)) {
+	            if (controller != null && controller.getCombatController() != null) {
+	                System.out.println("🖱️ Clic détecté !");
+	                controller.getCombatController().handleClick(e.getPoint());
+	            }
+	        }
+	    }
+	}
+
 
 
 
