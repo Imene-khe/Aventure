@@ -13,7 +13,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import control.CombatController;
 import control.GameController;
+import data.map.CombatMap;
 import data.map.HostileMap;
 import data.map.Map;
 import data.player.EnemyImageManager;
@@ -35,6 +37,7 @@ public class GameDisplay extends JPanel {
     private Map map; // Instance de la carte du jeu
     private Map shopMap;
     private Map hostileMap;
+    private Map combatmap;
 	private Hero hero; // Instance du héros
     private EnemyImageManager enemyImageManager; // Gestionnaire des images des ennemis
     private HashMap<String, Image> tileset; // Dictionnaire des images de terrain et objets
@@ -46,6 +49,8 @@ public class GameDisplay extends JPanel {
     private PaintStrategy paintStrategy = new DefaultPaintStrategy();
     private GameController controller;
     private HashMap<String, Image> hostileTileset;
+    private HashMap<String, Image> combatTileset; // Dictionnaire des images de terrain et objets
+
 
     
 
@@ -251,6 +256,19 @@ public class GameDisplay extends JPanel {
             hostileTileset.put("rune1", loadImage("src/images/outdoor/hostile/symbol/rune1.png"));
             hostileTileset.put("rune2", loadImage("src/images/outdoor/hostile/symbol/rune2.png"));
             hostileTileset.put("rune3", loadImage("src/images/outdoor/hostile/symbol/rune3.png"));
+            
+            combatTileset = new HashMap<>();
+
+            combatTileset.put("floorCave", loadImage("src/images/outdoor/combat/floorcave.png"));
+            combatTileset.put("platformCave", loadImage("src/images/outdoor/combat/platformCave.png"));
+            combatTileset.put("black", loadImage("src/images/outdoor/combat/black.png"));
+            combatTileset.put("bridge", loadImage("src/images/outdoor/combat/bridge.png"));
+            combatTileset.put("verticalBorder", loadImage("src/images/outdoor/combat/verticalBorder.png"));
+            combatTileset.put("horizontalBorder", loadImage("src/images/outdoor/combat/horizontalBorder.png"));
+
+
+
+
 
 
 
@@ -286,7 +304,7 @@ public class GameDisplay extends JPanel {
 	protected void paintComponent(Graphics g) {
 	    super.paintComponent(g);
 
-	    Map mapToDraw = isInHostileMap ? hostileMap : (isInShop ? shopMap : map);
+	    Map mapToDraw = (map instanceof CombatMap) ? map : (isInHostileMap ? hostileMap : (isInShop ? shopMap : map));
 
 	    if (mapToDraw == null || (isInHostileMap ? hostileTileset : tileset) == null) {
 	        System.out.println("❌ Erreur: map ou tileset null");
@@ -300,7 +318,6 @@ public class GameDisplay extends JPanel {
 	    if (!isInShop && !isInHostileMap) {
 	        paintStrategy.paintCoins(mapToDraw, g, this);
 	    }
-
 
 	    // ✅ 3. Objets statiques
 	    paintStrategy.paintStaticObjects(mapToDraw, g, this);
@@ -329,7 +346,23 @@ public class GameDisplay extends JPanel {
 	}
 
     
-    public boolean isGameOver() {
+    public Map getCombatmap() {
+		return combatmap;
+	}
+
+	public void setCombatmap(Map combatmap) {
+		this.combatmap = combatmap;
+	}
+
+	public HashMap<String, Image> getCombatTileset() {
+		return combatTileset;
+	}
+
+	public void setCombatTileset(HashMap<String, Image> combatTileset) {
+		this.combatTileset = combatTileset;
+	}
+
+	public boolean isGameOver() {
 		return isGameOver;
 	}
 
@@ -423,6 +456,21 @@ public class GameDisplay extends JPanel {
 
 	    System.out.println("🌋 Passage à la HostileMap !");
 	}
+	
+	public void enterCombatMap() {
+	    this.combatmap = new CombatMap(23, 40); // ou une autre taille si besoin
+	    this.map = this.combatmap;
+	    this.hero.setPosition(combatmap.getBlock(12, 20)); // position centrale par défaut
+	    this.isInHostileMap = false;
+	    this.isInShop = false;
+	    repaint();
+	    setFocusable(true);
+	    requestFocusInWindow();
+
+	    System.out.println("⚔️ CombatMap activée !");
+	}
+
+
 
 
 
@@ -459,22 +507,28 @@ public class GameDisplay extends JPanel {
 
 
     
+
 	public static void main(String[] args) {
 	    SwingUtilities.invokeLater(() -> {
-	        JFrame frame = new JFrame("Aventure - Vue complète");
+	        JFrame frame = new JFrame("Aventure - Arène de combat");
 
 	        GameDisplay gameDisplay = new GameDisplay();
 
-	        gameDisplay.setFocusable(true);
-	        gameDisplay.requestFocusInWindow();
+	        // 💥 Remplace la carte principale par la CombatMap
+	        CombatMap arena = new CombatMap(23, 40); // ou une autre taille si nécessaire
+	        gameDisplay.setMap(arena);
+	        gameDisplay.setHero(new Hero(arena.getBlock(12, 20), 100)); // centre de l’arène
+	        gameDisplay.repaint();
 
-	        frame.add(gameDisplay); // Pas de JScrollPane
-	        frame.setSize(gameDisplay.getPreferredSize()); // ⬅️ taille exacte selon la carte
+	        frame.add(gameDisplay);
+	        frame.setSize(gameDisplay.getPreferredSize());
 	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        frame.setLocationRelativeTo(null);
 	        frame.setVisible(true);
 	    });
 	}
+
+
 
 
 }

@@ -95,9 +95,17 @@ public class StartScreen extends JFrame {
                 JFrame combatFrame = new JFrame("Mode Combat");
                 combatFrame.setSize(800, 600);
                 combatFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                combatFrame.add(new CombatMap(null));
+
+                GameDisplay combatDisplay = new GameDisplay();
+                CombatMap combatMap = new CombatMap(23, 40); // même format que HostileMap
+                combatDisplay.setMap(combatMap); // Définit la CombatMap
+                combatDisplay.setHero(new data.player.Hero(combatMap.getBlock(12, 20), 100)); // Place le héros au centre
+                combatDisplay.repaint(); // Optionnel mais propre
+
+                combatFrame.add(combatDisplay);
                 combatFrame.setVisible(true);
                 break;
+
             case "shop":
             	// ✅ Création de la fenêtre pour la boutique
                 JFrame shopFrame = new JFrame("Boutique");

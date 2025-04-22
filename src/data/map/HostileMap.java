@@ -16,6 +16,7 @@ public class HostileMap extends Map {
     private HashMap<Antagonist, String> antagonistTypes = new HashMap<>();
     private ArrayList<Block> shelterBlocks = new ArrayList<>();
     private ArrayList<Block> runeBlocks = new ArrayList<>();
+    private Block caveEntry; // ajouté tout en haut
 
    
 
@@ -186,7 +187,11 @@ public class HostileMap extends Map {
         setTerrainBlocked(leftBottom, true);
         setTerrainBlocked(shadow, true);
         setTerrainBlocked(rightBottom, true);
+
+        // ✅ Ajout dynamique de l'entrée de la cave
+        this.caveEntry = shadow;
     }
+
     
     public void generateSafeShelter() {
         int centerLine = 4;
@@ -284,5 +289,9 @@ public class HostileMap extends Map {
     }
     public HashMap<Antagonist, String> getAntagonistTypes() {
         return antagonistTypes;
+    }
+    
+    public Block getCaveEntry() {
+        return caveEntry;
     }
 }

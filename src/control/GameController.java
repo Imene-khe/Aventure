@@ -277,6 +277,10 @@ public class GameController {
         if (display.isInHostileMap() && tryChopDeadTree(gui)) {
             return true;
         }
+        
+        if (tryEnterCombatMap(gui)) {
+            return true;
+        }
 
         if (tryMerchantOrShopInteraction(gui)) {
             return true;
@@ -554,6 +558,30 @@ public class GameController {
 	public void setCombatController(CombatController combatController) {
 		this.combatController = combatController;
 	}
+	
+	public boolean tryEnterCombatMap(MainGUI gui) {
+	    if (!display.isInHostileMap()) return false;
+
+	    Block heroPos = hero.getPosition();
+
+	    // 🔍 Récupère dynamiquement l'entrée de la grotte
+	    HostileMap hostileMap = (HostileMap) display.getHostileMap();
+	    Block caveEntry = hostileMap.getCaveEntry();
+
+	    if (caveEntry != null) {
+	        int dx = Math.abs(heroPos.getLine() - caveEntry.getLine());
+	        int dy = Math.abs(heroPos.getColumn() - caveEntry.getColumn());
+
+	        if (dx + dy <= 1) {
+	            display.enterCombatMap();
+	            JOptionPane.showMessageDialog(gui, "🧱 Tu entres dans l’arène de la grotte !");
+	            return true;
+	        }
+	    }
+
+	    return false;
+	}
+
 
 
 

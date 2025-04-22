@@ -20,21 +20,35 @@ public class DefaultPaintStrategy implements PaintStrategy{
 
 	    // ✅ Tileset sélectionné dynamiquement selon le type de map
 	    HashMap<String, Image> tileset =
-	        map instanceof data.map.HostileMap ? display.getHostileTileset() : display.getTileset();
+	            (map instanceof data.map.CombatMap) ? display.getCombatTileset() :
+	            (map instanceof data.map.HostileMap) ? display.getHostileTileset() :
+	            display.getTileset();
 
 	    for (int line = 0; line < map.getLineCount(); line++) {
 	        for (int col = 0; col < map.getColumnCount(); col++) {
 	            Block block = blocks[line][col];
 
-	            String terrainType = map.getStaticTerrain().getOrDefault(block, isShop ? "shopFloor" : "grass");
-	            Image terrainImage = tileset.get(terrainType); // ✅ tileset dynamique
+	            String terrainType = map.getStaticTerrain().getOrDefault(block,
+	                    isShop ? "shopFloor" : "grass");
 
+	            if ("black".equals(terrainType)) {
+	                // ✅ On affiche quand même si "black" est dans le tileset
+	                Image terrainImage = tileset.get("black");
+	                if (terrainImage != null) {
+	                    g.drawImage(terrainImage, block.getColumn() * 32, block.getLine() * 32, 32, 32, null);
+	                }
+	                continue; // pas besoin de double affichage
+	            }
+
+
+	            Image terrainImage = tileset.get(terrainType);
 	            if (terrainImage != null) {
 	                g.drawImage(terrainImage, block.getColumn() * 32, block.getLine() * 32, 32, 32, null);
 	            }
 	        }
 	    }
 	}
+
 
 	@Override
 	public void paintStaticObjects(Map map, Graphics g, GameDisplay display) {
