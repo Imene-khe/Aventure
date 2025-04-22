@@ -34,14 +34,16 @@ public class GameController {
     private Map hostileMap;
     private boolean canTakeDamage = true;
     private CombatController combatController;
+    private ArrayList<Block> activatedRunes = new ArrayList<>();
+
 
     public GameController(GameDisplay display) {
         this.display = display;
         this.hero = display.getHero();
         this.map = display.getMap();
         this.shopMap = display.getShopMap();
-        this.hostileMap = display.getHostileMap(); // ✅ Initialisé comme shopMap
-        this.combatController = new CombatController(display, this); // ou juste this si tu veux un lien vers GameController
+        this.hostileMap = display.getHostileMap(); 
+        this.combatController = new CombatController(display, this); 
 
    
 
@@ -76,7 +78,40 @@ public class GameController {
 
         Block newBlock = activeMap.getBlock(newLine, newCol);
         moveHero(newBlock, gui);
+        
+        if (display.isInHostileMap()) {
+            checkRuneActivation();
+        }
     }
+    
+    public void checkRuneActivation() {
+        if (!(hostileMap instanceof HostileMap hMap)) return;
+
+        Block heroPos = hero.getPosition();
+        ArrayList<Block> runeBlocks = hMap.getRuneBlocks();
+        QuestManager qm = MainGUI.getInstance().getQuestManager();
+
+        for (Block rune : runeBlocks) {
+            if (rune.equals(heroPos) && !activatedRunes.contains(rune)) {
+                activatedRunes.add(rune);
+                qm.updateQuest("Activer les runes", 1);
+                System.out.println("🔮 Rune activée sur " + rune);
+
+                // 💡 Vérifie si la quête est complétée
+                Quest runeQuest = qm.getActiveQuests().stream()
+                    .filter(q -> q.getName().equals("Activer les runes"))
+                    .findFirst().orElse(null);
+
+                if (runeQuest != null && runeQuest.isCompleted()) {
+                    JOptionPane.showMessageDialog(display, "✨ Les runes anciennes sont activées.\nLa grotte est maintenant accessible !");
+                }
+                break;
+            }
+        }
+    }
+
+
+
 
     public void moveHero(Block newPosition, MainGUI mainGUI) {
         if (display.isGameOver()) return;
@@ -153,7 +188,7 @@ public class GameController {
                                 if (response == JOptionPane.YES_OPTION) {
                                     display.enterHostileMap(); 
                                     this.hostileMap = display.getHostileMap();
-                                    MainGUI.getInstance().setDialogueActive(false); // ✅ débloque les touches
+                                    MainGUI.getInstance().setDialogueActive(false); 
                                     display.requestFocusInWindow();
                                 }
 
@@ -226,7 +261,7 @@ public class GameController {
                 gui.getQuestManager().updateQuest("Trouver l'orbe", 1);
                 display.enterHostileMap();
                 this.hostileMap = display.getHostileMap();
-                MainGUI.getInstance().setDialogueActive(false); // ✅ débloque les touches
+                MainGUI.getInstance().setDialogueActive(false); 
             });
 
 
@@ -414,21 +449,29 @@ public class GameController {
             int safeCenterCol = hMap.getColumnCount() - 6;
             int safeRadius = 2;
 
+            ArrayList<Block> occupiedBlocks = new ArrayList<>();
+            for (Antagonist enemy : hMap.getAntagonistList()) {
+                occupiedBlocks.add(enemy.getPosition()); // état initial
+            }
+
             for (Antagonist enemy : hMap.getAntagonistList()) {
                 Block current = enemy.getPosition();
-
-                // 🔒 Vérifie si l’ennemi est déjà trop proche du Safe Shelter
                 int dx = Math.abs(current.getLine() - safeCenterLine);
                 int dy = Math.abs(current.getColumn() - safeCenterCol);
-                if ((dx + dy) <= safeRadius) continue; // 🔒 Ne pas s’approcher à moins d’un bloc
+                if ((dx + dy) <= safeRadius) continue;
 
-                enemy.moveTowards(heroPos, hostileMap); // 👣 déplacement normal
+                Block nextBlock = computeNextEnemyBlock(enemy, heroPos, hostileMap, occupiedBlocks);
+                if (!nextBlock.equals(current)) {
+                    enemy.setPosition(nextBlock);
+                    occupiedBlocks.add(nextBlock); // marque la nouvelle position comme occupée
+                }
             }
 
             checkEnemyCollision();
             display.repaint();
         }
     }
+
 
 
 
@@ -450,14 +493,15 @@ public class GameController {
             return nextBlock;
         }
 
-        return current; // reste en place
+        return current; 
     }
     
     public void setupHostileQuests() {
         QuestManager questManager = MainGUI.getInstance().getQuestManager();
         questManager.clearAllQuests();
         questManager.addQuest(new Quest("Trouve du bois sec", "Atteinds le refuge et allume un feu", Quest.TYPE_FIND, 3, 0));
-        questManager.addQuest(new Quest("Chasseur de têtes", "Élimine 5 monstres hostiles", Quest.TYPE_KILL, 5, 250));    }
+        questManager.addQuest(new Quest("Chasseur de têtes", "Élimine 5 monstres hostiles", Quest.TYPE_KILL, 5, 250));
+        questManager.addQuest(new Quest("Activer les runes", "Marche sur les 3 runes anciennes", "rune", 3, 0));}
     
     public void tryIgniteCampfire(MainGUI gui) {
         if (!display.isInHostileMap()) return;
@@ -475,8 +519,6 @@ public class GameController {
 
                 Block block = activeMap.getBlock(line, col);
                 String object = activeMap.getStaticObjects().get(block);
-
-                // 🔥 Vérifie que c’est bien un feu de camp éteint
                 if ("campfire_off".equals(object)) {
                     QuestManager qm = MainGUI.getInstance().getQuestManager();
                     Quest quest = qm.getActiveQuests().stream()
@@ -484,10 +526,10 @@ public class GameController {
                         .findFirst().orElse(null);
 
                     if (quest != null && quest.getCurrentAmount() == 3 && quest.getRequiredAmount() == 3) {
-                        activeMap.getStaticObjects().put(block, "campfire_on"); // change l’image
-                        qm.updateQuest("Trouve du bois sec", 1); // ajoute la dernière étape
+                        activeMap.getStaticObjects().put(block, "campfire_on");  
+                        qm.updateQuest("Trouve du bois sec", 1); 
                         JOptionPane.showMessageDialog(gui, "🔥 Tu as allumé le feu de camp !");
-                        display.repaint(); // met à jour visuellement
+                        display.repaint(); 
                     }
                     else {
                         JOptionPane.showMessageDialog(gui, "💨 Il te faut au moins 3 bois secs pour allumer le feu.");
@@ -500,7 +542,7 @@ public class GameController {
 
     public void handleCombatClick(Point clickPoint) {
         if (combatController != null) {
-            combatController.handleClick(clickPoint); // ✅ passe la main
+            combatController.handleClick(clickPoint);
         }
     }
     

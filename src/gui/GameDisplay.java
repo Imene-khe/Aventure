@@ -212,7 +212,6 @@ public class GameDisplay extends JPanel {
             tileset.put("carpet", loadImage("src/images/shop/carpet.png")); 
             tileset.put("bookshelf", loadImage("src/images/shop/bookshelf.png")); 
 
-           
             // Chargement des obstacles
             tileset.put("house", loadImage("src/images/outdoors/House.png"));
             tileset.put("tree", loadImage("src/images/outdoors/Oak_Tree.png"));
@@ -248,6 +247,10 @@ public class GameDisplay extends JPanel {
             hostileTileset.put("cave_bottom", loadImage("src/images/outdoor/hostile/cave/cave_bottom.png")); 
 
             hostileTileset.put("cave_shadow", loadImage("src/images/outdoor/hostile/cave/shadow.png")); 
+
+            hostileTileset.put("rune1", loadImage("src/images/outdoor/hostile/symbol/rune1.png"));
+            hostileTileset.put("rune2", loadImage("src/images/outdoor/hostile/symbol/rune2.png"));
+            hostileTileset.put("rune3", loadImage("src/images/outdoor/hostile/symbol/rune3.png"));
 
 
 

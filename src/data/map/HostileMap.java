@@ -15,6 +15,7 @@ public class HostileMap extends Map {
     private ArrayList<Antagonist> antagonistList = new ArrayList<>();
     private HashMap<Antagonist, String> antagonistTypes = new HashMap<>();
     private ArrayList<Block> shelterBlocks = new ArrayList<>();
+    private ArrayList<Block> runeBlocks = new ArrayList<>();
 
    
 
@@ -32,6 +33,7 @@ public class HostileMap extends Map {
         generateEnemies();
         generateCave();
         generateSafeShelter();
+        generateSymbols();
 
     }
 
@@ -223,34 +225,56 @@ public class HostileMap extends Map {
                     }
 
                     staticObjects.put(block, rockType);
-                    if (!"campfire_off".equals(rockType)) {
-                        setTerrainBlocked(block, true);
-                    }
+                    setTerrainBlocked(block, rockType.contains("rock")); // ✅ bloque seulement les rochers
                     shelterBlocks.add(block); 
                 }
             }
         }
+
         Block entry = getBlock(centerLine + radius, centerCol);
         staticObjects.remove(entry);
         setTerrainBlocked(entry, false);
         shelterBlocks.add(entry);
+
         Block center = getBlock(centerLine, centerCol);
         String centerTerrain = staticTerrain.get(center);
         if (centerTerrain != null && !centerTerrain.equals("lava")) {
             staticObjects.remove(center); 
             staticObjects.put(center, "campfire_off");
-            setTerrainBlocked(center, true);
+            setTerrainBlocked(center, true); // ✅ feu bloquant
             shelterBlocks.add(center); 
         }
     }
 
+    
+    public void generateSymbols() {
+        Random random = new Random();
+        int runeCount = 3;
+        int placed = 0;
 
+        while (placed < runeCount) {
+            int line = random.nextInt(getLineCount());
+            int col = random.nextInt(getColumnCount());
+            Block block = getBlock(line, col);
 
+            boolean isFree = getStaticTerrain().get(block) != null &&
+                             getStaticTerrain().get(block).startsWith("floor") &&
+                             !getStaticObjects().containsKey(block);
 
+            if (isFree) {
+                String runeName = "rune" + (placed + 1);
+                getStaticObjects().put(block, runeName);
+                runeBlocks.add(block);
+                setTerrainBlocked(block, false);
+                placed++;
+                System.out.println("📜 " + runeName + " placée sur : " + block);
+            }
+        }
+    }
 
-
-
-
+    public ArrayList<Block> getRuneBlocks() {
+        return runeBlocks;
+    }
     public ArrayList<Block> getShelterBlocks() {
         return shelterBlocks;
     }
@@ -260,25 +284,5 @@ public class HostileMap extends Map {
     }
     public HashMap<Antagonist, String> getAntagonistTypes() {
         return antagonistTypes;
-    }
-
-    public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(() -> {
-            HostileMap hostileMap = new HostileMap(23, 40, 0);
-            GameDisplay gameDisplay = new GameDisplay();
-            gameDisplay.setMap(hostileMap);
-            gameDisplay.loadImages();
-            gameDisplay.setHero(new Hero(hostileMap.getBlock(10, 10), 100));
-
-            JFrame frame = new JFrame("🧪 Test de la HostileMap avec Grotte");
-            frame.add(gameDisplay);
-            frame.setSize(800, 800);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-
-            gameDisplay.setFocusable(true);
-            gameDisplay.requestFocusInWindow();
-        });
     }
 }

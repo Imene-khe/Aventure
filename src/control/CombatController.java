@@ -44,13 +44,13 @@ public class CombatController {
 
                 if (enemy.isDead()) {
                     it.remove();
-                    MainGUI.getInstance().getQuestManager().displayQuests(); // ✅ Affiche les quêtes et progression en console
+                    MainGUI.getInstance().getQuestManager().displayQuests(); 
                     MainGUI.getInstance().getQuestManager().updateQuest("Chasseur de têtes", 1);
                     System.out.println("☠️ Ennemi tué sur " + enemyBlock);
                 }
 
                 enemyKilled = true;
-                break; // Tu veux tuer qu’un seul ennemi à la fois
+                break; 
             }
         }
 
@@ -77,16 +77,11 @@ public class CombatController {
 
                 if (enemy.isDead()) {
                     System.out.println("💀 Ennemi MORT !");
-                    
-                    // ✅ Supprime l'ennemi
-                    hostileMap.getAntagonistTypes().remove(enemy); // même si non utilisé, garde-le pour cohérence
+                    hostileMap.getAntagonistTypes().remove(enemy); 
                     hostileMap.getAntagonistList().remove(enemy);
-
-                    // ✅ Mise à jour dynamique de la quête "Chasseur de têtes"
                     MainGUI.getInstance().getQuestManager().notifyQuestProgress(Quest.TYPE_KILL, 1);
                     QuestManager qm = MainGUI.getInstance().getQuestManager();
-                    qm.displayQuests(); // ✅ Affiche toutes les quêtes dans la console avec progression
-
+                    qm.displayQuests(); 
                     display.repaint();
                 }
                 return;

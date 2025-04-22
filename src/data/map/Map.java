@@ -360,22 +360,33 @@ public class Map {
     
     
 
-    public boolean isBlocked(Block block) {
-        if (isStatic) {
-            String object = staticObjects.get(block);
-            if (object == null) return false;
+	public boolean isBlocked(Block block) {
+	    if (isStatic) {
+	        String object = staticObjects.get(block);
+	        if (object == null) return false;
 
-            // ✅ Ne bloquer que les objets qui prennent de la place
-            return object.equals("bookshelf") || object.equals("merchant") || object.equals("bar");
-        }
+	        return object.equals("bookshelf") || object.equals("merchant") || object.equals("bar");
+	    }
 
-        return obstacles.containsKey(block)
-            || terrainBlocked.getOrDefault(block, false)
-            || (staticTerrain.containsKey(block) && staticTerrain.get(block).equals("water"))
-            || (staticObjects.containsKey(block)
-            && !staticObjects.get(block).equals("campfire")
-            && !staticObjects.get(block).equals("entry"));
-    }
+	    if (obstacles.containsKey(block)) return true;
+	    if (terrainBlocked.getOrDefault(block, false)) return true;
+	    if (staticTerrain.containsKey(block) && staticTerrain.get(block).equals("water")) return true;
+
+	    if (staticObjects.containsKey(block)) {
+	        String object = staticObjects.get(block);
+
+	        // ✅ Ne bloque pas les rochers décoratifs du refuge
+	        if (object.endsWith("rock") || object.startsWith("rune") || object.equals("campfire") || object.equals("entry")) {
+	            return false;
+	        }
+
+	        return true;
+	    }
+
+	    return false;
+	}
+
+
 
 
 
