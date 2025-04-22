@@ -5,6 +5,7 @@ import data.item.Coin;
 import data.item.Equipment;
 import data.item.Flame;
 import data.map.Block;
+import data.map.CombatMap;
 import data.map.HostileMap;
 import data.map.Map;
 import data.player.Antagonist;
@@ -33,7 +34,8 @@ public class GameController {
     private final Map shopMap;
     private Map hostileMap;
     private boolean canTakeDamage = true;
-    private CombatController combatController;
+    
+	private CombatController combatController;
     private ArrayList<Block> activatedRunes = new ArrayList<>();
 
 
@@ -436,17 +438,21 @@ public class GameController {
     
     
     public void moveEnemiesTowardsHero() {
-        if (!display.isInHostileMap()) return;
+        if (!display.isInHostileMap() && !display.isInCombatMap()) return;
 
-        if (hostileMap instanceof HostileMap hMap) {
-            Block heroPos = hero.getPosition();
+        Block heroPos = hero.getPosition();
+        ArrayList<Block> occupiedBlocks = new ArrayList<>();
+
+        Map activeMap = display.getActiveMap();
+
+        if (activeMap instanceof HostileMap hMap) {
+            // Comme avant : bloc safe shelter
             int safeCenterLine = 4;
             int safeCenterCol = hMap.getColumnCount() - 6;
             int safeRadius = 2;
 
-            ArrayList<Block> occupiedBlocks = new ArrayList<>();
             for (Antagonist enemy : hMap.getAntagonistList()) {
-                occupiedBlocks.add(enemy.getPosition()); // état initial
+                occupiedBlocks.add(enemy.getPosition());
             }
 
             for (Antagonist enemy : hMap.getAntagonistList()) {
@@ -455,17 +461,32 @@ public class GameController {
                 int dy = Math.abs(current.getColumn() - safeCenterCol);
                 if ((dx + dy) <= safeRadius) continue;
 
-                Block nextBlock = computeNextEnemyBlock(enemy, heroPos, hostileMap, occupiedBlocks);
+                Block nextBlock = computeNextEnemyBlock(enemy, heroPos, hMap, occupiedBlocks);
                 if (!nextBlock.equals(current)) {
                     enemy.setPosition(nextBlock);
-                    occupiedBlocks.add(nextBlock); // marque la nouvelle position comme occupée
+                    occupiedBlocks.add(nextBlock);
                 }
             }
 
-            checkEnemyCollision();
-            display.repaint();
+        } else if (activeMap instanceof CombatMap cMap) {
+            for (Antagonist enemy : cMap.getAntagonists()) {
+                occupiedBlocks.add(enemy.getPosition());
+            }
+
+            for (Antagonist enemy : cMap.getAntagonists()) {
+                Block current = enemy.getPosition();
+                Block nextBlock = computeNextEnemyBlock(enemy, heroPos, cMap, occupiedBlocks);
+                if (!nextBlock.equals(current)) {
+                    enemy.setPosition(nextBlock);
+                    occupiedBlocks.add(nextBlock);
+                }
+            }
         }
+
+        checkEnemyCollision();
+        display.repaint();
     }
+
 
 
 
@@ -564,14 +585,21 @@ public class GameController {
 	        int dy = Math.abs(heroPos.getColumn() - caveEntry.getColumn());
 
 	        if (dx + dy <= 1) {
-	            display.enterCombatMap();
-	            JOptionPane.showMessageDialog(gui, "🧱 Tu entres dans l’arène de la grotte !");
+	        	display.enterCombatMap();
+	        	combatController.loadFirstWaveIfNeeded(); // 👈 charge les ennemis
+	        	JOptionPane.showMessageDialog(gui, "🧱 Tu entres dans l’arène de la grotte !");
+
 	            return true;
 	        }
 	    }
 
 	    return false;
 	}
+	
+	public GameDisplay getDisplay() {
+		return display;
+	}
+
 
 
 

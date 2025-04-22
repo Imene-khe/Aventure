@@ -2,9 +2,11 @@ package gui;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import data.map.Block;
+import data.map.CombatMap;
 import data.map.HostileMap;
 import data.map.Map;
 import data.player.Antagonist;
@@ -214,29 +216,30 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	    }
 	}
 
-	
 	@Override
 	public void paintMobileAntagonists(Map map, Graphics g, GameDisplay display) {
+	    int size = display.getBlockSize();
+
+	    ArrayList<Antagonist> enemies = new ArrayList<>();
+
 	    if (map instanceof HostileMap hMap) {
-	        int size = display.getBlockSize();
+	        enemies = hMap.getAntagonistList();
+	    } else if (map instanceof CombatMap cMap) {
+	        enemies = cMap.getAntagonists();
+	    }
 
-	        for (Antagonist enemy : hMap.getAntagonistList()) {
-	            Block block = enemy.getPosition();
-	            String type = hMap.getAntagonistTypes().get(enemy); // 🔍 récupérer le type aléatoire
-
-	            if (type != null) {
-	                Image image = display.getEnemyImageManager().getEnemyImage(type, 0);
-	                if (image != null) {
-	                    int x = block.getColumn() * size;
-	                    int y = block.getLine()   * size;
-	                    g.drawImage(image, x, y, size, size, null);
-	                } else {
-	                    System.out.println("⚠️ Image non trouvée pour l'ennemi : " + type);
-	                }
-	            }
+	    for (Antagonist enemy : enemies) {
+	        Block block = enemy.getPosition();
+	        Image image = display.getEnemyImageManager().getEnemyImage("slime", 0);
+	        if (image != null) {
+	            int x = block.getColumn() * size;
+	            int y = block.getLine() * size;
+	            g.drawImage(image, x, y, size, size, null);
 	        }
 	    }
 	}
 
-	
 }
+
+	
+

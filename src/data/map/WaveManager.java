@@ -10,49 +10,49 @@ import java.util.List;
  */
 public class WaveManager {
 
+	private CombatMap combatMap;
+	private int arenaLine;
+	private int arenaCol;
     private int currentWave;
-    private final List<List<Antagonist>> waves;
+    private List<List<Antagonist>> waves;
     private boolean levelFinished;
-    private final EnemyImageManager imageManager;
+    private EnemyImageManager imageManager;
 
     // ✅ Constructeur avec EnemyImageManager
-    public WaveManager(EnemyImageManager imageManager) {
-        this.currentWave = 0;
+    public WaveManager(EnemyImageManager imageManager, int arenaLine, int arenaCol) {
+    	this.currentWave = 0;
         this.levelFinished = false;
         this.waves = new ArrayList<>();
         this.imageManager = imageManager;
+        this.arenaLine = arenaLine;
+        this.arenaCol = arenaCol;
 
         initWaves();
     }
 
     private void initWaves() {
         List<Antagonist> wave1 = new ArrayList<>();
-        wave1.add(new Antagonist(new Block(4, 2), "small", imageManager));
-        wave1.add(new Antagonist(new Block(4, 4), "small", imageManager));
-        wave1.add(new Antagonist(new Block(4, 6), "small", imageManager));
+        wave1.add(new Antagonist(arenaBlock(1, 4), "slime", imageManager));
+        wave1.add(new Antagonist(arenaBlock(1, 6), "slime", imageManager));
+        wave1.add(new Antagonist(arenaBlock(1, 8), "slime", imageManager));
         waves.add(wave1);
 
         List<Antagonist> wave2 = new ArrayList<>();
-        wave2.add(new Antagonist(new Block(4, 1), "small", imageManager));
-        wave2.add(new Antagonist(new Block(4, 3), "small", imageManager));
-        wave2.add(new Antagonist(new Block(4, 5), "small", imageManager));
-        wave2.add(new Antagonist(new Block(4, 7), "medium", imageManager));
-        wave2.add(new Antagonist(new Block(4, 9), "medium", imageManager));
+        wave2.add(new Antagonist(arenaBlock(2, 3), "slime", imageManager));
+        wave2.add(new Antagonist(arenaBlock(2, 5), "slime", imageManager));
+        wave2.add(new Antagonist(arenaBlock(2, 7), "slime", imageManager));
+        wave2.add(new Antagonist(arenaBlock(2, 9), "slime", imageManager));
+        wave2.add(new Antagonist(arenaBlock(2, 11), "slime", imageManager));
         waves.add(wave2);
 
         List<Antagonist> wave3 = new ArrayList<>();
-        wave3.add(new Antagonist(new Block(4, 0), "small", imageManager));
-        wave3.add(new Antagonist(new Block(4, 2), "small", imageManager));
-        wave3.add(new Antagonist(new Block(4, 4), "small", imageManager));
-        wave3.add(new Antagonist(new Block(4, 6), "small", imageManager));
-        wave3.add(new Antagonist(new Block(4, 8), "medium", imageManager));
-        wave3.add(new Antagonist(new Block(4, 10), "medium", imageManager));
-        wave3.add(new Antagonist(new Block(4, 12), "medium", imageManager));
-        wave3.add(new Antagonist(new Block(4, 14), "large", imageManager));
-        wave3.add(new Antagonist(new Block(4, 16), "large", imageManager));
-        wave3.add(new Antagonist(new Block(4, 18), "large", imageManager));
+        for (int i = 0; i < 10; i++) {
+            wave3.add(new Antagonist(arenaBlock(3 + (i / 5), 2 + (i % 5) * 2), "slime", imageManager));
+        }
         waves.add(wave3);
     }
+
+
 
     public List<Antagonist> getCurrentWaveEnemies() {
         if (currentWave < waves.size()) {
@@ -84,6 +84,10 @@ public class WaveManager {
             this.levelFinished = false;
         }
     }
+    private Block arenaBlock(int lineOffset, int colOffset) {
+        return new Block(arenaLine + lineOffset, arenaCol + colOffset);
+    }
+
 
     public boolean isLevelFinished() {
         return levelFinished;

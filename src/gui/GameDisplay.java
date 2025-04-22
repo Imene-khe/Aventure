@@ -340,8 +340,8 @@ public class GameDisplay extends JPanel {
 	        paintStrategy.paintHealthBar(hero, g, this);
 	    }
 	    
-	    if (isInHostileMap) {
-	        paintStrategy.paintMobileAntagonists(hostileMap, g, this);
+	    if (isInHostileMap || isInCombatMap) {
+	        paintStrategy.paintMobileAntagonists(mapToDraw, g, this);
 	    }
 
 	    // ✅ 6. Héros toujours visible

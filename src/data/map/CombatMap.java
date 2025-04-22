@@ -1,14 +1,23 @@
 package data.map;
 
+import java.util.ArrayList;
 import java.util.Random;
+
+import data.player.Antagonist;
 
 public class CombatMap extends Map {
 	
 	private int centerStartLine;
 	private int centerStartCol;
-	private int bridgeCol;
+	
 
-    public CombatMap(int lineCount, int columnCount) {
+
+	private int bridgeCol;
+	private ArrayList<Antagonist> antagonists = new ArrayList<>();
+
+    
+
+	public CombatMap(int lineCount, int columnCount) {
         super(lineCount, columnCount, 0, true);
         setStatic(false);
 
@@ -132,4 +141,31 @@ public class CombatMap extends Map {
     public void generateEnemies() {
         // à faire plus tard
     }
+    
+    public ArrayList<Antagonist> getAntagonists() {
+		return antagonists;
+	}
+
+
+	public void setAntagonists(ArrayList<Antagonist> antagonists) {
+		this.antagonists = antagonists;
+	}
+	
+	public int getCenterStartCol() {
+		return centerStartCol;
+	}
+
+	public int getCenterStartLine() {
+		return centerStartLine;
+	}
+
+	public void setCenterStartLine(int centerStartLine) {
+		this.centerStartLine = centerStartLine;
+	}
+
+
+	public void setCenterStartCol(int centerStartCol) {
+		this.centerStartCol = centerStartCol;
+	}
+
 }
