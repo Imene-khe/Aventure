@@ -214,7 +214,15 @@ public class GameController {
                     return;
                 }
             }
+        } else if (activeMap instanceof CombatMap cMap) {
+            for (Antagonist enemy : cMap.getAntagonists()) {
+                if (enemy.getPosition().equals(heroPos)) {
+                    applyHeroDamage();
+                    return;
+                }
+            }
         } else {
+            // Cas général (par exemple pour map principale avec des ennemis fixes)
             for (Block enemyBlock : activeMap.getEnemies().keySet()) {
                 if (enemyBlock.equals(heroPos)) {
                     applyHeroDamage();
@@ -223,6 +231,7 @@ public class GameController {
             }
         }
     }
+
 
     public void applyHeroDamage() {
         if (!canTakeDamage) return;

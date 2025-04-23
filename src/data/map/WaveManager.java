@@ -2,7 +2,11 @@ package data.map;
 
 import data.player.Antagonist;
 import data.player.EnemyImageManager;
+import gui.MainGUI;
+
 import java.util.ArrayList;
+
+import control.GameController;
 
 /**
  * Classe responsable de la gestion des vagues d'ennemis dans un niveau.
@@ -10,12 +14,14 @@ import java.util.ArrayList;
 public class WaveManager {
 
 	private CombatMap combatMap;
+	private GameController gameController;
 	private int arenaLine;
 	private int arenaCol;
     private int currentWave;
     private ArrayList<ArrayList<Antagonist>> waves;
     private boolean levelFinished;
     private EnemyImageManager imageManager;
+    private boolean bossSpawned = false;
 
     // ✅ Constructeur avec EnemyImageManager
     public WaveManager(EnemyImageManager imageManager, int arenaLine, int arenaCol) {
@@ -29,7 +35,7 @@ public class WaveManager {
         initWaves();
     }
 
-    private void initWaves() {
+    public void initWaves() {
         ArrayList<Antagonist> wave1 = new ArrayList<>();
         wave1.add(new Antagonist(arenaBlock(1, 4), "slime", imageManager));
         wave1.add(new Antagonist(arenaBlock(1, 6), "slime", imageManager));
@@ -56,10 +62,10 @@ public class WaveManager {
     public ArrayList<Antagonist> getCurrentWaveEnemies() {
         if (currentWave < waves.size()) {
             return waves.get(currentWave);
-        } else {
-            return new ArrayList<>();
         }
+        return new ArrayList<>(); 
     }
+
 
     public void updateWave() {
         if (combatMap == null) return;
@@ -69,15 +75,32 @@ public class WaveManager {
 
         if (allDead) {
             currentWave++;
+
+            // ✅ Met à jour la quête "Survivre aux vagues"
+            MainGUI.getInstance().getQuestManager().notifyQuestProgress("wave", 1);
+
             if (currentWave < waves.size()) {
                 System.out.println("➡️ Passage à la vague " + (currentWave + 1));
-            } else {
-                levelFinished = true;
-                System.out.println("✅ Toutes les vagues sont terminées !");
             }
-        }
+            else if (currentWave == waves.size()) {
+                System.out.println("👑 Le boss final apparaît !");
+                ArrayList<Antagonist> bossWave = getBossWave(); // ✅ juste un ennemi indépendant
+                if (combatMap != null) {
+                    combatMap.getAntagonists().addAll(bossWave); // ajout direct
+                    System.out.println("💀 Boss ajouté manuellement à la map !");
+                }
+                if (gameController != null) {
+                    gameController.moveEnemiesTowardsHero(); 
+                    System.out.println("🦴 Boss déplacé vers le héros.");
+                }
+                levelFinished = true; // ou mets ce flag plus tard si tu veux
+            }
 
+        }
     }
+
+    
+
 
 
     public void triggerWave(int waveIndex) {
@@ -86,9 +109,16 @@ public class WaveManager {
             this.levelFinished = false;
         }
     }
-    private Block arenaBlock(int lineOffset, int colOffset) {
+    public Block arenaBlock(int lineOffset, int colOffset) {
         return new Block(arenaLine + lineOffset, arenaCol + colOffset);
     }
+    
+    public ArrayList<Antagonist> getBossWave() {
+        ArrayList<Antagonist> bossWave = new ArrayList<>();
+        bossWave.add(new Antagonist(arenaBlock(5, 7), "boss", imageManager)); // 👑 position centrale
+        return bossWave;
+    }
+
 
 
     public boolean isLevelFinished() {
@@ -98,8 +128,13 @@ public class WaveManager {
     public int getCurrentWaveNumber() {
         return currentWave + 1;
     }
+    
     public void setCombatMap(CombatMap combatMap) {
         this.combatMap = combatMap;
+    }
+    
+    public void setGameController(GameController controller) {
+        this.gameController = controller;
     }
 
 }

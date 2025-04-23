@@ -219,7 +219,6 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	@Override
 	public void paintMobileAntagonists(Map map, Graphics g, GameDisplay display) {
 	    int size = display.getBlockSize();
-
 	    ArrayList<Antagonist> enemies = new ArrayList<>();
 
 	    if (map instanceof HostileMap hMap) {
@@ -230,14 +229,18 @@ public class DefaultPaintStrategy implements PaintStrategy{
 
 	    for (Antagonist enemy : enemies) {
 	        Block block = enemy.getPosition();
-	        Image image = display.getEnemyImageManager().getEnemyImage("slime", 0);
+	        Image image = display.getEnemyImageManager().getEnemyImageFor(enemy);
+
 	        if (image != null) {
 	            int x = block.getColumn() * size;
 	            int y = block.getLine() * size;
 	            g.drawImage(image, x, y, size, size, null);
+	        } else {
+	            System.out.println("⚠ Image manquante pour ennemi : " + enemy.getType());
 	        }
 	    }
 	}
+
 
 }
 

@@ -4,6 +4,7 @@ public class Quest {
     public static final String TYPE_COLLECT = "collect";
     public static final String TYPE_KILL = "kill";
     public static final String TYPE_FIND = "find";
+    public static final String TYPE_WAVE = "wave";
 
     public static final String STATUS_EN_COURS = "en_cours";
     public static final String STATUS_TERMINEE = "terminee";

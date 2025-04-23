@@ -89,7 +89,7 @@ public class QuestManager {
     }
     
     public void loadCombatMapQuests() {
-        //addQuest(new Quest("Survivre à la vague 1", "Résiste à la première vague de monstres", Quest.TYPE_WAVE, 1, 0));
+    	addQuest(new Quest("Survivre aux vagues d'ennemis", "Résiste à la première vague de monstres", Quest.TYPE_WAVE, 3, 0));
         addQuest(new Quest("Tuer le boss", "Terrasse le boss final", Quest.TYPE_KILL, 1, 0));
         System.out.println("🆕 Quêtes de la CombatMap chargées.");
     }

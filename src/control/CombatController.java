@@ -30,9 +30,6 @@ public class CombatController {
         this.gameController = gameController;
     }
 
-
-
-
     public void handleClick(Point mousePoint) {
         Block heroBlock = hero.getPosition();
         Map activeMap = display.getActiveMap();
@@ -84,23 +81,6 @@ public class CombatController {
 
 
 
-    public void checkWaveProgression() {
-        if (waveManager == null) return;
-
-        waveManager.updateWave(); // ⬅️ cette méthode vérifie si tous les ennemis de la vague sont morts et avance
-
-        if (!waveManager.isLevelFinished()) {
-            ArrayList<Antagonist> nextWave = new ArrayList<>(waveManager.getCurrentWaveEnemies());
-            Map activeMap = gameController.getDisplay().getActiveMap();
-            if (activeMap instanceof CombatMap combatMap) {
-                combatMap.setAntagonists(nextWave);
-                System.out.println("🌀 Nouvelle vague chargée : " + nextWave.size() + " ennemis.");
-            }
-        }
-    }
-
-
-
     public void attack(Block targetBlock) {
         System.out.println("🔍 Ennemis dans hostileMap : " + hostileMap.getAntagonistList().size());
 
@@ -126,7 +106,6 @@ public class CombatController {
 
         System.out.println("❌ Aucun ennemi trouvé sur ce bloc !");
     }
-    
     public void loadFirstWaveIfNeeded() {
         Map activeMap = gameController.getDisplay().getActiveMap();
         if (activeMap instanceof CombatMap combatMap) {
@@ -134,14 +113,17 @@ public class CombatController {
                 int arenaLine = combatMap.getCenterStartLine();
                 int arenaCol = combatMap.getCenterStartCol();
                 waveManager = new WaveManager(display.getEnemyImageManager(), arenaLine, arenaCol);
-                waveManager.setCombatMap(combatMap); // ✅ CECI ÉTAIT MANQUANT
+                waveManager.setCombatMap(combatMap);
+                waveManager.setGameController(gameController); // ✅ ICI
             }
 
-            combatMap.clearAntagonists(); // optionnel
-            combatMap.setAntagonists(new ArrayList<>(waveManager.getCurrentWaveEnemies())); // bonne pratique : copie
+            combatMap.clearAntagonists();
+            combatMap.setAntagonists(new ArrayList<>(waveManager.getCurrentWaveEnemies()));
             System.out.println("🌀 Première vague d'ennemis chargée : " + combatMap.getAntagonists().size());
         }
     }
+
+
 
 
 

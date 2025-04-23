@@ -8,21 +8,19 @@ import data.map.Map;
 public class Antagonist extends Person {
 
     private int health;
-
+    private String enemyType;
+    
     private int x, y; // Coordonnées pixels pour CombatMap
 
     public Antagonist(Block startPosition, String enemyType, EnemyImageManager imageManager) {
         super(startPosition);
-
         this.health = 20;
+        this.enemyType = enemyType;
 
-        // Position en pixels
         if (startPosition != null) {
             this.x = startPosition.getColumn() * 50;
             this.y = startPosition.getLine() * 50;
         }
-
- 
     }
 
     public int getHealth() {
@@ -68,7 +66,10 @@ public class Antagonist extends Person {
             setPosition(nextBlock);
         }
     }
-
+    
+    public String getType() {
+        return enemyType;
+    }
 
 
 

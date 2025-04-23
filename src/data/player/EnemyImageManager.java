@@ -20,16 +20,10 @@ public class EnemyImageManager {
     private void loadImages() {
         try {
             System.out.println("🔄 Chargement des images des ennemis...");
-
             enemyImages.put("skeleton", loadSpriteSheet("src/images/enemies/Skeleton.png", 32, 32, 0, 3));
             enemyImages.put("slime_green", loadSpriteSheet("src/images/enemies/slime_green2.png", 32, 32, 0, 1));
             enemyImages.put("slime", loadSpriteSheet("src/images/enemies/slime.png", 32, 32, 0, 3));
-
-            // Slimes avec 4 colonnes × 6 lignes = 24 frames
-            enemyImages.put("small", loadFullSpriteSheet("src/images/enemies/SmallSlime_Green.png", 32, 32, 4, 6));
-            enemyImages.put("medium", loadFullSpriteSheet("src/images/enemies/MediumSlime_Orange.png", 32, 32, 4, 6));
-            enemyImages.put("large", loadFullSpriteSheet("src/images/enemies/LargeSlime_Purple.png", 32, 32, 4, 6));
-
+            enemyImages.put("boss", loadFullSpriteSheet("src/images/enemies/boss/boss.png", 24, 32, 3, 4));
             System.out.println("✅ Toutes les images des ennemis ont été chargées !");
         } catch (Exception e) {
             System.out.println("❌ ERREUR lors du chargement des images des ennemis !");
@@ -93,5 +87,47 @@ public class EnemyImageManager {
         }
         return frames.get(frameIndex % frames.size());
     }
+    
+    public Image getEnemyImageFor(Antagonist enemy) {
+        return getEnemyImage(enemy.getType(), 0);
+    }
+    
+    public static void main(String[] args) {
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            javax.swing.JFrame frame = new javax.swing.JFrame("Test Découpage Boss");
+            frame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+
+            EnemyImageManager manager = new EnemyImageManager();
+            ArrayList<Image> bossFrames = manager.getEnemyImages("boss");
+
+            javax.swing.JPanel panel = new javax.swing.JPanel() {
+                protected void paintComponent(java.awt.Graphics g) {
+                    super.paintComponent(g);
+                    int x = 10;
+                    int y = 10;
+                    int padding = 5;
+                    int frameWidth = 36;
+                    int frameHeight = 32;
+
+                    for (int i = 0; i < bossFrames.size(); i++) {
+                        g.drawImage(bossFrames.get(i), x, y, frameWidth, frameHeight, null);
+                        x += frameWidth + padding;
+                        if (x + frameWidth > getWidth()) {
+                            x = 10;
+                            y += frameHeight + padding;
+                        }
+                    }
+                }
+            };
+
+            panel.setPreferredSize(new java.awt.Dimension(300, 300));
+            frame.getContentPane().add(panel);
+            frame.pack();
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+        });
+    }
+
+
 }
 
