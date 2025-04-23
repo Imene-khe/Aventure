@@ -3,7 +3,6 @@ package data.map;
 import data.player.Antagonist;
 import data.player.EnemyImageManager;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Classe responsable de la gestion des vagues d'ennemis dans un niveau.
@@ -14,7 +13,7 @@ public class WaveManager {
 	private int arenaLine;
 	private int arenaCol;
     private int currentWave;
-    private List<List<Antagonist>> waves;
+    private ArrayList<ArrayList<Antagonist>> waves;
     private boolean levelFinished;
     private EnemyImageManager imageManager;
 
@@ -31,13 +30,13 @@ public class WaveManager {
     }
 
     private void initWaves() {
-        List<Antagonist> wave1 = new ArrayList<>();
+        ArrayList<Antagonist> wave1 = new ArrayList<>();
         wave1.add(new Antagonist(arenaBlock(1, 4), "slime", imageManager));
         wave1.add(new Antagonist(arenaBlock(1, 6), "slime", imageManager));
         wave1.add(new Antagonist(arenaBlock(1, 8), "slime", imageManager));
         waves.add(wave1);
 
-        List<Antagonist> wave2 = new ArrayList<>();
+        ArrayList<Antagonist> wave2 = new ArrayList<>();
         wave2.add(new Antagonist(arenaBlock(2, 3), "slime", imageManager));
         wave2.add(new Antagonist(arenaBlock(2, 5), "slime", imageManager));
         wave2.add(new Antagonist(arenaBlock(2, 7), "slime", imageManager));
@@ -45,7 +44,7 @@ public class WaveManager {
         wave2.add(new Antagonist(arenaBlock(2, 11), "slime", imageManager));
         waves.add(wave2);
 
-        List<Antagonist> wave3 = new ArrayList<>();
+        ArrayList<Antagonist> wave3 = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             wave3.add(new Antagonist(arenaBlock(3 + (i / 5), 2 + (i % 5) * 2), "slime", imageManager));
         }
@@ -54,7 +53,7 @@ public class WaveManager {
 
 
 
-    public List<Antagonist> getCurrentWaveEnemies() {
+    public ArrayList<Antagonist> getCurrentWaveEnemies() {
         if (currentWave < waves.size()) {
             return waves.get(currentWave);
         } else {
@@ -63,20 +62,23 @@ public class WaveManager {
     }
 
     public void updateWave() {
-        boolean allDead = true;
-        for (Antagonist enemy : getCurrentWaveEnemies()) {
-            if (!enemy.isDead()) {
-                allDead = false;
-                break;
-            }
-        }
+        if (combatMap == null) return;
+
+        ArrayList<Antagonist> currentEnemies = combatMap.getAntagonists();
+        boolean allDead = currentEnemies.stream().allMatch(Antagonist::isDead);
+
         if (allDead) {
             currentWave++;
-            if (currentWave >= waves.size()) {
+            if (currentWave < waves.size()) {
+                System.out.println("➡️ Passage à la vague " + (currentWave + 1));
+            } else {
                 levelFinished = true;
+                System.out.println("✅ Toutes les vagues sont terminées !");
             }
         }
+
     }
+
 
     public void triggerWave(int waveIndex) {
         if (waveIndex >= 0 && waveIndex < waves.size()) {
@@ -96,5 +98,9 @@ public class WaveManager {
     public int getCurrentWaveNumber() {
         return currentWave + 1;
     }
+    public void setCombatMap(CombatMap combatMap) {
+        this.combatMap = combatMap;
+    }
+
 }
 

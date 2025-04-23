@@ -31,7 +31,6 @@ public class GameController {
 	private final GameDisplay display;
     private final Hero hero;
     private Map map;
-    private final Map shopMap;
     private Map hostileMap;
     private boolean canTakeDamage = true;
     
@@ -43,7 +42,7 @@ public class GameController {
         this.display = display;
         this.hero = display.getHero();
         this.map = display.getMap();
-        this.shopMap = display.getShopMap();
+        display.getShopMap();
         this.hostileMap = display.getHostileMap(); 
         this.combatController = new CombatController(display, this); 
 
@@ -573,13 +572,9 @@ public class GameController {
 	
 	public boolean tryEnterCombatMap(MainGUI gui) {
 	    if (!display.isInHostileMap()) return false;
-
 	    Block heroPos = hero.getPosition();
-
-	    // 🔍 Récupère dynamiquement l'entrée de la grotte
 	    HostileMap hostileMap = (HostileMap) display.getHostileMap();
 	    Block caveEntry = hostileMap.getCaveEntry();
-
 	    if (caveEntry != null) {
 	        int dx = Math.abs(heroPos.getLine() - caveEntry.getLine());
 	        int dy = Math.abs(heroPos.getColumn() - caveEntry.getColumn());

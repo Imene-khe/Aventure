@@ -9,9 +9,6 @@ public class CombatMap extends Map {
 	
 	private int centerStartLine;
 	private int centerStartCol;
-	
-
-
 	private int bridgeCol;
 	private ArrayList<Antagonist> antagonists = new ArrayList<>();
 
@@ -147,9 +144,9 @@ public class CombatMap extends Map {
 	}
 
 
-	public void setAntagonists(ArrayList<Antagonist> antagonists) {
-		this.antagonists = antagonists;
-	}
+    public void setAntagonists(ArrayList<Antagonist> list) {
+        this.antagonists = list;
+    }
 	
 	public int getCenterStartCol() {
 		return centerStartCol;
@@ -167,5 +164,14 @@ public class CombatMap extends Map {
 	public void setCenterStartCol(int centerStartCol) {
 		this.centerStartCol = centerStartCol;
 	}
+	
+	public void clearAntagonists() {
+	    antagonists.clear();
+	}
+	
+	public boolean areAllEnemiesDead() {
+	    return antagonists.stream().allMatch(Antagonist::isDead);
+	}
+
 
 }

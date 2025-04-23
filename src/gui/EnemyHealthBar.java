@@ -22,9 +22,9 @@ public class EnemyHealthBar {
      */
     public static void draw(Graphics g, Antagonist enemy, int x, int y) {
         int currentHealth = enemy.getHealth();
-        int maxHealth = enemy.getMaxHealth();
+        //int maxHealth = enemy.getMaxHealth();
 
-        int healthBarWidth = (int) ((currentHealth / (float) maxHealth) * BAR_WIDTH);
+        //int healthBarWidth = (int) ((currentHealth / (float) maxHealth) * BAR_WIDTH);
 
         // Fond rouge
         g.setColor(Color.RED);
@@ -32,7 +32,7 @@ public class EnemyHealthBar {
 
         // Barre verte selon la vie actuelle
         g.setColor(Color.GREEN);
-        g.fillRect(x, y - 10, healthBarWidth, BAR_HEIGHT);
+      //  g.fillRect(x, y - 10, healthBarWidth, BAR_HEIGHT);
 
         // Bordure noire
         g.setColor(Color.BLACK);
