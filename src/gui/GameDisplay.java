@@ -251,6 +251,8 @@ public class GameDisplay extends JPanel {
             combatTileset.put("cage", loadImage("src/images/outdoor/combat/mapComponent/cage.png"));
             combatTileset.put("endBridge", loadImage("src/images/outdoor/combat/mapComponent/endBridge.png"));
             combatTileset.put("cage_with_princess", loadImage("src/images/player/cagewithprincess.png"));
+            combatTileset.put("princess", loadImage("src/images/player/princess.png"));
+
 
             System.out.println(" Toutes les images sont chargées !");
         } catch (Exception e) {

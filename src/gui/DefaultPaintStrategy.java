@@ -87,9 +87,10 @@ public class DefaultPaintStrategy implements PaintStrategy{
 
 	        if (objectType != null && tileset.containsKey(objectType)) {
 	            Image img = tileset.get(objectType);
+	            
 
-	            if ("cage_with_princess".equals(objectType)) {
-	                // ✅ Réduction de la cage pour qu’elle paraisse contenir la princesse
+
+	            if ("cage_with_princess".equals(objectType) || "princess".equals(objectType)) {
 	                int size = 26;
 	                int offset = (32 - size) / 2;
 	                g.drawImage(img,

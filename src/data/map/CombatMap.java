@@ -161,16 +161,23 @@ public class CombatMap extends Map {
     public void revealFinaleZone() {
         if (finaleRevealed) return;
         finaleRevealed = true;
+
+        // ✅ Tous les blocs du pont restent sur fond "black" (non modifié)
         for (Block b : finalBridgeBlocks) {
-            staticObjects.put(b, "endBridge");       // visuellement visible
-            setTerrainBlocked(b, false);             // traversable
+            staticObjects.put(b, "endBridge");       // Objet pont
+            setTerrainBlocked(b, false);             // On débloque pour marcher
         }
+
+        // ✅ Sur le dernier bloc uniquement : fond visible + cage_with_princess
         if (!finalBridgeBlocks.isEmpty()) {
             Block finalBlock = finalBridgeBlocks.get(finalBridgeBlocks.size() - 1);
-            staticTerrain.put(finalBlock, "platformCave");
-            staticObjects.put(finalBlock, "cage_with_princess");  // image complète
+
+            staticTerrain.put(finalBlock, "platformCave");      // Fond visible pour cage
+            staticObjects.put(finalBlock, "cage_with_princess");// Objet cage
+            setTerrainBlocked(finalBlock, false);               // On débloque
         }
     }
+
 
 
 
@@ -217,15 +224,26 @@ public class CombatMap extends Map {
 	public static void main(String[] args) {
 	    javax.swing.SwingUtilities.invokeLater(() -> {
 	        CombatMap combatMap = new CombatMap(23, 40);
-	        combatMap.revealFinaleZone(); // 🔁 Force l'affichage du pont de fin et de la cage
 
+	        // 🔁 Génération du pont final et de la cage
+	        combatMap.revealFinaleZone();
+
+	        // 🔁 Libération immédiate de la princesse (remplacement de la cage)
+	        if (!combatMap.getFinalBridgeBlocks().isEmpty()) {
+	            Block finalBlock = combatMap.getFinalBridgeBlocks().get(combatMap.getFinalBridgeBlocks().size() - 1);
+	            combatMap.getStaticTerrain().put(finalBlock, "platformCave"); // fond visible
+	            combatMap.getStaticObjects().put(finalBlock, "princess");     // image libérée
+	            combatMap.setTerrainBlocked(finalBlock, false);              // libre d’accès
+	        }
+
+	        // 🎮 Affichage
 	        GameDisplay display = new GameDisplay();
 	        display.setCombatMap(combatMap);
 	        display.setMap(combatMap);
 	        display.setInShop(false);
 	        display.setHero(new data.player.Hero(combatMap.getArenaEntryPosition(), 100));
 
-	        javax.swing.JFrame frame = new javax.swing.JFrame("Test CombatMap Finale");
+	        javax.swing.JFrame frame = new javax.swing.JFrame("Test CombatMap - Princess Libre");
 	        frame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
 	        frame.getContentPane().add(display);
 	        frame.pack();
@@ -233,6 +251,17 @@ public class CombatMap extends Map {
 	        frame.setVisible(true);
 	    });
 	}
+
+
+	public ArrayList<Block> getFinalBridgeBlocks() {
+		return finalBridgeBlocks;
+	}
+
+
+	public void setFinalBridgeBlocks(ArrayList<Block> finalBridgeBlocks) {
+		this.finalBridgeBlocks = finalBridgeBlocks;
+	}
+
 
 
 

@@ -283,7 +283,7 @@ public class GameController {
         if (display.isInHostileMap() && tryChopDeadTree(gui)) {
             return true;
         }
-        
+
         if (tryEnterCombatMap(gui)) {
             return true;
         }
@@ -292,9 +292,52 @@ public class GameController {
             return true;
         }
 
+        if (tryOpenPrincessCage(gui)) {
+            return true;
+        }
+
         display.getController().tryIgniteCampfire(gui);
         return false;
     }
+
+    private boolean tryOpenPrincessCage(MainGUI gui) {
+        Map activeMap = display.getActiveMap();
+        Block heroPos = hero.getPosition();
+
+        for (int dl = -1; dl <= 1; dl++) {
+            for (int dc = -1; dc <= 1; dc++) {
+                if (dl == 0 && dc == 0) continue;
+
+                int newL = heroPos.getLine() + dl;
+                int newC = heroPos.getColumn() + dc;
+
+                if (newL >= 0 && newL < activeMap.getLineCount() &&
+                    newC >= 0 && newC < activeMap.getColumnCount()) {
+
+                    Block adjacent = activeMap.getBlock(newL, newC);
+                    String object = activeMap.getStaticObjects().get(adjacent);
+
+                    if ("cage_with_princess".equals(object)) {
+                        // ✅ On change juste l’objet visible en gardant le fond platform
+                        activeMap.getStaticObjects().put(adjacent, "princess");
+
+                        // ✅ On s'assure que le sol reste une plateforme visible
+                        activeMap.getStaticTerrain().put(adjacent, "platformCave");
+
+                        activeMap.setTerrainBlocked(adjacent, false);
+                        gui.repaint();
+
+                        JOptionPane.showMessageDialog(gui, "👸 Tu as libéré la princesse !");
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+
 
 
     public boolean tryChopDeadTree(MainGUI gui) {
@@ -316,7 +359,6 @@ public class GameController {
                         activeMap.getStaticObjects().remove(block);
                         activeMap.setTerrainBlocked(block, false);
                         gui.getQuestManager().updateQuest("Trouve du bois sec", 1);
-                        JOptionPane.showMessageDialog(gui, "🪓 Tu as récupéré du bois sec !");
                         return true;
                     }
                 }
