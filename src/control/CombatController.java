@@ -58,7 +58,7 @@ public class CombatController {
 
                 if (enemy.isDead()) {
                     MainGUI.getInstance().getQuestManager().updateQuest("Chasseur de têtes", 1);
-                    it.remove(); // ✅ Toujours retirer les ennemis morts
+                    it.remove();
                     enemyKilled = true;
                 }
 
@@ -71,7 +71,7 @@ public class CombatController {
 
             if (cMap.areAllEnemiesDead()) {
                 System.out.println("🌊 Tous les ennemis de la vague sont morts !");
-                loadNextWave(); // 💡 Ne vide plus ici, c’est `loadNextWave()` qui gère
+                loadNextWave(); 
             }
         }
 
@@ -89,7 +89,7 @@ public class CombatController {
 
             if (enemy.getPosition().equals(targetBlock)) {
                 System.out.println("🎯 ENNEMI TOUCHÉ !");
-                enemy.takeDamage(50);
+                enemy.takeDamage(25);
 
                 if (enemy.isDead()) {
                     System.out.println("💀 Ennemi MORT !");

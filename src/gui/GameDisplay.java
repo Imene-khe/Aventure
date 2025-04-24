@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -87,8 +88,8 @@ public class GameDisplay extends JPanel {
 
 	        this.hero = new Hero(map.getBlock(GRID_SIZE / 2, GRID_SIZE / 2), 100);
 	        this.tileset = new HashMap<>();
-	        this.controller = new GameController(this); // nouveau contrôleur
-	        this.addMouseListener(new MouseControls()); // ✅ Gère les clics souris
+	        this.controller = new GameController(this); 
+	        this.addMouseListener(new MouseControls());
 
 	        try {
 	            String[] coinPaths = new String[8];
@@ -143,6 +144,13 @@ public class GameDisplay extends JPanel {
 	}
 
    
+	public void resetMouseListener() {
+	    for (MouseListener ml : this.getMouseListeners()) {
+	        this.removeMouseListener(ml);
+	    }
+	    this.addMouseListener(new MouseControls());
+	}
+ 
     public Map getMap() {
 		return map;
 	}
@@ -455,7 +463,7 @@ public class GameDisplay extends JPanel {
 	    this.repaint();
 	    this.setFocusable(true);
 	    this.requestFocusInWindow();
-	    this.addMouseListener(new MouseControls()); // ✅ à mettre ici
+	    resetMouseListener();
 	    controller.setupHostileQuests();
 	    this.setFocusable(true);
 	    this.requestFocusInWindow(); // déjà présent ? ajoute aussi :

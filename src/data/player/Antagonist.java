@@ -14,14 +14,18 @@ public class Antagonist extends Person {
 
     public Antagonist(Block startPosition, String enemyType, EnemyImageManager imageManager) {
         super(startPosition);
-        this.health = 20;
         this.enemyType = enemyType;
-
+        if ("boss".equals(enemyType)) {
+            this.health = 100;
+        } else {
+            this.health = 20;
+        }
         if (startPosition != null) {
             this.x = startPosition.getColumn() * 50;
             this.y = startPosition.getLine() * 50;
         }
     }
+
 
     public int getHealth() {
         return health;
@@ -31,6 +35,7 @@ public class Antagonist extends Person {
 
     public void takeDamage(int damage) {
         health -= damage;
+        System.out.println("🩸 " + enemyType + " prend " + damage + " dégâts. PV restants : " + health);
         if (health < 0) health = 0;
     }
 
