@@ -564,6 +564,27 @@ public class GameController {
             }
         }
     }
+    
+    public void applyProjectileHit() {
+        hero.takeDamage(10);
+        logger.warn("💥 Projectile touché ! Vie restante : " + hero.getHealth() + "%");
+
+        if (hero.getHealth() <= 0) {
+            display.setGameOver(true);
+            logger.error("☠️ GAME OVER ! Le héros est mort.");
+            javax.swing.JOptionPane.showMessageDialog(display, "☠️ GAME OVER ! Le héros est mort.");
+            System.exit(0);
+        }
+    }
+
+
+    public void setGameOver() {
+        display.setGameOver(true);
+        logger.error("☠️ GAME OVER ! Le héros est mort.");
+        javax.swing.JOptionPane.showMessageDialog(display, "☠️ GAME OVER ! Le héros est mort.");
+        System.exit(0);
+    }
+
 
     public void handleCombatClick(Point clickPoint) {
         if (combatController != null) {
@@ -629,17 +650,21 @@ public class GameController {
 	    ArrayList<Projectile> toRemove = new ArrayList<>();
 	    for (Projectile p : cMap.getProjectiles()) {
 	        p.move(cMap);
-	        if (!p.isActive() || p.getPosition().equals(hero.getPosition())) {
-	            if (p.isActive()) {
-	                hero.takeDamage(10);
-	                System.out.println("💥 Projectile touché !");
-	            }
+	        if (!p.isActive()) {
+	            toRemove.add(p);
+	            continue;
+	        }
+
+	        if (p.getPosition().equals(hero.getPosition())) {
+	            applyProjectileHit();
 	            p.deactivate();
 	            toRemove.add(p);
 	        }
 	    }
+
 	    cMap.getProjectiles().removeAll(toRemove);
 	}
+
 
 	
 	public GameDisplay getDisplay() {
@@ -649,7 +674,7 @@ public class GameController {
 	public void onRepaintTick() {
 	    repaintCounter++;
 
-	    if (repaintCounter % 10 == 0) {
+	    if (repaintCounter % 25 == 0) {
 	        bossSpecialAttack();
 	        updateProjectiles();
 	    }

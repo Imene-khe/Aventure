@@ -86,9 +86,9 @@ public class GameDisplay extends JPanel {
 	            while (true) {
 	                try {
 	                    Thread.sleep(100);
-	                    controller.onRepaintTick(); // ✅ informe le contrôleur que c'est un nouveau tick (toutes les 100ms)
-	                    controller.checkEnemyCollision(); // ⚠️ si tu veux éviter les collisions de projectiles et ennemis dans le même tick, tu peux différencier
-	                    repaint(); // 🔄 redessin à chaque tick
+	                    controller.onRepaintTick(); 
+	                    controller.checkEnemyCollision();
+	                    repaint(); 
 	                } catch (InterruptedException e) {
 	                    e.printStackTrace();
 	                }
@@ -238,16 +238,19 @@ public class GameDisplay extends JPanel {
             
             combatTileset = new HashMap<>();
 
-            combatTileset.put("floorCave", loadImage("src/images/outdoor/combat/floorcave.png"));
-            combatTileset.put("platformCave", loadImage("src/images/outdoor/combat/platformCave.png"));
-            combatTileset.put("black", loadImage("src/images/outdoor/combat/black.png"));
-            combatTileset.put("bridge", loadImage("src/images/outdoor/combat/bridge.png"));
-            combatTileset.put("verticalBorder", loadImage("src/images/outdoor/combat/verticalBorder.png"));
-            combatTileset.put("horizontalBorder", loadImage("src/images/outdoor/combat/horizontalBorder.png"));
+            combatTileset.put("floorCave", loadImage("src/images/outdoor/combat/mapComponent/floorcave.png"));
+            combatTileset.put("platformCave", loadImage("src/images/outdoor/combat/mapComponent/platformCave.png"));
+            combatTileset.put("black", loadImage("src/images/outdoor/combat/mapComponent/black.png"));
+            combatTileset.put("bridge", loadImage("src/images/outdoor/combat/mapComponent/bridge.png"));
+            combatTileset.put("verticalBorder", loadImage("src/images/outdoor/combat/mapComponent/verticalBorder.png"));
+            combatTileset.put("horizontalBorder", loadImage("src/images/outdoor/combat/mapComponent/horizontalBorder.png"));
             combatTileset.put("projectile_right", loadImage("src/images/outdoor/combat/projectile/projectileRight.png"));
             combatTileset.put("projectile_left", loadImage("src/images/outdoor/combat/projectile/projectileLeft.png"));
             combatTileset.put("projectile_down", loadImage("src/images/outdoor/combat/projectile/projectileDown.png"));
             combatTileset.put("projectile_up", loadImage("src/images/outdoor/combat/projectile/projectileTop.png"));
+            combatTileset.put("cage", loadImage("src/images/outdoor/combat/mapComponent/cage.png"));
+            combatTileset.put("endBridge", loadImage("src/images/outdoor/combat/mapComponent/endBridge.png"));
+            combatTileset.put("cage_with_princess", loadImage("src/images/player/cagewithprincess.png"));
 
             System.out.println(" Toutes les images sont chargées !");
         } catch (Exception e) {
@@ -286,19 +289,11 @@ public class GameDisplay extends JPanel {
 	        System.out.println("❌ Erreur: map ou tileset null");
 	        return;
 	    }
-
-	    // ✅ 1. Fond de carte
 	    paintStrategy.paintTerrain(mapToDraw, g, this);
-
-	    // ✅ 2. Pièces (pas dans shop)
 	    if (!isInShop && !isInHostileMap) {
 	        paintStrategy.paintCoins(mapToDraw, g, this);
 	    }
-
-	    // ✅ 3. Objets statiques
 	    paintStrategy.paintStaticObjects(mapToDraw, g, this);
-
-	    // ✅ 4. Cas spéciaux
 	    if (!isInShop && !isInHostileMap) {
 	    	paintStrategy.paintBurningHouse(mapToDraw, g, this);
 	    	paintStrategy.paintShopBuilding(mapToDraw, g, this);
@@ -306,26 +301,16 @@ public class GameDisplay extends JPanel {
 	    } else if (isInShop) {
 	        paintStrategy.paintMerchant(shopMap, g, this);
 	    }
-
-	    // ✅ 5. Ennemis + vie (pas dans shop)
 	    if (!isInShop) {
 	        paintStrategy.paintEnemies(mapToDraw, g, this);
 	        paintStrategy.paintHealthBar(hero, g, this);
-	    }
-	    
+	    } 
 	    if (isInHostileMap || isInCombatMap) {
 	        paintStrategy.paintMobileAntagonists(mapToDraw, g, this);
 	    }
-
-	    // ✅ 6. Héros toujours visible
 	    paintStrategy.paintHero(hero, g, this);
 	}
 
-    
-    
-
-
-	
 	public CombatMap getCombatMap() {
 		return combatMap;
 	}
@@ -346,13 +331,9 @@ public class GameDisplay extends JPanel {
 		return isGameOver;
 	}
 
-
-
 	public void setGameOver(boolean isGameOver) {
 		this.isGameOver = isGameOver;
 	}
-
-
     /**
      * Dessine la barre de vie du héros.
      * @param g L'objet Graphics utilisé pour dessiner la barre de vie
@@ -369,29 +350,23 @@ public class GameDisplay extends JPanel {
         g.drawRect(10, 10, 200, 20);
         g.drawString("Vie : " + currentHealth + "%", 90, 25);
     }
-    
-    
+
     /**
      * ✅ Active l'affichage de `shopMap`
      */
     public void enterShop() {
         isInShop = true;
-        hero.setPosition(shopMap.getBlock(13, 7)); // ✅ Placer le héros dans l’entrée centrale du shop
+        hero.setPosition(shopMap.getBlock(13, 7)); 
         repaint(); // 🔄 Mise à jour de l'affichage
     }
 
-
-    
     /**
      * ✅ Permet au héros de sortir du shop et de retourner sur `currentMap`.
      */
     public void exitShop() {
-        returnToMainMap(); // ✅ Appelle returnToMainMap() une seule fois sans boucle infinie
+        returnToMainMap(); 
         
     }
-    
-
-
     
     public void returnToMainMap() {
         if (isInShop) {  // ✅ Vérifie qu'on est bien dans la boutique avant de quitter

@@ -1,9 +1,13 @@
 package data.item;
 
+import org.apache.log4j.Logger;
+import log.LoggerUtility;
+
 import data.map.Block;
 import data.map.Map;
 
 public class Projectile {
+	private static final Logger logger = LoggerUtility.getLogger(Projectile.class, "text");
     private Block position;
     private int dx;
     private int dy;
@@ -14,12 +18,12 @@ public class Projectile {
         this.position = startPosition;
         this.dx = dx;
         this.dy = dy;
-
-        // ✅ Déduire la direction
+        
         if (dx > 0) directionName = "right";
         else if (dx < 0) directionName = "left";
         else if (dy > 0) directionName = "down";
-        else directionName = "up"; // dx == 0 && dy < 0
+        else directionName = "up";
+        logger.info("🛠️ Projectile initialisé à " + position + " avec direction '" + directionName + "'");
     }
 
     public void move(Map map) {
@@ -27,19 +31,19 @@ public class Projectile {
 
         int nextLine = position.getLine() + dy;
         int nextCol = position.getColumn() + dx;
-
-        // ✅ Vérifie les bornes de la carte
         if (nextLine < 0 || nextLine >= map.getLineCount() ||
             nextCol < 0 || nextCol >= map.getColumnCount()) {
-            active = false; // ❌ Stoppe le projectile s’il sort de la carte
+            active = false;
+            logger.info("⛔ Projectile désactivé (hors limites) à " + nextLine + "," + nextCol);
             return;
         }
 
         Block nextBlock = map.getBlock(nextLine, nextCol);
 
         if (map.isBlocked(nextBlock)) {
-            active = false; // ❌ Collision => projectile arrêté
-        } else {
+            active = false;
+        } 
+        else {
             position = nextBlock;
         }
     }

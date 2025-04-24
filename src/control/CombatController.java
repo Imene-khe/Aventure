@@ -59,9 +59,16 @@ public class CombatController {
 
                 if (enemy.isDead()) {
                     MainGUI.getInstance().getQuestManager().updateQuest("Chasseur de têtes", 1);
+
+                    if ("boss".equals(enemy.getType()) && activeMap instanceof CombatMap combatMap) {
+                        combatMap.revealFinaleZone();
+                        javax.swing.JOptionPane.showMessageDialog(display, "🏁 Un pont s'est ouvert... Va sauver ta femme !");
+                    }
+
                     it.remove();
                     enemyKilled = true;
                 }
+
 
                 break; // ❗ Un seul ennemi attaqué par clic
             }
@@ -79,19 +86,13 @@ public class CombatController {
         display.repaint(); // 🔄 Mise à jour visuelle
     }
 
-
-
-
     public void attack(Block targetBlock) {
         System.out.println("🔍 Ennemis dans hostileMap : " + hostileMap.getAntagonistList().size());
-
         for (Antagonist enemy : hostileMap.getAntagonistList()) {
             System.out.println("➡️ Ennemi sur : " + enemy.getPosition());
-
             if (enemy.getPosition().equals(targetBlock)) {
                 System.out.println("🎯 ENNEMI TOUCHÉ !");
                 enemy.takeDamage(25);
-
                 if (enemy.isDead()) {
                     System.out.println("💀 Ennemi MORT !");
                     hostileMap.getAntagonistTypes().remove(enemy); 
@@ -104,9 +105,9 @@ public class CombatController {
                 return;
             }
         }
-
         System.out.println("❌ Aucun ennemi trouvé sur ce bloc !");
     }
+    
     public void loadFirstWaveIfNeeded() {
         Map activeMap = gameController.getDisplay().getActiveMap();
         if (activeMap instanceof CombatMap combatMap) {
@@ -115,19 +116,13 @@ public class CombatController {
                 int arenaCol = combatMap.getCenterStartCol();
                 waveManager = new WaveManager(display.getEnemyImageManager(), arenaLine, arenaCol);
                 waveManager.setCombatMap(combatMap);
-                waveManager.setGameController(gameController); // ✅ ICI
+                waveManager.setGameController(gameController); 
             }
-
             combatMap.clearAntagonists();
             combatMap.setAntagonists(new ArrayList<>(waveManager.getCurrentWaveEnemies()));
             System.out.println("🌀 Première vague d'ennemis chargée : " + combatMap.getAntagonists().size());
         }
     }
-
-
-
-
-
 
     public void loadNextWave() {
         waveManager.updateWave(); // ➕ vérifie la mort de tous les ennemis
@@ -145,38 +140,27 @@ public class CombatController {
             System.out.println("✅ Toutes les vagues sont terminées !");
         }
     }
-    
-    
-
-
     public HostileMap getHostileMap() {
 		return hostileMap;
 	}
-
 
 	public void setHostileMap(HostileMap hostileMap) {
 		this.hostileMap = hostileMap;
 	}
 
-
 	public GameController getGameController() {
 		return gameController;
 	}
-
 
 	public void setGameController(GameController gameController) {
 		this.gameController = gameController;
 	}
 
-
 	public WaveManager getWaveManager() {
 		return waveManager;
 	}
 
-
 	public void setWaveManager(WaveManager waveManager) {
 		this.waveManager = waveManager;
 	}
-
-
 }

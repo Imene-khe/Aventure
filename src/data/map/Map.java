@@ -25,7 +25,7 @@ public class Map {
     protected HashMap<Block, String> staticTerrain = new HashMap<>();
     protected HashMap<Block, String> enemies = new HashMap<>();
     private ChestManager chestManager;   
-    private int lineCount;
+    protected int lineCount;
     private int columnCount;
     private int maxChests;
     private ArrayList<Coin> coins;
@@ -156,7 +156,6 @@ public class Map {
         staticObjects.put(barCenter, "bar");
         staticObjects.put(barRight, "bar");
 
-        // ✅ Bordure intérieure avec bookshelf (1 bloc vers l’intérieur)
         for (int i = 1; i < lineCount - 1; i++) {
             for (int j = 1; j < columnCount - 1; j++) {
                 Block block = blocks[i][j];

@@ -1,5 +1,8 @@
 package gui;
 
+import org.apache.log4j.Logger;
+import log.LoggerUtility;
+
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.ArrayList;
@@ -15,13 +18,12 @@ import data.player.Hero;
 import viewstrategy.PaintStrategy;
 
 public class DefaultPaintStrategy implements PaintStrategy{
+	private static final Logger logger = LoggerUtility.getLogger(DefaultPaintStrategy.class, "text");
 
 	@Override
 	public void paintTerrain(Map map, Graphics g, GameDisplay display) {
 	    Block[][] blocks = map.getBlocks();
 	    boolean isShop = display.isInShop();
-
-	    // ✅ Tileset sélectionné dynamiquement selon le type de map
 	    HashMap<String, Image> tileset =
 	            (map instanceof data.map.CombatMap) ? display.getCombatTileset() :
 	            (map instanceof data.map.HostileMap) ? display.getHostileTileset() :
@@ -35,7 +37,6 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	                    isShop ? "shopFloor" : "grass");
 
 	            if ("black".equals(terrainType)) {
-	                // ✅ On affiche quand même si "black" est dans le tileset
 	                Image terrainImage = tileset.get("black");
 	                if (terrainImage != null) {
 	                    g.drawImage(terrainImage, block.getColumn() * 32, block.getLine() * 32, 32, 32, null);
@@ -55,14 +56,19 @@ public class DefaultPaintStrategy implements PaintStrategy{
 
 	@Override
 	public void paintStaticObjects(Map map, Graphics g, GameDisplay display) {
-	    // ✅ Sélection dynamique du bon tileset (hostile ou normal)
-	    HashMap<String, Image> tileset = 
-	        map instanceof HostileMap ? display.getHostileTileset() : display.getTileset();
+	    HashMap<String, Image> tileset;
+
+	    if (map instanceof CombatMap) {
+	        tileset = display.getCombatTileset();
+	    } else if (map instanceof HostileMap) {
+	        tileset = display.getHostileTileset();
+	    } else {
+	        tileset = display.getTileset();
+	    }
 
 	    for (Block block : map.getStaticObjects().keySet()) {
 	        String objectType = map.getStaticObjects().get(block);
 
-	        // 🔥 Cas spécial : maison en feu
 	        if ("house_burning".equals(objectType)) {
 	            if (display.getTileset().containsKey("house")) {
 	                g.drawImage(display.getTileset().get("house"),
@@ -76,18 +82,30 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	                        32, 32, null);
 	            }
 
-	            continue; // ✅ on passe à l’objet suivant
+	            continue;
 	        }
 
-	        // 💡 Cas générique : arbre, meuble, torche, coffre, etc.
 	        if (objectType != null && tileset.containsKey(objectType)) {
-	            g.drawImage(tileset.get(objectType),
-	                    block.getColumn() * 32, block.getLine() * 32,
-	                    32, 32, null);
+	            Image img = tileset.get(objectType);
+
+	            if ("cage_with_princess".equals(objectType)) {
+	                // ✅ Réduction de la cage pour qu’elle paraisse contenir la princesse
+	                int size = 26;
+	                int offset = (32 - size) / 2;
+	                g.drawImage(img,
+	                        block.getColumn() * 32 + offset,
+	                        block.getLine() * 32 + offset,
+	                        size, size, null);
+	            } else {
+	                // 💡 Cas générique
+	                g.drawImage(img,
+	                        block.getColumn() * 32, block.getLine() * 32,
+	                        32, 32, null);
+	            }
 	        }
+
 	    }
 
-	    /// 🔹 Affichage du bâtiment shop UNIQUEMENT dans la carte principale
 	    if (!display.isInShop() && !display.isInHostileMap() && display.getTileset().containsKey("shop")) {
 	        for (Block block : display.getMap().getStaticObjects().keySet()) {
 	            if ("shop".equals(display.getMap().getStaticObjects().get(block))) {
@@ -98,8 +116,6 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	        }
 	    }
 
-
-	    // 🔹 Affichage du marchand dans la boutique
 	    if (display.isInShop() && display.getTileset().containsKey("merchant")) {
 	        for (Block block : display.getShopMap().getStaticObjects().keySet()) {
 	            if ("merchant".equals(display.getShopMap().getStaticObjects().get(block))) {
@@ -110,6 +126,7 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	        }
 	    }
 	}
+
 
 
 	
@@ -144,7 +161,7 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	            int y = block.getLine() * 32;
 	            g.drawImage(enemyImage, x, y, 32, 32, null);
 	        } else {
-	            System.out.println("⚠ BUG: Ennemi " + enemyType + " non affiché !");
+	        	logger.warn("⚠ BUG d'affichage : image manquante pour l'ennemi de type '" + enemyType + "'");
 	        }
 	    }
 	}
@@ -152,7 +169,7 @@ public class DefaultPaintStrategy implements PaintStrategy{
 
 	@Override
 	public void paintHero(Hero hero, Graphics g, GameDisplay display) {
-	    hero.draw(g, 32); // ou display.getBlockSize() si tu veux le rendre dynamique
+	    hero.draw(g, 32); 
 	}
 
 
@@ -220,7 +237,6 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	public void paintMobileAntagonists(Map map, Graphics g, GameDisplay display) {
 	    int size = display.getBlockSize();
 	    ArrayList<Antagonist> enemies = new ArrayList<>();
-
 	    if (map instanceof HostileMap hMap) {
 	        enemies = hMap.getAntagonistList();
 	    } else if (map instanceof CombatMap cMap) {
@@ -238,7 +254,7 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	                EnemyHealthBar.draw(g, enemy.getHealth(), enemy.getMaxHealth(), x, y);
 	            }
 	        } else {
-	            System.out.println("⚠ Image manquante pour ennemi : " + enemy.getType());
+	        	logger.warn("⚠ Image manquante pour ennemi mobile de type '" + enemy.getType() + "' à " + enemy.getPosition());
 	        }
 	    }
 
@@ -251,7 +267,6 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	
 	public void paintProjectiles(CombatMap map, Graphics g, GameDisplay display) {
 	    int size = display.getBlockSize();
-
 	    for (Projectile p : map.getProjectiles()) {
 	        if (p.isActive()) {
 	            Block b = p.getPosition();

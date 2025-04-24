@@ -29,7 +29,7 @@ public class MainGUI extends JFrame {
     private DialogueManager dialogueManager = new DialogueManager();
     private boolean dialogueActive = true;
     private JScrollPane scrollPane;
-    private String currentDialogueEvent = "intro"; // Par défaut au lancement
+    private String currentDialogueEvent = "intro";
     private JPanel bottomPanel;
     private JButton interactButton;
     private JLabel coinLabel;
@@ -45,11 +45,9 @@ public class MainGUI extends JFrame {
         setLayout(new BorderLayout());
 
         this.dashboard = new GameDisplay();
-        this.dashboard.addKeyListener(new KeyControls()); // ✅ Pour capter les touches même si GameDisplay a le focus
+        this.dashboard.addKeyListener(new KeyControls()); 
         logger.info("🎮 GameDisplay attaché au centre.");
         this.inventory = new InventoryManager();
-
-        // ✅ Panneau de narration à droite
         sidePanel = new JPanel(new BorderLayout());
         sidePanel.setPreferredSize(new Dimension(250, getHeight()));
         sidePanel.setBackground(new Color(50, 50, 50));
@@ -69,15 +67,12 @@ public class MainGUI extends JFrame {
         sidePanel.add(scrollPane, BorderLayout.CENTER);
         logger.info("📐 Panneaux UI ajoutés à la fenêtre.");
 
-        // ✅ Panneau du bas
         bottomPanel = new JPanel();
         bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
         bottomPanel.setPreferredSize(new Dimension(1000, 65));
         bottomPanel.setMaximumSize(new Dimension(1000, 60));
         bottomPanel.setBackground(new Color(80, 80, 80));
 
-
-        // ➤ Sous-panel gauche (pièces + boutons inventaire)
         JPanel leftBottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         leftBottomPanel.setOpaque(false);
 
@@ -86,20 +81,17 @@ public class MainGUI extends JFrame {
         coinLabel.setForeground(Color.WHITE);
         leftBottomPanel.add(coinLabel);
         logger.info("📐 Panneaux UI ajoutés à la fenêtre.");
-        leftBottomPanel.add(inventory); // inventory est une instance de InventoryManager
+        leftBottomPanel.add(inventory); 
 
-        // ➤ Sous-panel droit (boutons Interagir + Mission côte à côte)
         JPanel rightBottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         rightBottomPanel.setOpaque(false);
 
-        // ➤ Bouton Interagir
         interactButton = new JButton("Interagir");
         interactButton.setFont(new Font("Arial", Font.BOLD, 16));
         interactButton.setPreferredSize(new Dimension(120, 30));
         interactButton.addActionListener(e -> interactWithNPC());
         rightBottomPanel.add(interactButton);
         
-        // ➤ Nouveau bouton Mission
         JButton missionButton = new JButton("Mission");
         missionButton.setFont(new Font("Arial", Font.BOLD, 16));
         missionButton.setPreferredSize(new Dimension(120, 30));
@@ -109,10 +101,9 @@ public class MainGUI extends JFrame {
             for (Quest quest : questManager.getActiveQuests()) {
                 if (!quest.isCompleted()) {
 
-                    // 🔥 Cas spécial pour les flammes
                     if ("Eteindre les flammes".equals(quest.getName())) {
                     	Map map = MainGUI.getGameDisplay().getMap();
-                    	ArrayList<Flame> flames = map.getFlames(); // les flammes ont été générées dans returnToMainMap()
+                    	ArrayList<Flame> flames = map.getFlames(); 
 
                         int totalFlames = flames.size();
                         int extinguished = (int) flames.stream().filter(f -> !f.isActive()).count();
@@ -149,7 +140,7 @@ public class MainGUI extends JFrame {
         add(bottomPanel, BorderLayout.SOUTH);
         
         questManager.addQuest(new Quest("Collecte pour le marchand", "Récoltez 10 pièces d'or", Quest.TYPE_COLLECT, 10, 0));
-        int flameCount = dashboard.getMap().getFlames().size(); // ✅ map principale
+        int flameCount = dashboard.getMap().getFlames().size(); 
         questManager.addQuest(new Quest("Eteindre les flammes", "Éteindre toutes les maisons en feu", Quest.TYPE_KILL, flameCount, 0));
         questManager.addQuest(new Quest("L'orbe sacré", "Trouvez l'orbe légendaire", Quest.TYPE_FIND, 1, 0));
 
@@ -158,20 +149,17 @@ public class MainGUI extends JFrame {
         updateDialoguePanel(currentDialogueEvent);
 
         setFocusable(true);
-        //pack(); 
         setVisible(true);
-        dashboard.setFocusable(true); // 🟢 Assure que GameDisplay peut recevoir les touches
-        dashboard.requestFocusInWindow(); // 🟢 Force le focus
+        dashboard.setFocusable(true); 
+        dashboard.requestFocusInWindow();
         logger.info("🖥️ Fenêtre affichée avec succès.");
         requestFocusInWindow();
         new Thread(() -> {
             while (true) {
                 try {
-                    Thread.sleep(1000); // ⏱️ pause de 300 ms (ajuste si besoin)
-
-                    // ❌ Ne bouge pas les ennemis pendant un dialogue
+                    Thread.sleep(1000); 
                     if (!dialogueActive) {
-                        dashboard.getController().moveEnemiesTowardsHero(); // 💥 Mouvement automatique
+                        dashboard.getController().moveEnemiesTowardsHero(); 
                     }
 
                 } catch (InterruptedException e) {
@@ -220,10 +208,7 @@ public class MainGUI extends JFrame {
         	logger.warn("❌ Aucun dialogue trouvé pour l’événement : " + eventKey);
         	return;
         }
-
         logger.info("💬 Début du dialogue : " + eventKey);
-        
-        // ✅ Nettoyer les anciens dialogues affichés
         dialoguePanel.removeAll();
         dialoguePanel.revalidate();
         dialoguePanel.repaint();
@@ -248,7 +233,7 @@ public class MainGUI extends JFrame {
             "Marchand", JOptionPane.YES_NO_OPTION);
 
         if (choix == JOptionPane.YES_OPTION) {
-            dashboard.getController().enterShop(this); // Appel du GameController
+            dashboard.getController().enterShop(this); 
         }
 
     }
@@ -278,7 +263,6 @@ public class MainGUI extends JFrame {
         dialoguePanel.revalidate();
         dialoguePanel.repaint();
 
-        // ✅ Force le scroll tout en bas à chaque nouveau message
         JScrollBar verticalBar = scrollPane.getVerticalScrollBar();
         SwingUtilities.invokeLater(() -> verticalBar.setValue(verticalBar.getMaximum()));
     }
@@ -286,13 +270,10 @@ public class MainGUI extends JFrame {
 
 
 
-    /**
-     * Gère les déplacements du héros en fonction de la carte active (`currentMap` ou `shopMap`).
-     */
     public void moveHero(int keyCode) {
-        if (dialogueActive) return; // ✅ Bloque les déplacements si un dialogue est actif
+        if (dialogueActive) return; 
 
-        dashboard.getController().moveHero(keyCode, this); // ✅ délégation complète
+        dashboard.getController().moveHero(keyCode, this); 
     }
 
 
@@ -309,36 +290,22 @@ public class MainGUI extends JFrame {
 
         }
 
-        requestFocusInWindow(); // ✅ Redonne le focus clavier après interaction
+        requestFocusInWindow(); 
     }
 
-
-
-    /**
-     * ✅ Vérifie si le héros est proche du bâtiment `shop`
-     */
     public boolean isHeroNearShop() {
         Block heroPos = dashboard.getHero().getPosition();
         int heroLine = heroPos.getLine();
         int heroColumn = heroPos.getColumn();
 
-        // Vérifier les cases adjacentes autour du héros
         for (int deltaLine = -1; deltaLine <= 1; deltaLine++) {
             for (int deltaColumn = -1; deltaColumn <= 1; deltaColumn++) {
-                if (deltaLine == 0 && deltaColumn == 0) continue; // Ignorer la case du héros lui-même
-
+                if (deltaLine == 0 && deltaColumn == 0) continue; 
                 int newLine = heroLine + deltaLine;
                 int newColumn = heroColumn + deltaColumn;
-
-                // Vérifier que les coordonnées sont valides
-                if (newLine >= 0 && newLine < dashboard.getMap().getLineCount() &&
-                    newColumn >= 0 && newColumn < dashboard.getMap().getColumnCount()) {
-
+                if (newLine >= 0 && newLine < dashboard.getMap().getLineCount() && newColumn >= 0 && newColumn < dashboard.getMap().getColumnCount()) {
                     Block adjacentBlock = dashboard.getMap().getBlock(newLine, newColumn);
-
-                    // Vérifier si le bloc adjacent est le shop
-                    if (dashboard.getMap().getStaticObjects().containsKey(adjacentBlock) &&
-                        dashboard.getMap().getStaticObjects().get(adjacentBlock).equals("shop")) {
+                    if (dashboard.getMap().getStaticObjects().containsKey(adjacentBlock) && dashboard.getMap().getStaticObjects().get(adjacentBlock).equals("shop")) {
                         return true;
                     }
                 }
@@ -371,7 +338,7 @@ public class MainGUI extends JFrame {
     
     public void requestFocusOnGame() {
         dashboard.setFocusable(true);
-        dashboard.requestFocusInWindow(); // ✅ C'est ça qu'on veut rappeler après l'inventaire
+        dashboard.requestFocusInWindow(); 
     }
     
     public void setDialogueActive(boolean active) {
@@ -395,7 +362,7 @@ public class MainGUI extends JFrame {
                 triggerDialogue("exit_shop_1");
                 requestFocusInWindow();
             } else {
-                moveHero(e.getKeyCode()); // ⬅️ délégué au GameController
+                moveHero(e.getKeyCode()); 
             }
         }
 
