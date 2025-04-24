@@ -164,7 +164,7 @@ public class CombatMap extends Map {
 
         // ✅ Tous les blocs du pont restent sur fond "black" (non modifié)
         for (Block b : finalBridgeBlocks) {
-            staticObjects.put(b, "endBridge");       // Objet pont
+            staticTerrain.put(b, "endBridge");       // Objet pont
             setTerrainBlocked(b, false);             // On débloque pour marcher
         }
 

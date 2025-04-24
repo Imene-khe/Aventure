@@ -2,9 +2,6 @@ package gui;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-
-import data.player.Hero;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
