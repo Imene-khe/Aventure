@@ -1,5 +1,6 @@
-package data.item;
+package data.item.chest;
 
+import data.item.Equipment;
 import data.item.weapon.Axe;
 import data.item.weapon.Sword;
 

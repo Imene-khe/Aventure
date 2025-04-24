@@ -1,5 +1,7 @@
-package data.item;
+package data.item.chest;
 
+import data.item.Equipment;
+import data.item.inventory.Inventory;
 import data.map.Block;
 
 import java.util.HashMap;

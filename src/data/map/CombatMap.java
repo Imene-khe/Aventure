@@ -3,6 +3,7 @@ package data.map;
 import java.util.ArrayList;
 import java.util.Random;
 
+import data.item.Projectile;
 import data.player.Antagonist;
 
 public class CombatMap extends Map {
@@ -11,6 +12,7 @@ public class CombatMap extends Map {
 	private int centerStartCol;
 	private int bridgeCol;
 	private ArrayList<Antagonist> antagonists = new ArrayList<>();
+	private ArrayList<Projectile> projectiles = new ArrayList<>();
 
     
 
@@ -171,6 +173,10 @@ public class CombatMap extends Map {
 	
 	public boolean areAllEnemiesDead() {
 	    return antagonists.stream().allMatch(Antagonist::isDead);
+	}
+	
+	public ArrayList<Projectile> getProjectiles() {
+	    return projectiles;
 	}
 
 

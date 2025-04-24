@@ -8,6 +8,7 @@ import data.map.Map;
 public class Antagonist extends Person {
 
     private int health;
+    private int maxHealth; // ✅ nouveau champ
     private String enemyType;
     
     private int x, y; // Coordonnées pixels pour CombatMap
@@ -15,11 +16,15 @@ public class Antagonist extends Person {
     public Antagonist(Block startPosition, String enemyType, EnemyImageManager imageManager) {
         super(startPosition);
         this.enemyType = enemyType;
+
         if ("boss".equals(enemyType)) {
-            this.health = 100;
+            this.maxHealth = 300;
         } else {
-            this.health = 20;
+            this.maxHealth = 20;
         }
+
+        this.health = this.maxHealth;
+
         if (startPosition != null) {
             this.x = startPosition.getColumn() * 50;
             this.y = startPosition.getLine() * 50;
@@ -30,6 +35,11 @@ public class Antagonist extends Person {
     public int getHealth() {
         return health;
     }
+    
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
 
   
 

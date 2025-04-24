@@ -1,6 +1,9 @@
-package data.item;
+package data.item.inventory;
 
 import javax.swing.*;
+
+import data.item.Equipment;
+
 import java.awt.*;
 
 /**

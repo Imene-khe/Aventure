@@ -1,6 +1,9 @@
-package data.item;
+package data.item.chest;
 
 import java.util.Random;
+
+import data.item.Equipment;
+import data.item.inventory.Inventory;
 
 public class Chest {
 

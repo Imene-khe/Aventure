@@ -21,7 +21,6 @@ public class WaveManager {
     private ArrayList<ArrayList<Antagonist>> waves;
     private boolean levelFinished;
     private EnemyImageManager imageManager;
-    private boolean bossSpawned = false;
 
     // ✅ Constructeur avec EnemyImageManager
     public WaveManager(EnemyImageManager imageManager, int arenaLine, int arenaCol) {

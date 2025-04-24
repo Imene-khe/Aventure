@@ -1,6 +1,8 @@
-package data.item;
+package data.item.inventory;
 
 import java.util.ArrayList;
+
+import data.item.Equipment;
 
 public class Inventory {
     private ArrayList<Equipment> equipment;

@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import data.item.Projectile;
 import data.map.Block;
 import data.map.CombatMap;
 import data.map.HostileMap;
@@ -159,7 +160,6 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	public void paintHealthBar(Hero hero, Graphics g, GameDisplay display) {
 	    int maxHealth = 100;
 	    int currentHealth = hero.getHealth();
-
 	    g.setColor(java.awt.Color.RED);
 	    g.fillRect(10, 10, 200, 20);
 	    g.setColor(java.awt.Color.GREEN);
@@ -234,12 +234,45 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	            int x = block.getColumn() * size;
 	            int y = block.getLine() * size;
 	            g.drawImage(image, x, y, size, size, null);
-	            
+	            if ("boss".equals(enemy.getType())) {
+	                EnemyHealthBar.draw(g, enemy.getHealth(), enemy.getMaxHealth(), x, y);
+	            }
 	        } else {
 	            System.out.println("⚠ Image manquante pour ennemi : " + enemy.getType());
 	        }
 	    }
+
+	    // ✅ Dessin des projectiles uniquement dans la CombatMap
+	    if (map instanceof CombatMap cMap) {
+	        paintProjectiles(cMap, g, display);
+	    }
 	}
+
+	
+	public void paintProjectiles(CombatMap map, Graphics g, GameDisplay display) {
+	    int size = display.getBlockSize();
+
+	    for (Projectile p : map.getProjectiles()) {
+	        if (p.isActive()) {
+	            Block b = p.getPosition();
+	            int x = b.getColumn() * size;
+	            int y = b.getLine() * size;
+
+	            String key = "projectile_" + p.getDirectionName();
+	            Image img = display.getCombatTileset().get(key);
+
+	            if (img != null) {
+	                g.drawImage(img, x + 8, y + 8, size / 2, size / 2, null);
+	            } else {
+	                g.setColor(java.awt.Color.MAGENTA);
+	                g.fillOval(x + 8, y + 8, size / 2, size / 2);
+	            }
+	        }
+	    }
+	}
+
+
+
 
 
 }

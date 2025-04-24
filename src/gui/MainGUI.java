@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import org.apache.log4j.Logger;
 import log.LoggerUtility;
 import data.item.Flame;
-import data.item.InventoryManager;
+import data.item.inventory.InventoryManager;
 import data.map.Block;
 import data.map.Map;
 import data.quest.Quest;

@@ -1,9 +1,10 @@
 package control;
 
-import data.item.Chest;
 import data.item.Coin;
 import data.item.Equipment;
 import data.item.Flame;
+import data.item.Projectile;
+import data.item.chest.Chest;
 import data.map.Block;
 import data.map.CombatMap;
 import data.map.HostileMap;
@@ -33,9 +34,9 @@ public class GameController {
     private Map map;
     private Map hostileMap;
     private boolean canTakeDamage = true;
-    
 	private CombatController combatController;
     private ArrayList<Block> activatedRunes = new ArrayList<>();
+    private int repaintCounter = 0;
 
 
     public GameController(GameDisplay display) {
@@ -600,9 +601,60 @@ public class GameController {
 	    return false;
 	}
 	
+	public void bossSpecialAttack() {
+        Map activeMap = display.getActiveMap();
+
+        if (!(activeMap instanceof CombatMap cMap)) return;
+
+        Block heroPos = hero.getPosition();
+
+        for (Antagonist enemy : cMap.getAntagonists()) {
+            if (enemy.getType().equals("boss")) {
+                Block bossPos = enemy.getPosition();
+
+                int dx = Integer.compare(heroPos.getColumn(), bossPos.getColumn());
+                int dy = Integer.compare(heroPos.getLine(), bossPos.getLine());
+
+                Projectile p = new Projectile(bossPos, dx, dy);
+                cMap.getProjectiles().add(p);
+            }
+        }
+    }
+	
+	public void updateProjectiles() {
+	    Map activeMap = display.getActiveMap();
+
+	    if (!(activeMap instanceof CombatMap cMap)) return;
+
+	    ArrayList<Projectile> toRemove = new ArrayList<>();
+	    for (Projectile p : cMap.getProjectiles()) {
+	        p.move(cMap);
+	        if (!p.isActive() || p.getPosition().equals(hero.getPosition())) {
+	            if (p.isActive()) {
+	                hero.takeDamage(10);
+	                System.out.println("💥 Projectile touché !");
+	            }
+	            p.deactivate();
+	            toRemove.add(p);
+	        }
+	    }
+	    cMap.getProjectiles().removeAll(toRemove);
+	}
+
+	
 	public GameDisplay getDisplay() {
 		return display;
 	}
+	
+	public void onRepaintTick() {
+	    repaintCounter++;
+
+	    if (repaintCounter % 10 == 0) {
+	        bossSpecialAttack();
+	        updateProjectiles();
+	    }
+	}
+
 
 
 

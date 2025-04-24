@@ -53,26 +53,6 @@ public class GameDisplay extends JPanel {
     private HashMap<String, Image> combatTileset; // Dictionnaire des images de terrain et objets
 
 
-    
-
-    public boolean isInShop() {
-		return isInShop;
-	}
-    public boolean isInCombatMap() {
-        return isInCombatMap;
-    }
-
-	public void setInShop(boolean isInShop) {
-		this.isInShop = isInShop;
-	}
-	
-	public HashMap<String, Image> getHostileTileset() {
-	    return hostileTileset;
-	}
-
-
-
-
 	/**
      * Constructeur de la classe. Initialise la carte, le héros et les images.
      */
@@ -102,33 +82,21 @@ public class GameDisplay extends JPanel {
 	            System.out.println("❌ Impossible de charger les images d’animation des pièces !");
 	            e.printStackTrace();
 	        }
-
-	        //  Thread collision déplacé vers le contrôleur
-	        new Thread(() -> {
-	            while (true) {
-	                try {
-	                    Thread.sleep(100); // Vérification toutes les 100 ms
-	                    controller.checkEnemyCollision(); // via GameController
-	                } catch (InterruptedException e) {
-	                    e.printStackTrace();
-	                }
-	            }
-	        }).start();
-
-	        // Thread pour rafraîchir l'affichage des animations (ex: pièces en rotation)
 	        new Thread(() -> {
 	            while (true) {
 	                try {
 	                    Thread.sleep(100);
-	                    repaint(); // Force le redessin de la fenêtre
+	                    controller.onRepaintTick(); // ✅ informe le contrôleur que c'est un nouveau tick (toutes les 100ms)
+	                    controller.checkEnemyCollision(); // ⚠️ si tu veux éviter les collisions de projectiles et ennemis dans le même tick, tu peux différencier
+	                    repaint(); // 🔄 redessin à chaque tick
 	                } catch (InterruptedException e) {
 	                    e.printStackTrace();
 	                }
 	            }
 	        }).start();
 
-	        loadImages(); // Chargement des images
 
+	        loadImages(); // Chargement des images
 	        try {
 	            flameAnimator = new SpriteAnimator("src/images/outdoors/flames.png", 4, 3, 100);
 	        } catch (IOException e) {
@@ -276,13 +244,10 @@ public class GameDisplay extends JPanel {
             combatTileset.put("bridge", loadImage("src/images/outdoor/combat/bridge.png"));
             combatTileset.put("verticalBorder", loadImage("src/images/outdoor/combat/verticalBorder.png"));
             combatTileset.put("horizontalBorder", loadImage("src/images/outdoor/combat/horizontalBorder.png"));
-
-
-
-
-
-
-
+            combatTileset.put("projectile_right", loadImage("src/images/outdoor/combat/projectile/projectileRight.png"));
+            combatTileset.put("projectile_left", loadImage("src/images/outdoor/combat/projectile/projectileLeft.png"));
+            combatTileset.put("projectile_down", loadImage("src/images/outdoor/combat/projectile/projectileDown.png"));
+            combatTileset.put("projectile_up", loadImage("src/images/outdoor/combat/projectile/projectileTop.png"));
 
             System.out.println(" Toutes les images sont chargées !");
         } catch (Exception e) {
@@ -527,34 +492,21 @@ public class GameDisplay extends JPanel {
 	        }
 	    }
 	}
-
-
-
-
-
-    
-
-	public static void main(String[] args) {
-	    SwingUtilities.invokeLater(() -> {
-	        JFrame frame = new JFrame("Aventure - Arène de combat");
-
-	        GameDisplay gameDisplay = new GameDisplay();
-
-	        // 💥 Remplace la carte principale par la CombatMap
-	        CombatMap arena = new CombatMap(23, 40); // ou une autre taille si nécessaire
-	        gameDisplay.setMap(arena);
-	        gameDisplay.setHero(new Hero(arena.getBlock(12, 20), 100)); 
-	        gameDisplay.repaint();
-
-	        frame.add(gameDisplay);
-	        frame.setSize(gameDisplay.getPreferredSize());
-	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        frame.setLocationRelativeTo(null);
-	        frame.setVisible(true);
-	    });
+	
+    public boolean isInShop() {
+		return isInShop;
 	}
+    public boolean isInCombatMap() {
+        return isInCombatMap;
+    }
 
-
+	public void setInShop(boolean isInShop) {
+		this.isInShop = isInShop;
+	}
+	
+	public HashMap<String, Image> getHostileTileset() {
+	    return hostileTileset;
+	}
 
 
 }

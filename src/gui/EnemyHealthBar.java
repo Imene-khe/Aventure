@@ -12,30 +12,20 @@ public class EnemyHealthBar {
     private static final int BAR_WIDTH = 40;
     private static final int BAR_HEIGHT = 6;
 
-    /**
-     * Dessine la barre de vie au-dessus de l'ennemi.
-     *
-     * @param g Le contexte graphique
-     * @param enemy L’ennemi à dessiner
-     * @param x Position X à l’écran
-     * @param y Position Y à l’écran
-     */
-    public static void draw(Graphics g, Antagonist enemy, int x, int y) {
-        int currentHealth = enemy.getHealth();
-        //int maxHealth = enemy.getMaxHealth();
-
-        //int healthBarWidth = (int) ((currentHealth / (float) maxHealth) * BAR_WIDTH);
+    public static void draw(Graphics g, int currentHealth, int maxHealth, int x, int y) {
+        int healthBarWidth = (int) ((currentHealth / (float) maxHealth) * BAR_WIDTH);
 
         // Fond rouge
         g.setColor(Color.RED);
         g.fillRect(x, y - 10, BAR_WIDTH, BAR_HEIGHT);
 
-        // Barre verte selon la vie actuelle
+        // Barre verte proportionnelle
         g.setColor(Color.GREEN);
-      //  g.fillRect(x, y - 10, healthBarWidth, BAR_HEIGHT);
+        g.fillRect(x, y - 10, healthBarWidth, BAR_HEIGHT);
 
         // Bordure noire
         g.setColor(Color.BLACK);
         g.drawRect(x, y - 10, BAR_WIDTH, BAR_HEIGHT);
     }
+
 }

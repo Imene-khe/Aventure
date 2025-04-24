@@ -1,10 +1,12 @@
 package gui;
 
 import javax.swing.*;
-import data.item.Chest;
+
 import data.item.Equipment;
 import data.item.EquipmentImageManager;
-import data.item.Inventory;
+import data.item.chest.Chest;
+import data.item.inventory.Inventory;
+
 import java.awt.*;
 
 public class ChestUIManager {
@@ -125,7 +127,7 @@ public class ChestUIManager {
         // Simulation minimale de MainGUI et QuestManager
         MainGUI fakeGUI = new MainGUI() {
             private final data.quest.QuestManager questManager = new data.quest.QuestManager();
-            private final data.item.InventoryManager inventoryManager = new data.item.InventoryManager();
+            private final data.item.inventory.InventoryManager inventoryManager = new data.item.inventory.InventoryManager();
 
             {
                 // Ajoute la quête "Trouver l’orbe"
@@ -141,7 +143,7 @@ public class ChestUIManager {
             }
 
             @Override
-            public data.item.InventoryManager getInventoryManager() {
+            public data.item.inventory.InventoryManager getInventoryManager() {
                 return inventoryManager;
             }
         };

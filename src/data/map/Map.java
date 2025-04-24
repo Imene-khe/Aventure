@@ -8,12 +8,12 @@ import java.util.Random;
 
 import org.apache.log4j.Logger;
 
-import data.item.Chest;
-import data.item.ChestFactory;
-import data.item.ChestManager;
 import data.item.Coin;
 import data.item.Equipment;
 import data.item.Flame;
+import data.item.chest.Chest;
+import data.item.chest.ChestFactory;
+import data.item.chest.ChestManager;
 import gui.GameDisplay;
 import log.LoggerUtility;
 
