@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import data.map.Map;
 import data.player.Hero;
 import gui.GameDisplay;
+import gui.animation.EndCreditsPanel;
 
 public interface PaintStrategy {
 	
@@ -17,4 +18,6 @@ public interface PaintStrategy {
     void paintHero(Hero hero, Graphics g, GameDisplay display);
     void paintHealthBar(Hero hero, Graphics g, GameDisplay display);
     void paintMobileAntagonists(Map map, Graphics g, GameDisplay display);
+	void paintEndCredits(Graphics g, EndCreditsPanel panel);
+
     }

@@ -22416,3 +22416,52 @@ INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
 INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
 INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Bienvenue, Ghaya ! Ca me fait plaisir de te revoir
 INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Bienvenue, Ghaya ! Ca me fait plaisir de te revoir
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Un marchand a établi son camp dans une maison de bois claire non loin d'ici.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Seul problème, il a fait tomber sa bourse de pièces...
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = En apprenant l'existence de ce petit trésor, une horde de monstre est apparue...
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Mais fais bien attention à la horde.
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+INFO AWT-EventQueue-0 control.GameController - 📦 Orbe récupéré, lancement de l'entrée dans HostileMap...
+INFO AWT-EventQueue-0 control.GameController - 🌋 GameController.enterHostileMap() appelé
+INFO AWT-EventQueue-0 gui.MainGUI - 📣 triggerDialogue() appelé avec eventKey = enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📢 triggerDialogue() appelé avec eventKey = enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Dialogue trouvé, préparation de l'affichage pour : enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Te voilà dans le royaume des Tenèbres ! Il est peuplé de monstres avides et féroces...
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Au nord-est, un refuge a été érigé par nos ancètres pour survivre à la horde.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Trouve du bois sec, allume un feu et prépare-toi à combattre...
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📣 triggerDialogue() appelé avec eventKey = enter_combat_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📢 triggerDialogue() appelé avec eventKey = enter_combat_map
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Dialogue trouvé, préparation de l'affichage pour : enter_combat_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_combat_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Te voilà dans le repère de la horde... C'est surement ici qu'ils détiennent ta femme !
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_combat_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_combat_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = CeAttention des vagues d'ennemis arrivent ! Défends toi comme tu peux...
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : enter_combat_map

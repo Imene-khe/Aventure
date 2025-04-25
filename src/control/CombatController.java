@@ -60,9 +60,9 @@ public class CombatController {
                     MainGUI.getInstance().getQuestManager().updateQuest("Chasseur de têtes", 1);
 
                     if ("boss".equals(enemy.getType()) && activeMap instanceof CombatMap combatMap) {
-                        it.remove(); // ✅ Retirer le boss AVANT d'afficher quoi que ce soit
+                        it.remove(); 
                         combatMap.revealFinaleZone();
-                        display.repaint(); // ✅ Force rafraîchissement sans boss
+                        display.repaint(); 
 
                         javax.swing.JOptionPane.showMessageDialog(display, "🏁 Un pont s'est ouvert... Va sauver ta femme !");
                     } else {
@@ -73,7 +73,7 @@ public class CombatController {
                 }
 
 
-                break; // ❗ Un seul ennemi attaqué par clic
+                break; 
             }
         }
 
@@ -86,7 +86,7 @@ public class CombatController {
             }
         }
 
-        display.repaint(); // 🔄 Mise à jour visuelle
+        display.repaint(); 
     }
 
     public void attack(Block targetBlock) {
@@ -128,7 +128,7 @@ public class CombatController {
     }
 
     public void loadNextWave() {
-        waveManager.updateWave(); // ➕ vérifie la mort de tous les ennemis
+        waveManager.updateWave(); 
 
         if (!waveManager.isLevelFinished()) {
             Map activeMap = gameController.getDisplay().getActiveMap();

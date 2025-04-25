@@ -3,6 +3,9 @@ package gui;
 import org.apache.log4j.Logger;
 import log.LoggerUtility;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.ArrayList;
@@ -15,6 +18,7 @@ import data.map.HostileMap;
 import data.map.Map;
 import data.player.Antagonist;
 import data.player.Hero;
+import gui.animation.EndCreditsPanel;
 import viewstrategy.PaintStrategy;
 
 public class DefaultPaintStrategy implements PaintStrategy{
@@ -276,6 +280,31 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	        }
 	    }
 	}
+	
+	@Override
+	public void paintEndCredits(Graphics g, EndCreditsPanel panel) {
+	    int y = panel.getYPosition();
+	    int width = panel.getWidth();
+
+	    g.setColor(Color.BLACK);
+	    g.fillRect(0, 0, width, panel.getHeight());
+
+	    g.setColor(Color.WHITE);
+	    g.setFont(new Font("Arial", Font.BOLD, 24));
+
+	    String line1 = "Jeu réalisé par :";
+	    String line2 = "Mathis Albrun - Imene Khelil";
+	    String line3 = "Dans le cadre de l'UE Génie Logiciel, année 2024-2025";
+	    String line4 = "Remerciements à notre enseignant, M.LIU";
+
+	    FontMetrics fm = g.getFontMetrics();
+
+	    g.drawString(line1, (width - fm.stringWidth(line1)) / 2, y);
+	    g.drawString(line2, (width - fm.stringWidth(line2)) / 2, y + 40);
+	    g.drawString(line3, (width - fm.stringWidth(line3)) / 2, y + 80);
+	    g.drawString(line4, (width - fm.stringWidth(line4)) / 2, y + 120);
+	}
+
 
 
 
