@@ -172,13 +172,10 @@ public class GameDisplay extends JPanel {
 	public void loadImages() {
         try {
             System.out.println(" Chargement des images...");
-
-            // Chargement des terrains
+            tileset.put("hero", loadImage("src/images/player/Player.png"));
             tileset.put("grass", loadImage("src/images/outdoors/Grass_Middle.png"));
             tileset.put("water", loadImage("src/images/outdoors/Water_Middle.png"));
             tileset.put("path", loadImage("src/images/outdoors/Path_Middle.png"));
-            
-            //Chargement des terrains du shop
             tileset.put("shopFloor", loadImage("src/images/shop/shopfloor.png"));
             tileset.put("lightWall", loadImage("src/images/shop/lightwall.png")); 
             tileset.put("bar", loadImage("src/images/shop/bar.png")); 
@@ -196,20 +193,12 @@ public class GameDisplay extends JPanel {
             tileset.put("musician2", loadImage("src/images/shop/people/musician/musician2.png"));
             tileset.put("musician3", loadImage("src/images/shop/people/musician/musician3.png"));
 
-            
-
-
-            
-
-            // Chargement des obstacles
             tileset.put("house", loadImage("src/images/outdoors/House.png"));
             tileset.put("tree", loadImage("src/images/outdoors/Oak_Tree.png"));
             tileset.put("shop", loadImage("src/images/shop/shop.png")); 
 
-            // Chargement des objets
             tileset.put("chest", loadImage("src/images/outdoors/Chest.png"));
             
-         // ✅ Chargement des tuiles hostiles
             hostileTileset = new HashMap<>();
             hostileTileset.put("lava", loadImage("src/images/outdoor/hostile/lava.png"));
             hostileTileset.put("floor1", loadImage("src/images/outdoor/hostile/floor1.png"));
@@ -226,7 +215,6 @@ public class GameDisplay extends JPanel {
             hostileTileset.put("campfire_off", loadImage("src/images/outdoor/hostile/shelter/CampFireOff.png"));
             hostileTileset.put("campfire_on", loadImage("src/images/outdoor/hostile/shelter/CampFireOn.png"));
 
-
             hostileTileset.put("deadTree1", loadImage("src/images/outdoor/hostile/deadTree1.png"));
             hostileTileset.put("deadTree2", loadImage("src/images/outdoor/hostile/deadTree2.png"));
             hostileTileset.put("deadTree3", loadImage("src/images/outdoor/hostile/deadTree3.png"));
@@ -234,15 +222,12 @@ public class GameDisplay extends JPanel {
             hostileTileset.put("cave_right", loadImage("src/images/outdoor/hostile/cave/cave_right.png"));
             hostileTileset.put("cave_top", loadImage("src/images/outdoor/hostile/cave/cave_top.png"));
             hostileTileset.put("cave_bottom", loadImage("src/images/outdoor/hostile/cave/cave_bottom.png")); 
-
             hostileTileset.put("cave_shadow", loadImage("src/images/outdoor/hostile/cave/shadow.png")); 
-
             hostileTileset.put("rune1", loadImage("src/images/outdoor/hostile/symbol/rune1.png"));
             hostileTileset.put("rune2", loadImage("src/images/outdoor/hostile/symbol/rune2.png"));
             hostileTileset.put("rune3", loadImage("src/images/outdoor/hostile/symbol/rune3.png"));
             
             combatTileset = new HashMap<>();
-
             combatTileset.put("floorCave", loadImage("src/images/outdoor/combat/mapComponent/floorcave.png"));
             combatTileset.put("platformCave", loadImage("src/images/outdoor/combat/mapComponent/platformCave.png"));
             combatTileset.put("black", loadImage("src/images/outdoor/combat/mapComponent/black.png"));
@@ -257,7 +242,6 @@ public class GameDisplay extends JPanel {
             combatTileset.put("endBridge", loadImage("src/images/outdoor/combat/mapComponent/endBridge.png"));
             combatTileset.put("cage_with_princess", loadImage("src/images/player/cagewithprincess.png"));
             combatTileset.put("princess", loadImage("src/images/player/princess.png"));
-
 
             System.out.println(" Toutes les images sont chargées !");
         } catch (Exception e) {

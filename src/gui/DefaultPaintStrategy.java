@@ -164,8 +164,25 @@ public class DefaultPaintStrategy implements PaintStrategy{
 
 	@Override
 	public void paintHero(Hero hero, Graphics g, GameDisplay display) {
-	    hero.draw(g, 32); 
+	    int blockSize = 32;
+	    int heroSize = (int)(blockSize * 0.70); // 70% du blockSize
+
+	    int drawX = hero.getPosition().getColumn() * blockSize + (blockSize - heroSize) / 2;
+	    int drawY = hero.getPosition().getLine() * blockSize + (blockSize - heroSize) / 2;
+
+	    Image heroSprite = display.getTileset().get("hero");
+	    if (heroSprite != null) {
+	        g.drawImage(heroSprite,
+	                drawX, drawY, drawX + heroSize, drawY + heroSize,
+	                0, 0, heroSprite.getWidth(null), heroSprite.getHeight(null),
+	                null);
+	    } else {
+	        System.out.println("⚠ BUG : Image du héros non trouvée dans le tileset !");
+	    }
 	}
+
+
+
 
 
 	@Override
