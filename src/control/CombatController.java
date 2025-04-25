@@ -60,12 +60,16 @@ public class CombatController {
                     MainGUI.getInstance().getQuestManager().updateQuest("Chasseur de têtes", 1);
 
                     if ("boss".equals(enemy.getType()) && activeMap instanceof CombatMap combatMap) {
+                        it.remove(); // ✅ Retirer le boss AVANT d'afficher quoi que ce soit
                         combatMap.revealFinaleZone();
-                        javax.swing.JOptionPane.showMessageDialog(display, "🏁 Un pont s'est ouvert... Va sauver ta femme !");
-                    }
+                        display.repaint(); // ✅ Force rafraîchissement sans boss
 
-                    it.remove();
+                        javax.swing.JOptionPane.showMessageDialog(display, "🏁 Un pont s'est ouvert... Va sauver ta femme !");
+                    } else {
+                        it.remove();
+                    }
                     enemyKilled = true;
+
                 }
 
 
@@ -129,7 +133,7 @@ public class CombatController {
         if (!waveManager.isLevelFinished()) {
             Map activeMap = gameController.getDisplay().getActiveMap();
             if (activeMap instanceof CombatMap combatMap) {
-                combatMap.clearAntagonists();
+                combatMap.clearAntagonists();	
                 System.out.println("📊 currentWave = " + waveManager.getCurrentWaveNumber());
                 System.out.println("📦 Ennemis de la vague actuelle : " + waveManager.getCurrentWaveEnemies().size());
                 combatMap.setAntagonists(new ArrayList<>(waveManager.getCurrentWaveEnemies()));

@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import control.GameController;
+import control.GameLoopManager;
 import data.map.Block;
 import data.map.CombatMap;
 import data.map.HostileMap;
@@ -82,18 +83,10 @@ public class GameDisplay extends JPanel {
 	            System.out.println("❌ Impossible de charger les images d’animation des pièces !");
 	            e.printStackTrace();
 	        }
-	        new Thread(() -> {
-	            while (true) {
-	                try {
-	                    Thread.sleep(100);
-	                    controller.onRepaintTick(); 
-	                    controller.checkEnemyCollision();
-	                    repaint(); 
-	                } catch (InterruptedException e) {
-	                    e.printStackTrace();
-	                }
-	            }
-	        }).start();
+	        GameLoopManager.getInstance().setGameDisplay(this);
+	        GameLoopManager.getInstance().setGameController(controller);
+	        GameLoopManager.getInstance().start();
+
 
 
 	        loadImages(); // Chargement des images

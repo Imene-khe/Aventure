@@ -128,8 +128,13 @@ public class HostileMap extends Map {
                     double distance = Math.sqrt(dx * dx + dy * dy);
                     double prob = 1.0 - (distance / radius);
 
-                    if (terrainType != null && terrainType.startsWith("floor") &&
-                        !getStaticObjects().containsKey(block) && rng.nextDouble() < prob * 0.8) {
+                    if (terrainType != null &&
+                    	    terrainType.startsWith("floor") &&
+                    	    !getStaticObjects().containsKey(block) &&
+                    	    !shelterBlocks.contains(block) &&   // ✅ bloc exclu si partie du refuge
+                    	    rng.nextDouble() < prob * 0.8) {
+
+
 
                         int type = rng.nextInt(3) + 1;
                         getStaticObjects().put(block, "deadTree" + type);
@@ -143,9 +148,12 @@ public class HostileMap extends Map {
             for (int j = 0; j < getColumnCount(); j++) {
                 Block block = getBlock(i, j);
                 String terrainType = getStaticTerrain().get(block);
+                if (terrainType != null &&
+                	    terrainType.startsWith("floor") &&
+                	    !getStaticObjects().containsKey(block) &&
+                	    !shelterBlocks.contains(block) &&   // ✅ idem ici
+                	    Math.random() < 0.03) {
 
-                if (terrainType != null && terrainType.startsWith("floor") &&
-                    !getStaticObjects().containsKey(block) && Math.random() < 0.03) {
 
                     getStaticObjects().put(block, "rock");
                     setTerrainBlocked(block, true);
@@ -231,9 +239,12 @@ public class HostileMap extends Map {
         }
 
         Block entry = getBlock(centerLine + radius, centerCol);
+    
         staticObjects.remove(entry);
-        setTerrainBlocked(entry, false);
+        staticTerrain.put(entry, "floor1"); // ✅ Remet un terrain normal si besoin
+        setTerrainBlocked(entry, false);    // ✅ Sûr que ce bloc sera accessible
         shelterBlocks.add(entry);
+
 
         Block center = getBlock(centerLine, centerCol);
         String centerTerrain = staticTerrain.get(center);

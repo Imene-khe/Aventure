@@ -16,6 +16,7 @@ import data.quest.QuestManager;
 import gui.ChestUIManager;
 import gui.GameDisplay;
 import gui.MainGUI;
+import gui.StartScreen;
 import log.LoggerUtility;
 
 import org.apache.log4j.Logger;
@@ -231,6 +232,11 @@ public class GameController {
             }
         }
     }
+    
+    public void setCanTakeDamage(boolean value) {
+        this.canTakeDamage = value;
+    }
+
 
 
     public void applyHeroDamage() {
@@ -239,14 +245,8 @@ public class GameController {
         hero.takeDamage(10);
         canTakeDamage = false;
 
-        new Thread(() -> {
-            try {
-                Thread.sleep(1000);
-                canTakeDamage = true;
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }).start();
+        GameLoopManager.getInstance().startHeroDamageCooldown();
+
 
         if (hero.getHealth() <= 0) {
             display.setGameOver(true);
@@ -300,7 +300,7 @@ public class GameController {
     }
 
 
-    private boolean tryOpenPrincessCage(MainGUI gui) {
+    public boolean tryOpenPrincessCage(MainGUI gui) {
         Map activeMap = display.getActiveMap();
         Block heroPos = hero.getPosition();
 
@@ -318,24 +318,49 @@ public class GameController {
                     String object = activeMap.getStaticObjects().get(adjacent);
 
                     if ("cage_with_princess".equals(object)) {
-                        // ✅ On change juste l’objet visible en gardant le fond platform
+                        // ✅ Libération de la princesse
                         activeMap.getStaticObjects().put(adjacent, "princess");
-
-                        // ✅ On s'assure que le sol reste une plateforme visible
                         activeMap.getStaticTerrain().put(adjacent, "platformCave");
-
                         activeMap.setTerrainBlocked(adjacent, false);
+
                         gui.repaint();
 
-                        JOptionPane.showMessageDialog(gui, "👸 Tu as libéré la princesse !");
+                        // 🎉 Message intermédiaire
+                        JOptionPane.showMessageDialog(gui, "👸 Tu as libéré la princesse !\nL’aventure touche à sa fin...");
+
+                        // 🛑 Stopper le GameLoop
+                        GameLoopManager.getInstance().stop();
+
+                        // 🎉 Fenêtre de fin avec choix
+                        int choix = JOptionPane.showOptionDialog(
+                            gui,
+                            "🎊 Félicitations !\nTu as vaincu le boss, sauvé ta femme,\net restauré la paix dans le royaume.\n\nSouhaites-tu rejouer ?",
+                            "Fin du jeu",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.INFORMATION_MESSAGE,
+                            null,
+                            new String[]{"🔁 Revenir au menu", "❌ Quitter"},
+                            "🔁 Revenir au menu"
+                        );
+
+                        if (choix == JOptionPane.YES_OPTION) {
+                            gui.dispose(); // Ferme la fenêtre principale
+                            SwingUtilities.invokeLater(StartScreen::new); // Retourne à l’écran de démarrage
+                        } else {
+                            System.exit(0); // Quitte le jeu
+                        }
+
                         return true;
                     }
                 }
             }
         }
-
         return false;
     }
+
+
+
+
 
 
 
@@ -405,7 +430,7 @@ public class GameController {
             "👋 Bonjour l'ami. Alors vous êtes nouveau dans la région ?"
         };
 
-        int choix = JOptionPane.showOptionDialog(
+        JOptionPane.showOptionDialog(
             null,
             message,
             "Dialogue avec le marchand",
@@ -624,8 +649,10 @@ public class GameController {
                         activeMap.getStaticObjects().put(block, "campfire_on");  
                         qm.updateQuest("Trouve du bois sec", 1); 
                         JOptionPane.showMessageDialog(gui, "🔥 Tu as allumé le feu de camp !");
+                        gui.triggerDialogue("campfire_lit"); // 🔥 Ajout du dialogue à ce moment précis
                         display.repaint(); 
                     }
+
                     else {
                         JOptionPane.showMessageDialog(gui, "💨 Il te faut au moins 3 bois secs pour allumer le feu.");
                     }
@@ -681,12 +708,12 @@ public class GameController {
 	        int dy = Math.abs(heroPos.getColumn() - caveEntry.getColumn());
 
 	        if (dx + dy <= 1) {
-	        	display.enterCombatMap();
-	        	combatController.loadFirstWaveIfNeeded(); // 👈 charge les ennemis
-	        	JOptionPane.showMessageDialog(gui, "🧱 Tu entres dans l’arène de la grotte !");
-
+	            display.enterCombatMap();
+	            combatController.loadFirstWaveIfNeeded();
+	            gui.triggerDialogue("enter_combat_map"); // ✅ Dialogue déclenché proprement
 	            return true;
 	        }
+
 	    }
 
 	    return false;
@@ -745,7 +772,6 @@ public class GameController {
 	    repaintCounter++;
 
 	    if (repaintCounter % 25 == 0) {
-	        bossSpecialAttack();
 	        updateProjectiles();
 	    }
 	}
@@ -761,10 +787,6 @@ public class GameController {
 	    display.returnToMainMap(exitBlock);
 	}
 
-
-
-
-	
 	private Block findAdjacentFreeBlock(Block center, Map map) {
 	    int line = center.getLine();
 	    int col = center.getColumn();
@@ -788,15 +810,4 @@ public class GameController {
 	    }
 	    return null;
 	}
-
-
-
-
-
-
-
-
-
-
-
 }

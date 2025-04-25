@@ -28,7 +28,9 @@ public class MainGUI extends JFrame {
     private JPanel dialoguePanel;
     private DialogueManager dialogueManager = new DialogueManager();
     private boolean dialogueActive = true;
-    private boolean piecesRemisesAuMarchand = false;
+   
+
+	private boolean piecesRemisesAuMarchand = false;
     private JScrollPane scrollPane;
     private String currentDialogueEvent = "intro";
     private JPanel bottomPanel;
@@ -155,19 +157,7 @@ public class MainGUI extends JFrame {
         dashboard.requestFocusInWindow();
         logger.info("🖥️ Fenêtre affichée avec succès.");
         requestFocusInWindow();
-        new Thread(() -> {
-            while (true) {
-                try {
-                    Thread.sleep(1000); 
-                    if (!dialogueActive) {
-                        dashboard.getController().moveEnemiesTowardsHero(); 
-                    }
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+        
 
     }
 
@@ -394,6 +384,10 @@ public class MainGUI extends JFrame {
     public boolean havePiecesBeenReturned() {
         return piecesRemisesAuMarchand;
     }
+    
+    public boolean isDialogueActive() {
+		return dialogueActive;
+	}
 
     public static void main(String[] args) {
     	

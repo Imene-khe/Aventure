@@ -57,6 +57,18 @@ public class DialogueManager {
         	    "Au nord-est, un refuge a été érigé par nos ancètres pour survivre à la horde.",
         	    "Trouve du bois sec, allume un feu et prépare-toi à combattre..."
         });
+        
+        dialoguesByEvent.put("campfire_lit", new String[] {
+        	    "Bien joué ! Maintenant que tu es à l'abri, il va falloir tenter d'acceder au repère principale de la horde.",
+        	    "Si tu regardes bien, il y a des symboles au sol: c'est un mécanisme pour te permettre de rentrer !",
+        	    "Sors de l'abri et va activer ces dalles en marchant dessus mais defends toi Ghaya, les monstres sont féroces."
+        });
+        
+        dialoguesByEvent.put("enter_combat_map", new String[] {
+        	    "Te voilà dans le repère de la horde... C'est surement ici qu'ils détiennent ta femme !",
+        	    "CeAttention des vagues d'ennemis arrivent ! Défends toi comme tu peux..."     	    
+        	});
+
 
 
 
