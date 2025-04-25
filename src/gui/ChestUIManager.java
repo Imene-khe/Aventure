@@ -13,8 +13,6 @@ public class ChestUIManager {
     private JFrame chestWindow;
     private EquipmentImageManager imageManager;
     private MainGUI mainGUI;
-    private Runnable onOrbTakenCallback;
-
     public ChestUIManager(MainGUI mainGUI) {
         this.mainGUI = mainGUI;
         this.imageManager = new EquipmentImageManager();
@@ -82,9 +80,9 @@ public class ChestUIManager {
                         );
 
                         if (result == JOptionPane.YES_OPTION) {
-                            chestWindow.dispose();                       // ✅ ferme la fenêtre du coffre
-                            mainGUI.requestFocusOnGame();               // ✅ remet le focus sur la carte
-                            mainGUI.getGameDisplay().enterHostileMap(); // ✅ entre dans la HostileMap
+                            chestWindow.dispose();                       
+                            mainGUI.requestFocusOnGame();              
+                            MainGUI.getGameDisplay().enterHostileMap();
                         }
                     }
 
@@ -111,47 +109,4 @@ public class ChestUIManager {
         chestWindow.add(scrollPane);
         chestWindow.setVisible(true);
     }
-    
-
-    public void setOnOrbTakenCallback(Runnable callback) {
-        this.onOrbTakenCallback = callback;
-    }
-
-    
-    // === Main interne de test ===
-    public static void main(String[] args) {
-        // Création d'un coffre avec un orbe
-        Chest chest = new Chest();
-        chest.addItem(new Equipment("orbe")); // ✅ Ajoute manuellement l'orbe au coffre
-
-        // Simulation minimale de MainGUI et QuestManager
-        MainGUI fakeGUI = new MainGUI() {
-            private final data.quest.QuestManager questManager = new data.quest.QuestManager();
-            private final data.item.inventory.InventoryManager inventoryManager = new data.item.inventory.InventoryManager();
-
-            {
-                // Ajoute la quête "Trouver l’orbe"
-                questManager.addQuest(new data.quest.Quest(
-                        "Trouver l’orbe", "Retrouver l’orbe magique dans un coffre", 
-                        data.quest.Quest.TYPE_FIND, 1, 100
-                ));
-            }
-
-            @Override
-            public data.quest.QuestManager getQuestManager() {
-                return questManager;
-            }
-
-            @Override
-            public data.item.inventory.InventoryManager getInventoryManager() {
-                return inventoryManager;
-            }
-        };
-
-        // Affichage de la fenêtre
-        SwingUtilities.invokeLater(() -> {
-            new ChestUIManager(fakeGUI).displayChestContents(chest);
-        });
-    }
-
 }

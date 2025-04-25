@@ -4,11 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-import javax.swing.JFrame;
-
 import data.player.Antagonist;
-import data.player.Hero;
-import gui.GameDisplay;
 
 public class HostileMap extends Map {
 

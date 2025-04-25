@@ -11,7 +11,7 @@ import java.io.IOException;
 public class EndCreditsPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    private int yPosition = 800; // Position initiale du texte en bas
+    private int yPosition = 800;
     private Timer timer;
 
     public EndCreditsPanel() {
@@ -69,7 +69,11 @@ public class EndCreditsPanel extends JPanel {
             frame.setSize(800, 600);
 
             JPanel panel = new JPanel() {
-                int yPosition = 100;
+                /**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+				int yPosition = 100;
                 Image heroImg, princessImg, bossImg;
 
                 {

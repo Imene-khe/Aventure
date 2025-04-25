@@ -1,5 +1,5 @@
 /data/
-/control/
-/log/
 /gui/
-/images/
+/log/
+/viewstrategy/
+/control/

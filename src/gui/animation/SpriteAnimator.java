@@ -1,10 +1,7 @@
 package gui.animation;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
-import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -85,55 +82,5 @@ public class SpriteAnimator {
     public int getFrameCount() {
         return frameCount;
     }
-    
-  
-
-    
- // 🔽 Main de test intégré à la classe SpriteAnimator
-    public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(() -> {
-            try {
-                // 💡 Test avec ton spritesheet flames.png (4 colonnes × 3 lignes)
-                SpriteAnimator animator = new SpriteAnimator("src/images/outdoors/flames.png", 4, 3, 100);
-
-                // 🎨 Création de la fenêtre d'affichage
-                JFrame frame = new JFrame("Test SpriteAnimator");
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setSize(200, 200);
-                frame.setLocationRelativeTo(null);
-
-                // 🎥 JPanel qui dessine l’image animée
-                JPanel panel = new JPanel() {
-                    @Override
-                    protected void paintComponent(Graphics g) {
-                        super.paintComponent(g);
-                        Image frameImage = animator.getCurrentFrame();
-                        if (frameImage != null) {
-                            g.drawImage(frameImage, 50, 50, 64, 64, null); // Position fixe (x, y)
-                        }
-                    }
-                };
-
-                // ⏱️ Redessin toutes les 100ms
-                new Thread(() -> {
-                    while (true) {
-                        try {
-                            Thread.sleep(100);
-                            panel.repaint();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
-
-                frame.add(panel);
-                frame.setVisible(true);
-
-            } catch (IOException e) {
-                System.out.println("❌ Erreur de chargement du spritesheet : " + e.getMessage());
-                e.printStackTrace();
-            }
-        });
-    }
-
+ 
 }

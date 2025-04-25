@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import data.player.Antagonist;
 
 /**
  * Classe utilitaire pour dessiner la barre de vie d’un ennemi à l’écran.

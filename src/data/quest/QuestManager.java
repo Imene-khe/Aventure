@@ -1,14 +1,10 @@
 package data.quest;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class QuestManager {
     private ArrayList<Quest> activeQuests;
     private int totalCoins;  
-    private final Map<String, Integer> dynamicCounters = new HashMap<>();
-
     public QuestManager() {
         this.activeQuests = new ArrayList<>();
         this.totalCoins = 0;

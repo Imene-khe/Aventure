@@ -1,6 +1,5 @@
 package control;
 
-import data.item.Projectile;
 import data.map.Block;
 import data.map.CombatMap;
 import data.map.HostileMap;
