@@ -22,9 +22,7 @@ public class CombatMap extends Map {
     
 
 	public CombatMap(int lineCount, int columnCount) {
-        super(lineCount, columnCount, 0, true);
-        setStatic(false);
-
+		super(lineCount, columnCount);
         staticTerrain.clear();
         staticObjects.clear();
         enemies.clear();

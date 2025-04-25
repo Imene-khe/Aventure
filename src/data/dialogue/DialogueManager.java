@@ -51,11 +51,20 @@ public class DialogueManager {
         		"Pour que tu puisses arriver avant eux, cherche dans les coffres du village.", 
         		"Une pierre rouge magique te permettra de le téléporter là-bas..."
         });
+        
+        dialoguesByEvent.put("enter_hostile_map", new String[] {
+        	    "Te voilà dans le royaume des Tenèbres ! Il est peuplé de monstres avides et féroces...",
+        	    "Au nord-est, un refuge a été érigé par nos ancètres pour survivre à la horde.",
+        	    "Trouve du bois sec, allume un feu et prépare-toi à combattre..."
+        });
+
 
 
     }
 
 	public boolean hasDialogue(String event) {
+		System.out.println("🔍 hasDialogue vérifie : " + event);
+
         return dialoguesByEvent.containsKey(event);
     }
 
@@ -86,6 +95,8 @@ public class DialogueManager {
     }
 
     public void reset(String event) {
+    	System.out.println("🔁 reset appelé pour : " + event);
+
         dialogueIndexByEvent.put(event, 0);
     }
 

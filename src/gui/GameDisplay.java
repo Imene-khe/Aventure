@@ -14,11 +14,14 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import control.GameController;
+import data.map.Block;
 import data.map.CombatMap;
 import data.map.HostileMap;
 import data.map.Map;
+import data.map.ShopMap;
 import data.player.EnemyImageManager;
 import data.player.Hero;
+import data.quest.Quest;
 import gui.animation.SpriteAnimator;
 import viewstrategy.PaintStrategy;
 
@@ -30,11 +33,11 @@ import viewstrategy.PaintStrategy;
 public class GameDisplay extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    private static final int GRID_SIZE = 35;  
-    public static int BLOCK_SIZE = 32; // Taille inchangée
-    private static final int SHOP_SIZE = 20; //Taille de la boutique
+    private static final int GRID_SIZE = 35; 
+    private static final int MAPS_LENGTH = 40; 
+    private static final int MAPS_WIDTH = 22;  static int BLOCK_SIZE = 32; // Taille inchangée
     private Map map; // Instance de la carte du jeu
-    private Map shopMap;
+    private ShopMap shopMap;
     private Map hostileMap;
     private CombatMap combatMap;
 	private Hero hero; // Instance du héros
@@ -57,14 +60,12 @@ public class GameDisplay extends JPanel {
      */
 	public GameDisplay() {
 	    try {
-	        int numberOfChests = 5; // Ajustable selon besoins
+	        int numberOfChests = 5;
 	        this.enemyImageManager = new EnemyImageManager();
-	        this.map = new Map(23, 40, numberOfChests, false);
-	        this.shopMap = new Map(SHOP_SIZE, SHOP_SIZE, 0, true);    // Boutique plus petite
-	        this.shopMap.setupStaticShop(); // Configuration de la boutique
-	        
-	        this.hostileMap = new HostileMap(23, 40, 0); // a adapte le temps que l'on trouve la solution pour la map rectangulaire
-
+	        this.map = new Map(MAPS_WIDTH, MAPS_LENGTH, numberOfChests, false);
+	        this.shopMap = new ShopMap(MAPS_WIDTH, MAPS_LENGTH);
+	        this.hostileMap = new HostileMap(MAPS_WIDTH, MAPS_LENGTH, 0); 
+	        this.combatMap = new CombatMap(MAPS_WIDTH, MAPS_LENGTH);
 	        this.hero = new Hero(map.getBlock(GRID_SIZE / 2, GRID_SIZE / 2), 100);
 	        this.tileset = new HashMap<>();
 	        this.controller = new GameController(this); 
@@ -170,13 +171,11 @@ public class GameDisplay extends JPanel {
 		this.tileset = tileset;
 	}
 	
-	public Map getShopMap() {
-        return shopMap;
-    }
+	public ShopMap getShopMap() {
+	    return shopMap;
+	}
 
-	/**
-     * Charge toutes les images nécessaires pour le rendu du jeu (terrains, objets, ennemis).
-     */
+
 	public void loadImages() {
         try {
             System.out.println(" Chargement des images...");
@@ -189,11 +188,25 @@ public class GameDisplay extends JPanel {
             //Chargement des terrains du shop
             tileset.put("shopFloor", loadImage("src/images/shop/shopfloor.png"));
             tileset.put("lightWall", loadImage("src/images/shop/lightwall.png")); 
-            tileset.put("torch", loadImage("src/images/shop/torch.png")); 
             tileset.put("bar", loadImage("src/images/shop/bar.png")); 
             tileset.put("merchant", loadImage("src/images/shop/merchant.png")); 
             tileset.put("carpet", loadImage("src/images/shop/carpet.png")); 
-            tileset.put("bookshelf", loadImage("src/images/shop/bookshelf.png")); 
+            tileset.put("bookshelf", loadImage("src/images/shop/bookshelf.png"));
+            tileset.put("table", loadImage("src/images/shop/table.png"));
+            tileset.put("villager1", loadImage("src/images/shop/people/villager1.png")); 
+            tileset.put("villager2", loadImage("src/images/shop/people/villager2.png")); 
+            tileset.put("villager3", loadImage("src/images/shop/people/villager3.png")); 
+            tileset.put("villager4", loadImage("src/images/shop/people/villager4.png")); 
+            tileset.put("villager5", loadImage("src/images/shop/people/villager5.png"));
+            tileset.put("music_stage", loadImage("src/images/shop/music_stage.png"));
+            tileset.put("musician1", loadImage("src/images/shop/people/musician/musician1.png"));
+            tileset.put("musician2", loadImage("src/images/shop/people/musician/musician2.png"));
+            tileset.put("musician3", loadImage("src/images/shop/people/musician/musician3.png"));
+
+            
+
+
+            
 
             // Chargement des obstacles
             tileset.put("house", loadImage("src/images/outdoors/House.png"));
@@ -357,30 +370,53 @@ public class GameDisplay extends JPanel {
      */
     public void enterShop() {
         isInShop = true;
-        hero.setPosition(shopMap.getBlock(13, 7)); 
-        repaint(); // 🔄 Mise à jour de l'affichage
+        hero.setPosition(shopMap.getBlock(21, 6)); 
+        repaint(); 
     }
 
-    /**
-     * ✅ Permet au héros de sortir du shop et de retourner sur `currentMap`.
-     */
-    public void exitShop() {
-        returnToMainMap(); 
-        
-    }
+   
     
-    public void returnToMainMap() {
-        if (isInShop) {  // ✅ Vérifie qu'on est bien dans la boutique avant de quitter
-            isInShop = false; // ✅ Désactive la boutique
-            hero.setPosition(map.getBlock(5, 5)); // ✅ Replace le héros sur la carte principale (ajuste la position si nécessaire)
+    
+    public void returnToMainMap(Block exitBlock) {
+        isInShop = false;
+        isInHostileMap = false;
+        isInCombatMap = false;
 
-            map.setAllHousesOnFire(); // 🔥 Met le feu à toutes les maisons après la sortie
-
-            repaint(); // ✅ Met à jour l'affichage
-            requestFocusInWindow(); // ✅ Récupère le focus pour permettre les déplacements
-            System.out.println("🚪 Sortie de la boutique, retour à la carte principale !");
+        if (exitBlock != null) {
+            hero.setPosition(exitBlock);
         }
+
+        repaint();
+        requestFocusInWindow();
+        System.out.println("🚪 Sortie de la boutique, retour à la carte principale !");
     }
+
+    
+    public Block findAdjacentFreeBlock(Block center, Map map) {
+        int line = center.getLine();
+        int col = center.getColumn();
+
+        for (int dl = -1; dl <= 1; dl++) {
+            for (int dc = -1; dc <= 1; dc++) {
+                if (dl == 0 && dc == 0) continue;
+                int newLine = line + dl;
+                int newCol = col + dc;
+
+                if (newLine >= 0 && newCol >= 0 &&
+                    newLine < map.getLineCount() &&
+                    newCol < map.getColumnCount()) {
+
+                    Block adj = map.getBlock(newLine, newCol);
+                    if (!map.isBlocked(adj)) {
+                        return adj;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+
     
     public SpriteAnimator getFlameAnimator() {
         return flameAnimator;
@@ -400,26 +436,24 @@ public class GameDisplay extends JPanel {
 	
 	public void enterHostileMap() {
 	    this.isInHostileMap = true;
+	    this.isInShop = false;
+	    this.isInCombatMap = false;
+	    
 	    this.hero.setPosition(hostileMap.getBlock(17, 5));
-	    this.repaint();
-	    this.setFocusable(true);
-	    this.requestFocusInWindow();
+	    repaint();
 	    resetMouseListener();
-	    controller.setupHostileQuests();
-	    this.setFocusable(true);
-	    this.requestFocusInWindow(); // déjà présent ? ajoute aussi :
-	    this.requestFocus(); // pour forcer en dernier recours
-
 	    System.out.println("🌋 Passage à la HostileMap !");
 	}
+
+
 	
 	public void enterCombatMap() {
-	    this.combatMap = new CombatMap(23, 40); 
-	    this.map = this.combatMap;
-	    this.hero.setPosition(combatMap.getArenaEntryPosition());
-	    this.isInHostileMap = false;
 	    this.isInShop = false;
+	    this.isInHostileMap = false;
 	    this.isInCombatMap = true;
+	    this.map = this.combatMap; // ✅ déjà instanciée dans le constructeur
+
+	    this.hero.setPosition(combatMap.getArenaEntryPosition());
 
 	    MainGUI.getInstance().getQuestManager().clearQuests();
 	    MainGUI.getInstance().getQuestManager().loadCombatMapQuests();
@@ -428,6 +462,7 @@ public class GameDisplay extends JPanel {
 	    setFocusable(true);
 	    requestFocusInWindow();
 	}
+
 	
 	public Map getActiveMap() {
 	    if (isInCombatMap) return combatMap;
@@ -435,11 +470,6 @@ public class GameDisplay extends JPanel {
 	    if (isInShop) return shopMap;
 	    return map;
 	}
-
-
-
-
-
 
 	public Map getHostileMap() {
 		return hostileMap;

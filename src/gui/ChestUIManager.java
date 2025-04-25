@@ -13,6 +13,8 @@ public class ChestUIManager {
     private JFrame chestWindow;
     private EquipmentImageManager imageManager;
     private MainGUI mainGUI;
+    private Runnable onOrbTakenCallback;
+
     public ChestUIManager(MainGUI mainGUI) {
         this.mainGUI = mainGUI;
         this.imageManager = new EquipmentImageManager();
@@ -80,11 +82,16 @@ public class ChestUIManager {
                         );
 
                         if (result == JOptionPane.YES_OPTION) {
-                            chestWindow.dispose();                       
-                            mainGUI.requestFocusOnGame();              
-                            MainGUI.getGameDisplay().enterHostileMap();
+                            chestWindow.dispose();
+                            mainGUI.requestFocusOnGame();
+                            
+                            if (onOrbTakenCallback != null) {
+                                onOrbTakenCallback.run();
+                            }
+
                         }
                     }
+
 
                 });
 
@@ -108,5 +115,9 @@ public class ChestUIManager {
         JScrollPane scrollPane = new JScrollPane(panel);
         chestWindow.add(scrollPane);
         chestWindow.setVisible(true);
+    }
+    
+    public void setOnOrbTakenCallback(Runnable callback) {
+        this.onOrbTakenCallback = callback;
     }
 }

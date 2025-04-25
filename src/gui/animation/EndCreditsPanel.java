@@ -1,4 +1,4 @@
-package gui;
+package gui.animation;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

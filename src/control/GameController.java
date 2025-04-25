@@ -147,8 +147,8 @@ public class GameController {
         activeMap.getCoins().removeAll(collectedCoins);
     }
 
-    public Chest tryOpenNearbyChest() {
-    	Map activeMap = display.getActiveMap();
+    public Chest tryOpenNearbyChest(MainGUI gui) {
+        Map activeMap = display.getActiveMap();
         Block heroPos = hero.getPosition();
         int heroLine = heroPos.getLine();
         int heroColumn = heroPos.getColumn();
@@ -183,10 +183,9 @@ public class GameController {
                                 );
 
                                 if (response == JOptionPane.YES_OPTION) {
-                                    display.enterHostileMap(); 
                                     this.hostileMap = display.getHostileMap();
-                                    MainGUI.getInstance().setDialogueActive(false); 
-                                    display.requestFocusInWindow();
+                                    this.enterHostileMap(gui);
+
                                 }
 
                             }
@@ -197,9 +196,9 @@ public class GameController {
                 }
             }
         }
-
         return null;
     }
+
 
 
     public void checkEnemyCollision() {
@@ -259,17 +258,15 @@ public class GameController {
 
 
     public void tryOpenChest(MainGUI gui) {
-        Chest chest = tryOpenNearbyChest();
+        Chest chest = tryOpenNearbyChest(gui);
         if (chest != null) {
             ChestUIManager chestUI = new ChestUIManager(gui);
 
             chestUI.setOnOrbTakenCallback(() -> {
+                logger.info("📦 Orbe récupéré, lancement de l'entrée dans HostileMap...");
                 gui.getQuestManager().updateQuest("Trouver l'orbe", 1);
-                display.enterHostileMap();
-                this.hostileMap = display.getHostileMap();
-                MainGUI.getInstance().setDialogueActive(false); 
+                this.enterHostileMap(gui); // <- pas besoin de display.getController()
             });
-
 
             chestUI.displayChestContents(chest);
             gui.requestFocusInWindow();
@@ -279,26 +276,29 @@ public class GameController {
     }
 
 
+
     public boolean tryInteractWithNPC(MainGUI gui) {
-        if (display.isInHostileMap() && tryChopDeadTree(gui)) {
+        if (display.isInHostileMap() && tryChopDeadTree(gui)) return true;
+
+        if (tryOpenPrincessCage(gui)) return true;
+        
+        // ✅ 1. Toujours essayer d'abord d'ouvrir un coffre si un est proche
+        Chest chest = tryOpenNearbyChest(gui);
+        if (chest != null) {
+            tryOpenChest(gui); // 👉 ceci contient déjà le callback pour l’orbe
             return true;
         }
 
-        if (tryEnterCombatMap(gui)) {
-            return true;
-        }
+        // ✅ 2. Si pas de coffre → on peut interagir avec le shop
+        if (tryMerchantOrShopInteraction(gui)) return true;
 
-        if (tryMerchantOrShopInteraction(gui)) {
-            return true;
-        }
-
-        if (tryOpenPrincessCage(gui)) {
-            return true;
-        }
+        // autres interactions
+        if (tryEnterCombatMap(gui)) return true;
 
         display.getController().tryIgniteCampfire(gui);
         return false;
     }
+
 
     private boolean tryOpenPrincessCage(MainGUI gui) {
         Map activeMap = display.getActiveMap();
@@ -415,19 +415,47 @@ public class GameController {
             options,
             options[0]
         );
-
-        if (choix == 0) gui.triggerDialogue("enter_shop_give_gold");
-        else if (choix == 1) gui.triggerDialogue("enter_shop_chat");
+            gui.triggerDialogue("enter_shop_give_gold");
+            gui.resetCoinCount(); 
+            gui.setPiecesRemises(true); // ✅ le joueur a rendu les pièces, on mémorise ça
+        
     }
+
+
+
+    public void enterHostileMap(MainGUI gui) {
+        logger.info("🌋 GameController.enterHostileMap() appelé");
+        
+        display.enterHostileMap();          // changement de map
+        setupHostileQuests();               // reset des quêtes
+        gui.setDialogueActive(true);        // d'abord bloquer les touches !
+        
+        gui.triggerDialogue("enter_hostile_map"); // ensuite déclencher dialogue
+        
+        gui.requestFocusInWindow();         // focus fenêtre
+        gui.requestFocusOnGame();           // focus sur la carte
+    }
+
+
+
+
 
 
 
 
 
     public void enterShop(MainGUI gui) {
+        if (!gui.hasEnoughCoinsForShop()) {
+            logger.warn("🚫 Tentative d'entrée dans la boutique sans 10 pièces.");
+            JOptionPane.showMessageDialog(gui, "💰 Il te faut 10 pièces pour entrer dans la boutique !");
+            gui.requestFocusInWindow();
+            return;
+        }
+
         display.enterShop();
         gui.triggerDialogue("enter_shop");
     }
+
 
     public boolean tryEnterShop(MainGUI gui) {
         Block heroPos = hero.getPosition();
@@ -721,6 +749,46 @@ public class GameController {
 	        updateProjectiles();
 	    }
 	}
+	
+	public void exitShop(MainGUI gui) {
+	    Map map = display.getMap();
+	    Block shopBlock = map.getShopPosition();
+	    Block exitBlock = findAdjacentFreeBlock(shopBlock, map);
+	    if (exitBlock == null) exitBlock = shopBlock;
+
+	    map.setAllHousesOnFire(); // 🔥 Toujours allumer les maisons
+
+	    display.returnToMainMap(exitBlock);
+	}
+
+
+
+
+	
+	private Block findAdjacentFreeBlock(Block center, Map map) {
+	    int line = center.getLine();
+	    int col = center.getColumn();
+
+	    for (int dl = -1; dl <= 1; dl++) {
+	        for (int dc = -1; dc <= 1; dc++) {
+	            if (dl == 0 && dc == 0) continue;
+	            int newLine = line + dl;
+	            int newCol = col + dc;
+
+	            if (newLine >= 0 && newCol >= 0 &&
+	                newLine < map.getLineCount() &&
+	                newCol < map.getColumnCount()) {
+
+	                Block adj = map.getBlock(newLine, newCol);
+	                if (!map.isBlocked(adj)) {
+	                    return adj;
+	                }
+	            }
+	        }
+	    }
+	    return null;
+	}
+
 
 
 

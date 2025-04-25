@@ -28,6 +28,7 @@ public class MainGUI extends JFrame {
     private JPanel dialoguePanel;
     private DialogueManager dialogueManager = new DialogueManager();
     private boolean dialogueActive = true;
+    private boolean piecesRemisesAuMarchand = false;
     private JScrollPane scrollPane;
     private String currentDialogueEvent = "intro";
     private JPanel bottomPanel;
@@ -204,11 +205,13 @@ public class MainGUI extends JFrame {
     }
     
     public void triggerDialogue(String eventKey) {
+    	logger.info("📣 triggerDialogue() appelé avec eventKey = " + eventKey);
+        logger.info("📢 triggerDialogue() appelé avec eventKey = " + eventKey);
         if (!dialogueManager.hasDialogue(eventKey)) {
-        	logger.warn("❌ Aucun dialogue trouvé pour l’événement : " + eventKey);
-        	return;
+            logger.warn("❌ Aucun dialogue trouvé pour l’événement : " + eventKey);
+            return;
         }
-        logger.info("💬 Début du dialogue : " + eventKey);
+        logger.info("💬 Dialogue trouvé, préparation de l'affichage pour : " + eventKey);
         dialoguePanel.removeAll();
         dialoguePanel.revalidate();
         dialoguePanel.repaint();
@@ -240,12 +243,13 @@ public class MainGUI extends JFrame {
 
 
     public void updateDialoguePanel(String eventKey) {
+    	logger.info("📄 updateDialoguePanel() appelé avec eventKey = " + eventKey);
         String dialogueText = dialogueManager.getCurrent(eventKey);
         if (dialogueText == null) {
-        	logger.warn("🔕 Aucun texte de dialogue pour : " + eventKey);
-        	return;
+            logger.warn("🔕 Aucun texte de dialogue pour : " + eventKey);
+            return;
         }
-        logger.debug("📝 Affichage dialogue : " + dialogueText);
+        logger.info("📝 Texte du dialogue actuel = " + dialogueText);
         JTextArea newDialogue = new JTextArea(dialogueText);
         newDialogue.setEditable(false);
         newDialogue.setLineWrap(true);
@@ -356,7 +360,7 @@ public class MainGUI extends JFrame {
             }
 
             if (e.getKeyCode() == KeyEvent.VK_ESCAPE && dashboard.isInShop()) {
-                dashboard.exitShop();
+            	dashboard.getController().exitShop(MainGUI.this);
                 logger.info("🚪 Sortie de la boutique !");
                 logger.info("🔙 Touche ESC pressée : tentative de sortie de boutique.");
                 triggerDialogue("exit_shop_1");
@@ -373,8 +377,23 @@ public class MainGUI extends JFrame {
         public void keyReleased(KeyEvent e) {}
     }
 
+    public boolean hasEnoughCoinsForShop() {
+        return coinCount >= 10;
+    }
+    
+    public void resetCoinCount() {
+        coinCount = 0;
+        coinLabel.setText("💰 Pièces : 0");
+        logger.info("🔁 Les pièces ont été remises au marchand.");
+    }
+    
+    public void setPiecesRemises(boolean status) {
+        this.piecesRemisesAuMarchand = status;
+    }
 
-
+    public boolean havePiecesBeenReturned() {
+        return piecesRemisesAuMarchand;
+    }
 
     public static void main(String[] args) {
     	

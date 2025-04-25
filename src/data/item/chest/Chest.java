@@ -16,10 +16,7 @@ public class Chest {
         new Equipment("woodsword"),
         new Equipment("woodstick"),
     };
-
-    /**
-     * Constructeur du coffre initialisé avec quelques objets aléatoires.
-     */
+    
     public Chest() {
         this.inventory = new Inventory(); // Création d'un inventaire pour stocker les objets
         this.opened = false;

@@ -18,7 +18,7 @@ import gui.GameDisplay;
 import log.LoggerUtility;
 
 public class Map {
-    private Block[][] blocks;
+    protected Block[][] blocks;
     private HashMap<Block, Obstacle> obstacles = new HashMap<>();
     protected HashMap<Block, Boolean> terrainBlocked = new HashMap<>();
     protected HashMap<Block, String> staticObjects = new HashMap<>();
@@ -26,13 +26,11 @@ public class Map {
     protected HashMap<Block, String> enemies = new HashMap<>();
     private ChestManager chestManager;   
     protected int lineCount;
-    private int columnCount;
+    protected int columnCount;
     private int maxChests;
     private ArrayList<Coin> coins;
-    private boolean isStatic; 
     private ArrayList<Flame> flames = new ArrayList<>();
     private static final Logger logger = LoggerUtility.getLogger(HostileMap.class, "text");
-
 
 
     public Map(int lineCount, int columnCount, int maxChest, boolean isStatic) {
@@ -43,25 +41,36 @@ public class Map {
         this.maxChests = maxChest;
         this.enemies = new HashMap<>();
         this.coins = new ArrayList<>();
-        this.isStatic = isStatic; 
         this.flames = new ArrayList<>();
         for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
             for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
                 blocks[lineIndex][columnIndex] = new Block(lineIndex, columnIndex);
             }
         }
-        if (!isStatic) {
-            generateTerrain();
-            generateObjects();  // Générer les objets (arbres, maisons, coffres)
-            generateEnemies();  // Générer les ennemis
-            generateCoins(25);  // Générer des pièces
-            placeShopOnMap();   // ✅ Placer le shop après la génération des objets
-        } else {
-        	 setupStaticShop();
-        	    this.enemies.clear(); // ✅ Supprime les ennemis de `shopMap` mais pas sur du tout pour le retour sur la map classique
-        	    this.coins.clear();   // ✅ Supprime les pièces de `shopMap` 	mais pas sur du tout pour le retour sur la map classique
+        generateTerrain();
+        generateObjects();  
+        generateEnemies();  
+        generateCoins(25); 
+        placeShopOnMap();   
+        
+    }
+    
+    public Map(int lineCount, int columnCount) {
+        this.lineCount = lineCount;
+        this.columnCount = columnCount;
+        this.blocks = new Block[lineCount][columnCount];
+        this.chestManager = new ChestManager();
+        this.enemies = new HashMap<>();
+        this.coins = new ArrayList<>();
+        this.flames = new ArrayList<>();
+
+        for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
+            for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
+                blocks[lineIndex][columnIndex] = new Block(lineIndex, columnIndex);
+            }
         }
     }
+
 
  
     public ArrayList<data.item.Flame> getFlames() {
@@ -73,11 +82,6 @@ public class Map {
 		this.flames = flames;
 	}
 
-
-	public boolean isStatic() {
-		return isStatic;
-	}
-    
     public void generateTerrain() {
         for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
             for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
@@ -93,13 +97,6 @@ public class Map {
             }
         }
     }
-
-
-
-	public void setStatic(boolean isStatic) {
-		this.isStatic = isStatic;
-	}
-
 
 	public void setBlocks(Block[][] blocks) {
 		this.blocks = blocks;
@@ -124,71 +121,6 @@ public class Map {
 	public void setCoins(ArrayList<Coin> coins) {
 		this.coins = coins;
 	}
-
-
-	/**
-     * ✅ Configure une boutique avec un contour de `blackWall` simple et un placement optimisé des torches.
-     */
-    public void setupStaticShop() {
-        for (int i = 0; i < lineCount; i++) {
-            for (int j = 0; j < columnCount; j++) {
-                Block block = blocks[i][j];
-
-                // ✅ Contour léger gris
-                if (i == 0 || i == lineCount - 1 || j == 0 || j == columnCount - 1) {
-                    staticTerrain.put(block, "lightWall");
-                } else {
-                    staticTerrain.put(block, "shopFloor");
-                }
-            }
-        }
-
-        // ✅ Placement du marchand en haut centré
-        int merchantRow = 2;
-        int merchantCol = columnCount / 2;
-        Block merchantBlock = blocks[merchantRow][merchantCol];
-        Block barLeft = blocks[merchantRow + 1][merchantCol - 1];
-        Block barCenter = blocks[merchantRow + 1][merchantCol];
-        Block barRight = blocks[merchantRow + 1][merchantCol + 1];
-
-        staticObjects.put(merchantBlock, "merchant");
-        staticObjects.put(barLeft, "bar");
-        staticObjects.put(barCenter, "bar");
-        staticObjects.put(barRight, "bar");
-
-        for (int i = 1; i < lineCount - 1; i++) {
-            for (int j = 1; j < columnCount - 1; j++) {
-                Block block = blocks[i][j];
-
-                boolean isEdgeInner = i == 1 || i == lineCount - 2 || j == 1 || j == columnCount - 2;
-                boolean isEntry = i == lineCount - 2 && j >= 6 && j <= 8;
-                boolean isMerchantZone = block.equals(merchantBlock) || block.equals(barLeft) ||
-                                         block.equals(barCenter) || block.equals(barRight);
-
-                if (isEdgeInner && !isEntry && !isMerchantZone) {
-                    staticObjects.put(block, "bookshelf");
-                }
-            }
-        }
-
-        // ✅ Tapis en damier au centre de la pièce (7x7)
-        int carpetStartRow = (lineCount - 7) / 2;
-        int carpetStartCol = (columnCount - 7) / 2;
-        for (int i = 0; i < 7; i++) {
-            for (int j = 0; j < 7; j++) {
-                Block block = blocks[carpetStartRow + i][carpetStartCol + j];
-
-                // ✅ Ne pas écraser les bars ou le marchand
-                if (!staticObjects.containsKey(block)) {
-                    if ((i + j) % 2 == 0) { // Motif damier
-                        staticTerrain.put(block, "carpet");
-                    }
-                }
-            }
-        }
-
-        System.out.println("✅ Boutique statique configurée : contour gris, marchand en haut, bordure bookshelf et tapis central !");
-    }
 
 
 
@@ -229,10 +161,6 @@ public class Map {
         }
     }
     
-    
-    /**
-     * ✅ Place la maison spéciale "Shop" à un emplacement aléatoire mais sécurisé.
-     */
     public void placeShopOnMap() {
         Random random = new Random();
         int maxAttempts = 100; // ✅ Évite une boucle infinie si la carte est très remplie
@@ -278,63 +206,84 @@ public class Map {
     }
 
 	public void generateObjects() {
-        int generatedChests = 0;
-        boolean orbePlaced = false;
+	    int generatedChests = 0;
+	    int generatedHouses = 0;
+	    boolean orbePlaced = false;
+	    int maxHouses = 8; // ✅ Tu peux ajuster ici combien de maisons tu veux exactement
 
-        // ✅ Génère d’abord arbres et maisons
-        for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
-            for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
-                Block block = blocks[lineIndex][columnIndex];
-                String terrainType = staticTerrain.get(block);
+	    ArrayList<Block> freeGrassBlocks = new ArrayList<>();
+	    for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
+	        for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
+	            Block block = blocks[lineIndex][columnIndex];
+	            String terrainType = staticTerrain.get(block);
 
-                if (terrainType.equals("grass")) {
-                    double rand = Math.random();
-                    if (rand < 0.05) {
-                        staticObjects.put(block, "tree");
-                        setTerrainBlocked(block, true);
-                    } else if (rand < 0.08) {
-                        staticObjects.put(block, "house");
-                        setTerrainBlocked(block, true);
-                    }
-                }
-            }
-        }
+	            if ("grass".equals(terrainType)) {
+	                freeGrassBlocks.add(block);
+	            }
+	        }
+	    }
+	    Random random = new Random();
+	    // ✅ Génère d'abord les maisons
+	    while (generatedHouses < maxHouses && !freeGrassBlocks.isEmpty()) {
+	        int index = random.nextInt(freeGrassBlocks.size());
+	        Block block = freeGrassBlocks.remove(index);
 
-        // ✅ Puis les coffres (remplis automatiquement par la factory)
-        while (generatedChests < maxChests) {
-            int randomLine = (int) (Math.random() * lineCount);
-            int randomColumn = (int) (Math.random() * columnCount);
-            Block block = blocks[randomLine][randomColumn];
+	        if (!staticObjects.containsKey(block)) {
+	            staticObjects.put(block, "house");
+	            setTerrainBlocked(block, true);
+	            generatedHouses++;
+	        }
+	    }
 
-            String terrainType = staticTerrain.getOrDefault(block, "grass");
-            if ((terrainType.equals("path") || terrainType.equals("grass")) && !staticObjects.containsKey(block)) {
-                double rand = Math.random();
+	    // ✅ Ensuite génère quelques arbres aléatoirement
+	    for (Block block : freeGrassBlocks) {
+	        if (Math.random() < 0.05) { // 5% de chance d'avoir un arbre
+	            staticObjects.put(block, "tree");
+	            setTerrainBlocked(block, true);
+	        }
+	    }
 
-                if (rand < 0.1) {
-                    Chest chest = ChestFactory.createChestWithRandomWeapons();
+	    // ✅ Puis les coffres (avec l'orbe une seule fois)
+	    while (generatedChests < maxChests) {
+	        int randomLine = random.nextInt(lineCount);
+	        int randomColumn = random.nextInt(columnCount);
+	        Block block = blocks[randomLine][randomColumn];
 
-                    // ✅ Place l'orbe une seule fois
-                    if (!orbePlaced) {
-                        chest.getInventory().addEquipment(new Equipment("orbe"));
-                        orbePlaced = true;
-                        System.out.println("🟥 Orbe inséré dans le coffre à : " + block);
-                    }
+	        String terrainType = staticTerrain.getOrDefault(block, "grass");
+	        if ((terrainType.equals("path") || terrainType.equals("grass")) && !staticObjects.containsKey(block)) {
+	            if (Math.random() < 0.1) {
+	                Chest chest = ChestFactory.createChestWithRandomWeapons();
 
-                    chestManager.getChests().put(block, chest);
-                    staticObjects.put(block, "chest");
-                    setTerrainBlocked(block, true);
-                    generatedChests++;
-                }
-            }
-        }
+	                if (!orbePlaced) {
+	                    chest.getInventory().addEquipment(new Equipment("orbe"));
+	                    orbePlaced = true;
+	                    System.out.println("🟥 Orbe inséré dans le coffre à : " + block);
+	                }
 
-        if (!orbePlaced) {
-            System.out.println("⚠ Aucun coffre contenant l’orbe n’a pu être placé !");
-        }
-    }
+	                chestManager.getChests().put(block, chest);
+	                staticObjects.put(block, "chest");
+	                setTerrainBlocked(block, true);
+	                generatedChests++;
+	            }
+	        }
+	    }
+
+	    if (!orbePlaced) {
+	        System.out.println("⚠ Aucun coffre contenant l’orbe n’a pu être placé !");
+	    }
+	}
 
 
 
+
+	public Block getShopPosition() {
+	    for (Block block : staticObjects.keySet()) {
+	        if ("shop".equals(staticObjects.get(block))) {
+	            return block;
+	        }
+	    }
+	    return null;
+	}
 
 
 	public ArrayList<Block> getFreeBlocks() {
@@ -359,33 +308,21 @@ public class Map {
     
 
 	public boolean isBlocked(Block block) {
-	   
-
-	    if (isStatic) {
-	        String object = staticObjects.get(block);
-
-	        if (object == null) return false;
-
-	        return object.equals("bookshelf") || object.equals("merchant") || object.equals("bar");
-	    }
-
 	    if (obstacles.containsKey(block)) return true;
 	    if (terrainBlocked.getOrDefault(block, false)) return true;
-	    if (staticTerrain.containsKey(block) && staticTerrain.get(block).equals("water")) return true;
+	    if ("water".equals(staticTerrain.get(block))) return true;
 
 	    if (staticObjects.containsKey(block)) {
 	        String object = staticObjects.get(block);
-
-	        // ✅ Ne bloque pas les rochers décoratifs du refuge
 	        if (object.endsWith("rock") || object.startsWith("rune") || object.equals("campfire") || object.equals("entry")) {
 	            return false;
 	        }
-
 	        return true;
 	    }
 
 	    return false;
 	}
+
 
 
 
@@ -442,105 +379,6 @@ public class Map {
         questManager.setRequiredAmount("Éteindre les flammes", totalFlames);
 
         logger.info("🔥 " + flames.size() + " maisons mises en feu !");
-    }
-
-
-    
-    public void paintTerrain(Graphics g, GameDisplay display) {
-        Block[][] blocks = this.getBlocks();
-        boolean isInShop = display.isInShop();
-
-        for (int line = 0; line < getLineCount(); line++) {
-            for (int col = 0; col < getColumnCount(); col++) {
-                Block block = blocks[line][col];
-
-                String terrainType = this.getStaticTerrain().getOrDefault(block, isInShop ? "shopFloor" : "grass");
-                Image terrainImage = display.getTileset().get(terrainType);
-                if (terrainImage != null) {
-                    g.drawImage(terrainImage, block.getColumn() * 32, block.getLine() * 32, 32, 32, null);
-                }
-            }
-        }
-    }
-
-
-    public static void main(String[] args) {
-        System.out.println("📚 Initialisation de la boutique 15x15 avec marchand derrière son comptoir en haut...");
-
-        Map shopMap = new Map(15, 15, 0, true);
-
-        int lineCount = shopMap.getLineCount();
-        int columnCount = shopMap.getColumnCount();
-        int centerCol = columnCount / 2;
-
-        // ✅ Contour gris (lightWall)
-        for (int i = 0; i < lineCount; i++) {
-            for (int j = 0; j < columnCount; j++) {
-                Block block = shopMap.getBlock(i, j);
-                if (i == 0 || i == lineCount - 1 || j == 0 || j == columnCount - 1) {
-                    shopMap.getStaticTerrain().put(block, "lightWall");
-                } else {
-                    shopMap.getStaticTerrain().put(block, "shopFloor");
-                }
-            }
-        }
-
-        // ✅ Placement du comptoir (3 barres) et du marchand derrière
-        Block barLeft = shopMap.getBlock(3, centerCol - 1);
-        Block barCenter = shopMap.getBlock(3, centerCol);
-        Block barRight = shopMap.getBlock(3, centerCol + 1);
-        Block merchant = shopMap.getBlock(2, centerCol); // derrière le comptoir
-
-        shopMap.getStaticObjects().put(barLeft, "bar");
-        shopMap.getStaticObjects().put(barCenter, "bar");
-        shopMap.getStaticObjects().put(barRight, "bar");
-        shopMap.getStaticObjects().put(merchant, "merchant");
-        shopMap.getStaticTerrain().put(barCenter, "carpet");
-
-        // ✅ Bordure intérieure : 1 bloc de bookshelf tout autour sauf entrée et comptoir/marchand
-        for (int i = 1; i < lineCount - 1; i++) {
-            for (int j = 1; j < columnCount - 1; j++) {
-                Block block = shopMap.getBlock(i, j);
-
-                boolean isEdgeInner = i == 1 || i == lineCount - 2 || j == 1 || j == columnCount - 2;
-                boolean isEntry = i == lineCount - 2 && j >= 6 && j <= 8;
-                boolean isComptoir = block.equals(barLeft) || block.equals(barCenter) || block.equals(barRight);
-                boolean isMerchant = block.equals(merchant);
-
-                if (isEdgeInner && !isEntry && !isComptoir && !isMerchant) {
-                    shopMap.getStaticObjects().put(block, "bookshelf");
-                }
-            }
-        }
-
-        // ✅ Affichage ASCII
-        System.out.println("\n🗺️ Affichage ASCII :");
-        for (int i = 0; i < lineCount; i++) {
-            for (int j = 0; j < columnCount; j++) {
-                Block block = shopMap.getBlock(i, j);
-                String terrain = shopMap.getStaticTerrain().getOrDefault(block, "??");
-                String obj = shopMap.getStaticObjects().getOrDefault(block, " ");
-
-                String symbol;
-                switch (obj) {
-                    case "merchant": symbol = "M"; break;
-                    case "bar": symbol = "B"; break;
-                    case "bookshelf": symbol = "📚"; break;
-                    case " ": // pas d’objet
-                        if ("lightWall".equals(terrain)) symbol = "░";
-                        else if ("carpet".equals(terrain)) symbol = "◉";
-                        else if ("shopFloor".equals(terrain)) symbol = ".";
-                        else symbol = "?";
-                        break;
-                    default: symbol = "?"; break;
-                }
-
-                System.out.print(symbol + " ");
-            }
-            System.out.println();
-        }
-
-        System.out.println("\n✅ Boutique 15x15 avec marchand en haut derrière son comptoir !");
     }
 
 

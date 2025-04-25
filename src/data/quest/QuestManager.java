@@ -89,32 +89,14 @@ public class QuestManager {
         addQuest(new Quest("Tuer le boss", "Terrasse le boss final", Quest.TYPE_KILL, 1, 0));
         System.out.println("🆕 Quêtes de la CombatMap chargées.");
     }
-
-
-
-    public static void main(String[] args) {
-        System.out.println("🔹 Test de la classe QuestManager 🔹");
-
-        QuestManager questManager = new QuestManager();
-
-        questManager.addQuest(new Quest("Chasseur de Squelettes", "Tue 3 squelettes", Quest.TYPE_KILL, 3, 100));
-        questManager.addQuest(new Quest("Chasseur de Slimes", "Tue 5 slimes", Quest.TYPE_KILL, 5, 150));
-        questManager.addQuest(new Quest("Collecteur de pièces", "Ramasse 10 pièces", Quest.TYPE_COLLECT, 10, 200));
-
-        questManager.displayQuests();
-
-        System.out.println("\n🔄 Mise à jour des quêtes...");
-        questManager.updateQuest("Chasseur de Squelettes", 3);
-        questManager.updateQuest("Chasseur de Slimes", 5);
-        questManager.updateQuest("Collecteur de pièces", 10);
-
-        questManager.displayQuests();
-
-        System.out.println("\n🎁 Réclamation des récompenses...");
-        questManager.claimQuestReward("Chasseur de Squelettes");
-        questManager.claimQuestReward("Chasseur de Slimes");
-        questManager.claimQuestReward("Collecteur de pièces");
-        System.out.println("💰 Total des pièces du joueur : " + questManager.getTotalCoins());
-        questManager.claimQuestReward("Chasseur de Squelettes");
+    
+    public boolean isQuestCompleted(String questName) {
+        for (Quest quest : activeQuests) {
+            if (quest.getName().equals(questName)) {
+                return quest.isCompleted();
+            }
+        }
+        return false;
     }
+
 }

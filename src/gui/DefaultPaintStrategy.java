@@ -116,16 +116,6 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	            }
 	        }
 	    }
-
-	    if (display.isInShop() && display.getTileset().containsKey("merchant")) {
-	        for (Block block : display.getShopMap().getStaticObjects().keySet()) {
-	            if ("merchant".equals(display.getShopMap().getStaticObjects().get(block))) {
-	                g.drawImage(display.getTileset().get("merchant"),
-	                        block.getColumn() * 32, block.getLine() * 32,
-	                        32, 32, null);
-	            }
-	        }
-	    }
 	}
 
 

@@ -17,19 +17,17 @@ public class HostileMap extends Map {
    
 
     public HostileMap(int lineCount, int columnCount, int maxChest) {
-        super(lineCount, columnCount, maxChest, true);
-        setStatic(false);
-
-        staticObjects.clear();
+    	super(lineCount, columnCount); // ⬅️ appelle le constructeur neutre        
+    	staticObjects.clear();
         staticTerrain.clear();
         enemies.clear();
         terrainBlocked.clear();
 
         generateTerrain();
         generateObjects();
-        generateEnemies();
         generateCave();
         generateSafeShelter();
+        generateEnemies();
         generateSymbols();
 
     }
