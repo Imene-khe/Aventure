@@ -23560,3 +23560,695 @@ INFO AWT-EventQueue-0 data.player.Hero - 💥 Héros touché ! Vie restante : 70
 INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 60%
 INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 50%
 INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 40%
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Bienvenue, Ghaya ! Ca me fait plaisir de te revoir
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Bienvenue, Ghaya ! Ca me fait plaisir de te revoir
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Un marchand a établi son camp dans une maison de bois claire non loin d'ici.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Seul problème, il a fait tomber sa bourse de pièces...
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = En apprenant l'existence de ce petit trésor, une horde de monstre est apparue...
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Mais fais bien attention à la horde.
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 1
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 2
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 3
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 4
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 5
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 6
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 7
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 8
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 9
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 10
+INFO AWT-EventQueue-0 gui.MainGUI - 🎯 Objectif atteint : 10 pièces.
+INFO AWT-EventQueue-0 control.GameController - 🏪 Entrée dans la boutique détectée.
+INFO AWT-EventQueue-0 gui.MainGUI - 📣 triggerDialogue() appelé avec eventKey = enter_shop
+INFO AWT-EventQueue-0 gui.MainGUI - 📢 triggerDialogue() appelé avec eventKey = enter_shop
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Dialogue trouvé, préparation de l'affichage pour : enter_shop
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_shop
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Bienvenue dans ma boutique, jeune aventurier !
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_shop
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_shop
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Que puis-je faire pour toi ?!
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : enter_shop
+INFO AWT-EventQueue-0 control.GameController - 🗨️ Interaction avec le marchand détectée.
+INFO AWT-EventQueue-0 gui.MainGUI - 📣 triggerDialogue() appelé avec eventKey = enter_shop_give_gold
+INFO AWT-EventQueue-0 gui.MainGUI - 📢 triggerDialogue() appelé avec eventKey = enter_shop_give_gold
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Dialogue trouvé, préparation de l'affichage pour : enter_shop_give_gold
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_shop_give_gold
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Ohhh... c’est donc toi qui m’a rapporté cette bourse !
+INFO AWT-EventQueue-0 gui.MainGUI - 🔁 Les pièces ont été remises au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_shop_give_gold
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_shop_give_gold
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Tu n’imagines pas à quel point tu me sauves.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_shop_give_gold
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_shop_give_gold
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Tiens, prends ceci en remerciement !
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : enter_shop_give_gold
+INFO AWT-EventQueue-0 data.map.HostileMap - 🔥 8 maisons mises en feu !
+INFO AWT-EventQueue-0 gui.MainGUI - 🚪 Sortie de la boutique !
+INFO AWT-EventQueue-0 gui.MainGUI - 🔙 Touche ESC pressée : tentative de sortie de boutique.
+INFO AWT-EventQueue-0 gui.MainGUI - 📣 triggerDialogue() appelé avec eventKey = exit_shop_1
+INFO AWT-EventQueue-0 gui.MainGUI - 📢 triggerDialogue() appelé avec eventKey = exit_shop_1
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Dialogue trouvé, préparation de l'affichage pour : exit_shop_1
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = exit_shop_1
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Ahhhh te revoilà... Nous te cherchions !
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : exit_shop_1
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = exit_shop_1
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Le chef de la horde est devenu fou de rage quand il a appris que tu avais recupéré les pièces !
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : exit_shop_1
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = exit_shop_1
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Sa bande nous a attaqué, ils ont mis le feu à toutes nos maisons.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : exit_shop_1
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = exit_shop_1
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Aide nous à éteindre nos maisons par pitié !
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : exit_shop_1
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 1
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 2
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 3
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 4
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+INFO AWT-EventQueue-0 gui.MainGUI - 📣 triggerDialogue() appelé avec eventKey = flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 📢 triggerDialogue() appelé avec eventKey = flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Dialogue trouvé, préparation de l'affichage pour : flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Oh non je viens de voir le chef de la horde emporter ton épouse ?!
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Il faut absolument que tu ailles la sauver ! Je crois que la horde campe dans la forêt interdite...
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Pour que tu puisses arriver avant eux, cherche dans les coffres du village.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Une pierre rouge magique te permettra de te téléporter là-bas...
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : flames_extinguished
+INFO AWT-EventQueue-0 control.GameController - 📦 Orbe récupéré, lancement de l'entrée dans HostileMap...
+INFO AWT-EventQueue-0 control.GameController - 🌋 GameController.enterHostileMap() appelé
+INFO AWT-EventQueue-0 gui.MainGUI - 📣 triggerDialogue() appelé avec eventKey = enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📢 triggerDialogue() appelé avec eventKey = enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Dialogue trouvé, préparation de l'affichage pour : enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Te voilà dans le royaume des Ténèbres ! Il est peuplé de monstres avides et féroces...
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Au nord-est, un refuge a été érigé par nos ancêtres pour survivre à la horde.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Trouve du bois sec, allume un feu et prépare-toi à combattre...
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : enter_hostile_map
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+INFO AWT-EventQueue-0 gui.MainGUI - 📣 triggerDialogue() appelé avec eventKey = campfire_lit
+INFO AWT-EventQueue-0 gui.MainGUI - 📢 triggerDialogue() appelé avec eventKey = campfire_lit
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Dialogue trouvé, préparation de l'affichage pour : campfire_lit
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = campfire_lit
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Bien joué ! Maintenant que tu es à l'abri, il va falloir tenter d'accéder au repère principal de la horde.
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : campfire_lit
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = campfire_lit
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Si tu regardes bien, il y a des symboles au sol : c'est un mécanisme pour te permettre de rentrer !
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : campfire_lit
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = campfire_lit
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Sors de l'abri et va activer ces dalles en marchant dessus mais défends-toi Ghaya, les monstres sont féroces.
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : campfire_lit
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 90%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 80%
+INFO AWT-EventQueue-0 gui.MainGUI - 📣 triggerDialogue() appelé avec eventKey = enter_combat_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📢 triggerDialogue() appelé avec eventKey = enter_combat_map
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Dialogue trouvé, préparation de l'affichage pour : enter_combat_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_combat_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Te voilà dans le repère de la horde... C'est sûrement ici qu'ils détiennent ta femme !
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_combat_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_combat_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Attention, des vagues d'ennemis arrivent ! Défends-toi comme tu peux...
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : enter_combat_map
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 70%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 60%
+INFO AWT-EventQueue-0 data.player.Hero - 💥 Héros touché ! Vie restante : 50%
+INFO AWT-EventQueue-0 data.player.Hero - 💥 Héros touché ! Vie restante : 40%
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Bienvenue, Ghaya ! Ca me fait plaisir de te revoir
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 Panneaux UI ajoutés à la fenêtre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Bienvenue, Ghaya ! Ca me fait plaisir de te revoir
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Un marchand a établi son camp dans une maison de bois claire non loin d'ici.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Seul problème, il a fait tomber sa bourse de pièces...
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = En apprenant l'existence de ce petit trésor, une horde de monstre est apparue...
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Mais fais bien attention à la horde.
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 1
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 2
+INFO AWT-EventQueue-0 data.player.Hero - 💥 Héros touché ! Vie restante : 90%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 80%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 70%
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 3
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 4
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 5
+INFO AWT-EventQueue-0 control.GameController - 📦 Orbe récupéré, lancement de l'entrée dans HostileMap...
+INFO AWT-EventQueue-0 control.GameController - 🌋 GameController.enterHostileMap() appelé
+INFO AWT-EventQueue-0 gui.MainGUI - 📣 triggerDialogue() appelé avec eventKey = enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📢 triggerDialogue() appelé avec eventKey = enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Dialogue trouvé, préparation de l'affichage pour : enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Te voilà dans le royaume des Ténèbres ! Il est peuplé de monstres avides et féroces...
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Au nord-est, un refuge a été érigé par nos ancêtres pour survivre à la horde.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Trouve du bois sec, allume un feu et prépare-toi à combattre...
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📣 triggerDialogue() appelé avec eventKey = enter_combat_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📢 triggerDialogue() appelé avec eventKey = enter_combat_map
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Dialogue trouvé, préparation de l'affichage pour : enter_combat_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_combat_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Te voilà dans le repère de la horde... C'est sûrement ici qu'ils détiennent ta femme !
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_combat_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_combat_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Attention, des vagues d'ennemis arrivent ! Défends-toi comme tu peux...
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : enter_combat_map
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 60%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 50%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 40%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 30%
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 SidePanel attaché.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 BottomPanel attaché.
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Bienvenue, Ghaya ! Ca me fait plaisir de te revoir
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Un marchand a établi son camp dans une maison de bois claire non loin d'ici.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Seul problème, il a fait tomber sa bourse de pièces...
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = En apprenant l'existence de ce petit trésor, une horde de monstre est apparue...
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Mais fais bien attention à la horde.
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+INFO AWT-EventQueue-0 data.player.Hero - 💥 Héros touché ! Vie restante : 90%
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 1
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 2
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 3
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 4
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 5
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 6
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 7
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 8
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 9
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 10
+INFO AWT-EventQueue-0 gui.MainGUI - 🎯 Objectif atteint : 10 pièces.
+INFO AWT-EventQueue-0 control.GameController - 🏪 Entrée dans la boutique détectée.
+INFO AWT-EventQueue-0 gui.MainGUI - 📣 triggerDialogue() appelé avec eventKey = enter_shop
+INFO AWT-EventQueue-0 gui.MainGUI - 📢 triggerDialogue() appelé avec eventKey = enter_shop
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Dialogue trouvé, préparation de l'affichage pour : enter_shop
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_shop
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Bienvenue dans ma boutique, jeune aventurier !
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_shop
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_shop
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Que puis-je faire pour toi ?!
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : enter_shop
+INFO AWT-EventQueue-0 control.GameController - 🗨️ Interaction avec le marchand détectée.
+INFO AWT-EventQueue-0 gui.MainGUI - 📣 triggerDialogue() appelé avec eventKey = enter_shop_give_gold
+INFO AWT-EventQueue-0 gui.MainGUI - 📢 triggerDialogue() appelé avec eventKey = enter_shop_give_gold
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Dialogue trouvé, préparation de l'affichage pour : enter_shop_give_gold
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_shop_give_gold
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Ohhh... c’est donc toi qui m’a rapporté cette bourse !
+INFO AWT-EventQueue-0 gui.MainGUI - 🔁 Les pièces ont été remises au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_shop_give_gold
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_shop_give_gold
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Tu n’imagines pas à quel point tu me sauves.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_shop_give_gold
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_shop_give_gold
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Tiens, prends ceci en remerciement !
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : enter_shop_give_gold
+INFO AWT-EventQueue-0 data.map.HostileMap - 🔥 8 maisons mises en feu !
+INFO AWT-EventQueue-0 gui.MainGUI - 🚪 Sortie de la boutique !
+INFO AWT-EventQueue-0 gui.MainGUI - 🔙 Touche ESC pressée : tentative de sortie de boutique.
+INFO AWT-EventQueue-0 gui.MainGUI - 📣 triggerDialogue() appelé avec eventKey = exit_shop_1
+INFO AWT-EventQueue-0 gui.MainGUI - 📢 triggerDialogue() appelé avec eventKey = exit_shop_1
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Dialogue trouvé, préparation de l'affichage pour : exit_shop_1
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = exit_shop_1
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Ahhhh te revoilà... Nous te cherchions !
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : exit_shop_1
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = exit_shop_1
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Le chef de la horde est devenu fou de rage quand il a appris que tu avais recupéré les pièces !
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : exit_shop_1
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = exit_shop_1
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Sa bande nous a attaqué, ils ont mis le feu à toutes nos maisons.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : exit_shop_1
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = exit_shop_1
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Aide nous à éteindre nos maisons par pitié !
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : exit_shop_1
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 1
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+INFO AWT-EventQueue-0 gui.MainGUI - 📣 triggerDialogue() appelé avec eventKey = flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 📢 triggerDialogue() appelé avec eventKey = flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Dialogue trouvé, préparation de l'affichage pour : flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Oh non je viens de voir le chef de la horde emporter ton épouse ?!
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Il faut absolument que tu ailles la sauver ! Je crois que la horde campe dans la forêt interdite...
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Pour que tu puisses arriver avant eux, cherche dans les coffres du village.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Une pierre rouge magique te permettra de te téléporter là-bas...
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 2
+INFO AWT-EventQueue-0 data.player.Hero - 💥 Héros touché ! Vie restante : 80%
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 3
+INFO AWT-EventQueue-0 control.GameController - 📦 Orbe récupéré, lancement de l'entrée dans HostileMap...
+INFO AWT-EventQueue-0 control.GameController - 🌋 GameController.enterHostileMap() appelé
+INFO AWT-EventQueue-0 gui.MainGUI - 📣 triggerDialogue() appelé avec eventKey = enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📢 triggerDialogue() appelé avec eventKey = enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Dialogue trouvé, préparation de l'affichage pour : enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Te voilà dans le royaume des Ténèbres ! Il est peuplé de monstres avides et féroces...
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Au nord-est, un refuge a été érigé par nos ancêtres pour survivre à la horde.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Trouve du bois sec, allume un feu et prépare-toi à combattre...
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : enter_hostile_map
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+INFO AWT-EventQueue-0 gui.MainGUI - 📣 triggerDialogue() appelé avec eventKey = campfire_lit
+INFO AWT-EventQueue-0 gui.MainGUI - 📢 triggerDialogue() appelé avec eventKey = campfire_lit
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Dialogue trouvé, préparation de l'affichage pour : campfire_lit
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = campfire_lit
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Bien joué ! Maintenant que tu es à l'abri, il va falloir tenter d'accéder au repère principal de la horde.
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : campfire_lit
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = campfire_lit
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Si tu regardes bien, il y a des symboles au sol : c'est un mécanisme pour te permettre de rentrer !
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : campfire_lit
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = campfire_lit
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Sors de l'abri et va activer ces dalles en marchant dessus mais défends-toi Ghaya, les monstres sont féroces.
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : campfire_lit
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 70%
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+INFO AWT-EventQueue-0 gui.MainGUI - 📣 triggerDialogue() appelé avec eventKey = enter_combat_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📢 triggerDialogue() appelé avec eventKey = enter_combat_map
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Dialogue trouvé, préparation de l'affichage pour : enter_combat_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_combat_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Te voilà dans le repère de la horde... C'est sûrement ici qu'ils détiennent ta femme !
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_combat_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_combat_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Attention, des vagues d'ennemis arrivent ! Défends-toi comme tu peux...
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : enter_combat_map
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 60%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 50%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 40%
+INFO Thread-0 data.item.Projectile - 🛠️ Projectile initialisé à Block [line=9, column=20] avec direction 'down'
+INFO Thread-0 data.item.Projectile - 🛠️ Projectile initialisé à Block [line=9, column=20] avec direction 'right'
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 30%
+WARN Thread-0 control.GameController - 💥 Projectile touché ! Vie restante : 30%
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 SidePanel attaché.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 BottomPanel attaché.
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Bienvenue, Ghaya ! Ca me fait plaisir de te revoir
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Un marchand a établi son camp dans une maison de bois claire non loin d'ici.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Seul problème, il a fait tomber sa bourse de pièces...
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 SidePanel attaché.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 BottomPanel attaché.
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Bienvenue, Ghaya ! Ca me fait plaisir de te revoir
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 SidePanel attaché.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 BottomPanel attaché.
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Bienvenue, Ghaya ! Ca me fait plaisir de te revoir
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 SidePanel attaché.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 BottomPanel attaché.
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Bienvenue, Ghaya ! Ca me fait plaisir de te revoir
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 SidePanel attaché.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 BottomPanel attaché.
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Bienvenue, Ghaya ! Ca me fait plaisir de te revoir
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 SidePanel attaché.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 BottomPanel attaché.
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Bienvenue, Ghaya ! Ca me fait plaisir de te revoir
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 SidePanel attaché.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 BottomPanel attaché.
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Bienvenue, Ghaya ! Ca me fait plaisir de te revoir
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 SidePanel attaché.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 BottomPanel attaché.
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Bienvenue, Ghaya ! Ca me fait plaisir de te revoir
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 SidePanel attaché.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 BottomPanel attaché.
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Bienvenue, Ghaya ! Ca me fait plaisir de te revoir
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+INFO main data.player.Hero - 💥 Héros touché ! Vie restante : 70%
+INFO main data.player.Hero - 💥 Héros touché ! Vie restante : 80%
+INFO main data.player.Hero - 💥 Héros touché ! Vie restante : 50%
+INFO main data.player.Hero - 💥 Héros touché ! Vie restante : 0%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 90%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 90%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 80%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 70%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 60%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 50%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 40%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 30%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 20%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 10%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 0%
+ERROR Thread-0 control.GameController - ☠️ GAME OVER ! Le héros est mort.
+INFO AWT-EventQueue-0 data.player.Hero - 💥 Héros touché ! Vie restante : 90%
+INFO AWT-EventQueue-0 data.player.Hero - 💥 Héros touché ! Vie restante : 90%
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 gui.MainGUI - 🎮 GameDisplay attaché au centre.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 SidePanel attaché.
+INFO AWT-EventQueue-0 gui.MainGUI - 📐 BottomPanel attaché.
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Bienvenue, Ghaya ! Ca me fait plaisir de te revoir
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Tu n'es pas au courant de la dernière nouvelle?
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Un marchand a établi son camp dans une maison de bois claire non loin d'ici.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Seul problème, il a fait tomber sa bourse de pièces...
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = En apprenant l'existence de ce petit trésor, une horde de monstre est apparue...
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Ton rôle aujourd'hui est donc de récuperer ces pièces pour les rendre au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Mais fais bien attention à la horde.
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 1
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 2
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 3
+INFO AWT-EventQueue-0 control.GameController - 🏪 Entrée dans la boutique détectée.
+WARN AWT-EventQueue-0 control.GameController - 🚫 Tentative d'entrée dans la boutique sans 10 pièces.
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 4
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 5
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 6
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 7
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 8
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 9
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 10
+INFO AWT-EventQueue-0 gui.MainGUI - 🎯 Objectif atteint : 10 pièces.
+INFO AWT-EventQueue-0 control.GameController - 🏪 Entrée dans la boutique détectée.
+INFO AWT-EventQueue-0 gui.MainGUI - 📣 triggerDialogue() appelé avec eventKey = enter_shop
+INFO AWT-EventQueue-0 gui.MainGUI - 📢 triggerDialogue() appelé avec eventKey = enter_shop
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Dialogue trouvé, préparation de l'affichage pour : enter_shop
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_shop
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Bienvenue dans ma boutique, jeune aventurier !
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_shop
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_shop
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Que puis-je faire pour toi ?!
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : enter_shop
+INFO AWT-EventQueue-0 control.GameController - 🗨️ Interaction avec le marchand détectée.
+INFO AWT-EventQueue-0 gui.MainGUI - 📣 triggerDialogue() appelé avec eventKey = enter_shop_give_gold
+INFO AWT-EventQueue-0 gui.MainGUI - 📢 triggerDialogue() appelé avec eventKey = enter_shop_give_gold
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Dialogue trouvé, préparation de l'affichage pour : enter_shop_give_gold
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_shop_give_gold
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Ohhh... c’est donc toi qui m’a rapporté cette bourse !
+INFO AWT-EventQueue-0 gui.MainGUI - 🔁 Les pièces ont été remises au marchand.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_shop_give_gold
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_shop_give_gold
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Tu n’imagines pas à quel point tu me sauves.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_shop_give_gold
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_shop_give_gold
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Tiens, prends ceci en remerciement !
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : enter_shop_give_gold
+INFO AWT-EventQueue-0 data.map.HostileMap - 🔥 8 maisons mises en feu !
+INFO AWT-EventQueue-0 gui.MainGUI - 🚪 Sortie de la boutique !
+INFO AWT-EventQueue-0 gui.MainGUI - 🔙 Touche ESC pressée : tentative de sortie de boutique.
+INFO AWT-EventQueue-0 gui.MainGUI - 📣 triggerDialogue() appelé avec eventKey = exit_shop_1
+INFO AWT-EventQueue-0 gui.MainGUI - 📢 triggerDialogue() appelé avec eventKey = exit_shop_1
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Dialogue trouvé, préparation de l'affichage pour : exit_shop_1
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = exit_shop_1
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Ahhhh te revoilà... Nous te cherchions !
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : exit_shop_1
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = exit_shop_1
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Le chef de la horde est devenu fou de rage quand il a appris que tu avais recupéré les pièces !
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : exit_shop_1
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = exit_shop_1
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Sa bande nous a attaqué, ils ont mis le feu à toutes nos maisons.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : exit_shop_1
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = exit_shop_1
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Aide nous à éteindre nos maisons par pitié !
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : exit_shop_1
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 1
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+INFO AWT-EventQueue-0 gui.MainGUI - 📣 triggerDialogue() appelé avec eventKey = flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 📢 triggerDialogue() appelé avec eventKey = flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Dialogue trouvé, préparation de l'affichage pour : flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Oh non je viens de voir le chef de la horde emporter ton épouse ?!
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Il faut absolument que tu ailles la sauver ! Je crois que la horde campe dans la forêt interdite...
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Pour que tu puisses arriver avant eux, cherche dans les coffres du village.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Une pierre rouge magique te permettra de te téléporter là-bas...
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : flames_extinguished
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 2
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 3
+INFO AWT-EventQueue-0 data.player.Hero - 💥 Héros touché ! Vie restante : 90%
+INFO AWT-EventQueue-0 gui.MainGUI - 💰 Pièce ajoutée. Total = 4
+INFO AWT-EventQueue-0 control.GameController - 📦 Orbe récupéré, lancement de l'entrée dans HostileMap...
+INFO AWT-EventQueue-0 control.GameController - 🌋 GameController.enterHostileMap() appelé
+INFO AWT-EventQueue-0 gui.MainGUI - 📣 triggerDialogue() appelé avec eventKey = enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📢 triggerDialogue() appelé avec eventKey = enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Dialogue trouvé, préparation de l'affichage pour : enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Te voilà dans le royaume des Ténèbres ! Il est peuplé de monstres avides et féroces...
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Au nord-est, un refuge a été érigé par nos ancêtres pour survivre à la horde.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Trouve du bois sec, allume un feu et prépare-toi à combattre...
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : enter_hostile_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📣 triggerDialogue() appelé avec eventKey = campfire_lit
+INFO AWT-EventQueue-0 gui.MainGUI - 📢 triggerDialogue() appelé avec eventKey = campfire_lit
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Dialogue trouvé, préparation de l'affichage pour : campfire_lit
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = campfire_lit
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Bien joué ! Maintenant que tu es à l'abri, il va falloir tenter d'accéder au repère principal de la horde.
+WARN AWT-EventQueue-0 control.GameController - ❌ Aucun coffre à proximité.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec un PNJ ou un coffre tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - 👤 Interaction avec maison en feu tentée.
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : campfire_lit
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = campfire_lit
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Si tu regardes bien, il y a des symboles au sol : c'est un mécanisme pour te permettre de rentrer !
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : campfire_lit
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = campfire_lit
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Sors de l'abri et va activer ces dalles en marchant dessus mais défends-toi Ghaya, les monstres sont féroces.
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : campfire_lit
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 80%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 70%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 60%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 50%
+INFO AWT-EventQueue-0 gui.MainGUI - 📣 triggerDialogue() appelé avec eventKey = enter_combat_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📢 triggerDialogue() appelé avec eventKey = enter_combat_map
+INFO AWT-EventQueue-0 gui.MainGUI - 💬 Dialogue trouvé, préparation de l'affichage pour : enter_combat_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_combat_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Te voilà dans le repère de la horde... C'est sûrement ici qu'ils détiennent ta femme !
+DEBUG AWT-EventQueue-0 gui.MainGUI - ➡️ Dialogue avancé : enter_combat_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = enter_combat_map
+INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Attention, des vagues d'ennemis arrivent ! Défends-toi comme tu peux...
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : enter_combat_map
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 40%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 30%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 20%
+INFO Thread-0 data.item.Projectile - 🛠️ Projectile initialisé à Block [line=8, column=18] avec direction 'left'

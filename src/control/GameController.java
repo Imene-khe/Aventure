@@ -51,6 +51,11 @@ public class GameController {
     public void checkRuneActivation() {
         if (!(hostileMap instanceof HostileMap hMap)) return;
 
+        // ✅ On vérifie que MainGUI existe AVANT
+        if (gui.MainGUI.getInstance() == null) {
+            return;
+        }
+
         Block heroPos = hero.getPosition();
         ArrayList<Block> runeBlocks = hMap.getRuneBlocks();
         QuestManager qm = MainGUI.getInstance().getQuestManager();
@@ -95,7 +100,9 @@ public class GameController {
         movementController.moveHero(keyCode);
 
         if (!display.isInShop()) {
-            checkCoinCollection(gui);
+            if (gui != null) {
+                checkCoinCollection(gui); // ✅ Appelle seulement si gui n'est pas null
+            }
             checkEnemyCollision();
         }
 
@@ -105,6 +112,7 @@ public class GameController {
 
         display.repaint();
     }
+
 
 
     public void checkCoinCollection(MainGUI mainGUI) {

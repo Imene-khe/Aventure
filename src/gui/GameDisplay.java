@@ -66,7 +66,6 @@ public class GameDisplay extends JPanel {
 	        this.shopMap = new ShopMap(MAPS_WIDTH, MAPS_LENGTH);
 	        this.hostileMap = new HostileMap(MAPS_WIDTH, MAPS_LENGTH, 0); 
 	        this.combatMap = new CombatMap(MAPS_WIDTH, MAPS_LENGTH);
-	        this.hostileMap = new HostileMap(MAPS_WIDTH, MAPS_LENGTH, 0);
 
 	        this.hero = new Hero(map.getBlock(GRID_SIZE / 2, GRID_SIZE / 2), 100);
 	        this.tileset = new HashMap<>();
@@ -296,8 +295,12 @@ public class GameDisplay extends JPanel {
 
 	    this.hero.setPosition(combatMap.getArenaEntryPosition());
 
-	    MainGUI.getInstance().getQuestManager().clearQuests();
-	    MainGUI.getInstance().getQuestManager().loadCombatMapQuests();
+	    if (gui.MainGUI.getInstance() != null) { // ✅ Vérification ajoutée ici
+	        gui.MainGUI.getInstance().getQuestManager().clearQuests();
+	        gui.MainGUI.getInstance().getQuestManager().loadCombatMapQuests();
+	    } else {
+	        System.out.println("⚠️ Warning : MainGUI non disponible (mode test manuel).");
+	    }
 
 	    repaint();
 	    setFocusable(true);
