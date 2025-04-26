@@ -27,12 +27,22 @@ public class MovementController {
         int newCol = current.getColumn();
 
         switch (keyCode) {
-            case KeyEvent.VK_UP -> newLine--;
-            case KeyEvent.VK_DOWN -> newLine++;
-            case KeyEvent.VK_LEFT -> newCol--;
-            case KeyEvent.VK_RIGHT -> newCol++;
-            default -> { return; }
-        }
+        case KeyEvent.VK_UP:
+            newLine--;
+            break;
+        case KeyEvent.VK_DOWN:
+            newLine++;
+            break;
+        case KeyEvent.VK_LEFT:
+            newCol--;
+            break;
+        case KeyEvent.VK_RIGHT:
+            newCol++;
+            break;
+        default:
+            return;
+    }
+
 
         Map activeMap = display.getActiveMap();
         int blockSize = display.getBlockSize();
