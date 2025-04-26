@@ -47,10 +47,33 @@ public class MainGUI extends JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLayout(new BorderLayout());
 
+        initDashboard();
+        initSidePanel();
+        initBottomPanel();
+        initQuests();
+        
+        addKeyListener(new KeyControls());
+        updateDialoguePanel(currentDialogueEvent);
+
+        setFocusable(true);
+        setVisible(true);
+        dashboard.setFocusable(true);
+        dashboard.requestFocusInWindow();
+        logger.info("🖥️ Fenêtre affichée avec succès.");
+        requestFocusInWindow();
+    }
+
+    
+    public void initDashboard() {
         this.dashboard = new GameDisplay();
-        this.dashboard.addKeyListener(new KeyControls()); 
+        this.dashboard.addKeyListener(new KeyControls());
         logger.info("🎮 GameDisplay attaché au centre.");
+        add(dashboard, BorderLayout.CENTER);
+    }
+    
+    private void initSidePanel() {
         this.inventory = new InventoryManager();
+        
         sidePanel = new JPanel(new BorderLayout());
         sidePanel.setPreferredSize(new Dimension(250, getHeight()));
         sidePanel.setBackground(new Color(50, 50, 50));
@@ -68,8 +91,13 @@ public class MainGUI extends JFrame {
 
         sidePanel.add(characterImage, BorderLayout.NORTH);
         sidePanel.add(scrollPane, BorderLayout.CENTER);
-        logger.info("📐 Panneaux UI ajoutés à la fenêtre.");
 
+        add(sidePanel, BorderLayout.EAST);
+        logger.info("📐 SidePanel attaché.");
+    }
+
+    
+    private void initBottomPanel() {
         bottomPanel = new JPanel();
         bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
         bottomPanel.setPreferredSize(new Dimension(1000, 65));
@@ -78,13 +106,12 @@ public class MainGUI extends JFrame {
 
         JPanel leftBottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         leftBottomPanel.setOpaque(false);
-
         coinLabel = new JLabel("💰 Pièces : " + coinCount);
         coinLabel.setFont(new Font("Arial", Font.BOLD, 16));
         coinLabel.setForeground(Color.WHITE);
         leftBottomPanel.add(coinLabel);
-        logger.info("📐 Panneaux UI ajoutés à la fenêtre.");
-        leftBottomPanel.add(inventory); 
+        leftBottomPanel.add(inventory);
+        leftBottomPanel.setMaximumSize(new Dimension(800, 60));
 
         JPanel rightBottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         rightBottomPanel.setOpaque(false);
@@ -94,92 +121,55 @@ public class MainGUI extends JFrame {
         interactButton.setPreferredSize(new Dimension(120, 30));
         interactButton.addActionListener(e -> interactWithNPC());
         rightBottomPanel.add(interactButton);
-        
+
         JButton missionButton = new JButton("Mission");
         missionButton.setFont(new Font("Arial", Font.BOLD, 16));
         missionButton.setPreferredSize(new Dimension(120, 30));
-        missionButton.addActionListener(e -> {
-            StringBuilder message = new StringBuilder("📜 Missions en cours :\n\n");
-
-            for (Quest quest : questManager.getActiveQuests()) {
-                if (!quest.isCompleted()) {
-
-                    if ("Eteindre les flammes".equals(quest.getName())) {
-                    	Map map = MainGUI.getGameDisplay().getMap();
-                    	ArrayList<Flame> flames = map.getFlames(); 
-
-                        int totalFlames = flames.size();
-                        int extinguished = (int) flames.stream().filter(f -> !f.isActive()).count();
-
-                        quest.setRequiredAmount(totalFlames);
-                        quest.setCurrentAmount(extinguished);
-                    }
-
-                    message.append("• ").append(quest.getName())
-                           .append(" (").append(quest.getStatusText()).append(")\n")
-                           .append("  ➤ ").append(quest.getDescription()).append("\n")
-                           .append("  ➤ Progression : ").append(quest.getCurrentAmount())
-                           .append(" / ").append(quest.getRequiredAmount()).append("\n\n");
-                }
-            }
-
-            JOptionPane.showMessageDialog(this, message.toString(), "🎯 Objectifs", JOptionPane.INFORMATION_MESSAGE);
-            requestFocusInWindow();
-        });
-
-
-
+        missionButton.addActionListener(e -> showMissions());
         rightBottomPanel.add(missionButton);
+        rightBottomPanel.setMaximumSize(new Dimension(800, 60));
 
         bottomPanel.add(leftBottomPanel, BorderLayout.WEST);
         bottomPanel.add(rightBottomPanel, BorderLayout.EAST);
-        
-        leftBottomPanel.setMaximumSize(new Dimension(800, 60));
-        rightBottomPanel.setMaximumSize(new Dimension(800, 60));
 
-
-        add(dashboard, BorderLayout.CENTER);
-        add(sidePanel, BorderLayout.EAST);
         add(bottomPanel, BorderLayout.SOUTH);
-        
+        logger.info("📐 BottomPanel attaché.");
+    }
+
+    private void initQuests() {
         questManager.addQuest(new Quest("Collecte pour le marchand", "Récoltez 10 pièces d'or", Quest.TYPE_COLLECT, 10, 0));
-        int flameCount = dashboard.getMap().getFlames().size(); 
+        int flameCount = dashboard.getMap().getFlames().size();
         questManager.addQuest(new Quest("Eteindre les flammes", "Éteindre toutes les maisons en feu", Quest.TYPE_KILL, flameCount, 0));
         questManager.addQuest(new Quest("L'orbe sacré", "Trouvez l'orbe légendaire", Quest.TYPE_FIND, 1, 0));
+    }
 
+    private void showMissions() {
+        StringBuilder message = new StringBuilder("📜 Missions en cours :\n\n");
 
-        addKeyListener(new KeyControls());
-        updateDialoguePanel(currentDialogueEvent);
+        for (Quest quest : questManager.getActiveQuests()) {
+            if (!quest.isCompleted()) {
+                if ("Eteindre les flammes".equals(quest.getName())) {
+                    Map map = MainGUI.getGameDisplay().getMap();
+                    ArrayList<Flame> flames = map.getFlames();
+                    int totalFlames = flames.size();
+                    int extinguished = (int) flames.stream().filter(f -> !f.isActive()).count();
+                    quest.setRequiredAmount(totalFlames);
+                    quest.setCurrentAmount(extinguished);
+                }
 
-        setFocusable(true);
-        setVisible(true);
-        dashboard.setFocusable(true); 
-        dashboard.requestFocusInWindow();
-        logger.info("🖥️ Fenêtre affichée avec succès.");
+                message.append("• ").append(quest.getName())
+                       .append(" (").append(quest.getStatusText()).append(")\n")
+                       .append("  ➤ ").append(quest.getDescription()).append("\n")
+                       .append("  ➤ Progression : ").append(quest.getCurrentAmount())
+                       .append(" / ").append(quest.getRequiredAmount()).append("\n\n");
+            }
+        }
+
+        JOptionPane.showMessageDialog(this, message.toString(), "🎯 Objectifs", JOptionPane.INFORMATION_MESSAGE);
         requestFocusInWindow();
-        
-
     }
 
 
-
-    public QuestManager getQuestManager() {
-		return questManager;
-	}
-
-
-
-	public void setQuestManager(QuestManager questManager) {
-		this.questManager = questManager;
-	}
-	
-	public static MainGUI getInstance() {
-	    return instance;
-	}
-	
-	public static GameDisplay getGameDisplay() {
-        return instance != null ? instance.dashboard : null;
-    }
 
     public void advanceDialogue() {
         if (dialogueManager.hasNext(currentDialogueEvent)) {
@@ -211,9 +201,6 @@ public class MainGUI extends JFrame {
         updateDialoguePanel(eventKey);
     }
 
-
-
-    
     public void interactWithMerchant() {
         if (coinCount < 10) {
             JOptionPane.showMessageDialog(this, "💬 Il te faut 10 pièces pour entrer dans la boutique !");
@@ -261,20 +248,12 @@ public class MainGUI extends JFrame {
         SwingUtilities.invokeLater(() -> verticalBar.setValue(verticalBar.getMaximum()));
     }
 
-
-
-
     public void moveHero(int keyCode) {
         if (dialogueActive) return; 
 
         dashboard.getController().moveHero(keyCode, this); 
     }
 
-
-
-    /**
-     * ✅ Vérifie l’interaction avec un coffre ou l’entrée du shop.
-     */
     public void interactWithNPC() {
         if (!dashboard.getController().tryInteractWithNPC(this)) {
             dashboard.getController().tryOpenChest(this);
@@ -322,22 +301,14 @@ public class MainGUI extends JFrame {
         }
     }
 
-    public int getCoinCount() {
-        return coinCount;
-    }
-
-    public InventoryManager getInventoryManager() {
-        return inventory;
-    }
+   
     
     public void requestFocusOnGame() {
         dashboard.setFocusable(true);
         dashboard.requestFocusInWindow(); 
     }
     
-    public void setDialogueActive(boolean active) {
-        this.dialogueActive = active;
-    }
+   
 
     
     private class KeyControls implements KeyListener {
@@ -367,6 +338,21 @@ public class MainGUI extends JFrame {
         public void keyReleased(KeyEvent e) {}
     }
 
+    
+    
+    
+    public int getCoinCount() {
+        return coinCount;
+    }
+
+    public InventoryManager getInventoryManager() {
+        return inventory;
+    }
+    
+    public void setDialogueActive(boolean active) {
+        this.dialogueActive = active;
+    }
+    
     public boolean hasEnoughCoinsForShop() {
         return coinCount >= 10;
     }
@@ -389,6 +375,39 @@ public class MainGUI extends JFrame {
 		return dialogueActive;
 	}
 
+    public QuestManager getQuestManager() {
+		return questManager;
+	}
+
+	public void setQuestManager(QuestManager questManager) {
+		this.questManager = questManager;
+	}
+	
+	public static MainGUI getInstance() {
+	    return instance;
+	}
+	
+	public static GameDisplay getGameDisplay() {
+        return instance != null ? instance.dashboard : null;
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public static void main(String[] args) {
     	
         SwingUtilities.invokeLater(MainGUI::new);

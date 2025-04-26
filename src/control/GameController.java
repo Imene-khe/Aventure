@@ -19,16 +19,10 @@ import gui.MainGUI;
 import gui.StartScreen;
 import gui.animation.EndCreditsPanel;
 import log.LoggerUtility;
-
 import org.apache.log4j.Logger;
-
 import javax.swing.*;
-
-import java.awt.Image;
 import java.awt.Point;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class GameController {
 
@@ -37,6 +31,7 @@ public class GameController {
     private final Hero hero;
     private Map map;
     private Map hostileMap;
+    MovementController movementController;
     private boolean canTakeDamage = true;
 	private CombatController combatController;
     private ArrayList<Block> activatedRunes = new ArrayList<>();
@@ -49,46 +44,10 @@ public class GameController {
         this.map = display.getMap();
         display.getShopMap();
         this.hostileMap = display.getHostileMap(); 
-        this.combatController = new CombatController(display, this); 
-
-   
-
+        this.combatController = new CombatController(display, this);
+        this.movementController = new MovementController(this.hero, this.display);
     }
 
-
-    public void moveHero(int keyCode, MainGUI gui) {
-        Block current = hero.getPosition();
-        int newLine = current.getLine();
-        int newCol = current.getColumn();
-
-        switch (keyCode) {
-            case KeyEvent.VK_UP -> newLine--;
-            case KeyEvent.VK_DOWN -> newLine++;
-            case KeyEvent.VK_LEFT -> newCol--;
-            case KeyEvent.VK_RIGHT -> newCol++;
-            default -> { return; }
-        }
-
-        Map activeMap = display.getActiveMap();
-
-        int blockSize = display.getBlockSize();
-        int visibleHeight = display.getHeight();
-        int maxVisibleLines = visibleHeight / blockSize;
-
-        if (newLine < 0 || newCol < 0 ||
-            newLine >= Math.min(activeMap.getLineCount(), maxVisibleLines) ||
-            newCol >= activeMap.getColumnCount()) {
-            return;
-        }
-
-        Block newBlock = activeMap.getBlock(newLine, newCol);
-        moveHero(newBlock, gui);
-        
-        if (display.isInHostileMap()) {
-            checkRuneActivation();
-        }
-    }
-    
     public void checkRuneActivation() {
         if (!(hostileMap instanceof HostileMap hMap)) return;
 
@@ -113,9 +72,6 @@ public class GameController {
         }
     }
 
-
-
-
     public void moveHero(Block newPosition, MainGUI mainGUI) {
         if (display.isGameOver()) return;
 
@@ -132,6 +88,24 @@ public class GameController {
 
         display.repaint();
     }
+    
+    public void moveHero(int keyCode, MainGUI gui) {
+        if (display.isGameOver()) return;
+
+        movementController.moveHero(keyCode);
+
+        if (!display.isInShop()) {
+            checkCoinCollection(gui);
+            checkEnemyCollision();
+        }
+
+        if (display.isInHostileMap()) {
+            checkRuneActivation();
+        }
+
+        display.repaint();
+    }
+
 
     public void checkCoinCollection(MainGUI mainGUI) {
     	Map activeMap = display.getActiveMap();
@@ -513,88 +487,7 @@ public class GameController {
         }
     }
     
-    
 
-    public boolean isAdjacent(Block a, Block b) {
-        int dx = Math.abs(a.getLine() - b.getLine());
-        int dy = Math.abs(a.getColumn() - b.getColumn());
-        return (dx + dy) == 1;
-    }
-    
-    
-    public void moveEnemiesTowardsHero() {
-        if (!display.isInHostileMap() && !display.isInCombatMap()) return;
-
-        Block heroPos = hero.getPosition();
-        ArrayList<Block> occupiedBlocks = new ArrayList<>();
-
-        Map activeMap = display.getActiveMap();
-
-        if (activeMap instanceof HostileMap hMap) {
-            int safeCenterLine = 4;
-            int safeCenterCol = hMap.getColumnCount() - 6;
-            int safeRadius = 2;
-
-            for (Antagonist enemy : hMap.getAntagonistList()) {
-                occupiedBlocks.add(enemy.getPosition());
-            }
-
-            for (Antagonist enemy : hMap.getAntagonistList()) {
-                Block current = enemy.getPosition();
-                int dx = Math.abs(current.getLine() - safeCenterLine);
-                int dy = Math.abs(current.getColumn() - safeCenterCol);
-                if ((dx + dy) <= safeRadius) continue;
-
-                Block nextBlock = computeNextEnemyBlock(enemy, heroPos, hMap, occupiedBlocks);
-                if (!nextBlock.equals(current)) {
-                    enemy.setPosition(nextBlock);
-                    occupiedBlocks.add(nextBlock);
-                }
-            }
-
-        } else if (activeMap instanceof CombatMap cMap) {
-            for (Antagonist enemy : cMap.getAntagonists()) {
-                occupiedBlocks.add(enemy.getPosition());
-            }
-
-            for (Antagonist enemy : cMap.getAntagonists()) {
-                Block current = enemy.getPosition();
-                Block nextBlock = computeNextEnemyBlock(enemy, heroPos, cMap, occupiedBlocks);
-                if (!nextBlock.equals(current)) {
-                    enemy.setPosition(nextBlock);
-                    occupiedBlocks.add(nextBlock);
-                }
-            }
-        }
-
-        checkEnemyCollision();
-        display.repaint();
-    }
-
-
-
-
-
-    public Block computeNextEnemyBlock(Antagonist enemy, Block heroPos, Map map, ArrayList<Block> occupied) {
-        Block current = enemy.getPosition();
-        int dLine = heroPos.getLine() - current.getLine();
-        int dCol = heroPos.getColumn() - current.getColumn();
-        int nextLine = current.getLine();
-        int nextCol = current.getColumn();
-
-        if (Math.abs(dLine) > Math.abs(dCol)) {
-            nextLine += Integer.compare(dLine, 0);
-        } else if (dCol != 0) {
-            nextCol += Integer.compare(dCol, 0);
-        }
-
-        Block nextBlock = map.getBlock(nextLine, nextCol);
-        if (!map.isBlocked(nextBlock) && !occupied.contains(nextBlock)) {
-            return nextBlock;
-        }
-
-        return current; 
-    }
     
     public void setupHostileQuests() {
         QuestManager questManager = MainGUI.getInstance().getQuestManager();
@@ -661,7 +554,14 @@ public class GameController {
         javax.swing.JOptionPane.showMessageDialog(display, "☠️ GAME OVER ! Le héros est mort.");
         System.exit(0);
     }
-
+    
+    public void moveEnemiesTowardsHero() {
+        movementController.moveEnemiesTowardsHero();
+    }
+    
+    public boolean isAdjacent(Block a, Block b) {
+        return movementController.isAdjacent(a, b);
+    }
 
     public void handleCombatClick(Point clickPoint) {
         if (combatController != null) {

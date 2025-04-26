@@ -22,10 +22,6 @@ import data.map.Map;
 import data.map.ShopMap;
 import data.player.EnemyImageManager;
 import data.player.Hero;
-import data.quest.Quest;
-import generator.CombatMapGenerator;
-import generator.HostileMapGenerator;
-import generator.ShopMapGenerator;
 import gui.animation.SpriteAnimator;
 import viewstrategy.PaintStrategy;
 
@@ -39,16 +35,16 @@ public class GameDisplay extends JPanel {
     private static final long serialVersionUID = 1L;
     private static final int GRID_SIZE = 35; 
     private static final int MAPS_LENGTH = 40; 
-    private static final int MAPS_WIDTH = 22;  static int BLOCK_SIZE = 32; // Taille inchangée
-    private Map map; // Instance de la carte du jeu
+    private static final int MAPS_WIDTH = 22;  static int BLOCK_SIZE = 32; 
+    private Map map; 
     private ShopMap shopMap;
     private HostileMap hostileMap;
     private CombatMap combatMap;
-	private Hero hero; // Instance du héros
-    private EnemyImageManager enemyImageManager; // Gestionnaire des images des ennemis
-    private HashMap<String, Image> tileset; // Dictionnaire des images de terrain et objets
-    private boolean isGameOver = false; //  Empêche l'affichage multiple du message de Game Over
-    private boolean isInShop = false; //  Indique si on est dans la boutique
+	private Hero hero; 
+    private EnemyImageManager enemyImageManager; 
+    private HashMap<String, Image> tileset; 
+    private boolean isGameOver = false; 
+    private boolean isInShop = false; 
     private boolean isInHostileMap = false;
     private boolean isInCombatMap = false;
     private SpriteAnimator flameAnimator;
@@ -56,7 +52,7 @@ public class GameDisplay extends JPanel {
     private PaintStrategy paintStrategy = new DefaultPaintStrategy();
     private GameController controller;
     private HashMap<String, Image> hostileTileset;
-    private HashMap<String, Image> combatTileset; // Dictionnaire des images de terrain et objets
+    private HashMap<String, Image> combatTileset; 
 
 
 	/**
@@ -117,51 +113,7 @@ public class GameDisplay extends JPanel {
 	    this.addMouseListener(new MouseControls());
 	}
  
-    public Map getMap() {
-		return map;
-	}
-    @Override
-    public java.awt.Dimension getPreferredSize() {
-        return new java.awt.Dimension(750, 740); // Ajustement fixe
-    }
-
-
-
-    public int getBlockSize() {
-        return BLOCK_SIZE;
-    }
-
-	public void setMap(Map map) {
-		this.map = map;
-	}
-
-	public Hero getHero() {
-		return hero;
-	}
-
-	public void setHero(Hero hero) {
-		this.hero = hero;
-	}
-
-	public EnemyImageManager getEnemyImageManager() {
-		return enemyImageManager;
-	}
-
-	public void setEnemyImageManager(EnemyImageManager enemyImageManager) {
-		this.enemyImageManager = enemyImageManager;
-	}
-
-	public HashMap<String, Image> getTileset() {
-		return tileset;
-	}
-
-	public void setTileset(HashMap<String, Image> tileset) {
-		this.tileset = tileset;
-	}
-	
-	public ShopMap getShopMap() {
-	    return shopMap;
-	}
+   
 
 
 	public void loadImages() {
@@ -297,46 +249,7 @@ public class GameDisplay extends JPanel {
 	    paintStrategy.paintHero(hero, g, this);
 	}
 
-	public CombatMap getCombatMap() {
-		return combatMap;
-	}
 	
-	public void setCombatMap(CombatMap combatMap) {
-		this.combatMap = combatMap;
-	}
-	
-	public HashMap<String, Image> getCombatTileset() {
-		return combatTileset;
-	}
-
-	public void setCombatTileset(HashMap<String, Image> combatTileset) {
-		this.combatTileset = combatTileset;
-	}
-
-	public boolean isGameOver() {
-		return isGameOver;
-	}
-
-	public void setGameOver(boolean isGameOver) {
-		this.isGameOver = isGameOver;
-	}
-    /**
-     * Dessine la barre de vie du héros.
-     * @param g L'objet Graphics utilisé pour dessiner la barre de vie
-     */
-    public void drawHealthBar(Graphics g) {
-        int maxHealth = 100;
-        int currentHealth = hero.getHealth();
-
-        g.setColor(java.awt.Color.RED);
-        g.fillRect(10, 10, 200, 20);
-        g.setColor(java.awt.Color.GREEN);
-        g.fillRect(10, 10, (currentHealth * 200) / maxHealth, 20);
-        g.setColor(java.awt.Color.BLACK);
-        g.drawRect(10, 10, 200, 20);
-        g.drawString("Vie : " + currentHealth + "%", 90, 25);
-    }
-
     /**
      * ✅ Active l'affichage de `shopMap`
      */
@@ -346,9 +259,6 @@ public class GameDisplay extends JPanel {
         repaint(); 
     }
 
-   
-    
-    
     public void returnToMainMap(Block exitBlock) {
         isInShop = false;
         isInHostileMap = false;
@@ -364,47 +274,6 @@ public class GameDisplay extends JPanel {
     }
 
     
-    public Block findAdjacentFreeBlock(Block center, Map map) {
-        int line = center.getLine();
-        int col = center.getColumn();
-
-        for (int dl = -1; dl <= 1; dl++) {
-            for (int dc = -1; dc <= 1; dc++) {
-                if (dl == 0 && dc == 0) continue;
-                int newLine = line + dl;
-                int newCol = col + dc;
-
-                if (newLine >= 0 && newCol >= 0 &&
-                    newLine < map.getLineCount() &&
-                    newCol < map.getColumnCount()) {
-
-                    Block adj = map.getBlock(newLine, newCol);
-                    if (!map.isBlocked(adj)) {
-                        return adj;
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
-
-    
-    public SpriteAnimator getFlameAnimator() {
-        return flameAnimator;
-    }
-    
-    public SpriteAnimator getCoinAnimator() {
-        return coinAnimator;
-    }
-    
-    public GameController getController() {
-		return controller;
-	}
-
-	public void setController(GameController controller) {
-		this.controller = controller;
-	}
 	
 	public void enterHostileMap() {
 	    this.isInHostileMap = true;
@@ -435,6 +304,17 @@ public class GameDisplay extends JPanel {
 	    requestFocusInWindow();
 	}
 
+	private class MouseControls extends MouseAdapter {
+	    @Override
+	    public void mouseClicked(MouseEvent e) {
+	        if (SwingUtilities.isLeftMouseButton(e)) {
+	            if (controller != null && controller.getCombatController() != null) {
+	                System.out.println("🖱️ Clic détecté !");
+	                controller.getCombatController().handleClick(e.getPoint());
+	            }
+	        }
+	    }
+	}
 	
 	public Map getActiveMap() {
 	    if (isInCombatMap) return combatMap;
@@ -456,17 +336,86 @@ public class GameDisplay extends JPanel {
 	    return isInHostileMap;
 	}
 	
-	private class MouseControls extends MouseAdapter {
-	    @Override
-	    public void mouseClicked(MouseEvent e) {
-	        if (SwingUtilities.isLeftMouseButton(e)) {
-	            if (controller != null && controller.getCombatController() != null) {
-	                System.out.println("🖱️ Clic détecté !");
-	                controller.getCombatController().handleClick(e.getPoint());
-	            }
-	        }
-	    }
+	public CombatMap getCombatMap() {
+		return combatMap;
 	}
+	
+	public void setCombatMap(CombatMap combatMap) {
+		this.combatMap = combatMap;
+	}
+	
+	public HashMap<String, Image> getCombatTileset() {
+		return combatTileset;
+	}
+
+	public void setCombatTileset(HashMap<String, Image> combatTileset) {
+		this.combatTileset = combatTileset;
+	}
+
+	public boolean isGameOver() {
+		return isGameOver;
+	}
+
+	public void setGameOver(boolean isGameOver) {
+		this.isGameOver = isGameOver;
+	}
+	
+	 public Map getMap() {
+			return map;
+		}
+	   
+	    public int getBlockSize() {
+	        return BLOCK_SIZE;
+	    }
+
+		public void setMap(Map map) {
+			this.map = map;
+		}
+
+		public Hero getHero() {
+			return hero;
+		}
+
+		public void setHero(Hero hero) {
+			this.hero = hero;
+		}
+
+		public EnemyImageManager getEnemyImageManager() {
+			return enemyImageManager;
+		}
+
+		public void setEnemyImageManager(EnemyImageManager enemyImageManager) {
+			this.enemyImageManager = enemyImageManager;
+		}
+
+		public HashMap<String, Image> getTileset() {
+			return tileset;
+		}
+
+		public void setTileset(HashMap<String, Image> tileset) {
+			this.tileset = tileset;
+		}
+		
+		public ShopMap getShopMap() {
+		    return shopMap;
+		}
+    
+    
+		public SpriteAnimator getFlameAnimator() {
+	        return flameAnimator;
+	    }
+	    
+	    public SpriteAnimator getCoinAnimator() {
+	        return coinAnimator;
+	    }
+	    
+	    public GameController getController() {
+			return controller;
+		}
+
+		public void setController(GameController controller) {
+			this.controller = controller;
+		}
 	
     public boolean isInShop() {
 		return isInShop;

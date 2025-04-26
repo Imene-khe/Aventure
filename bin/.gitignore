@@ -1,4 +1,7 @@
+/control/
 /data/
 /generator/
-/control/
 /gui/
+/log/
+/module-info.class
+/viewstrategy/
