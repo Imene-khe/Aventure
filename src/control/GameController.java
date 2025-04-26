@@ -30,7 +30,7 @@ public class GameController {
 	private final GameDisplay display;
     private final Hero hero;
     private Map map;
-    private Map hostileMap;
+    private HostileMap hostileMap;
     MovementController movementController;
     private boolean canTakeDamage = true;
 	private CombatController combatController;
@@ -49,21 +49,20 @@ public class GameController {
     }
 
     public void checkRuneActivation() {
-        if (!(hostileMap instanceof HostileMap hMap)) return;
-
-        if (gui.MainGUI.getInstance() == null) {
+        if (hostileMap == null) {
             return;
         }
 
         Block heroPos = hero.getPosition();
-        ArrayList<Block> runeBlocks = hMap.getRuneBlocks();
+        ArrayList<Block> runeBlocks = hostileMap.getRuneBlocks();
         QuestManager qm = MainGUI.getInstance().getQuestManager();
 
         for (Block rune : runeBlocks) {
             if (rune.equals(heroPos) && !activatedRunes.contains(rune)) {
                 activatedRunes.add(rune);
                 qm.updateQuest("Activer les runes", 1);
-               logger.info("Rune activée sur " + rune);
+                logger.info("Rune activée sur " + rune);
+
                 Quest runeQuest = qm.getActiveQuests().stream()
                     .filter(q -> q.getName().equals("Activer les runes"))
                     .findFirst().orElse(null);
@@ -75,6 +74,8 @@ public class GameController {
             }
         }
     }
+
+
 
     public void moveHero(Block newPosition, MainGUI mainGUI) {
         if (display.isGameOver()) return;
@@ -190,29 +191,21 @@ public class GameController {
         Block heroPos = hero.getPosition();
         Map activeMap = display.getActiveMap();
 
-        if (activeMap instanceof HostileMap hMap) {
-            for (Antagonist enemy : hMap.getAntagonistList()) {
-                if (enemy.getPosition().equals(heroPos)) {
-                    applyHeroDamage();
-                    return;
-                }
+        for (Antagonist enemy : activeMap.getMobileAntagonists()) {
+            if (enemy.getPosition().equals(heroPos)) {
+                applyHeroDamage();
+                return;
             }
-        } else if (activeMap instanceof CombatMap cMap) {
-            for (Antagonist enemy : cMap.getAntagonists()) {
-                if (enemy.getPosition().equals(heroPos)) {
-                    applyHeroDamage();
-                    return;
-                }
-            }
-        } else {
-            for (Block enemyBlock : activeMap.getEnemies().keySet()) {
-                if (enemyBlock.equals(heroPos)) {
-                    applyHeroDamage();
-                    return;
-                }
+        }
+
+        for (Block enemyBlock : activeMap.getEnemies().keySet()) {
+            if (enemyBlock.equals(heroPos)) {
+                applyHeroDamage();
+                return;
             }
         }
     }
+
     
     public void setCanTakeDamage(boolean value) {
         this.canTakeDamage = value;
@@ -610,33 +603,39 @@ public class GameController {
 	}
 	
 	public void bossSpecialAttack() {
-        Map activeMap = display.getActiveMap();
+	    Map activeMap = display.getActiveMap();
 
-        if (!(activeMap instanceof CombatMap cMap)) return;
+	    if (!(activeMap.getMobileAntagonists() instanceof ArrayList)) return;
 
-        Block heroPos = hero.getPosition();
+	    Block heroPos = hero.getPosition();
 
-        for (Antagonist enemy : cMap.getAntagonists()) {
-            if (enemy.getType().equals("boss")) {
-                Block bossPos = enemy.getPosition();
+	    for (Antagonist enemy : activeMap.getMobileAntagonists()) {
+	        if ("boss".equals(enemy.getType())) {
+	            Block bossPos = enemy.getPosition();
 
-                int dx = Integer.compare(heroPos.getColumn(), bossPos.getColumn());
-                int dy = Integer.compare(heroPos.getLine(), bossPos.getLine());
+	            int dx = Integer.compare(heroPos.getColumn(), bossPos.getColumn());
+	            int dy = Integer.compare(heroPos.getLine(), bossPos.getLine());
 
-                Projectile p = new Projectile(bossPos, dx, dy);
-                cMap.getProjectiles().add(p);
-            }
-        }
-    }
+	            if (activeMap instanceof CombatMap) {
+	                CombatMap cMap = (CombatMap) activeMap;
+	                Projectile p = new Projectile(bossPos, dx, dy);
+	                cMap.getProjectiles().add(p);
+	            }
+	        }
+	    }
+	}
+
 	
 	public void updateProjectiles() {
 	    Map activeMap = display.getActiveMap();
 
-	    if (!(activeMap instanceof CombatMap cMap)) return;
+	    if (!(activeMap instanceof CombatMap)) return;
+
+	    CombatMap combatMap = (CombatMap) activeMap;
 
 	    ArrayList<Projectile> toRemove = new ArrayList<>();
-	    for (Projectile p : cMap.getProjectiles()) {
-	        p.move(cMap);
+	    for (Projectile p : combatMap.getProjectiles()) {
+	        p.move(combatMap);
 	        if (!p.isActive()) {
 	            toRemove.add(p);
 	            continue;
@@ -649,8 +648,9 @@ public class GameController {
 	        }
 	    }
 
-	    cMap.getProjectiles().removeAll(toRemove);
+	    combatMap.getProjectiles().removeAll(toRemove);
 	}
+
 
 
 	

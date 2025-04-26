@@ -316,7 +316,7 @@ public class GameDisplay extends JPanel {
 	    return map;
 	}
 
-	public Map getHostileMap() {
+	public HostileMap getHostileMap() {
 		return hostileMap;
 	}
 

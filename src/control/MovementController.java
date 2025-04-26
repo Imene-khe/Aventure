@@ -43,7 +43,6 @@ public class MovementController {
             return;
     }
 
-
         Map activeMap = display.getActiveMap();
         int blockSize = display.getBlockSize();
         int visibleHeight = display.getHeight();
@@ -79,7 +78,8 @@ public class MovementController {
         ArrayList<Block> occupiedBlocks = new ArrayList<>();
         Map activeMap = display.getActiveMap();
 
-        if (activeMap instanceof HostileMap hMap) {
+        if (activeMap instanceof HostileMap) {
+            HostileMap hMap = (HostileMap) activeMap;
             int safeCenterLine = 4;
             int safeCenterCol = hMap.getColumnCount() - 6;
             int safeRadius = 2;
@@ -101,7 +101,9 @@ public class MovementController {
                 }
             }
 
-        } else if (activeMap instanceof CombatMap cMap) {
+        } else if (activeMap instanceof CombatMap) {
+            CombatMap cMap = (CombatMap) activeMap;
+
             for (Antagonist enemy : cMap.getAntagonists()) {
                 occupiedBlocks.add(enemy.getPosition());
             }
@@ -118,6 +120,7 @@ public class MovementController {
 
         display.repaint();
     }
+
 
     public Block computeNextEnemyBlock(Antagonist enemy, Block heroPos, Map map, ArrayList<Block> occupied) {
         Block current = enemy.getPosition();

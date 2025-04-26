@@ -38,16 +38,9 @@ public class CombatController {
     public void handleClick(Point mousePoint) {
         Block heroBlock = hero.getPosition();
         Map activeMap = display.getActiveMap();
-        ArrayList<Antagonist> enemies;
+        ArrayList<Antagonist> enemies = activeMap.getMobileAntagonists(); // ✅ Utilisation méthode propre
 
-        boolean isCombatMap = false;
-
-        if (activeMap instanceof CombatMap cMap) {
-            enemies = cMap.getAntagonists();
-            isCombatMap = true;
-        } else if (activeMap instanceof HostileMap hMap) {
-            enemies = hMap.getAntagonistList();
-        } else {
+        if (enemies.isEmpty()) {
             return;
         }
 
@@ -64,35 +57,28 @@ public class CombatController {
                 if (enemy.isDead()) {
                     MainGUI.getInstance().getQuestManager().updateQuest("Chasseur de têtes", 1);
 
-                    if ("boss".equals(enemy.getType()) && activeMap instanceof CombatMap combatMap) {
-                        it.remove(); 
-                        CombatMapGenerator.revealFinaleZone(combatMap);
-                        display.repaint(); 
-
+                    if ("boss".equals(enemy.getType()) && activeMap.supportsFinalZoneReveal()) { // ✅ Map fournit l'info
+                        activeMap.revealFinalZone();
+                        it.remove();
+                        display.repaint();
                         javax.swing.JOptionPane.showMessageDialog(display, "🏁 Un pont s'est ouvert... Va sauver ta femme !");
                     } else {
                         it.remove();
                     }
                     enemyKilled = true;
-
                 }
-
-
-                break; 
+                break;
             }
         }
 
-        if (enemyKilled && isCombatMap) {
-            CombatMap cMap = (CombatMap) activeMap;
-
-            if (cMap.areAllEnemiesDead()) {
-            	logger.info("Tous les ennemis de la vague sont morts !");
-            	loadNextWave(); 
-            }
+        if (enemyKilled && activeMap.supportsWaves() && activeMap.areAllEnemiesDead()) {
+            logger.info("Tous les ennemis de la vague sont morts !");
+            loadNextWave();
         }
 
-        display.repaint(); 
+        display.repaint();
     }
+
 
     public void attack(Block targetBlock) {
         for (Antagonist enemy : hostileMap.getAntagonistList()) {
@@ -116,37 +102,49 @@ public class CombatController {
     
     public void loadFirstWaveIfNeeded() {
         Map activeMap = gameController.getDisplay().getActiveMap();
-        if (activeMap instanceof CombatMap combatMap) {
-            if (waveManager == null) {
-                int arenaLine = combatMap.getCenterStartLine();
-                int arenaCol = combatMap.getCenterStartCol();
-                waveManager = new WaveManager(display.getEnemyImageManager(), arenaLine, arenaCol);
-                waveManager.setCombatMap(combatMap);
-                waveManager.setGameController(gameController);
-                waveManager.setQuestManager(MainGUI.getInstance().getQuestManager()); 
-            }
-            combatMap.clearAntagonists();
-            combatMap.setAntagonists(new ArrayList<>(waveManager.getCurrentWaveEnemies()));
-            logger.info("🌀 Première vague d'ennemis chargée : " + combatMap.getAntagonists().size() + " ennemis");
+
+        if (!activeMap.supportsWaves()) {
+            return;
         }
+
+        CombatMap combatMap = (CombatMap) activeMap;
+
+        if (waveManager == null) {
+            int arenaLine = combatMap.getCenterStartLine();
+            int arenaCol = combatMap.getCenterStartCol();
+            waveManager = new WaveManager(display.getEnemyImageManager(), arenaLine, arenaCol);
+            waveManager.setCombatMap(combatMap);
+            waveManager.setGameController(gameController);
+            waveManager.setQuestManager(MainGUI.getInstance().getQuestManager());
+        }
+
+        combatMap.clearAntagonists();
+        combatMap.setAntagonists(new ArrayList<>(waveManager.getCurrentWaveEnemies()));
+        logger.info("Première vague d'ennemis chargée : " + combatMap.getAntagonists().size() + " ennemis");
     }
+
 
 
     public void loadNextWave() {
-        waveManager.updateWave(); 
+        waveManager.updateWave();
 
         if (!waveManager.isLevelFinished()) {
             Map activeMap = gameController.getDisplay().getActiveMap();
-            if (activeMap instanceof CombatMap combatMap) {
-                combatMap.clearAntagonists();	
-                logger.debug("📊 currentWave = " + waveManager.getCurrentWaveNumber());
-                combatMap.setAntagonists(new ArrayList<>(waveManager.getCurrentWaveEnemies()));
-                logger.info("🌀 Nouvelle vague chargée : " + combatMap.getAntagonists().size() + " ennemis");
+
+            if (!activeMap.supportsWaves()) {
+                return;
             }
+
+            CombatMap combatMap = (CombatMap) activeMap;
+            combatMap.clearAntagonists();
+            logger.debug("currentWave = " + waveManager.getCurrentWaveNumber());
+            combatMap.setAntagonists(new ArrayList<>(waveManager.getCurrentWaveEnemies()));
+            logger.info("Nouvelle vague chargée : " + combatMap.getAntagonists().size() + " ennemis");
         } else {
-        	logger.info("✅ Toutes les vagues sont terminées !");
+            logger.info("Toutes les vagues sont terminées !");
         }
     }
+
     public HostileMap getHostileMap() {
 		return hostileMap;
 	}

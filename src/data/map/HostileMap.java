@@ -28,6 +28,15 @@ public class HostileMap extends Map {
         HostileMapGenerator.generateSymbols(this);
     }
 
+    public void setRuneBlocks(ArrayList<Block> runeBlocks) {
+		this.runeBlocks = runeBlocks;
+	}
+
+	@Override
+    public boolean isShelterBlock(Block block) {
+        return shelterBlocks.contains(block);
+    }
+
     public ArrayList<Block> getRuneBlocks() {
         return runeBlocks;
     }
@@ -47,8 +56,15 @@ public class HostileMap extends Map {
     public Block getCaveEntry() {
         return caveEntry;
     }
+    @Override
+    public ArrayList<Antagonist> getMobileAntagonists() {
+        return antagonistList;
+    }
+
     
     public void setCaveEntry(Block caveEntry) {
         this.caveEntry = caveEntry;
     }
+    
+
 }

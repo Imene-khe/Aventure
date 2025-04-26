@@ -12,6 +12,7 @@ import data.item.Flame;
 import data.item.chest.Chest;
 import data.item.chest.ChestFactory;
 import data.item.chest.ChestManager;
+import data.player.Antagonist;
 import log.LoggerUtility;
 
 public class Map {
@@ -339,9 +340,35 @@ public class Map {
     public ArrayList<Flame> getFlames() {
 		return flames;
 	}
+    public ArrayList<Antagonist> getMobileAntagonists() {
+        return new ArrayList<>();
+    }
 
 	public void setFlames(ArrayList<data.item.Flame> flames) {
 		this.flames = flames;
 	}
+	
+	public boolean isShelterBlock(Block block) {
+	    return false; 
+	}
+	
+
+	public boolean supportsFinalZoneReveal() {
+	    return false;
+	}
+
+	public void revealFinalZone() {
+	    // par défaut, rien
+	}
+
+	public boolean supportsWaves() {
+	    return false;
+	}
+
+	public boolean areAllEnemiesDead() {
+	    return false;
+	}
+
+
 
 }

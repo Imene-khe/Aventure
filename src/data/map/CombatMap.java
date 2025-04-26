@@ -110,4 +110,25 @@ public class CombatMap extends Map {
 	public void setProjectiles(ArrayList<Projectile> projectiles) {
 		this.projectiles = projectiles;
 	}
+	
+	@Override
+	public ArrayList<Antagonist> getMobileAntagonists() {
+	    return antagonists;
+	}
+	
+	@Override
+	public boolean supportsFinalZoneReveal() {
+	    return true;
+	}
+
+	@Override
+	public void revealFinalZone() {
+	    CombatMapGenerator.revealFinaleZone(this);
+	}
+
+	@Override
+	public boolean supportsWaves() {
+	    return true;
+	}
+
 }

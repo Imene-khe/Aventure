@@ -60,13 +60,14 @@ public class Antagonist extends Person {
 
         Block nextBlock = map.getBlock(nextLine, nextCol);
 
-        if (map instanceof HostileMap hostileMap && hostileMap.getShelterBlocks().contains(nextBlock)) {
+        if (map.isShelterBlock(nextBlock)) {
             return;
         }
 
         if (!map.isBlocked(nextBlock)) {
             setPosition(nextBlock);
         }
+
     }
     
     public String getType() {

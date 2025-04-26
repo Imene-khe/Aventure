@@ -246,9 +246,12 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	public void paintMobileAntagonists(Map map, Graphics g, GameDisplay display) {
 	    int size = display.getBlockSize();
 	    ArrayList<Antagonist> enemies = new ArrayList<>();
-	    if (map instanceof HostileMap hMap) {
+
+	    if (map instanceof HostileMap) {
+	        HostileMap hMap = (HostileMap) map;
 	        enemies = hMap.getAntagonistList();
-	    } else if (map instanceof CombatMap cMap) {
+	    } else if (map instanceof CombatMap) {
+	        CombatMap cMap = (CombatMap) map;
 	        enemies = cMap.getAntagonists();
 	    }
 
@@ -263,15 +266,16 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	                paintEnemyHealthBar(g, enemy);
 	            }
 	        } else {
-	        	logger.warn("⚠ Image manquante pour ennemi mobile de type '" + enemy.getType() + "' à " + enemy.getPosition());
+	            logger.warn("Image manquante pour ennemi mobile de type '" + enemy.getType() + "' à " + enemy.getPosition());
 	        }
 	    }
 
-
-	    if (map instanceof CombatMap cMap) {
+	    if (map instanceof CombatMap) {
+	        CombatMap cMap = (CombatMap) map;
 	        paintProjectiles(cMap, g, display);
 	    }
 	}
+
 
 	
 	public void paintProjectiles(CombatMap map, Graphics g, GameDisplay display) {
