@@ -23,6 +23,9 @@ import data.map.ShopMap;
 import data.player.EnemyImageManager;
 import data.player.Hero;
 import data.quest.Quest;
+import generator.CombatMapGenerator;
+import generator.HostileMapGenerator;
+import generator.ShopMapGenerator;
 import gui.animation.SpriteAnimator;
 import viewstrategy.PaintStrategy;
 
@@ -39,7 +42,7 @@ public class GameDisplay extends JPanel {
     private static final int MAPS_WIDTH = 22;  static int BLOCK_SIZE = 32; // Taille inchangée
     private Map map; // Instance de la carte du jeu
     private ShopMap shopMap;
-    private Map hostileMap;
+    private HostileMap hostileMap;
     private CombatMap combatMap;
 	private Hero hero; // Instance du héros
     private EnemyImageManager enemyImageManager; // Gestionnaire des images des ennemis
@@ -67,6 +70,8 @@ public class GameDisplay extends JPanel {
 	        this.shopMap = new ShopMap(MAPS_WIDTH, MAPS_LENGTH);
 	        this.hostileMap = new HostileMap(MAPS_WIDTH, MAPS_LENGTH, 0); 
 	        this.combatMap = new CombatMap(MAPS_WIDTH, MAPS_LENGTH);
+	        this.hostileMap = new HostileMap(MAPS_WIDTH, MAPS_LENGTH, 0);
+
 	        this.hero = new Hero(map.getBlock(GRID_SIZE / 2, GRID_SIZE / 2), 100);
 	        this.tileset = new HashMap<>();
 	        this.controller = new GameController(this); 
@@ -125,16 +130,6 @@ public class GameDisplay extends JPanel {
     public int getBlockSize() {
         return BLOCK_SIZE;
     }
-
-    //public java.awt.Dimension getPreferredSize() {
-     ////   Map currentMap = isInShop ? shopMap : map;
-     //   int width = currentMap.getCols() * BLOCK_SIZE;
-      //  int height = currentMap.getRows() * BLOCK_SIZE;
-
-      //  return new java.awt.Dimension(width, height);
-    //}
-    
-
 
 	public void setMap(Map map) {
 		this.map = map;
@@ -452,13 +447,10 @@ public class GameDisplay extends JPanel {
 		return hostileMap;
 	}
 
-	public void setHostileMap(Map hostileMap) {
-		this.hostileMap = hostileMap;
-	}
-
 	public void setHostileMap(HostileMap hostileMap) {
 		this.hostileMap = hostileMap;
 	}
+
 
 	public boolean isInHostileMap() {
 	    return isInHostileMap;

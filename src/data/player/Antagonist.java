@@ -11,8 +11,6 @@ public class Antagonist extends Person {
     private int maxHealth; // ✅ nouveau champ
     private String enemyType;
     
-    private int x, y; // Coordonnées pixels pour CombatMap
-
     public Antagonist(Block startPosition, String enemyType, EnemyImageManager imageManager) {
         super(startPosition);
         this.enemyType = enemyType;
@@ -22,13 +20,7 @@ public class Antagonist extends Person {
         } else {
             this.maxHealth = 20;
         }
-
         this.health = this.maxHealth;
-
-        if (startPosition != null) {
-            this.x = startPosition.getColumn() * 50;
-            this.y = startPosition.getLine() * 50;
-        }
     }
 
 
@@ -41,8 +33,6 @@ public class Antagonist extends Person {
     }
 
 
-  
-
     public void takeDamage(int damage) {
         health -= damage;
         System.out.println("🩸 " + enemyType + " prend " + damage + " dégâts. PV restants : " + health);
@@ -53,10 +43,6 @@ public class Antagonist extends Person {
         return health <= 0;
     }
 
-    public int getX() { return x; }
-
-    public int getY() { return y; }
-    
     public void moveTowards(Block target, Map map) {
         Block current = getPosition();
         int dLine = target.getLine() - current.getLine();

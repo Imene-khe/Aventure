@@ -1,7 +1,5 @@
 package data.map;
 
-import java.awt.Graphics;
-import java.awt.Image;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -14,7 +12,6 @@ import data.item.Flame;
 import data.item.chest.Chest;
 import data.item.chest.ChestFactory;
 import data.item.chest.ChestManager;
-import gui.GameDisplay;
 import log.LoggerUtility;
 
 public class Map {
@@ -373,7 +370,6 @@ public class Map {
             }
         }
 
-        // 🟡 Mise à jour dynamique de l'objectif avec le bon nombre total
         int totalFlames = flames.size();
         data.quest.QuestManager questManager = gui.MainGUI.getInstance().getQuestManager();
         questManager.setRequiredAmount("Éteindre les flammes", totalFlames);
@@ -382,10 +378,7 @@ public class Map {
     }
 
 
-	public int getWidth() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 	public int getRows() {
 	    return lineCount;
 	}

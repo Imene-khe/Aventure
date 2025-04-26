@@ -4,11 +4,16 @@ import java.util.HashMap;
 
 public class DialogueManager {
 
-	private  HashMap<String, String[]> dialoguesByEvent = new HashMap<>();
-	private  HashMap<String, Integer> dialogueIndexByEvent = new HashMap<>();
+    private final HashMap<String, String[]> dialoguesByEvent = new HashMap<>();
+    private final HashMap<String, Integer> dialogueIndexByEvent = new HashMap<>();
     
-	public DialogueManager() {
-        dialoguesByEvent.put("intro", new String[] {"Bienvenue, Ghaya ! Ca me fait plaisir de te revoir",
+    public DialogueManager() {
+        initializeDialogues();
+    }
+
+    private void initializeDialogues() {
+        dialoguesByEvent.put("intro", new String[]{
+            "Bienvenue, Ghaya ! Ca me fait plaisir de te revoir",
             "Tu n'es pas au courant de la dernière nouvelle?",
             "Un marchand a établi son camp dans une maison de bois claire non loin d'ici.",
             "Seul problème, il a fait tomber sa bourse de pièces...",
@@ -17,66 +22,57 @@ public class DialogueManager {
             "Mais fais bien attention à la horde."
         });
 
-        
-        dialoguesByEvent.put("enter_shop", new String[] {
-        	    "Bienvenue dans ma boutique, jeune aventurier !",
-        	    "Que puis-je faire pour toi ?!"
+        dialoguesByEvent.put("enter_shop", new String[]{
+            "Bienvenue dans ma boutique, jeune aventurier !",
+            "Que puis-je faire pour toi ?!"
         });
-        
-        dialoguesByEvent.put("enter_shop_give_gold", new String[] {
-        	    "Ohhh... c’est donc toi qui m’a rapporté cette bourse !",
-        	    "Tu n’imagines pas à quel point tu me sauves.",
-        	    "Tiens, prends ceci en remerciement !"
-        });
-        
-        dialoguesByEvent.put("exit_shop_1", new String[] {
-                "Ahhhh te revoilà... Nous te cherchions !",
-                "Le chef de la horde est devenu fou de rage quand il a appris que tu avais recupérer les pièces !",
-                "Sa bande nous a attaqué, ils ont mis le feu à toutes nos maisons. ",
-                "Aide nous à éteindre nos maisons par pitié !"
-        });
-        
-        
 
-        dialoguesByEvent.put("enter_shop_chat", new String[] {
-        	    "Eh bien oui, je viens tout juste de m’installer.",
-        	    "Mais avec tous ces monstres dehors, ce n’est pas de tout repos !",
-        	    "D'ailleurs, n'aurais-tu pas vu une bourse remplie d'or ?",
-        	    "Je crois que je l'ai faite tomber de ma charette pendant le voyage..."
+        dialoguesByEvent.put("enter_shop_give_gold", new String[]{
+            "Ohhh... c’est donc toi qui m’a rapporté cette bourse !",
+            "Tu n’imagines pas à quel point tu me sauves.",
+            "Tiens, prends ceci en remerciement !"
         });
-        
-        dialoguesByEvent.put("flames_extinguished", new String[] {
-        		"Oh non je viens de voir le chef de la horde emporter ton épouse ?!",
-        		"Il faut absoluement que tu ailles la sauver ! Je crois que la horde campe dans la forêt interdite...",
-        		"Pour que tu puisses arriver avant eux, cherche dans les coffres du village.", 
-        		"Une pierre rouge magique te permettra de le téléporter là-bas..."
+
+        dialoguesByEvent.put("exit_shop_1", new String[]{
+            "Ahhhh te revoilà... Nous te cherchions !",
+            "Le chef de la horde est devenu fou de rage quand il a appris que tu avais recupéré les pièces !",
+            "Sa bande nous a attaqué, ils ont mis le feu à toutes nos maisons.",
+            "Aide nous à éteindre nos maisons par pitié !"
         });
-        
-        dialoguesByEvent.put("enter_hostile_map", new String[] {
-        	    "Te voilà dans le royaume des Tenèbres ! Il est peuplé de monstres avides et féroces...",
-        	    "Au nord-est, un refuge a été érigé par nos ancètres pour survivre à la horde.",
-        	    "Trouve du bois sec, allume un feu et prépare-toi à combattre..."
+
+        dialoguesByEvent.put("enter_shop_chat", new String[]{
+            "Eh bien oui, je viens tout juste de m’installer.",
+            "Mais avec tous ces monstres dehors, ce n’est pas de tout repos !",
+            "D'ailleurs, n'aurais-tu pas vu une bourse remplie d'or ?",
+            "Je crois que je l'ai faite tomber de ma charette pendant le voyage..."
         });
-        
-        dialoguesByEvent.put("campfire_lit", new String[] {
-        	    "Bien joué ! Maintenant que tu es à l'abri, il va falloir tenter d'acceder au repère principale de la horde.",
-        	    "Si tu regardes bien, il y a des symboles au sol: c'est un mécanisme pour te permettre de rentrer !",
-        	    "Sors de l'abri et va activer ces dalles en marchant dessus mais defends toi Ghaya, les monstres sont féroces."
+
+        dialoguesByEvent.put("flames_extinguished", new String[]{
+            "Oh non je viens de voir le chef de la horde emporter ton épouse ?!",
+            "Il faut absolument que tu ailles la sauver ! Je crois que la horde campe dans la forêt interdite...",
+            "Pour que tu puisses arriver avant eux, cherche dans les coffres du village.",
+            "Une pierre rouge magique te permettra de te téléporter là-bas..."
         });
-        
-        dialoguesByEvent.put("enter_combat_map", new String[] {
-        	    "Te voilà dans le repère de la horde... C'est surement ici qu'ils détiennent ta femme !",
-        	    "CeAttention des vagues d'ennemis arrivent ! Défends toi comme tu peux..."     	    
-        	});
 
+        dialoguesByEvent.put("enter_hostile_map", new String[]{
+            "Te voilà dans le royaume des Ténèbres ! Il est peuplé de monstres avides et féroces...",
+            "Au nord-est, un refuge a été érigé par nos ancêtres pour survivre à la horde.",
+            "Trouve du bois sec, allume un feu et prépare-toi à combattre..."
+        });
 
+        dialoguesByEvent.put("campfire_lit", new String[]{
+            "Bien joué ! Maintenant que tu es à l'abri, il va falloir tenter d'accéder au repère principal de la horde.",
+            "Si tu regardes bien, il y a des symboles au sol : c'est un mécanisme pour te permettre de rentrer !",
+            "Sors de l'abri et va activer ces dalles en marchant dessus mais défends-toi Ghaya, les monstres sont féroces."
+        });
 
-
+        dialoguesByEvent.put("enter_combat_map", new String[]{
+            "Te voilà dans le repère de la horde... C'est sûrement ici qu'ils détiennent ta femme !",
+            "Attention, des vagues d'ennemis arrivent ! Défends-toi comme tu peux..."
+        });
     }
 
-	public boolean hasDialogue(String event) {
-		System.out.println("🔍 hasDialogue vérifie : " + event);
-
+    public boolean hasDialogue(String event) {
         return dialoguesByEvent.containsKey(event);
     }
 
@@ -107,8 +103,6 @@ public class DialogueManager {
     }
 
     public void reset(String event) {
-    	System.out.println("🔁 reset appelé pour : " + event);
-
         dialogueIndexByEvent.put(event, 0);
     }
 

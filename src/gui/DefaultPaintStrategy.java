@@ -263,7 +263,7 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	            int y = block.getLine() * size;
 	            g.drawImage(image, x, y, size, size, null);
 	            if ("boss".equals(enemy.getType())) {
-	                EnemyHealthBar.draw(g, enemy.getHealth(), enemy.getMaxHealth(), x, y);
+	                paintEnemyHealthBar(g, enemy);
 	            }
 	        } else {
 	        	logger.warn("⚠ Image manquante pour ennemi mobile de type '" + enemy.getType() + "' à " + enemy.getPosition());
@@ -321,6 +321,29 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	    g.drawString(line3, (width - fm.stringWidth(line3)) / 2, y + 80);
 	    g.drawString(line4, (width - fm.stringWidth(line4)) / 2, y + 120);
 	}
+	
+	public void paintEnemyHealthBar(Graphics g, Antagonist enemy) {
+	    int currentHealth = enemy.getHealth();
+	    int maxHealth = enemy.getMaxHealth();
+
+	    Block block = enemy.getPosition();
+	    int x = block.getColumn() * 32;
+	    int y = block.getLine() * 32;
+
+	    int BAR_WIDTH = 40;
+	    int BAR_HEIGHT = 6;
+	    int healthBarWidth = (int) ((currentHealth / (float) maxHealth) * BAR_WIDTH);
+
+	    g.setColor(Color.RED);
+	    g.fillRect(x, y - 10, BAR_WIDTH, BAR_HEIGHT);
+	    g.setColor(Color.GREEN);
+	    g.fillRect(x, y - 10, healthBarWidth, BAR_HEIGHT);
+	    g.setColor(Color.BLACK);
+	    g.drawRect(x, y - 10, BAR_WIDTH, BAR_HEIGHT);
+	}
+
+	
+	
 
 
 

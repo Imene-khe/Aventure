@@ -9,6 +9,7 @@ import data.player.Antagonist;
 import data.player.Hero;
 import data.quest.Quest;
 import data.quest.QuestManager;
+import generator.CombatMapGenerator;
 import gui.GameDisplay;
 import gui.MainGUI;
 
@@ -61,7 +62,7 @@ public class CombatController {
 
                     if ("boss".equals(enemy.getType()) && activeMap instanceof CombatMap combatMap) {
                         it.remove(); 
-                        combatMap.revealFinaleZone();
+                        CombatMapGenerator.revealFinaleZone(combatMap);
                         display.repaint(); 
 
                         javax.swing.JOptionPane.showMessageDialog(display, "🏁 Un pont s'est ouvert... Va sauver ta femme !");
@@ -119,13 +120,15 @@ public class CombatController {
                 int arenaCol = combatMap.getCenterStartCol();
                 waveManager = new WaveManager(display.getEnemyImageManager(), arenaLine, arenaCol);
                 waveManager.setCombatMap(combatMap);
-                waveManager.setGameController(gameController); 
+                waveManager.setGameController(gameController);
+                waveManager.setQuestManager(MainGUI.getInstance().getQuestManager()); // 👈 AJOUT ici
             }
             combatMap.clearAntagonists();
             combatMap.setAntagonists(new ArrayList<>(waveManager.getCurrentWaveEnemies()));
             System.out.println("🌀 Première vague d'ennemis chargée : " + combatMap.getAntagonists().size());
         }
     }
+
 
     public void loadNextWave() {
         waveManager.updateWave(); 

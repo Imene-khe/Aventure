@@ -2,15 +2,11 @@ package data.map;
 
 import data.player.Antagonist;
 import data.player.EnemyImageManager;
-import gui.MainGUI;
+import data.quest.QuestManager;
 
 import java.util.ArrayList;
-
 import control.GameController;
 
-/**
- * Classe responsable de la gestion des vagues d'ennemis dans un niveau.
- */
 public class WaveManager {
 
 	private CombatMap combatMap;
@@ -21,8 +17,8 @@ public class WaveManager {
     private ArrayList<ArrayList<Antagonist>> waves;
     private boolean levelFinished;
     private EnemyImageManager imageManager;
+    private QuestManager questManager;
 
-    // ✅ Constructeur avec EnemyImageManager
     public WaveManager(EnemyImageManager imageManager, int arenaLine, int arenaCol) {
     	this.currentWave = 0;
         this.levelFinished = false;
@@ -75,26 +71,27 @@ public class WaveManager {
         if (allDead) {
             currentWave++;
 
-            // ✅ Met à jour la quête "Survivre aux vagues"
-            MainGUI.getInstance().getQuestManager().notifyQuestProgress("wave", 1);
+            // ✅ Mise à jour de la quête propre sans MainGUI direct
+            if (questManager != null) {
+                questManager.notifyQuestProgress("wave", 1);
+            }
 
             if (currentWave < waves.size()) {
                 System.out.println("➡️ Passage à la vague " + (currentWave + 1));
             }
             else if (currentWave == waves.size()) {
                 System.out.println("👑 Le boss final apparaît !");
-                ArrayList<Antagonist> bossWave = getBossWave(); // ✅ juste un ennemi indépendant
+                ArrayList<Antagonist> bossWave = getBossWave();
                 if (combatMap != null) {
-                    combatMap.getAntagonists().addAll(bossWave); // ajout direct
+                    combatMap.getAntagonists().addAll(bossWave);
                     System.out.println("💀 Boss ajouté manuellement à la map !");
                 }
                 if (gameController != null) {
-                    gameController.moveEnemiesTowardsHero(); 
+                    gameController.moveEnemiesTowardsHero();
                     System.out.println("🦴 Boss déplacé vers le héros.");
                 }
-                levelFinished = true; // ou mets ce flag plus tard si tu veux
+                levelFinished = true;
             }
-
         }
     }
 
@@ -134,6 +131,10 @@ public class WaveManager {
     
     public void setGameController(GameController controller) {
         this.gameController = controller;
+    }
+    
+    public void setQuestManager(QuestManager questManager) {
+        this.questManager = questManager;
     }
 
 }
