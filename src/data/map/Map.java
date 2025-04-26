@@ -27,8 +27,7 @@ public class Map {
     private int maxChests;
     private ArrayList<Coin> coins;
     private ArrayList<Flame> flames = new ArrayList<>();
-    private static final Logger logger = LoggerUtility.getLogger(HostileMap.class, "text");
-
+    private static final Logger logger = LoggerUtility.getLogger(Map.class, "text");
 
     public Map(int lineCount, int columnCount, int maxChest, boolean isStatic) {
         this.lineCount = lineCount;
@@ -68,17 +67,6 @@ public class Map {
         }
     }
 
-
- 
-    public ArrayList<data.item.Flame> getFlames() {
-		return flames;
-	}
-
-
-	public void setFlames(ArrayList<data.item.Flame> flames) {
-		this.flames = flames;
-	}
-
     public void generateTerrain() {
         for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
             for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
@@ -95,64 +83,34 @@ public class Map {
         }
     }
 
-	public void setBlocks(Block[][] blocks) {
-		this.blocks = blocks;
-	}
-
-
-	public void setEnemies(HashMap<Block, String> enemies) {
-		this.enemies = enemies;
-	}
-
-
-	public void setChestManager(ChestManager chestManager) {
-		this.chestManager = chestManager;
-	}
-
-
-	public void setColumnCount(int columnCount) {
-		this.columnCount = columnCount;
-	}
-
-
-	public void setCoins(ArrayList<Coin> coins) {
-		this.coins = coins;
-	}
-
-
-
     public void generateEnemies() {
         ArrayList<Block> freeBlocks = getFreeBlocks();
         Random random = new Random();
-        int maxEnemies = 10; // Nombre max d'ennemis sur la carte
+        int maxEnemies = 10; 
         int generatedEnemies = 0;
 
         while (generatedEnemies < maxEnemies && !freeBlocks.isEmpty()) {
             int index = random.nextInt(freeBlocks.size());
-            Block block = freeBlocks.remove(index); // Sélectionner un bloc libre
+            Block block = freeBlocks.remove(index);
 
             double rand = Math.random();
             String enemyType = (rand < 0.5) ? "skeleton" : "slime";
-
-            // Stocker uniquement la position et le type de l'ennemi
             enemies.put(block, enemyType);
             generatedEnemies++;
         }
     }
 
     public void generateCoins(int coinCount) {
-        ArrayList<Block> freeBlocks = getFreeBlocks(); // Récupère les blocs libres
+        ArrayList<Block> freeBlocks = getFreeBlocks(); 
         Random random = new Random();
 
         int generatedCoins = 0;
         while (generatedCoins < coinCount && !freeBlocks.isEmpty()) {
             int index = random.nextInt(freeBlocks.size());
             Block block = freeBlocks.get(index);
-
-            // Vérifier que le bloc ne contient PAS d'ennemi et que ce n'est PAS de l'eau
             if (!enemies.containsKey(block) && !staticTerrain.getOrDefault(block, "").equals("water")) {
-                coins.add(new Coin(block)); // Ajouter une pièce sur ce bloc
-                freeBlocks.remove(index); // Retirer pour éviter un double spawn
+                coins.add(new Coin(block)); 
+                freeBlocks.remove(index); 
                 generatedCoins++;
             }
         }
@@ -160,53 +118,33 @@ public class Map {
     
     public void placeShopOnMap() {
         Random random = new Random();
-        int maxAttempts = 100; // ✅ Évite une boucle infinie si la carte est très remplie
+        int maxAttempts = 100; 
         int attempts = 0;
 
         while (attempts < maxAttempts) {
-            int shopRow = random.nextInt(lineCount - 2) + 1; // ✅ Évite les bords
+            int shopRow = random.nextInt(lineCount - 2) + 1; 
             int shopCol = random.nextInt(columnCount - 2) + 1;
             Block shopBlock = blocks[shopRow][shopCol];
-
-            // ✅ Vérifier que le bloc est libre (ni eau, ni maison, ni coffre, ni obstacle)
             String terrainType = staticTerrain.getOrDefault(shopBlock, "grass");
-            if (!terrainType.equals("water") &&
-                !staticObjects.containsKey(shopBlock) &&
-                !chestManager.getChests().containsKey(shopBlock) &&
+            if (!terrainType.equals("water") &&!staticObjects.containsKey(shopBlock) &&!chestManager.getChests().containsKey(shopBlock) &&
                 !enemies.containsKey(shopBlock)) {
-
-                // ✅ Placer la maison "Shop" ici
                 staticObjects.put(shopBlock, "shop");
                 setTerrainBlocked(shopBlock, true);
-                System.out.println("✅ Shop placé en position : " + shopBlock);
+                logger.info("Shop placé en position : " + shopBlock);
                 return;
             }
 
-            attempts++; // ✅ Incrémentation du compteur de tentatives
+            attempts++; 
         }
 
-        System.out.println("⚠ Impossible de placer le shop après " + maxAttempts + " essais !");
-    }
-
-
-
-
-
-    
-    public ArrayList<Coin> getCoins(){
-    	return coins;
-    }
-    
-    
-	public HashMap<Block, String> getStaticTerrain() {
-        return staticTerrain;
-    }
+        logger.warn("Impossible de placer le shop après " + maxAttempts + " essais !");
+        }
 
 	public void generateObjects() {
 	    int generatedChests = 0;
 	    int generatedHouses = 0;
 	    boolean orbePlaced = false;
-	    int maxHouses = 8; // ✅ Tu peux ajuster ici combien de maisons tu veux exactement
+	    int maxHouses = 8;
 
 	    ArrayList<Block> freeGrassBlocks = new ArrayList<>();
 	    for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
@@ -220,7 +158,6 @@ public class Map {
 	        }
 	    }
 	    Random random = new Random();
-	    // ✅ Génère d'abord les maisons
 	    while (generatedHouses < maxHouses && !freeGrassBlocks.isEmpty()) {
 	        int index = random.nextInt(freeGrassBlocks.size());
 	        Block block = freeGrassBlocks.remove(index);
@@ -231,16 +168,12 @@ public class Map {
 	            generatedHouses++;
 	        }
 	    }
-
-	    // ✅ Ensuite génère quelques arbres aléatoirement
 	    for (Block block : freeGrassBlocks) {
-	        if (Math.random() < 0.05) { // 5% de chance d'avoir un arbre
+	        if (Math.random() < 0.05) { 
 	            staticObjects.put(block, "tree");
 	            setTerrainBlocked(block, true);
 	        }
 	    }
-
-	    // ✅ Puis les coffres (avec l'orbe une seule fois)
 	    while (generatedChests < maxChests) {
 	        int randomLine = random.nextInt(lineCount);
 	        int randomColumn = random.nextInt(columnCount);
@@ -254,8 +187,7 @@ public class Map {
 	                if (!orbePlaced) {
 	                    chest.getInventory().addEquipment(new Equipment("orbe"));
 	                    orbePlaced = true;
-	                    System.out.println("🟥 Orbe inséré dans le coffre à : " + block);
-	                }
+	                    logger.info("Orbe inséré dans le coffre à : " + block);	                }
 
 	                chestManager.getChests().put(block, chest);
 	                staticObjects.put(block, "chest");
@@ -266,12 +198,8 @@ public class Map {
 	    }
 
 	    if (!orbePlaced) {
-	        System.out.println("⚠ Aucun coffre contenant l’orbe n’a pu être placé !");
-	    }
+	    	logger.warn("Aucun coffre contenant l’orbe n’a pu être placé !");		    }
 	}
-
-
-
 
 	public Block getShopPosition() {
 	    for (Block block : staticObjects.keySet()) {
@@ -282,7 +210,6 @@ public class Map {
 	    return null;
 	}
 
-
 	public ArrayList<Block> getFreeBlocks() {
 	    ArrayList<Block> freeBlocks = new ArrayList<>();
 
@@ -291,7 +218,7 @@ public class Map {
 	            Block block = blocks[i][j];
 
 	            boolean isOccupied = staticObjects.containsKey(block) || enemies.containsKey(block);
-	            boolean isBlocked = isBlocked(block); // ✅ nouveau test ajouté ici
+	            boolean isBlocked = isBlocked(block); 
 	            if (!isOccupied && !isBlocked) {
 	                freeBlocks.add(block);
 	            }
@@ -300,9 +227,6 @@ public class Map {
 
 	    return freeBlocks;
 	}
-
-    
-    
 
 	public boolean isBlocked(Block block) {
 	    if (obstacles.containsKey(block)) return true;
@@ -319,12 +243,33 @@ public class Map {
 
 	    return false;
 	}
+	
+	public void setAllHousesOnFire() {
+        flames.clear();
 
+        for (Block block : staticObjects.keySet()) {
+            String value = staticObjects.get(block);
+            if ("house".equals(value)) {
+                staticObjects.put(block, "house_burning");
+                flames.add(new Flame(block));
+            }
+        }
 
+        int totalFlames = flames.size();
+        data.quest.QuestManager questManager = gui.MainGUI.getInstance().getQuestManager();
+        questManager.setRequiredAmount("Éteindre les flammes", totalFlames);
 
-
-
-
+        logger.info(flames.size() + " maisons mises en feu !");
+    }
+	
+	 public ArrayList<Coin> getCoins(){
+	    	return coins;
+	    }
+	    
+	    
+	public HashMap<Block, String> getStaticTerrain() {
+	    return staticTerrain;
+	}
 
     public void setTerrainBlocked(Block block, boolean blocked) {
         terrainBlocked.put(block, blocked);
@@ -358,27 +303,7 @@ public class Map {
     public ChestManager getChestManager() {
         return chestManager;
     } 
-    
-    public void setAllHousesOnFire() {
-        flames.clear();
-
-        for (Block block : staticObjects.keySet()) {
-            String value = staticObjects.get(block);
-            if ("house".equals(value)) {
-                staticObjects.put(block, "house_burning");
-                flames.add(new Flame(block));
-            }
-        }
-
-        int totalFlames = flames.size();
-        data.quest.QuestManager questManager = gui.MainGUI.getInstance().getQuestManager();
-        questManager.setRequiredAmount("Éteindre les flammes", totalFlames);
-
-        logger.info("🔥 " + flames.size() + " maisons mises en feu !");
-    }
-
-
-	
+   
 	public int getRows() {
 	    return lineCount;
 	}
@@ -386,7 +311,37 @@ public class Map {
 	public int getCols() {
 	    return columnCount;
 	}
+	
+	public void setBlocks(Block[][] blocks) {
+		this.blocks = blocks;
+	}
 
 
+	public void setEnemies(HashMap<Block, String> enemies) {
+		this.enemies = enemies;
+	}
+
+
+	public void setChestManager(ChestManager chestManager) {
+		this.chestManager = chestManager;
+	}
+
+
+	public void setColumnCount(int columnCount) {
+		this.columnCount = columnCount;
+	}
+
+
+	public void setCoins(ArrayList<Coin> coins) {
+		this.coins = coins;
+	}
+	
+    public ArrayList<Flame> getFlames() {
+		return flames;
+	}
+
+	public void setFlames(ArrayList<data.item.Flame> flames) {
+		this.flames = flames;
+	}
 
 }

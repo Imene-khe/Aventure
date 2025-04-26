@@ -175,3 +175,52 @@ INFO AWT-EventQueue-0 gui.MainGUI - 📐 BottomPanel attaché.
 INFO AWT-EventQueue-0 gui.MainGUI - 📄 updateDialoguePanel() appelé avec eventKey = intro
 INFO AWT-EventQueue-0 gui.MainGUI - 📝 Texte du dialogue actuel = Bienvenue, Ghaya ! Ca me fait plaisir de te revoir
 INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+INFO AWT-EventQueue-0 gui.StartScreen - 🖥️ Écran de démarrage (StartScreen) initialisé.
+INFO AWT-EventQueue-0 gui.StartScreen - 🚀 Bouton pressé : démarrage du mode adventure.
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 data.player.EnemyImageManager - Chargement des images des ennemis.
+INFO AWT-EventQueue-0 data.player.EnemyImageManager - Toutes les images des ennemis ont été chargées.
+INFO AWT-EventQueue-0 data.map.Map - Orbe inséré dans le coffre à : Block [line=1, column=24]
+INFO AWT-EventQueue-0 data.map.Map - Shop placé en position : Block [line=10, column=34]
+INFO AWT-EventQueue-0 generator.HostileMapGenerator - rune1 placée sur le bloc Block [line=13, column=35]
+INFO AWT-EventQueue-0 generator.HostileMapGenerator - rune2 placée sur le bloc Block [line=16, column=35]
+INFO AWT-EventQueue-0 generator.HostileMapGenerator - rune3 placée sur le bloc Block [line=11, column=16]
+INFO AWT-EventQueue-0 data.quest.QuestManager - Nouvelle quête ajoutée : Collecte pour le marchand
+INFO AWT-EventQueue-0 data.quest.QuestManager - Nouvelle quête ajoutée : Eteindre les flammes
+INFO AWT-EventQueue-0 data.quest.QuestManager - Nouvelle quête ajoutée : L'orbe sacré
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+INFO AWT-EventQueue-0 gui.StartScreen - 🖥️ Écran de démarrage (StartScreen) initialisé.
+INFO AWT-EventQueue-0 gui.StartScreen - 🚀 Bouton pressé : démarrage du mode adventure.
+INFO AWT-EventQueue-0 gui.MainGUI - 🟢 Initialisation de l'IHM MainGUI...
+INFO AWT-EventQueue-0 data.player.EnemyImageManager - Chargement des images des ennemis.
+INFO AWT-EventQueue-0 data.player.EnemyImageManager - Toutes les images des ennemis ont été chargées.
+INFO AWT-EventQueue-0 data.map.Map - Orbe inséré dans le coffre à : Block [line=15, column=6]
+INFO AWT-EventQueue-0 data.map.Map - Shop placé en position : Block [line=6, column=23]
+INFO AWT-EventQueue-0 generator.HostileMapGenerator - rune1 placée sur le bloc Block [line=3, column=13]
+INFO AWT-EventQueue-0 generator.HostileMapGenerator - rune2 placée sur le bloc Block [line=1, column=17]
+INFO AWT-EventQueue-0 generator.HostileMapGenerator - rune3 placée sur le bloc Block [line=8, column=11]
+INFO AWT-EventQueue-0 data.quest.QuestManager - Nouvelle quête ajoutée : Collecte pour le marchand
+INFO AWT-EventQueue-0 data.quest.QuestManager - Nouvelle quête ajoutée : Eteindre les flammes
+INFO AWT-EventQueue-0 data.quest.QuestManager - Nouvelle quête ajoutée : L'orbe sacré
+INFO AWT-EventQueue-0 gui.MainGUI - 🖥️ Fenêtre affichée avec succès.
+INFO AWT-EventQueue-0 gui.MainGUI - 📭 Fin du dialogue pour : intro
+INFO AWT-EventQueue-0 data.player.Hero - 💥 Héros touché ! Vie restante : 90%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 80%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 70%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 60%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 50%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 40%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 30%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 20%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 10%
+INFO Thread-0 data.player.Hero - 💥 Héros touché ! Vie restante : 0%
+ERROR Thread-0 control.GameController - GAME OVER : le héros est mort.
+INFO AWT-EventQueue-0 gui.StartScreen - 🖥️ Écran de démarrage (StartScreen) initialisé.
+INFO main data.map.Map - Orbe inséré dans le coffre à : Block [line=8, column=39]
+INFO main data.map.Map - Shop placé en position : Block [line=7, column=4]
+INFO main generator.HostileMapGenerator - rune1 placée sur le bloc Block [line=4, column=33]
+INFO main generator.HostileMapGenerator - rune2 placée sur le bloc Block [line=13, column=34]
+INFO main generator.HostileMapGenerator - rune3 placée sur le bloc Block [line=19, column=2]
+INFO main data.map.Map - Orbe inséré dans le coffre à : Block [line=12, column=24]
+INFO main data.map.Map - Shop placé en position : Block [line=5, column=25]

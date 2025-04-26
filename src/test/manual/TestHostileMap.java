@@ -12,14 +12,13 @@ public class TestHostileMap {
         JFrame frame = new JFrame("Test Affichage + Déplacement - HostileMap");
 
         GameDisplay gameDisplay = new GameDisplay();
-        gameDisplay.enterHostileMap(); // ✅ Passe directement en HostileMap
+        gameDisplay.enterHostileMap(); 
 
-        // ➡️ Ajout d'un KeyListener pour déplacer le héros
         gameDisplay.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (gameDisplay.getController() != null) {
-                    gameDisplay.getController().moveHero(e.getKeyCode(), null); // ✅
+                    gameDisplay.getController().moveHero(e.getKeyCode(), null); 
                 }
             }
         });

@@ -1,5 +1,9 @@
 package generator;
 
+import org.apache.log4j.Logger;
+import log.LoggerUtility;
+
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -8,6 +12,9 @@ import data.map.HostileMap;
 import data.player.Antagonist;
 
 public class HostileMapGenerator {
+	
+	private static final Logger logger = LoggerUtility.getLogger(HostileMapGenerator.class, "text");
+
 
     public static void generateTerrain(HostileMap map) {
         for (int line = 0; line < map.getLineCount(); line++) {
@@ -126,7 +133,7 @@ public class HostileMapGenerator {
         map.setTerrainBlocked(shadow, true);
         map.setTerrainBlocked(rightBottom, true);
 
-        map.setCaveEntry(shadow); // Tu ajoutes un setCaveEntry dans HostileMap
+        map.setCaveEntry(shadow); 
     }
 
     public static void generateSafeShelter(HostileMap map) {
@@ -187,7 +194,6 @@ public class HostileMapGenerator {
 
         map.getAntagonistList().clear();
         map.getAntagonistTypes().clear();
-        // ❌ Ne jamais toucher à map.getEnemies() ici
 
         for (int i = 0; i < maxEnemies && !freeBlocks.isEmpty(); i++) {
             int index = random.nextInt(freeBlocks.size());
@@ -221,7 +227,7 @@ public class HostileMapGenerator {
                 map.getRuneBlocks().add(block);
                 map.setTerrainBlocked(block, false);
                 placed++;
-                System.out.println("📜 " + runeName + " placée sur : " + block);
+                logger.info(runeName + " placée sur le bloc " + block);
             }
         }
     }

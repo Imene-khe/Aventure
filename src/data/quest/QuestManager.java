@@ -1,10 +1,15 @@
 package data.quest;
+import org.apache.log4j.Logger;
+import log.LoggerUtility;
+
 
 import java.util.ArrayList;
 
 public class QuestManager {
+	private static final Logger logger = LoggerUtility.getLogger(QuestManager.class, "text");
     private ArrayList<Quest> activeQuests;
     private int totalCoins;  
+    
     public QuestManager() {
         this.activeQuests = new ArrayList<>();
         this.totalCoins = 0;
@@ -12,15 +17,15 @@ public class QuestManager {
 
     public void addQuest(Quest quest) {
         activeQuests.add(quest);
-        System.out.println("📜 Nouvelle quête ajoutée : " + quest.getName());
+        logger.info("Nouvelle quête ajoutée : " + quest.getName());
     }
 
     public void updateQuest(String questName, int amount) {
         for (Quest quest : activeQuests) {
-            System.out.println("🔎 Tentative mise à jour de : " + quest.getName());
-            if (quest.getName().trim().equalsIgnoreCase(questName.trim()) && !quest.isCompleted()) {
+        	logger.debug("Tentative de mise à jour de la quête : " + quest.getName());
+        	if (quest.getName().trim().equalsIgnoreCase(questName.trim()) && !quest.isCompleted()) {
                 quest.updateProgress(amount);
-                System.out.println("✅ Progression : " + quest.getCurrentAmount() + "/" + quest.getRequiredAmount());
+                logger.info("Progression de la quête " + quest.getName() + " : " + quest.getCurrentAmount() + "/" + quest.getRequiredAmount());
             }
         }
     }
@@ -32,12 +37,12 @@ public class QuestManager {
                 int reward = quest.claimReward();
                 if (reward > 0) {
                     totalCoins += reward;
-                    System.out.println("💰 Total des pièces après récompense : " + totalCoins);
+                    logger.info("Total des pièces après récompense : " + totalCoins);
                 }
                 return;
             }
         }
-        System.out.println("❌ Quête introuvable : " + questName);
+        logger.warn("Quête introuvable : " + questName);
     }
 
     public int getTotalCoins() {
@@ -49,9 +54,8 @@ public class QuestManager {
     }
 
     public void displayQuests() {
-        System.out.println("📌 Quêtes Actuelles :");
         for (Quest quest : activeQuests) {
-            System.out.println(quest);
+            logger.debug("📌 Quêtes Actuelles :"+quest);
         }
     }
     
@@ -70,7 +74,7 @@ public class QuestManager {
     
     public void clearQuests() {
         activeQuests.clear();
-        System.out.println("🧹 Toutes les quêtes ont été supprimées.");
+        logger.info("Toutes les quêtes ont été supprimées.");
     }
 
     public void notifyQuestProgress(String type, int amount) {
@@ -78,7 +82,7 @@ public class QuestManager {
             if (!quest.isCompleted() && quest.getType().equals(type)) {
                 quest.updateProgress(amount);
                 if (quest.isCompleted()) {
-                    System.out.println("🏁 ✅ Quête complétée : " + quest.getName());
+                	logger.info("Quête complétée : " + quest.getName());
                 }
             }
         }
@@ -87,8 +91,8 @@ public class QuestManager {
     public void loadCombatMapQuests() {
     	addQuest(new Quest("Survivre aux vagues d'ennemis", "Résiste à la première vague de monstres", Quest.TYPE_WAVE, 3, 0));
         addQuest(new Quest("Tuer le boss", "Terrasse le boss final", Quest.TYPE_KILL, 1, 0));
-        System.out.println("🆕 Quêtes de la CombatMap chargées.");
-    }
+        logger.info("Quêtes de la CombatMap chargées.");
+        }
     
     public boolean isQuestCompleted(String questName) {
         for (Quest quest : activeQuests) {

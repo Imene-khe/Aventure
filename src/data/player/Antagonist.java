@@ -1,14 +1,16 @@
 package data.player;
 
-
+import org.apache.log4j.Logger;
+import log.LoggerUtility;
 import data.map.Block;
 import data.map.HostileMap;
 import data.map.Map;
 
 public class Antagonist extends Person {
-
+	
+	private static final Logger logger = LoggerUtility.getLogger(Antagonist.class, "text");
     private int health;
-    private int maxHealth; // ✅ nouveau champ
+    private int maxHealth; 
     private String enemyType;
     
     public Antagonist(Block startPosition, String enemyType, EnemyImageManager imageManager) {
@@ -35,7 +37,7 @@ public class Antagonist extends Person {
 
     public void takeDamage(int damage) {
         health -= damage;
-        System.out.println("🩸 " + enemyType + " prend " + damage + " dégâts. PV restants : " + health);
+        logger.info(enemyType + " prend " + damage + " dégâts. Points de vie restants : " + health);
         if (health < 0) health = 0;
     }
 
@@ -51,14 +53,13 @@ public class Antagonist extends Person {
         int nextCol = current.getColumn();
 
         if (Math.abs(dLine) > Math.abs(dCol)) {
-            nextLine += Integer.compare(dLine, 0); // +1 ou -1
+            nextLine += Integer.compare(dLine, 0);
         } else if (dCol != 0) {
             nextCol += Integer.compare(dCol, 0);
         }
 
         Block nextBlock = map.getBlock(nextLine, nextCol);
 
-        // ⛔ Interdiction d'entrer dans le shelter
         if (map instanceof HostileMap hostileMap && hostileMap.getShelterBlocks().contains(nextBlock)) {
             return;
         }

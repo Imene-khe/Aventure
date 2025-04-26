@@ -1,5 +1,8 @@
 package control;
 
+import org.apache.log4j.Logger;
+import log.LoggerUtility;
+
 import data.map.Block;
 import data.map.CombatMap;
 import data.map.HostileMap;
@@ -18,8 +21,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class CombatController {
-
-    private GameDisplay display;
+	
+	private static final Logger logger = LoggerUtility.getLogger(CombatController.class, "text");
+	private GameDisplay display;
     private HostileMap hostileMap;
     private Hero hero;
     private GameController gameController;
@@ -82,8 +86,8 @@ public class CombatController {
             CombatMap cMap = (CombatMap) activeMap;
 
             if (cMap.areAllEnemiesDead()) {
-                System.out.println("🌊 Tous les ennemis de la vague sont morts !");
-                loadNextWave(); 
+            	logger.info("Tous les ennemis de la vague sont morts !");
+            	loadNextWave(); 
             }
         }
 
@@ -91,15 +95,13 @@ public class CombatController {
     }
 
     public void attack(Block targetBlock) {
-        System.out.println("🔍 Ennemis dans hostileMap : " + hostileMap.getAntagonistList().size());
         for (Antagonist enemy : hostileMap.getAntagonistList()) {
-            System.out.println("➡️ Ennemi sur : " + enemy.getPosition());
             if (enemy.getPosition().equals(targetBlock)) {
-                System.out.println("🎯 ENNEMI TOUCHÉ !");
+            	logger.info("🎯 ENNEMI TOUCHÉ !");
                 enemy.takeDamage(25);
                 if (enemy.isDead()) {
-                    System.out.println("💀 Ennemi MORT !");
-                    hostileMap.getAntagonistTypes().remove(enemy); 
+                	logger.info("💀 Ennemi MORT !");
+                	hostileMap.getAntagonistTypes().remove(enemy); 
                     hostileMap.getAntagonistList().remove(enemy);
                     MainGUI.getInstance().getQuestManager().notifyQuestProgress(Quest.TYPE_KILL, 1);
                     QuestManager qm = MainGUI.getInstance().getQuestManager();
@@ -109,7 +111,7 @@ public class CombatController {
                 return;
             }
         }
-        System.out.println("❌ Aucun ennemi trouvé sur ce bloc !");
+        logger.warn("❌ Aucun ennemi trouvé sur ce bloc !");
     }
     
     public void loadFirstWaveIfNeeded() {
@@ -121,11 +123,11 @@ public class CombatController {
                 waveManager = new WaveManager(display.getEnemyImageManager(), arenaLine, arenaCol);
                 waveManager.setCombatMap(combatMap);
                 waveManager.setGameController(gameController);
-                waveManager.setQuestManager(MainGUI.getInstance().getQuestManager()); // 👈 AJOUT ici
+                waveManager.setQuestManager(MainGUI.getInstance().getQuestManager()); 
             }
             combatMap.clearAntagonists();
             combatMap.setAntagonists(new ArrayList<>(waveManager.getCurrentWaveEnemies()));
-            System.out.println("🌀 Première vague d'ennemis chargée : " + combatMap.getAntagonists().size());
+            logger.info("🌀 Première vague d'ennemis chargée : " + combatMap.getAntagonists().size() + " ennemis");
         }
     }
 
@@ -137,13 +139,12 @@ public class CombatController {
             Map activeMap = gameController.getDisplay().getActiveMap();
             if (activeMap instanceof CombatMap combatMap) {
                 combatMap.clearAntagonists();	
-                System.out.println("📊 currentWave = " + waveManager.getCurrentWaveNumber());
-                System.out.println("📦 Ennemis de la vague actuelle : " + waveManager.getCurrentWaveEnemies().size());
+                logger.debug("📊 currentWave = " + waveManager.getCurrentWaveNumber());
                 combatMap.setAntagonists(new ArrayList<>(waveManager.getCurrentWaveEnemies()));
-                System.out.println("🌀 Nouvelle vague chargée : " + combatMap.getAntagonists().size());
+                logger.info("🌀 Nouvelle vague chargée : " + combatMap.getAntagonists().size() + " ennemis");
             }
         } else {
-            System.out.println("✅ Toutes les vagues sont terminées !");
+        	logger.info("✅ Toutes les vagues sont terminées !");
         }
     }
     public HostileMap getHostileMap() {

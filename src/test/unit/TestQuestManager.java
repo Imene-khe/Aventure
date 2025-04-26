@@ -39,16 +39,16 @@ public class TestQuestManager {
     @Test
     public void testClaimQuestReward() {
         QuestManager questManager = new QuestManager();
-        Quest quest = new Quest("Tuer 3 monstres", "Tue 3 ennemis", "kill", 3, 100); // ✅ Reward de 100 pièces
+        Quest quest = new Quest("Tuer 3 monstres", "Tue 3 ennemis", "kill", 3, 100); 
         questManager.addQuest(quest);
 
-        questManager.updateQuest("Tuer 3 monstres", 3); // ✅ On complète la quête
+        questManager.updateQuest("Tuer 3 monstres", 3);
 
         int coinsBefore = questManager.getTotalCoins();
         questManager.claimQuestReward("Tuer 3 monstres");
         int coinsAfter = questManager.getTotalCoins();
 
-        assertTrue(coinsAfter > coinsBefore); // ✅ Cette fois on a gagné des pièces !
+        assertTrue(coinsAfter > coinsBefore); 
     }
 
 

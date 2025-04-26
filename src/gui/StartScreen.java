@@ -2,6 +2,11 @@
 package gui;
 
 import javax.swing.*;
+
+import org.apache.log4j.Logger;
+import log.LoggerUtility;
+
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,46 +15,42 @@ import data.map.CombatMap;
 public class StartScreen extends JFrame {
 
     private static final long serialVersionUID = 1L;
+    private static final Logger logger = LoggerUtility.getLogger(StartScreen.class, "text");
     private JButton startButton;
     private JButton combatMapButton;
     private JButton shopButton;
 
     public StartScreen() {
         super("Bienvenue dans l'Aventure !");
+        logger.info("🖥️ Écran de démarrage (StartScreen) initialisé.");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        // ✅ Chargement du fond d'écran
         JLabel background = new JLabel(new ImageIcon("src/images/outdoors/screen.jpg"));
         background.setLayout(new BorderLayout());
         add(background);
 
-        // ✅ Titre stylisé
         JLabel titleLabel = new JLabel("🌟 AVENTURE - LE DESTIN DE SERRE-GY 🌟", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Serif", Font.BOLD, 28));
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setBorder(BorderFactory.createEmptyBorder(50, 0, 20, 0));
 
-        // ✅ Création des boutons stylisés
         startButton = createStyledButton("🚀 Commencer l'Aventure");
         combatMapButton = createStyledButton("⚔ Mode Combat");
         shopButton = createStyledButton("🛒 Boutique");
 
-        // ✅ Ajout des actions aux boutons
         startButton.addActionListener(e -> startGame("adventure"));
         combatMapButton.addActionListener(e -> startGame("combat"));
         shopButton.addActionListener(e -> startGame("shop"));
 
-        // ✅ Panel pour organiser les boutons
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(3, 1, 10, 10)); // Trois boutons empilés
+        buttonPanel.setLayout(new GridLayout(3, 1, 10, 10)); 
         buttonPanel.setOpaque(false);
         buttonPanel.add(startButton);
         buttonPanel.add(combatMapButton);
         buttonPanel.add(shopButton);
 
-        // ✅ Ajout des composants à l'écran principal
         background.add(titleLabel, BorderLayout.NORTH);
         background.add(buttonPanel, BorderLayout.CENTER);
 
@@ -57,7 +58,6 @@ public class StartScreen extends JFrame {
         setVisible(true);
     }
 
-    // ✅ Méthode pour créer des boutons stylisés
     public JButton createStyledButton(String text) {
         JButton button = new JButton(text);
         button.setFont(new Font("Arial", Font.BOLD, 14));
@@ -69,7 +69,6 @@ public class StartScreen extends JFrame {
         button.setFocusPainted(false);
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        // ✅ Effet de survol
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 button.setBackground(new Color(30, 130, 230));
@@ -83,9 +82,9 @@ public class StartScreen extends JFrame {
         return button;
     }
 
-    // ✅ Gérer le choix entre l'Aventure, la Boutique et le Mode Combat
     public void startGame(String mapType) {
-        dispose(); // Fermer l’écran de démarrage
+        dispose();
+        logger.info("🚀 Bouton pressé : démarrage du mode " + mapType + ".");
 
         switch (mapType) {
             case "adventure":
@@ -97,25 +96,21 @@ public class StartScreen extends JFrame {
                 combatFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
                 GameDisplay combatDisplay = new GameDisplay();
-                CombatMap combatMap = new CombatMap(23, 40); // même format que HostileMap
-                combatDisplay.setMap(combatMap); // Définit la CombatMap
-                combatDisplay.setHero(new data.player.Hero(combatMap.getBlock(12, 20), 100)); // Place le héros au centre
-                combatDisplay.repaint(); // Optionnel mais propre
+                CombatMap combatMap = new CombatMap(23, 40); 
+                combatDisplay.setMap(combatMap); 
+                combatDisplay.setHero(new data.player.Hero(combatMap.getBlock(12, 20), 100)); 
+                combatDisplay.repaint(); 
 
                 combatFrame.add(combatDisplay);
                 combatFrame.setVisible(true);
                 break;
 
             case "shop":
-            	// ✅ Création de la fenêtre pour la boutique
                 JFrame shopFrame = new JFrame("Boutique");
                 shopFrame.setSize(800, 600);
                 shopFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-                // ✅ Création de GameDisplay et activation de shopMap
                 GameDisplay gameDisplay = new GameDisplay();
-                gameDisplay.enterShop(); // ✅ Afficher directement la boutique
-
+                gameDisplay.enterShop(); 
                 shopFrame.add(gameDisplay);
                 shopFrame.setVisible(true);
                 break;
@@ -126,7 +121,6 @@ public class StartScreen extends JFrame {
         }
     }
 
-    // ✅ Effet de fondu progressif AVEC TIMER
     public void fadeOutAndStartGame() {
         Timer timer = new Timer(50, new ActionListener() {
             float opacity = 1.0f;
@@ -145,7 +139,6 @@ public class StartScreen extends JFrame {
         timer.start();
     }
 
-    // ✅ Main pour tester l'affichage de l'écran de démarrage
     public static void main(String[] args) {
         SwingUtilities.invokeLater(StartScreen::new);
     }

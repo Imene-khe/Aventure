@@ -13,12 +13,11 @@ public class TestGameDisplay {
 
         GameDisplay gameDisplay = new GameDisplay();
 
-        // ➡️ Ajout d'un KeyListener pour bouger le héros
         gameDisplay.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (gameDisplay.getController() != null) {
-                    gameDisplay.getController().moveHero(e.getKeyCode(), null); // ✅ Appelle moveHero
+                    gameDisplay.getController().moveHero(e.getKeyCode(), null);
                 }
             }
         });

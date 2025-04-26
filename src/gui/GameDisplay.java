@@ -1,5 +1,9 @@
 package gui;
 
+import org.apache.log4j.Logger;
+import log.LoggerUtility;
+
+
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
@@ -31,7 +35,8 @@ import viewstrategy.PaintStrategy;
  * et de la barre de vie. Elle permet également de déplacer le héros et de gérer les interactions avec les objets.
  */
 public class GameDisplay extends JPanel {
-
+	
+	private static final Logger logger = LoggerUtility.getLogger(GameDisplay.class, "text");
     private static final long serialVersionUID = 1L;
     private static final int GRID_SIZE = 35; 
     private static final int MAPS_LENGTH = 40; 
@@ -77,30 +82,30 @@ public class GameDisplay extends JPanel {
 	            for (int i = 0; i < 8; i++) {
 	                coinPaths[i] = "src/images/items/coins/coin" + (i + 1) + ".png";
 	            }
-	            coinAnimator = new SpriteAnimator(coinPaths, 100); //  100 ms entre les frames
-	            System.out.println("✅ coinAnimator (8 images) chargé avec succès !");
-	        } catch (IOException e) {
-	            System.out.println("❌ Impossible de charger les images d’animation des pièces !");
-	            e.printStackTrace();
+	            coinAnimator = new SpriteAnimator(coinPaths, 100); 
+	            logger.info("coinAnimator (8 images) chargé avec succès.");
+	            } catch (IOException e) {
+	            	logger.error("Impossible de charger les images d'animation des pièces.");
+	            	e.printStackTrace();
 	        }
 	        GameLoopManager.getInstance().setGameDisplay(this);
 	        GameLoopManager.getInstance().setGameController(controller);
 	        GameLoopManager.getInstance().start();
 
 
-
-	        loadImages(); // Chargement des images
+	        loadImages(); 
+	        
 	        try {
 	            flameAnimator = new SpriteAnimator("src/images/outdoors/flames.png", 4, 3, 100);
 	        } catch (IOException e) {
-	            System.out.println("❌ Impossible de charger l'animation des flammes !");
+	            logger.error("Impossible de charger l'animation des flammes !");
 	            e.printStackTrace();
 	        }
 
-	        System.out.println("✅ GameDisplay créé avec succès !");
-	    } catch (Exception e) {
-	        System.out.println("❌ ERREUR : Impossible d'initialiser GameDisplay !");
-	        e.printStackTrace();
+	        logger.info("GameDisplay créé avec succès.");
+	        } catch (Exception e) {
+	        	logger.error("Erreur lors de l'initialisation de GameDisplay.");
+	        	e.printStackTrace();
 	    }
 	}
 
@@ -117,8 +122,9 @@ public class GameDisplay extends JPanel {
 
 	public void loadImages() {
         try {
-            System.out.println(" Chargement des images...");
-            tileset.put("hero", loadImage("src/images/player/Player.png"));
+        	logger.info("Chargement des images...");
+        	
+        	tileset.put("hero", loadImage("src/images/player/Player.png"));
             tileset.put("grass", loadImage("src/images/outdoors/Grass_Middle.png"));
             tileset.put("water", loadImage("src/images/outdoors/Water_Middle.png"));
             tileset.put("path", loadImage("src/images/outdoors/Path_Middle.png"));
@@ -138,11 +144,9 @@ public class GameDisplay extends JPanel {
             tileset.put("musician1", loadImage("src/images/shop/people/musician/musician1.png"));
             tileset.put("musician2", loadImage("src/images/shop/people/musician/musician2.png"));
             tileset.put("musician3", loadImage("src/images/shop/people/musician/musician3.png"));
-
             tileset.put("house", loadImage("src/images/outdoors/House.png"));
             tileset.put("tree", loadImage("src/images/outdoors/Oak_Tree.png"));
             tileset.put("shop", loadImage("src/images/shop/shop.png")); 
-
             tileset.put("chest", loadImage("src/images/outdoors/Chest.png"));
             
             hostileTileset = new HashMap<>();
@@ -150,17 +154,14 @@ public class GameDisplay extends JPanel {
             hostileTileset.put("floor1", loadImage("src/images/outdoor/hostile/floor1.png"));
             hostileTileset.put("floor2", loadImage("src/images/outdoor/hostile/floor2.png"));
             hostileTileset.put("floor3", loadImage("src/images/outdoor/hostile/floor3.png"));
-            hostileTileset.put("rock", loadImage("src/images/outdoor/hostile/rock.png"));
-            
+            hostileTileset.put("rock", loadImage("src/images/outdoor/hostile/rock.png")); 
             hostileTileset.put("toprock", loadImage("src/images/outdoor/hostile/shelter/toprock.png"));
             hostileTileset.put("rightborderrock", loadImage("src/images/outdoor/hostile/shelter/rightborderrock.png"));
             hostileTileset.put("leftborderrock", loadImage("src/images/outdoor/hostile/shelter/leftborderrock.png"));
             hostileTileset.put("topleftrock", loadImage("src/images/outdoor/hostile/shelter/topleftrock.png"));
             hostileTileset.put("toprightrock", loadImage("src/images/outdoor/hostile/shelter/toprightrock.png"));
-
             hostileTileset.put("campfire_off", loadImage("src/images/outdoor/hostile/shelter/CampFireOff.png"));
             hostileTileset.put("campfire_on", loadImage("src/images/outdoor/hostile/shelter/CampFireOn.png"));
-
             hostileTileset.put("deadTree1", loadImage("src/images/outdoor/hostile/deadTree1.png"));
             hostileTileset.put("deadTree2", loadImage("src/images/outdoor/hostile/deadTree2.png"));
             hostileTileset.put("deadTree3", loadImage("src/images/outdoor/hostile/deadTree3.png"));
@@ -189,33 +190,22 @@ public class GameDisplay extends JPanel {
             combatTileset.put("cage_with_princess", loadImage("src/images/player/cagewithprincess.png"));
             combatTileset.put("princess", loadImage("src/images/player/princess.png"));
 
-            System.out.println(" Toutes les images sont chargées !");
+            logger.info("Toutes les images sont chargées.");
         } catch (Exception e) {
-            System.out.println(" ERREUR : Impossible de charger les images !");
-            e.printStackTrace();
+        	logger.error("Erreur lors du chargement des images.");
+        	e.printStackTrace();
         }
     }
 
-    /**
-     * Charge une image depuis un chemin spécifié.
-     * @param path Chemin vers le fichier image
-     * @return L'image chargée, ou null si l'image n'existe pas
-     */
 	public Image loadImage(String path) throws IOException {
         File file = new File(path);
         if (!file.exists()) {
-            System.out.println("❌ L'image n'a pas été trouvée : " + path);
+        	logger.warn("Image non trouvée : " + path);
             return null;
         }
         return ImageIO.read(file);
     }
 
-    /**
-     * Méthode de rendu graphique. Elle dessine la carte, les ennemis, le héros et la barre de vie.
-     * @param g L'objet Graphics utilisé pour dessiner
-     */
-    
-    
 	@Override
 	protected void paintComponent(Graphics g) {
 	    super.paintComponent(g);
@@ -223,8 +213,8 @@ public class GameDisplay extends JPanel {
 	    Map mapToDraw = (map instanceof CombatMap) ? map : (isInHostileMap ? hostileMap : (isInShop ? shopMap : map));
 
 	    if (mapToDraw == null || (isInHostileMap ? hostileTileset : tileset) == null) {
-	        System.out.println("❌ Erreur: map ou tileset null");
-	        return;
+	    	logger.error("Erreur : map ou tileset null.");
+	    	return;
 	    }
 	    paintStrategy.paintTerrain(mapToDraw, g, this);
 	    if (!isInShop && !isInHostileMap) {
@@ -269,7 +259,7 @@ public class GameDisplay extends JPanel {
 
         repaint();
         requestFocusInWindow();
-        System.out.println("🚪 Sortie de la boutique, retour à la carte principale !");
+        logger.info("Sortie de la boutique, retour à la carte principale.");
     }
 
     
@@ -282,7 +272,7 @@ public class GameDisplay extends JPanel {
 	    this.hero.setPosition(hostileMap.getBlock(17, 5));
 	    repaint();
 	    resetMouseListener();
-	    System.out.println("🌋 Passage à la HostileMap !");
+	    logger.info("Passage à la HostileMap.");
 	}
 
 
@@ -291,15 +281,15 @@ public class GameDisplay extends JPanel {
 	    this.isInShop = false;
 	    this.isInHostileMap = false;
 	    this.isInCombatMap = true;
-	    this.map = this.combatMap; // ✅ déjà instanciée dans le constructeur
+	    this.map = this.combatMap; 
 
 	    this.hero.setPosition(combatMap.getArenaEntryPosition());
 
-	    if (gui.MainGUI.getInstance() != null) { // ✅ Vérification ajoutée ici
+	    if (gui.MainGUI.getInstance() != null) { 
 	        gui.MainGUI.getInstance().getQuestManager().clearQuests();
 	        gui.MainGUI.getInstance().getQuestManager().loadCombatMapQuests();
 	    } else {
-	        System.out.println("⚠️ Warning : MainGUI non disponible (mode test manuel).");
+	    	logger.warn("MainGUI non disponible (mode test manuel).");
 	    }
 
 	    repaint();
@@ -312,8 +302,8 @@ public class GameDisplay extends JPanel {
 	    public void mouseClicked(MouseEvent e) {
 	        if (SwingUtilities.isLeftMouseButton(e)) {
 	            if (controller != null && controller.getCombatController() != null) {
-	                System.out.println("🖱️ Clic détecté !");
-	                controller.getCombatController().handleClick(e.getPoint());
+	            	logger.info("Clic détecté.");
+	            	controller.getCombatController().handleClick(e.getPoint());
 	            }
 	        }
 	    }

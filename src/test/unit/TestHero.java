@@ -10,22 +10,22 @@ public class TestHero {
 
     @Test
     public void testTakeDamageDecreasesHealth() {
-        Block startBlock = new Block(0, 0); // Création d'un bloc de départ
-        Hero hero = new Hero(startBlock, 100); // Héros avec 100 PV
+        Block startBlock = new Block(0, 0);
+        Hero hero = new Hero(startBlock, 100); 
 
-        hero.takeDamage(30); // Le héros prend 30 dégâts
+        hero.takeDamage(30); 
 
-        assertEquals(70, hero.getHealth()); // 100 - 30 = 70
+        assertEquals(70, hero.getHealth());
     }
 
     @Test
     public void testTakeDamageNeverNegative() {
         Block startBlock = new Block(0, 0);
-        Hero hero = new Hero(startBlock, 50); // Héros avec 50 PV
+        Hero hero = new Hero(startBlock, 50); 
 
-        hero.takeDamage(100); // Inflige plus de dégâts que les PV
+        hero.takeDamage(100); 
 
-        assertEquals(0, hero.getHealth()); // La vie ne doit jamais passer en dessous de 0
+        assertEquals(0, hero.getHealth()); 
     }
 
     @Test
@@ -36,6 +36,6 @@ public class TestHero {
         hero.takeDamage(20);
         hero.takeDamage(30);
 
-        assertEquals(50, hero.getHealth()); // 100 - 20 - 30 = 50
+        assertEquals(50, hero.getHealth());
     }
 }

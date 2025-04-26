@@ -6,9 +6,13 @@ import java.io.IOException;
 import java.util.HashMap;
 import javax.imageio.ImageIO;
 
+import org.apache.log4j.Logger;
+import log.LoggerUtility;
+
 public class EquipmentImageManager {
 
-    private HashMap<String, Image> equipmentImages; // Stocke une image par type d'équipement
+    private HashMap<String, Image> equipmentImages; 
+    private static final Logger logger = LoggerUtility.getLogger(EquipmentImageManager.class, "text");
 
     public EquipmentImageManager() {
         equipmentImages = new HashMap<>();
@@ -17,17 +21,15 @@ public class EquipmentImageManager {
 
     private void loadImages() {
         try {
-            System.out.println("Chargement des images des équipements...");
-            
-            // Chargement des images d'équipement
+        	logger.info("Chargement des images des équipements...");            
             equipmentImages.put("axe", loadImage("src/images/items/axe.png"));
             equipmentImages.put("woodsword", loadImage("src/images/items/woodsword.png"));
             equipmentImages.put("woodstick", loadImage("src/images/items/woodstick.png"));
             equipmentImages.put("orbe", loadImage("src/images/items/orbe.png"));            
-            System.out.println("✅ Images des équipements chargées !");
-        } catch (Exception e) {
-            System.out.println("❌ ERREUR lors du chargement des images des équipements !");
-            e.printStackTrace();
+            logger.info("Images des équipements chargées !");        } 
+        catch (Exception e) {
+        	logger.error("ERREUR lors du chargement des images des équipements !");
+        	e.printStackTrace();
         }
     }
 
@@ -35,13 +37,13 @@ public class EquipmentImageManager {
         try {
             File imageFile = new File(path);
             if (!imageFile.exists()) {
-                System.out.println("❌ ERREUR : Fichier introuvable : " + path);
-                return null;
+            	logger.warn("ERREUR : Fichier introuvable : " + path);
+            	return null;
             }
             return ImageIO.read(imageFile);
         } catch (IOException e) {
-            System.out.println("❌ ERREUR : Impossible de charger l'image : " + path);
-            return null;
+        	logger.error("ERREUR : Impossible de charger l'image : " + path);
+        	return null;
         }
     }
 
@@ -50,13 +52,4 @@ public class EquipmentImageManager {
         return equipmentImages.get(equipmentType);
     }
 
-    public static void main(String[] args) {
-        // Création du gestionnaire d'images d'équipement
-        EquipmentImageManager manager = new EquipmentImageManager();
-
-        // Test de récupération d'images
-        System.out.println("✅ Image trouvée pour : axe -> " + (manager.getEquipmentImage("axe") != null));
-        System.out.println("✅ Image trouvée pour : woodsword -> " + (manager.getEquipmentImage("woodsword") != null));
-        System.out.println("✅ Image trouvée pour : woodstick -> " + (manager.getEquipmentImage("woodstick") != null));
-    }
 }

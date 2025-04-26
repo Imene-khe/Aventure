@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import data.item.Projectile;
 import data.player.Antagonist;
-import generator.CombatMapGenerator; // 👉 import du generator
+import generator.CombatMapGenerator; 
 
 public class CombatMap extends Map {
 	private int centerStartLine;

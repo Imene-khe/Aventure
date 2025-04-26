@@ -10,7 +10,7 @@ public class TestCombat {
         JFrame frame = new JFrame("Test Affichage - CombatMap");
 
         GameDisplay gameDisplay = new GameDisplay();
-        gameDisplay.enterCombatMap(); // ✅ Passe directement en mode combat
+        gameDisplay.enterCombatMap(); 
 
         frame.add(gameDisplay);
         frame.setSize(1200, 800);

@@ -11,7 +11,7 @@ public class SpriteAnimator {
     private final Image[] frames;
     private final int frameCount;
     private int currentFrame = 0;
-    private final int frameDelay; // en ms
+    private final int frameDelay; 
     private int elapsedTime = 0;
 
     public SpriteAnimator(String spritePath, int columns, int rows, int frameDelay) throws IOException {
@@ -46,7 +46,6 @@ public class SpriteAnimator {
         }
     }
 
-    // 💡 Appelé par GameLoopManager à chaque tick
     public void update(int deltaMs) {
         elapsedTime += deltaMs;
         if (elapsedTime >= frameDelay) {

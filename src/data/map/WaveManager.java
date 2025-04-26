@@ -1,14 +1,21 @@
 package data.map;
 
+
+
 import data.player.Antagonist;
 import data.player.EnemyImageManager;
 import data.quest.QuestManager;
 
 import java.util.ArrayList;
+
+import org.apache.log4j.Logger;
+import log.LoggerUtility;
+
+
 import control.GameController;
 
 public class WaveManager {
-
+	private static final Logger logger = LoggerUtility.getLogger(WaveManager.class, "text");
 	private CombatMap combatMap;
 	private GameController gameController;
 	private int arenaLine;
@@ -67,37 +74,30 @@ public class WaveManager {
 
         ArrayList<Antagonist> currentEnemies = combatMap.getAntagonists();
         boolean allDead = currentEnemies.stream().allMatch(Antagonist::isDead);
-
         if (allDead) {
             currentWave++;
-
-            // ✅ Mise à jour de la quête propre sans MainGUI direct
             if (questManager != null) {
                 questManager.notifyQuestProgress("wave", 1);
             }
 
             if (currentWave < waves.size()) {
-                System.out.println("➡️ Passage à la vague " + (currentWave + 1));
-            }
+            	logger.info("Passage à la vague " + (currentWave + 1));     
+            	}
             else if (currentWave == waves.size()) {
-                System.out.println("👑 Le boss final apparaît !");
-                ArrayList<Antagonist> bossWave = getBossWave();
+            	logger.info("Le boss final apparaît.");
+            	ArrayList<Antagonist> bossWave = getBossWave();
                 if (combatMap != null) {
                     combatMap.getAntagonists().addAll(bossWave);
-                    System.out.println("💀 Boss ajouté manuellement à la map !");
-                }
+                    logger.info("Boss ajouté manuellement à la carte.");
+                    }
                 if (gameController != null) {
                     gameController.moveEnemiesTowardsHero();
-                    System.out.println("🦴 Boss déplacé vers le héros.");
-                }
+                    logger.info("Boss déplacé vers le héros.");
+                    }
                 levelFinished = true;
             }
         }
     }
-
-    
-
-
 
     public void triggerWave(int waveIndex) {
         if (waveIndex >= 0 && waveIndex < waves.size()) {
@@ -105,17 +105,16 @@ public class WaveManager {
             this.levelFinished = false;
         }
     }
+   
+    public ArrayList<Antagonist> getBossWave() {
+        ArrayList<Antagonist> bossWave = new ArrayList<>();
+        bossWave.add(new Antagonist(arenaBlock(5, 7), "boss", imageManager)); 
+        return bossWave;
+    }
+    
     public Block arenaBlock(int lineOffset, int colOffset) {
         return new Block(arenaLine + lineOffset, arenaCol + colOffset);
     }
-    
-    public ArrayList<Antagonist> getBossWave() {
-        ArrayList<Antagonist> bossWave = new ArrayList<>();
-        bossWave.add(new Antagonist(arenaBlock(5, 7), "boss", imageManager)); // 👑 position centrale
-        return bossWave;
-    }
-
-
 
     public boolean isLevelFinished() {
         return levelFinished;

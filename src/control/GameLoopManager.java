@@ -52,9 +52,7 @@ public class GameLoopManager implements Runnable {
     }
 
     public void onGameTick() {
-        if (MainGUI.getInstance() == null || !MainGUI.getInstance().isDialogueActive()) {
-            // ✅ Si MainGUI est null (test manuel) ou dialogue inactif (jeu normal) ➔ On continue
-            
+        if (MainGUI.getInstance() == null || !MainGUI.getInstance().isDialogueActive()) {            
             hostileEnemyMoveTimer += 40;
             if (hostileEnemyMoveTimer >= hostileEnemyMoveDelay) {
                 hostileEnemyMoveTimer = 0;

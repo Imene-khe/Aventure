@@ -67,7 +67,6 @@ public class MainGUI extends JFrame {
     public void initDashboard() {
         this.dashboard = new GameDisplay();
         this.dashboard.addKeyListener(new KeyControls());
-        logger.info("🎮 GameDisplay attaché au centre.");
         add(dashboard, BorderLayout.CENTER);
     }
     
@@ -93,7 +92,6 @@ public class MainGUI extends JFrame {
         sidePanel.add(scrollPane, BorderLayout.CENTER);
 
         add(sidePanel, BorderLayout.EAST);
-        logger.info("📐 SidePanel attaché.");
     }
 
     
@@ -133,7 +131,6 @@ public class MainGUI extends JFrame {
         bottomPanel.add(rightBottomPanel, BorderLayout.EAST);
 
         add(bottomPanel, BorderLayout.SOUTH);
-        logger.info("📐 BottomPanel attaché.");
     }
 
     private void initQuests() {
@@ -173,7 +170,6 @@ public class MainGUI extends JFrame {
 
     public void advanceDialogue() {
         if (dialogueManager.hasNext(currentDialogueEvent)) {
-        	logger.debug("➡️ Dialogue avancé : " + currentDialogueEvent);
             dialogueManager.next(currentDialogueEvent);
             updateDialoguePanel(currentDialogueEvent);
         } else {
@@ -185,8 +181,6 @@ public class MainGUI extends JFrame {
     }
     
     public void triggerDialogue(String eventKey) {
-    	logger.info("📣 triggerDialogue() appelé avec eventKey = " + eventKey);
-        logger.info("📢 triggerDialogue() appelé avec eventKey = " + eventKey);
         if (!dialogueManager.hasDialogue(eventKey)) {
             logger.warn("❌ Aucun dialogue trouvé pour l’événement : " + eventKey);
             return;
@@ -220,13 +214,11 @@ public class MainGUI extends JFrame {
 
 
     public void updateDialoguePanel(String eventKey) {
-    	logger.info("📄 updateDialoguePanel() appelé avec eventKey = " + eventKey);
         String dialogueText = dialogueManager.getCurrent(eventKey);
         if (dialogueText == null) {
             logger.warn("🔕 Aucun texte de dialogue pour : " + eventKey);
             return;
         }
-        logger.info("📝 Texte du dialogue actuel = " + dialogueText);
         JTextArea newDialogue = new JTextArea(dialogueText);
         newDialogue.setEditable(false);
         newDialogue.setLineWrap(true);
@@ -257,9 +249,7 @@ public class MainGUI extends JFrame {
     public void interactWithNPC() {
         if (!dashboard.getController().tryInteractWithNPC(this)) {
             dashboard.getController().tryOpenChest(this);
-            logger.debug("👤 Interaction avec un PNJ ou un coffre tentée.");
             dashboard.getController().tryExtinguishFlame(this); 
-            logger.debug("👤 Interaction avec maison en feu tentée.");
 
         }
 

@@ -34,7 +34,6 @@ public class ChestUIManager {
 
         Inventory chestInventory = chest.getInventory();
 
-        // ✅ Vérifie si l’orbe est présent dans le coffre
         for (Equipment item : chestInventory.getEquipments()) {
             if ("orbe".equalsIgnoreCase(item.getName())) {
                 mainGUI.getQuestManager().updateQuest("Trouver l’orbe", 1);
@@ -69,10 +68,9 @@ public class ChestUIManager {
                     addButton.setEnabled(false);
                     JOptionPane.showMessageDialog(chestWindow, equipment.getName() + " ajouté à l’inventaire !");
                     mainGUI.requestFocusInWindow();
-                    mainGUI.requestFocusOnGame(); // <- et pas juste requestFocusInWindow()
+                    mainGUI.requestFocusOnGame(); 
 
 
-                    // ✅ Si c'est l'orbe → proposer la suite de l'aventure
                     if ("orbe".equalsIgnoreCase(equipment.getName())) {
                         int result = JOptionPane.showConfirmDialog(
                             chestWindow,

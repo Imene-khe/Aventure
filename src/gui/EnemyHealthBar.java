@@ -14,15 +14,12 @@ public class EnemyHealthBar {
     public static void draw(Graphics g, int currentHealth, int maxHealth, int x, int y) {
         int healthBarWidth = (int) ((currentHealth / (float) maxHealth) * BAR_WIDTH);
 
-        // Fond rouge
         g.setColor(Color.RED);
         g.fillRect(x, y - 10, BAR_WIDTH, BAR_HEIGHT);
 
-        // Barre verte proportionnelle
         g.setColor(Color.GREEN);
         g.fillRect(x, y - 10, healthBarWidth, BAR_HEIGHT);
 
-        // Bordure noire
         g.setColor(Color.BLACK);
         g.drawRect(x, y - 10, BAR_WIDTH, BAR_HEIGHT);
     }

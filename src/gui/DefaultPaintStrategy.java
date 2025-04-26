@@ -45,7 +45,7 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	                if (terrainImage != null) {
 	                    g.drawImage(terrainImage, block.getColumn() * 32, block.getLine() * 32, 32, 32, null);
 	                }
-	                continue; // pas besoin de double affichage
+	                continue; 
 	            }
 
 	            Image terrainImage = tileset.get(terrainType);
@@ -102,7 +102,6 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	                        block.getLine() * 32 + offset,
 	                        size, size, null);
 	            } else {
-	                // 💡 Cas générique
 	                g.drawImage(img,
 	                        block.getColumn() * 32, block.getLine() * 32,
 	                        32, 32, null);
@@ -165,7 +164,7 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	@Override
 	public void paintHero(Hero hero, Graphics g, GameDisplay display) {
 	    int blockSize = 32;
-	    int heroSize = (int)(blockSize * 0.70); // 70% du blockSize
+	    int heroSize = (int)(blockSize * 0.70); 
 
 	    int drawX = hero.getPosition().getColumn() * blockSize + (blockSize - heroSize) / 2;
 	    int drawY = hero.getPosition().getLine() * blockSize + (blockSize - heroSize) / 2;
@@ -177,7 +176,7 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	                0, 0, heroSprite.getWidth(null), heroSprite.getHeight(null),
 	                null);
 	    } else {
-	        System.out.println("⚠ BUG : Image du héros non trouvée dans le tileset !");
+	        logger.error("BUG : Image du héros non trouvée dans le tileset !");
 	    }
 	}
 
@@ -203,13 +202,11 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	    for (Block block : map.getStaticObjects().keySet()) {
 	        String objectType = map.getStaticObjects().get(block);
 	        if ("house_burning".equals(objectType)) {
-	            // Maison de fond
 	            if (display.getTileset().containsKey("house")) {
 	                g.drawImage(display.getTileset().get("house"),
 	                        block.getColumn() * 32, block.getLine() * 32,
 	                        32, 32, null);
 	            }
-	            // Flammes au-dessus
 	            if (display.getFlameAnimator() != null) {
 	                g.drawImage(display.getFlameAnimator().getCurrentFrame(),
 	                        block.getColumn() * 32, block.getLine() * 32,
@@ -270,7 +267,7 @@ public class DefaultPaintStrategy implements PaintStrategy{
 	        }
 	    }
 
-	    // ✅ Dessin des projectiles uniquement dans la CombatMap
+
 	    if (map instanceof CombatMap cMap) {
 	        paintProjectiles(cMap, g, display);
 	    }

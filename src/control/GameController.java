@@ -51,7 +51,6 @@ public class GameController {
     public void checkRuneActivation() {
         if (!(hostileMap instanceof HostileMap hMap)) return;
 
-        // ✅ On vérifie que MainGUI existe AVANT
         if (gui.MainGUI.getInstance() == null) {
             return;
         }
@@ -64,7 +63,7 @@ public class GameController {
             if (rune.equals(heroPos) && !activatedRunes.contains(rune)) {
                 activatedRunes.add(rune);
                 qm.updateQuest("Activer les runes", 1);
-                System.out.println("🔮 Rune activée sur " + rune);
+               logger.info("Rune activée sur " + rune);
                 Quest runeQuest = qm.getActiveQuests().stream()
                     .filter(q -> q.getName().equals("Activer les runes"))
                     .findFirst().orElse(null);
@@ -101,7 +100,7 @@ public class GameController {
 
         if (!display.isInShop()) {
             if (gui != null) {
-                checkCoinCollection(gui); // ✅ Appelle seulement si gui n'est pas null
+                checkCoinCollection(gui);
             }
             checkEnemyCollision();
         }
@@ -229,12 +228,17 @@ public class GameController {
 
         GameLoopManager.getInstance().startHeroDamageCooldown();
 
-
         if (hero.getHealth() <= 0) {
             display.setGameOver(true);
-            logger.error("☠️ GAME OVER ! Le héros est mort.");
-            JOptionPane.showMessageDialog(display, "☠️ GAME OVER ! Le héros est mort.");
-            System.exit(0);
+            logger.error("GAME OVER : le héros est mort.");
+            JOptionPane.showMessageDialog(display, "Le héros est mort. Retour au menu principal.");
+            SwingUtilities.invokeLater(() -> {
+                JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(display);
+                if (topFrame != null) {
+                    topFrame.dispose(); 
+                }
+                new StartScreen(); 
+            });
         }
     }
 
@@ -245,7 +249,7 @@ public class GameController {
             ChestUIManager chestUI = new ChestUIManager(gui);
 
             chestUI.setOnOrbTakenCallback(() -> {
-                logger.info("📦 Orbe récupéré, lancement de l'entrée dans HostileMap...");
+                logger.info("Orbe récupéré, lancement de l'entrée dans HostileMap...");
                 gui.getQuestManager().updateQuest("Trouver l'orbe", 1);
                 this.enterHostileMap(gui);
             });
@@ -253,7 +257,7 @@ public class GameController {
             chestUI.displayChestContents(chest);
             gui.requestFocusInWindow();
         } else {
-            logger.warn("❌ Aucun coffre à proximité.");
+            logger.warn("Aucun coffre à proximité.");
         }
     }
 
@@ -382,7 +386,7 @@ public class GameController {
                     }
 
                     if (!display.isInShop() && "shop".equals(object)) {
-                        logger.info("🏪 Entrée dans la boutique détectée.");
+                        logger.info("Entrée dans la boutique détectée.");
                         enterShop(gui);
                         return true;
                     }
@@ -393,7 +397,7 @@ public class GameController {
     }
 
     public void openMerchantDialogue(MainGUI gui) {
-        logger.info("🗨️ Interaction avec le marchand détectée.");
+        logger.info("Interaction avec le marchand détectée.");
         String message = "👴 Le marchand te salue avec un sourire.\n\nQue veux-tu lui dire ?";
         String[] options = {
             "💰 Bonjour, j'ai cru comprendre que vous aviez perdu une bourse d'or...",
@@ -419,7 +423,7 @@ public class GameController {
 
 
     public void enterHostileMap(MainGUI gui) {
-        logger.info("🌋 GameController.enterHostileMap() appelé");
+        logger.info("GameController.enterHostileMap() appelé");
         
         display.enterHostileMap();         
         setupHostileQuests();               
@@ -434,7 +438,7 @@ public class GameController {
 
     public void enterShop(MainGUI gui) {
         if (!gui.hasEnoughCoinsForShop()) {
-            logger.warn("🚫 Tentative d'entrée dans la boutique sans 10 pièces.");
+            logger.warn("Tentative d'entrée dans la boutique sans 10 pièces.");
             JOptionPane.showMessageDialog(gui, "💰 Il te faut 10 pièces pour entrer dans la boutique !");
             gui.requestFocusInWindow();
             return;
@@ -458,7 +462,7 @@ public class GameController {
                 if (line >= 0 && col >= 0 && line < map.getLineCount() && col < map.getColumnCount()) {
                     Block block = map.getBlock(line, col);
                     if ("shop".equals(map.getStaticObjects().get(block))) {
-                        logger.info("🏪 Entrée dans la boutique.");
+                        logger.info("Entrée dans la boutique.");
                         enterShop(gui);
                         return true;
                     }
@@ -535,7 +539,7 @@ public class GameController {
                     }
 
                     else {
-                        JOptionPane.showMessageDialog(gui, "💨 Il te faut au moins 3 bois secs pour allumer le feu.");
+                        JOptionPane.showMessageDialog(gui, "Il te faut au moins 3 bois secs pour allumer le feu.");
                     }
                     return;
                 }
@@ -545,22 +549,20 @@ public class GameController {
     
     public void applyProjectileHit() {
         hero.takeDamage(10);
-        logger.warn("💥 Projectile touché ! Vie restante : " + hero.getHealth() + "%");
+        logger.warn("Projectile touché. Vie restante : " + hero.getHealth() + "%");
 
         if (hero.getHealth() <= 0) {
             display.setGameOver(true);
-            logger.error("☠️ GAME OVER ! Le héros est mort.");
-            javax.swing.JOptionPane.showMessageDialog(display, "☠️ GAME OVER ! Le héros est mort.");
-            System.exit(0);
+            logger.error("GAME OVER : le héros est mort.");
+            JOptionPane.showMessageDialog(display, "Le héros est mort. Retour au menu principal.");
+            SwingUtilities.invokeLater(() -> {
+                JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(display);
+                if (topFrame != null) {
+                    topFrame.dispose(); 
+                }
+                new StartScreen(); 
+            });
         }
-    }
-
-
-    public void setGameOver() {
-        display.setGameOver(true);
-        logger.error("☠️ GAME OVER ! Le héros est mort.");
-        javax.swing.JOptionPane.showMessageDialog(display, "☠️ GAME OVER ! Le héros est mort.");
-        System.exit(0);
     }
     
     public void moveEnemiesTowardsHero() {

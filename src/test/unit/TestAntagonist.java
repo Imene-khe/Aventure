@@ -27,7 +27,7 @@ public class TestAntagonist {
 
         assertFalse(enemy.isDead());
 
-        enemy.takeDamage(1000); // lui infliger beaucoup de dégâts
+        enemy.takeDamage(1000); 
         assertTrue(enemy.isDead());
     }
 }

@@ -7,41 +7,29 @@ import data.item.Equipment;
 public class Inventory {
     private ArrayList<Equipment> equipment;
 
-    // Constructeur pour initialiser l'inventaire (liste vide)
     public Inventory() {
-        equipment = new ArrayList<>(); // Initialisation de la liste vide
+        equipment = new ArrayList<>(); 
     }
 
-    // Ajouter un équipement dans l'inventaire
-    /*public void addEquipment(Equipment item) {
-        equipment.add(item); // Ajoute l'équipement à la fin de la liste
-        
-    }*/
-
-    // Récupérer un équipement à un indice donné
     public Equipment getEquipmentAt(int index) {
         if (index >= 0 && index < equipment.size()) {
-            return equipment.get(index); // Retourne l'équipement à l'indice spécifié
+            return equipment.get(index); 
         }
-        return null; // Retourne null si l'indice est invalide
+        return null; 
     }
 
-    // Vérifier si l'inventaire est plein (optionnel, dépend de tes besoins)
     public boolean isFull() {
-        return equipment.size() >= 4; // Par exemple, considérer l'inventaire comme "plein" lorsqu'il contient 4 objets
+        return equipment.size() >= 4; 
     }
 
-    // Retourner la taille actuelle de l'inventaire
     public int size() {
         return equipment.size();
     }
 
-    // Méthode pour récupérer la liste d'équipements
     public ArrayList<Equipment> getEquipments() {
-        return equipment; // Retourne la liste complète des équipements
+        return equipment; 
     }
 
-    // Méthode pour afficher le contenu de l'inventaire
     @Override
     public String toString() {
         if (equipment.isEmpty()) {
@@ -53,31 +41,11 @@ public class Inventory {
         }
         return sb.toString();
     }
-
-    // === Main interne pour tester l'affichage ===
-    public static void main(String[] args) {
-        Inventory inventory = new Inventory();
-
-        System.out.println("=== Test de l'affichage de l'inventaire ===");
-        System.out.println(inventory); // Devrait afficher "Inventaire vide."
-
-        // Ajout d'objets
-        inventory.getEquipments().add(new Equipment("Épée"));
-        inventory.getEquipments().add(new Equipment("Bouclier"));
-        inventory.getEquipments().add(new Equipment("Potion"));
-
-        // Affichage après ajout
-        System.out.println(inventory);
-    }
-
-    public void addEquipment(Equipment item) {
-        if (item != null) {
-            equipment.add(item);
+    
+    public void addEquipment(Equipment eq) {
+        if (eq != null && equipment.size() < 4) { 
+            equipment.add(eq);
         }
-    }
-
-    public void removeEquipment(Equipment item) {
-        equipment.remove(item);
     }
 
 	
